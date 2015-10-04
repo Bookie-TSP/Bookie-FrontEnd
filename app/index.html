@@ -4,58 +4,28 @@
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	    <title>Bookie</title>
-		<script src="scripts/vendor/jquery.js"></script>
-	    <script src="scripts/vendor/angular.min.js"></script>
-
 	    <link rel="stylesheet" href="styles/bootstrap.min.css">
-	    <script src="scripts/vendor/bootstrap.min.js"></script>
-
 	    <link rel="stylesheet" href="styles/homepage.css">
 	</head>
 	<body>
 		<nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
-			    <div class="container-fluid">
-			    	<div class="navbar-header">
-			    		<a class="navbar-brand" href="#">Bookie</a>
-			    	</div>
-			    	<ul class="nav navbar-nav navbar-right">
-				    	<li><a>Login</a></li>
-				    	<li><a>Register</a></li>
-				    	<!-- Mocked item cart -->
-				    	<li><a id="item-cart">$0.00 (0 items) <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
-				    </ul>
-			    </div>
-		</nav>
-
-		<div class="header-top">
-		    <div class="container">
-		        <div class="search">
-		            <form>
-		                <input type="text" ng-model="search" value="Search " onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
-		                <input type="submit" value="Go">
-		                <!--<h1>{{search}}</h1>-->
-		            </form>
-		        </div>
-		        <div class="header-left">
-		            <ul>
-		                <li ><a href="login.html"  >Login</a></li>
-		                <li><a  href="register.html"  >Register</a></li>
-
-		            </ul>
-		            <div class="cart box_1">
-		                <a href="checkout.html">
-		                    <h3> <div class="total">
-		                        <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)</div>
-		                        <!--<img src="images/cart.png" alt=""/></h3>-->
-		                    </h3>
-		                </a>
-		                <span class="glyphicon glyphicon-shopping-cart" style="color:white"></span>
-		                <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
-
-		            </div>
-		            <div class="clearfix"> </div>
-		        </div>
+		    <div class="container-fluid">
+		    	<div class="navbar-header">
+		    		<a class="navbar-brand" href="#">Bookie</a>
+		    	</div>
+		    	<ul class="nav navbar-nav navbar-right">
+			    	<li><a>Login</a></li>
+			    	<li><a>Register</a></li>
+			    	<!-- Mocked item cart -->
+			    	<li><a id="item-cart">$0.00 (0 items) <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
+			    </ul>
 		    </div>
+		</nav>
+		
+		<div class="script">
+			<script src="scripts/vendor/jquery.js"></script>
+		    <script src="scripts/vendor/angular.min.js"></script>
+	    	<script src="scripts/vendor/bootstrap.min.js"></script>
 		</div>
 	</body>
 </html>
