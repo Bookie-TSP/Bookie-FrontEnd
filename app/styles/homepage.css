@@ -9,6 +9,7 @@
     background-color: #fff;
     margin-top: 11px;
 }
+
 .search input[type="text"] {
     outline: none;
     padding: 3px 15px;
@@ -63,5 +64,5 @@
 
 body{
     font-family: 'Roboto', sans-serif;
-
+    padding-top: 70px;
 }
