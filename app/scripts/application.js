@@ -4,7 +4,8 @@ angular.module('app',['ui.router'])
     $stateProvider
     .state('home', {
         url: '/',
-        templateUrl: 'views/home.html'
+        templateUrl: 'views/home.html',
+        cache: false
     })
    .state('login', {
 		url: '/login',

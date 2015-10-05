@@ -14,7 +14,6 @@ app.controller('loginCtrl',['$scope','$http','$state', 'authFactory',
         password: $scope.password
       })
       .success(function(data){
-        console.log(data);
         $scope.auth = data.auth_token;
         authFactory.setAuth($scope.auth);
         console.log(authFactory.getAuth());

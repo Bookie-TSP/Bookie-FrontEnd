@@ -26,10 +26,14 @@
 		    	<div class="navbar-header">
 		    		<a class="navbar-brand" ng-click="goHome()">Bookie</a>
 		    	</div>
-		    	<ul class="nav navbar-nav navbar-right">
-			    	<li><a ng-click="goLogin()">Login</a></li>
+		    	<ul class="nav navbar-nav navbar-right" ng-show="member === null">
+					<li><a ng-click="goLogin()">Login</a></li>
 			    	<li><a ng-click="getAuth()">Register</a></li>
 			    	<!-- Mocked item cart -->
+			    	<li><a href="itemcart.html" id="item-cart">$0.00 (0 items) <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
+			    </ul>
+				<ul class="nav navbar-nav navbar-right" ng-show="member !== null">
+					<li><a>{{member.email}}</a></li>
 			    	<li><a href="itemcart.html" id="item-cart">$0.00 (0 items) <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
 			    </ul>
 		    </div>
