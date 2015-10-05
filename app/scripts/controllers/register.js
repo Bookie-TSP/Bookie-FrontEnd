@@ -9,6 +9,7 @@ var app = angular.module('register', [])
         function ($s, $http,$factory) {
             $s.auth = "";
             $s.submit = function () {
+                /*
                 console.log($s.firstname);
                 console.log($s.surname);
                 console.log($s.gender);
@@ -19,7 +20,7 @@ var app = angular.module('register', [])
                 console.log($s.username);
                 console.log($s.password);
                 console.log($s.confirmPassword);
-
+                */
                 $http.post('https://bookieservice.herokuapp.com/api/sessions',{
                     first_name: $s.firstname,
                     sur_name: $s.surname,
@@ -29,8 +30,7 @@ var app = angular.module('register', [])
                     phone_number: $s.phoneNo,
                     email: $s.email,
                     username: $s.username,
-                    password: $s.password,
-                    confirmPassword: $s.confirmPassword
+                    password: $s.password
                 })
                 .success(function(data){
                     console.log(JSON.stringify(data));
