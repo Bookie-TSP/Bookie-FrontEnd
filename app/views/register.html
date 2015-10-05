@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="register">
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="../scripts/vendor/angular.min.js"></script>
+    <script src="../scripts/controllers/register.js"></script>
+    <link rel="stylesheet" type="text/css" href="../styles/register.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" type="text/css" href="../styles/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" type="text/css" href="../styles/bootstrap-theme.min.css">
+    <title>Register</title>
+</head>
+<body ng-controller="page">
+    <section id="form"><!--form-->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <h1>Bookie</h1>
+                </div>
+            </div>
+            <hr/>
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3">
+                    <div class="register-form"><!--register form-->
+                        <h2>Register</h2>
+                        <form action="#">
+                            <input type="text" placeholder="Firstname" ng-model="firstname"><br>
+                            <input type="text" placeholder="Surname" ng-model="surname"><br>
+                            <input type="text" placeholder="Gender" ng-model="gender"><br>
+                            <input type="text" placeholder="Birth date" ng-model="birthDate"><br>
+                            <input type="text" placeholder="Identification number" ng-model="IdNo"><br>
+                            <input type="text" placeholder="Phone number" ng-model="phoneNo"><br>
+                            <input type="text" placeholder="Email address" ng-model="email"><br>
+                            <input type="text" placeholder="Username" ng-model="username"><br>
+                            <input type="password" placeholder="Password" ng-model="password"><br>
+                            <input type="password" placeholder="Confirm password" ng-model="confirmPassword"><br>
+                            <a href = "">Term of condition</a><br>
+                            <p><input type = "checkbox" ng-model="agreeTerm">I agree</p>
+                            <button type="submit" class="btn btn-default" ng-click="submit()">Sign up!</button>
+                        </form>
+                    </div><!--/register form-->
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
