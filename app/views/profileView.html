@@ -1,0 +1,24 @@
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
+    <script src="../scripts/controllers/profileController.js"></script>
+    <link rel="stylesheet" type="css" href="../styles/bootstrap-theme.min.css">
+</head>
+<body>
+<div ng-app="todo" ng-controller="profileCtrl">
+    <h1>{{data[0].firstName}} {{data[0].lastName}} Profile Page</h1>
+    <h4>User ID: {{data[0].id}}</h4>
+    <h4>User E-Mail: {{data[0].email}}</h4>
+    <h4>User First Name: {{data[0].firstName}}</h4>
+    <h4>User Last Name: {{data[0].lastName}}</h4>
+    <h4>User defaultAddressID: {{data[0].defaultAddressID}}</h4>
+    <h4>User Phone Number: {{data[0].phoneNumber}}</h4>
+    <h4>User Identification Number: {{data[0].identificationNumber}}</h4>
+    <h4>User Gender: {{data[0].gender}}</h4>
+    <h4>User Birth Date: {{data[0].birthDate}}</h4>
+    <button ng-click="test()">Test</button>
+</div>
+</body>
+</html>

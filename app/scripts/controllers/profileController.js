@@ -1,5 +1,5 @@
 angular.module('todo', [])
-	.controller('profile', ['$scope',
+	.controller('profileCtrl', ['$scope', '$http',
 function ($s) {
 	$s.data = [
         {
@@ -10,7 +10,7 @@ function ($s) {
             defaultAddressID: '42/39',
             phoneNumber: '0909839367',
             identificationNumber: '1101700175626',
-            gender: 'M',
+            gender: 'Male',
             birthDate: '15/07/95'
         },
         {
@@ -21,7 +21,7 @@ function ($s) {
             defaultAddressID: '12/345',
             phoneNumber: '0987654321',
             identificationNumber: '1234567890555',
-            gender: 'F',
+            gender: 'Female',
             birthDate: '01/01/99'
         }
     ];
