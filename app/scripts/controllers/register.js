@@ -14,7 +14,7 @@ var app = angular.module('register', [])
                 console.log($s.surname);
                 console.log($s.gender);
                 console.log($s.birthDate);
-                console.log($s.IDNo);
+                console.log($s.IdNo);
                 console.log($s.phoneNo);
                 console.log($s.email);
                 console.log($s.username);
