@@ -8,6 +8,12 @@
 	    <link rel="stylesheet" href="styles/homepage.css">
 	</head>
 	<body>
+		<div class="script">
+			<script src="scripts/vendor/jquery.js"></script>
+		    <script src="scripts/vendor/angular.min.js"></script>
+	    	<script src="scripts/vendor/bootstrap.min.js"></script>
+				<script src="scripts/application.js"></script>
+		</div>
 		<nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
 		    <div class="container-fluid">
 		    	<div class="navbar-header">
@@ -21,11 +27,6 @@
 			    </ul>
 		    </div>
 		</nav>
-
-		<div class="script">
-			<script src="scripts/vendor/jquery.js"></script>
-		    <script src="scripts/vendor/angular.min.js"></script>
-	    	<script src="scripts/vendor/bootstrap.min.js"></script>
-		</div>
-	</body>
+		<div id="root" ui-view></div>
+    </body>
 </html>
