@@ -4,7 +4,7 @@ exports.config = {
     framework: 'jasmine2',
     seleniumAddress: 'http://localhost:4444/wd/hub',
     specs: ['specLogin.js'],
-    baseUrl: 'file:///Users/naneen/Desktop/Bookie-FrontEnd/app/views/login.html',
+    baseUrl: 'file:///Users/Martin/Desktop/Bookie-FrontEnd/app/views/login.html',
 
     onPrepare: function() {
         jasmine.getEnv().addReporter(
