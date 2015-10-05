@@ -26,7 +26,7 @@ var app = angular.module('register', [])
                     sur_name: $s.surname,
                     gender: $s.gender,
                     birth_date: $s.birthDate,
-                    identification_number: $s.IDNo,
+                    identification_number: $s.IdNo,
                     phone_number: $s.phoneNo,
                     email: $s.email,
                     username: $s.username,
