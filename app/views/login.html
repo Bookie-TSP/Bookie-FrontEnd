@@ -1,37 +1,4 @@
-<!DOCTYPE html>
-<html ng-app="app">
-<head lang="en">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Login</title>
-
-    <link rel="stylesheet" href="../styles/bootstrap.min.css">
-    <link rel="stylesheet" href="../styles/login.css">
-</head>
-
-<body ng-controller="loginCtrl">
-    <!-- script -->
-    <div class="script">
-        <script src="../scripts/vendor/angular.min.js"></script>
-        <script src="../scripts/vendor/jquery.js"></script>
-        <script src="../scripts/vendor/ui-bootstrap-tpls-0.13.4.min.js"></script>
-        <script src="../scripts/controllers/login.js"></script>
-    </div>
-    <!-- navbar -->
-    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="../index.html">Bookie</a>
-            </div>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="login.html">Login</a></li>
-                <li><a href="register.html">Register</a></li>
-                <!-- Mocked item cart -->
-                <li><a href="itemcart.html" id="item-cart">$0.00 (0 items) <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
-            </ul>
-        </div>
-    </nav>
-
+<div ng-controller = "loginCtrl" >
     <section id="form">
         <div class="container">
             <div class="row">
@@ -39,7 +6,7 @@
                     <div class="login-form">
                         <h2>Login</h2>
                         <p id="validate">{{validation}}</p>
-                        <form action="#">
+                        <form>
                             <input type="text" placeholder="Email" ng-model="email"></input><br>
                             <input type="password" placeholder="Password" ng-model="password"></input>
                             <span>
@@ -54,5 +21,4 @@
             </div>
         </div>
     </section>
-</body>
-</html>
+</div>
