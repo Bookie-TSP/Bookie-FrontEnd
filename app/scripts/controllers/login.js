@@ -1,7 +1,7 @@
 var app = angular.module('app');
 
-app.controller('loginCtrl',['$scope','$http','$state',
-  function($scope, $http, $state){
+app.controller('loginCtrl',['$scope','$http','$state', 'authFactory',
+  function($scope, $http, $state, authFactory){
     $scope.auth = "";
   	$scope.validation = "";
     setValidation = function(s){
@@ -16,6 +16,8 @@ app.controller('loginCtrl',['$scope','$http','$state',
       .success(function(data){
         console.log(data);
         $scope.auth = data.auth_token;
+        authFactory.setAuth($scope.auth);
+        console.log(authFactory.getAuth());
         $state.go("home");
       }).error(function(data){
         console.log(data);
