@@ -1,18 +1,18 @@
 var app = angular.module('app');
 
-app.factory('authFactory', function ($http, $rootScope) {
-    var promise;
-    this.authToken = "";
-    this.member = {};
+app.factory('authFactory', function ($http, $rootScope, $cookieStore) {
     return {
         getAuth: function() {
-            return this.authToken;
+            console.log($cookieStore.get('authToken'));
+            return $cookieStore.get('authToken');
         },
         setAuth: function(token) {
-            this.authToken = token;
+            $cookieStore.put('authToken', token );
+            console.log(token);
             $rootScope.$broadcast('authenticate');
         },
         getMember: function(){
+            this.authToken = $cookieStore.get('authToken');
             if(this.authToken !== ""){
                 console.log(this.authToken);
                 var config = {headers: {
@@ -21,10 +21,6 @@ app.factory('authFactory', function ($http, $rootScope) {
                 $http.get('https://bookieservice.herokuapp.com/api/myprofile',config)
                 .success(function(data){
                   this.member = data;
-                  console.log("in sucess");
-                  console.log(this.member);
-                  console.log("out sucess");
-                  console.log(this.member);
                   return this.member;
                 }).error(function(data){
                   console.log(data);

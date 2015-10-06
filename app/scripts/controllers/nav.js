@@ -2,18 +2,20 @@ var app = angular.module('app');
 
 app.controller('navCtrl',['$scope','$http', '$state', 'authFactory',
   function($scope, $http, $state, authFactory){
-    $scope.member = null;
     $scope.goHome = function(){
         $state.go("home");
     };
     $scope.goLogin = function(){
         $state.go("login");
     };
-    $scope.getAuth = function(){
+    $scope.logout = function(){
+        authFactory.setAuth("");
+        console.log($scope.member);
         console.log(authFactory.getAuth());
     };
     $scope.getMember = function(){
         if(authFactory.getAuth() !== ""){
+
             var config = {headers: {
                     'Authorization': authFactory.getAuth()
             }};
@@ -24,9 +26,13 @@ app.controller('navCtrl',['$scope','$http', '$state', 'authFactory',
               console.log(data);
             });
         }
+        else{
+            $scope.member = undefined;
+        }
     };
+    $scope.member = $scope.getMember();
     $scope.$on('authenticate', function () {
-        console.log("Assas");
+        console.log("Change");
          $scope.getMember();
     });
 }]);
