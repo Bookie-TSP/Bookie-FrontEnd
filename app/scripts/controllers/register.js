@@ -21,7 +21,7 @@ var app = angular.module('register', [])
                 console.log($s.password);
                 console.log($s.confirmPassword);
                 */
-                $http.post('https://bookieservice.herokuapp.com/api/sessions',{
+                $http.post('https://bookieservice.herokuapp.com/api/members',{
                     first_name: $s.firstname,
                     sur_name: $s.surname,
                     gender: $s.gender,
