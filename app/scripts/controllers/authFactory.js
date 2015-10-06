@@ -1,12 +1,12 @@
 var app = angular.module('app');
 
-app.factory('authFactory', function ($http, $rootScope, $cookieStore) {
+app.factory('authFactory', function ($http, $rootScope, $localStorage) {
     return {
         getAuth: function() {
-            return $cookieStore.get('authToken');
+            return $localStorage.authToken;
         },
         setAuth: function(token) {
-            $cookieStore.put('authToken', token );
+            $localStorage.authToken = token;
             $rootScope.$broadcast('authenticate');
         }
     };

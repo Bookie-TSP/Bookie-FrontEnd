@@ -1,4 +1,4 @@
-angular.module('app',['ui.router', 'ngCookies'])
+angular.module('app',['ui.router', 'ngStorage'])
 .config(function($stateProvider, $urlRouterProvider) {
 
     $stateProvider
