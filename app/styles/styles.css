@@ -1,0 +1,161 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,300,400italic,500,700,100);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,800,300,600,700);
+@import url(http://fonts.googleapis.com/css?family=Abel);
+.header-top {
+  background: #000;
+  padding: 15px 0;
+}
+
+.search {
+  position: relative;
+  float: left;
+  width: 25%;
+  background-color: #fff;
+  margin-top: 11px;
+}
+
+.search input[type="text"] {
+  outline: none;
+  padding: 3px 15px;
+  background: none;
+  width: 91%;
+  border: none;
+  font-size: 1.2em;
+  color: #000;
+  font-weight: 700;
+}
+
+.search input[type="submit"] {
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  outline: none;
+  top: 0px;
+  right: 0px;
+  background: #c7c7c7;
+  font-size: 1.2em;
+  color: #000;
+  padding: 3px;
+  font-weight: 700;
+}
+
+.search input[type="submit"]:hover {
+  background: #EF5F21;
+  color: #fff;
+  transition: 0.5s all;
+  -webkit-transition: 0.5s all;
+  -o-transition: 0.5s all;
+  -moz-transition: 0.5s all;
+  -ms-transition: 0.5s all;
+}
+
+.header-left {
+  float: right;
+  margin-top: 4px;
+}
+
+.header-left ul {
+  float: left;
+}
+
+.header-left ul li {
+  display: inline-block;
+}
+
+.header-left ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.1em;
+  margin: 0 2em 0 0;
+}
+
+.header-left ul li a:hover {
+  color: #EF5F21;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  padding-top: 70px;
+}
+#form {
+  display: block;
+  margin-bottom: 185px;
+  margin-top: 185px;
+  overflow: hidden;
+}
+
+.login-form h2,
+.signup-form h2 {
+  color: #696763;
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  font-weight: 300;
+  margin-bottom: 30px;
+}
+
+.login-form form input {
+  background: #F0F0E9;
+  border: medium none;
+  color: #696763;
+  display: block;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  height: 40px;
+  margin-bottom: 10px;
+  outline: medium none;
+  padding-left: 10px;
+  width: 100%;
+}
+
+.login-form form span {
+  line-height: 25px;
+}
+
+.login-form form span input {
+  width: 15px;
+  float: left;
+  height: 15px;
+  margin-right: 5px;
+}
+
+.login-form form button {
+  margin-top: 23px;
+}
+
+.login-form form button,
+.signup-form form button {
+  background: #FE980F;
+  border: medium none;
+  border-radius: 0;
+  color: #FFFFFF;
+  display: block;
+  font-family: 'Roboto', sans-serif;
+  padding: 6px 25px;
+}
+
+.login-form label input {
+  border: medium none;
+  display: inline-block;
+  height: 0;
+  margin-bottom: 0;
+  outline: medium none;
+  padding-left: 0;
+}
+
+.or {
+  background: #FE980F;
+  border-radius: 40px;
+  color: #FFFFFF;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  height: 50px;
+  line-height: 50px;
+  margin-top: 75px;
+  text-align: center;
+  width: 50px;
+}
+
+#validate {
+  color: #ff0000;
+}
