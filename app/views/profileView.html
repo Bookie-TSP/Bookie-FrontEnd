@@ -1,25 +1,29 @@
 <html>
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <title></title>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
-    <script src="../scripts/controllers/profileController.js"></script>
-    <link rel="stylesheet" type="css" href="../styles/bootstrap-theme.min.css">
-    <link rel="stylesheet" type="css" href="../styles/bootstrap.min.css">
-</head>
-<body>
-<div ng-app="todo" ng-controller="profileCtrl">
-    <h1>{{profileData.first_name}} {{profileData.last_name}}Profile Page</h1>
-    <h4>User ID: {{profileData.id}}</h4>
-    <h4>User E-Mail: {{profileData.email}}</h4>
-    <h4>User First Name: {{profileData.first_name}}</h4>
-    <h4>User Last Name: {{profileData.last_name}}</h4>
-    <h4>User Phone Number: {{profileData.phone_number}}</h4>
-    <h4>User Identification Number: {{profileData.identification_number}}</h4>
-    <h4>User Gender: {{profileData.gender}}</h4>
-    <h4>User Birth Date: {{profileData.birth_date}}</h4>
-    <button ng-click="login()">Login</button>
-    <button ng-click="getProfile()">Get Profile</button>
-</div>
-</body>
+
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title></title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
+        <script src="../scripts/controllers/profileController.js"></script>
+        <link rel="stylesheet" type="css" href="../styles/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="css" href="../styles/bootstrap.min.css">
+        <link rel="stylesheet" type="css" href="../styles/bootstrap.min.css">
+    </head>
+
+    <body>
+        <div ng-app="todo" ng-controller="profileCtrl">
+            <h1>{{profileData.first_name}} {{profileData.last_name}}Profile Page</h1>
+            <h4>User ID: {{profileData.id}}</h4>
+            <h4>User E-Mail: {{profileData.email}}</h4>
+            <h4>User First Name: {{profileData.first_name}}</h4>
+            <h4>User Last Name: {{profileData.last_name}}</h4>
+            <h4>User Phone Number: {{profileData.phone_number}}</h4>
+            <h4>User Identification Number: {{profileData.identification_number}}</h4>
+            <h4>User Gender: {{profileData.gender}}</h4>
+            <h4>User Birth Date: {{profileData.birth_date}}</h4>
+            <button ng-click="login()">Login</button>
+            <button ng-click="getProfile()">Get Profile</button>
+        </div>
+    </body>
+
 </html>

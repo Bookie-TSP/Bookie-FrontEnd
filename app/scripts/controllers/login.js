@@ -1,8 +1,7 @@
-var app = angular.module('app', []);
+var app = angular.module('app');
 
-app.controller('loginCtrl',['$scope','$http','$window',
-  function($scope, $http, $window){
-    $scope.auth = "";
+app.controller('loginCtrl',['$scope','$http','$state', 'authFactory',
+  function($scope, $http, $state, authFactory){
   	$scope.validation = "";
     setValidation = function(s){
     	$scope.validation = s;
@@ -14,9 +13,9 @@ app.controller('loginCtrl',['$scope','$http','$window',
         password: $scope.password
       })
       .success(function(data){
-        console.log(data);
         $scope.auth = data.auth_token;
-        $window.location.href = '../index.html';
+        authFactory.setAuth($scope.auth);
+        $state.go("home");
       }).error(function(data){
         console.log(data);
         setValidation("Invalid email or password");
