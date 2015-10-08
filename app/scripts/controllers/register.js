@@ -4,12 +4,12 @@
 /**
  * Created by nathakorn on 9/28/15 AD.
  */
-var app = angular.module('register', [])
-    app.controller('page', ['$scope','$http', 'todoApi',
+var app = angular.module('app')
+    app.controller('registerCtrl', ['$scope','$http', 'todoApi',
         function ($s, $http,$factory) {
             $s.auth = "";
             $s.submit = function () {
-                /*
+
                 console.log($s.email);
                 console.log($s.password);
                 console.log($s.password_confirmation);
@@ -18,10 +18,10 @@ var app = angular.module('register', [])
                 console.log($s.birth_date);
                 console.log($s.phone_number);
                 console.log($s.identification_number);
-                console.log($s.latitude);
-                console.log($s.longtitude);
-                 console.log($s.information);
-                */
+                //console.log($s.latitude);
+                //console.log($s.longtitude);
+                //console.log($s.information);
+
                 var member = [{
                     email: email,
                     password: password,

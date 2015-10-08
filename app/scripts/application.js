@@ -10,8 +10,11 @@ angular.module('app',['ui.router', 'ngStorage'])
    .state('login', {
 		url: '/login',
 		templateUrl: 'views/login.html'
-	});
-
+	})
+     .state('register', {
+        url: '/register',
+        templateUrl: 'views/register.html'
+    });
   $urlRouterProvider.otherwise('/');
 
 });
