@@ -1,43 +1,44 @@
 <!DOCTYPE html>
 <html>
+
 	<head lang="en">
-	    <meta name="viewport" content="width=device-width, initial-scale=1">
-	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	    <title>Bookie</title>
-	    <link rel="stylesheet" href="styles/bootstrap.min.css">
-	    <link rel="stylesheet" href="styles/homepage.css">
-		<link rel="stylesheet" href="styles/login.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Bookie</title>
+		<link rel="stylesheet" href="styles/vendor/bootstrap.min.css">
+		<link rel="stylesheet" href="styles/styles.css">
 	</head>
+
 	<body ng-app="app">
 		<div class="script">
 			<script src="scripts/vendor/jquery.js"></script>
-		    <script src="scripts/vendor/angular.min.js"></script>
-	    	<script src="scripts/vendor/bootstrap.min.js"></script>
+			<script src="scripts/vendor/angular.min.js"></script>
+			<script src="scripts/vendor/bootstrap.min.js"></script>
 			<script src="scripts/vendor/angular-ui-router.js"></script>
 			<script src="scripts/vendor/ui-bootstrap-tpls-0.13.4.min.js"></script>
-			<script src="scripts/application.js"></script>
-			<script src="scripts/controllers/authFactory.js"></script>
-			<script src="scripts/controllers/nav.js"></script>
-			<script src="scripts/controllers/home.js"></script>
-			<script src="scripts/controllers/login.js"></script>
+			<script src="scripts/vendor/ngstorage.min.js"></script>
+			<script src="scripts/controllers.js"></script>
 		</div>
-		<nav class="navbar navbar-default navbar-fixed-top navbar-inverse" ng-controller="navCtrl">
-		    <div class="container-fluid">
-		    	<div class="navbar-header">
-		    		<a class="navbar-brand" ng-click="goHome()">Bookie</a>
-		    	</div>
-		    	<ul class="nav navbar-nav navbar-right" ng-show="member === null">
-					<li><a ng-click="goLogin()">Login</a></li>
-			    	<li><a ng-click="getAuth()">Register</a></li>
-			    	<!-- Mocked item cart -->
-			    	<li><a href="itemcart.html" id="item-cart">$0.00 (0 items) <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
-			    </ul>
-				<ul class="nav navbar-nav navbar-right" ng-show="member !== null">
-					<li><a>{{member.email}}</a></li>
-			    	<li><a href="itemcart.html" id="item-cart">$0.00 (0 items) <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
-			    </ul>
-		    </div>
-		</nav>
-		<div ui-view></div>
-    </body>
+		<div ng-controller="navCtrl">
+			<nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<a class="navbar-brand" ng-click="goHome()">Bookie</a>
+					</div>
+					<ul class="nav navbar-nav navbar-right" ng-show="member === undefined">
+						<li><a ng-click="goLogin()">Login</a></li>
+						<li><a ng-click="getAuth()">Register</a></li>
+						<!-- Mocked item cart -->
+						<li><a ng-click="logout()" id="item-cart">$0.00 (0 items) <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right" ng-show="member !== undefined">
+						<li><a>{{member.email}}</a></li>
+						<li><a ng-click="logout()" id="item-cart">$0.00 (0 items) <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
+					</ul>
+				</div>
+			</nav>
+			<div ui-view></div>
+		</div>
+	</body>
+
 </html>
