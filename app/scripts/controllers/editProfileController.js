@@ -1,4 +1,4 @@
-angular.module('todo', [])
+angular.module('app', [])
 	.controller('editProfileCtrl', ['$scope', '$http',
 function ($scope, $http) {
 	$scope.profileData = {};
@@ -16,7 +16,7 @@ function ($scope, $http) {
     };
     $scope.getProfile = function() {
     	var config = {headers: {
-            'Authorization': "egnZBgYgrC-DyaN8oWuj"
+            'Authorization': "iULPjj8gi-NGRwL3_aPF"
       	}};
       	$http.get('https://bookieservice.herokuapp.com/api/myprofile', config)
       	.success(function(data){
