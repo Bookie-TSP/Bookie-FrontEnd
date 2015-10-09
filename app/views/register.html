@@ -9,19 +9,28 @@
             <hr/>
             <div class="row">
                 <div class="col-sm-6 col-sm-offset-3">
+                    <h2>Register</h2>
                     <div class="register-form"><!--register form-->
-                        <h2>Register</h2>
                         <form action="#">
                             <input type="text" placeholder="Email" ng-model="email"><br>
-                            <input type="text" placeholder="Password" ng-model="password"><br>
-                            <input type="text" placeholder="Password comfirmation" ng-model="password_confirmation"><br>
+                            <input type="password" placeholder="Password" ng-model="password"><br>
+                            <div ng-show = "password == password_confirmation && password != null">Password match!</div>
+                            <input type="password" placeholder="Password comfirmation" ng-model="password_confirmation"><br>
                             <input type="text" placeholder="Firstname" ng-model="first_name"><br>
                             <input type="text" placeholder="Lastname" ng-model="last_name"><br>
-                            <input type="text" placeholder="Birthdate" ng-model="birth_date"><br>
-                            <input type="text" placeholder="Phone number" ng-model="phone_number"><br>
+                            <label for="day">Date of Birth</label>
+                        </form>
+                    </div>
+                    <div id="Birth_Date" class="datefield">
+                        <input id="day" type="tel" maxlength="2" placeholder="DD"/>
+                        <input id="month" type="tel" maxlength="2" placeholder="MM"/>
+                        <input id="year" type="tel" maxlength="4" placeholder="YYYY"/>
+                    </div>
+                    <div class="register-form"><!--register form-->
+                        <form action="#">
+                            <br><input type="text" placeholder="Phone number" ng-model="phone_number"><br>
                             <input type="text" placeholder="Identification number" ng-model="identification_number"><br>
                             <!--Map-->
-
                             <a href = "">Term of condition</a><br>
                             <p><input type = "checkbox" ng-model="agreeTerm">I agree</p>
                             <button ng-click="submit()">Sign up!</button>
