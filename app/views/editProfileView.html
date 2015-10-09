@@ -20,7 +20,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 </head>
 <body>
-    <div ng-app="todo" ng-controller="profileCtrl">
+    <div ng-app="todo" ng-controller="editProfileCtrl">
         <h1>{{profileData.first_name}} {{profileData.last_name}} Profile Page</h1>
         <table class="table table-striped">
             <tr>
@@ -37,7 +37,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
             </tr>
             <tr>
                 <td>User Last Name:</td>
-                <td>{{profileData.last_name}}</td>
+                <td><input type="text" placeholder="" ng-model="email"></input><br></td>
             </tr>
             <tr>
                 <td>User Phone Number:</td>

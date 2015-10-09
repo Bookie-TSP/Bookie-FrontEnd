@@ -1,5 +1,5 @@
 angular.module('todo', [])
-	.controller('profileCtrl', ['$scope', '$http',
+	.controller('editProfileCtrl', ['$scope', '$http',
 function ($scope, $http) {
 	$scope.profileData = {};
     $scope.login = function(){
