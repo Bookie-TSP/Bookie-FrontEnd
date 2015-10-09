@@ -258,7 +258,19 @@ body {
 }
 
 #googleMap {
-  height: 500px;
-  width: 80%;
+  height: 200px;
+  width: 500px;
   margin: 0 auto 0 auto;
+}
+
+.submitButton {
+  display: block;
+  width: 115px;
+  height: 35px;
+  background: #4E9CAF;
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
 }
