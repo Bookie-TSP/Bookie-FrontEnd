@@ -10,7 +10,7 @@ var app = angular.module('app')
             googleMap.init();
             setInterval(function(){
                // console.log(googleMap.position);
-            }, 1000)
+            }, 1000);
             $scope.auth = "";
             $scope.submit = function () {
                 console.log($scope.email);
@@ -45,15 +45,13 @@ var app = angular.module('app')
                         longitude: googleMap.position.lng,
                         address: googleMap.position.address,
                         more_info: $scope.more_info
-                    }]
-                    //send member
+                    }];
+                    //send member&address
                     $http.post('https://bookieservice.herokuapp.com/api/members', {
-                        member: member
-                    })
-                    //send member address
-                    $http.post('https://bookieservice.herokuapp.com/api/members', {
+                        member: member,
                         address: address
                     })
+
                         .success(function (data) {
                             console.log(JSON.stringify(data));
                             console.log(data);
