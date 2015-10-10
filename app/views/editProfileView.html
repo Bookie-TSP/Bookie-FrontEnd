@@ -17,37 +17,38 @@
             </tr>
             <tr>
                 <td>User E-Mail:</td>
-                <td><input type="text" ng-model="profileData.email" ></input><br></td>
+                <td><input type="text" ng-model="profileData.email" id="email"></input><br></td>
             </tr>
             <tr>
                 <td>User First Name:</td>
-                <td><input type="text" ng-model="profileData.first_name"></input><br></td>
+                <td><input type="text" ng-model="profileData.first_name" id="firstname"></input><br></td>
             </tr>
             <tr>
                 <td>User Last Name:</td>
-                <td><input type="text" ng-model="profileData.last_name"></input><br></td>
+                <td><input type="text" ng-model="profileData.last_name" id="lastname"></input><br></td>
             </tr>
             <tr>
                 <td>User Phone Number:</td>
-                <td><input type="text" ng-model="profileData.phone_number"></input><br></td>
+                <td><input type="text" ng-model="profileData.phone_number" id="phonenumber"></input><br></td>
             </tr>
             <tr>
                 <td>User Identification Number:</td>
-                <td><input type="text" ng-model="profileData.identification_number"></input><br></td>
+                <td><input type="text" ng-model="profileData.identification_number" id="idennumber"></input><br></td>
             </tr>
             <tr>
                 <td>User Gender:</td>
-                <td><input type="text" ng-model="profileData.gender"></input><br></td>
+                <td><input type="text" ng-model="profileData.gender" id="gender"></input><br></td>
             </tr>
             <tr>
                 <td>User Birth Date:</td>
-                <td><input type="text" ng-model="profileData.birth_date"></input><br></td>
+                <td><input type="text" ng-model="profileData.birth_date" id="birthdate"></input><br></td>
             </tr>
         </table>
-        <button type="submit" class="btn btn-default" ng-click="login()">Login</button>
-        <button type="submit" class="btn btn-default" ng-click="getProfile()">Get Profile</button>
-        <button type="submit" class="btn btn-default" ng-click="editProfile()">Edit Profile</button>
-        {{profileData.email}} + {{profileData.first_name}} + {{profileData.last_name}} + {{profileData.password}}
+        Password: <input type="password" ng-model="profileData.password" id="password"></input><br>
+        <button type="submit" class="btn btn-default" ng-click="login()" id="loginBtn">Login</button>
+        <button type="submit" class="btn btn-default" ng-click="getProfile()" id="getProfileBtn">Get Profile</button>
+        <button type="submit" class="btn btn-default" ng-click="editProfile()" id="editProfileBtn">Edit Profile</button>
+        Email: {{profileData.email}}, FirstName: {{profileData.first_name}}, LastName: {{profileData.last_name}}, PhoneNumber: {{profileData.phone_number}}
     </div>
 </body>
 </html>
