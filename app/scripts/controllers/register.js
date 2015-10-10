@@ -52,7 +52,7 @@ var app = angular.module('app')
                     })
                     //send member address
                     $http.post('https://bookieservice.herokuapp.com/api/members', {
-                        member: address
+                        address: address
                     })
                         .success(function (data) {
                             console.log(JSON.stringify(data));
