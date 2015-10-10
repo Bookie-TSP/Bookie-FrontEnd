@@ -4,8 +4,7 @@ angular.module('app',['ui.router', 'ngStorage'])
     $stateProvider
     .state('home', {
         url: '/',
-        templateUrl: 'views/home.html',
-        cache: false
+        templateUrl: 'views/home.html'
     })
    .state('login', {
 		url: '/login',

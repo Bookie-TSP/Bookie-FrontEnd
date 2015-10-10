@@ -4,8 +4,7 @@ angular.module('app',['ui.router', 'ngStorage'])
     $stateProvider
     .state('home', {
         url: '/',
-        templateUrl: 'views/home.html',
-        cache: false
+        templateUrl: 'views/home.html'
     })
    .state('login', {
 		url: '/login',
@@ -78,6 +77,9 @@ app.controller('navCtrl',['$scope','$http', '$state', 'authFactory', '$rootScope
     $scope.logout = function(){
         authFactory.setAuth(undefined);
     };
+    $scope.register = function(){
+        $state.go("register");
+    };
     $scope.getMember = function(){
         if(authFactory.getAuth() !== undefined){
             var config = {headers: {
@@ -134,17 +136,12 @@ function ($scope, $http) {
 /**
  * Created by nathakorn on 10/5/15 AD.
  */
-/**
- * Created by nathakorn on 9/28/15 AD.
- */
-var app = angular.module( 'app' );
-app.controller( 'registerCtrl', [ '$scope', '$http', 'googleMap',
-        function ( $scope, $http, googleMap ) {
+app.controller( 'registerCtrl', [ '$scope', '$http', 'googleMap', '$state', 'authFactory',
+        function ( $scope, $http, googleMap, $state, authFactory ) {
 		googleMap.init();
 		setInterval( function () {
 			// console.log(googleMap.position);
 		}, 1000 );
-		$scope.auth = "";
 
 		$scope.submit = function () {
 			var birth_date = $scope.day_birth + "/" + $scope.month_birth + "/" + $scope.year_birth;
@@ -178,17 +175,18 @@ app.controller( 'registerCtrl', [ '$scope', '$http', 'googleMap',
 						address: address
 					} )
 					.success( function ( data ) {
-						console.log( JSON.stringify( data ) );
 						console.log( data );
-						$scope.auth = data.auth_token;
+						authFactory.setAuth(data.auth_token);
+                        $state.go("home");
 					} )
 					.error( function ( data ) {
-						console.log( JSON.stringify( data ) );
+						console.log( data );
+                        alert( "error : " + data.error );
 					} );
-				alert( "Thank you for sign up!" );
 			}
 		};
-        } ] )
+} ] );
+
 app.factory( 'googleMap', function () {
 	var position = {
 		lat: "13.752",
@@ -329,6 +327,7 @@ app.factory( 'googleMap', function () {
 
 	function init() {
 		google.maps.event.addDomListener( window, 'load', initialize );
+        console.log("init");
 	}
 
 	// initial map and pin by calling initialize function

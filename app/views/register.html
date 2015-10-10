@@ -31,7 +31,7 @@
                     <div id="Birth_Date" class="datefield">
                         <input id="day" type="tel" maxlength="2" placeholder="DD" ng-model="day_birth" />
                         <input id="month" type="tel" maxlength="2" placeholder="MM" ng-model="month_birth" />
-                        <input id="year" type="tel" maxlength="4" placeholder="YYYY" ng-model="year_birth" />
+                        <input id="year" type="tel" maxlength="4" placeholder="YYYY (A.D.)" ng-model="year_birth" />
                     </div>
                     <br>
                     <div>
@@ -61,6 +61,7 @@
                                 <input type="checkbox" ng-model="agreeTerm">I agree</span>
                         </form>
                     </div>
+                    <br>
                     <a class="submitButton" ng-click="submit()">Sign up!</a>
                 </div>
             </div>
