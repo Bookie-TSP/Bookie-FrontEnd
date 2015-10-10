@@ -18,7 +18,7 @@ function ($scope, $http) {
     $scope.getProfile = function() {
       console.log("Getting the profile");
     	var config = {headers: {
-            'Authorization': "iULPjj8gi-NGRwL3_aPF"
+            'Authorization': "M8LzsSzLYD-7mCfMgqf7"
       	}};
       	$http.get('https://bookieservice.herokuapp.com/api/myprofile', config)
       	.success(function(data){
