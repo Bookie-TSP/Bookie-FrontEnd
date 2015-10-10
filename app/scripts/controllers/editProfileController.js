@@ -3,6 +3,7 @@ angular.module('app', [])
 function ($scope, $http) {
 	$scope.profileData = {};
     $scope.login = function(){
+      console.log("Loging In");
     	$http.post('https://bookieservice.herokuapp.com/api/sessions',{
     		email: "bookie@ku.th",
     		password: "12345678"
@@ -15,6 +16,7 @@ function ($scope, $http) {
     	});
     };
     $scope.getProfile = function() {
+      console.log("Getting the profile");
     	var config = {headers: {
             'Authorization': "iULPjj8gi-NGRwL3_aPF"
       	}};
