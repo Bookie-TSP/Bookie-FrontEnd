@@ -145,46 +145,53 @@ var app = angular.module('app')
                // console.log(googleMap.position);
             }, 1000);
             $scope.auth = "";
+
             $scope.submit = function () {
-                console.log($scope.email);
-                console.log($scope.password);
-                console.log($scope.password_confirmation);
-                console.log($scope.first_name);
-                console.log($scope.last_name);
-                console.log($scope.day_birth);
-                console.log($scope.month_birth);
-                console.log($scope.year_birth);
-                console.log($scope.more_info);
-                console.log($scope.phone_number);
-                console.log($scope.identification_number);
+                var birth_date = $scope.day_birth + "/" + $scope.month_birth + "/" + $scope.year_birth;
+                var address_info = googleMap.position.address + " " + $scope.more_info;
+                //console.log($scope.email);
+                //console.log($scope.password);
+                //console.log($scope.password_confirmation);
+                //console.log($scope.first_name);
+                //console.log($scope.last_name);
+                //console.log($scope.day_birth);
+                //console.log($scope.month_birth);
+                //console.log($scope.year_birth);
+                //console.log(birth_date);
+                //console.log($scope.gender);
+                //console.log(address_info);
+                //console.log($scope.phone_number);
+                //console.log($scope.identification_number);
                 if (!$scope.agreeTerm) {
                     alert("Please agree the term of condition");
                 } else {
-                    var member = [{
+                    var member = {
                         email: $scope.email,
                         password: $scope.password,
+                        password_confirmation: $scope.password_confirmation,
                         first_name: $scope.first_name,
                         last_name: $scope.last_name,
-                        day_birth: $scope.day_birth,
-                        month_birth: $scope.month_birth,
-                        year_birth: $scope.year_birth,
                         phone_number: $scope.phone_number,
-                        identification_number: $scope.identification_number
-                    }];
-                    var address = [{
+                        identification_number: $scope.identification_number,
+                        gender: $scope.gender,
+                        birth_date: birth_date
+                    };
+                    var address = {
                         first_name: $scope.first_name,
                         last_name: $scope.last_name,
                         latitude: googleMap.position.lat,
                         longitude: googleMap.position.lng,
-                        address: googleMap.position.address,
-                        more_info: $scope.more_info
-                    }];
+                        information: address_info
+                    };
+                    //console.log({
+                    //    member: member,
+                    //    address: address
+                    //})
                     //send member&address
                     $http.post('https://bookieservice.herokuapp.com/api/members', {
                         member: member,
                         address: address
                     })
-
                         .success(function (data) {
                             console.log(JSON.stringify(data));
                             console.log(data);

@@ -2,18 +2,13 @@
     <section id="form"><!--form-->
         <div class="container">
             <div class="row">
-                <div class="col-sm-4">
-                    <h1>Bookie</h1>
-                </div>
-            </div>
-            <hr/>
-            <div class="row">
                 <div class="col-sm-6 col-sm-offset-3">
                     <h2>Register</h2>
                     <div class="register-form"><!--register form-->
                         <form action="#">
                             <input type="text" placeholder="Email" ng-model="email"><br>
-                            <input type="password" placeholder="Password" ng-model="password"><br>
+                            <div ng-show = "password.length < 8">Not enough characters</div>
+                            <input type="password" placeholder="Password *more than or equal 8 characters" ng-model="password"><br>
                             <div ng-show = "password == password_confirmation && password != null">Password match!</div>
                             <input type="password" placeholder="Password comfirmation" ng-model="password_confirmation"><br>
                             <input type="text" placeholder="Firstname" ng-model="first_name"><br>
@@ -26,6 +21,11 @@
                         <input id="month" type="tel" maxlength="2" placeholder="MM" ng-model="month_birth"/>
                         <input id="year" type="tel" maxlength="4" placeholder="YYYY" ng-model="year_birth"/>
                     </div><br><br>
+                    <div class="register-form"><!--register form-->
+                        <form action="#">
+                             <input type="text" placeholder="Gender" ng-model="gender"><br>
+                        </form>
+                    </div><!--/register form-->
                     <label for="day">Address</label><br>
                     <div id="googleMap"></div>
                     <div id="current"></div>
