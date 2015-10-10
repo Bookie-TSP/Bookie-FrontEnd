@@ -5,8 +5,12 @@
  * Created by nathakorn on 9/28/15 AD.
  */
 var app = angular.module('app')
-    app.controller('registerCtrl', ['$scope','$http', 'todoApi',
-        function ($scope, $http,$factory) {
+    app.controller('registerCtrl', ['$scope','$http', 'todoApi', 'googleMap',
+        function ($scope, $http,$factory, googleMap) {
+            googleMap.init();
+            setInterval(function(){
+               // console.log(googleMap.position);
+            }, 1000)
             $scope.auth = "";
             $scope.submit = function () {
                 console.log($scope.email);
@@ -20,9 +24,6 @@ var app = angular.module('app')
                 console.log($scope.more_info);
                 console.log($scope.phone_number);
                 console.log($scope.identification_number);
-                //console.log($scope.latitude);
-                //console.log($scope.longtitude);
-
                 if (!$scope.agreeTerm) {
                     alert("Please agree the term of condition");
                 } else {
@@ -40,8 +41,9 @@ var app = angular.module('app')
                     var address = [{
                         first_name: $scope.first_name,
                         last_name: $scope.last_name,
-                        //latitude: $scope.latitude,
-                        //longitude: $scope.longtitude,
+                        latitude: googleMap.position.lat,
+                        longitude: googleMap.position.lng,
+                        address: googleMap.position.address,
                         more_info: $scope.more_info
                     }]
                     //send member
@@ -66,4 +68,145 @@ var app = angular.module('app')
     .factory('todoApi', [function () {
 
         return {};
-    }]);
+    }])
+        .factory('googleMap', function(){
+            var position = {lat:"13.752", lng:"100.493", address: ""};
+            function initialize() {
+                var geocoder = new google.maps.Geocoder;
+                var infowindow = new google.maps.InfoWindow;
+
+                var bkk = new google.maps.LatLng(position.lat, position.lng);
+                var mapProp = {
+                    center: bkk,
+                    zoom: 8,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    disableDefaultUI: true
+                };
+
+                var marker = new google.maps.Marker({
+                    position: bkk,
+                    draggable: true
+                });
+
+                var styles = [
+                    {
+                        "featureType": "landscape",
+                        "elementType": "labels",
+                        "stylers": [
+                            {
+                                "visibility": "off"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "poi",
+                        "elementType": "labels",
+                        "stylers": [
+                            {
+                                "visibility": "off"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "road",
+                        "elementType": "geometry",
+                        "stylers": [
+                            {
+                                "lightness": 57
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "road",
+                        "elementType": "labels.text.fill",
+                        "stylers": [
+                            {
+                                "visibility": "on"
+                            },
+                            {
+                                "lightness": 24
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "road",
+                        "elementType": "labels.icon",
+                        "stylers": [
+                            {
+                                "visibility": "off"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "transit",
+                        "elementType": "labels",
+                        "stylers": [
+                            {
+                                "visibility": "off"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "water",
+                        "elementType": "labels",
+                        "stylers": [
+                            {
+                                "visibility": "off"
+                            }
+                        ]
+                    }
+                ]
+
+                var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+                marker.setMap(map);
+                map.setOptions({styles: styles});
+
+                google.maps.event.addListener(marker, 'dragend', function(mark){
+                    var latitude = mark.latLng.lat();
+                    var longitude = mark.latLng.lng();
+                    geocodeLatLng(geocoder, map, marker, infowindow, latitude, longitude);
+                    position.lat = latitude.toFixed(3)
+                    position.lng = longitude.toFixed(3)
+                    document.getElementById('current').innerHTML = '<p>Marker dropped: Current Lat: ' + latitude.toFixed(3) + ' Current Lng: ' + longitude.toFixed(3) + '</p>';
+                });
+            }
+
+// this function is used for convert lat and lng into address
+            function geocodeLatLng(geocoder, map, marker, infowindow, latitude, longitude) {
+                var latlng = {
+                    lat: latitude,
+                    lng: longitude
+                };
+
+                geocoder.geocode({'location': latlng}, function(results, status) {
+                    if (status === google.maps.GeocoderStatus.OK) {
+                        if (results[1]) {
+                            var address = results[1].formatted_address;
+                            infowindow.setContent(address);
+                            infowindow.open(map, marker);
+
+                            document.getElementById('address').innerHTML = '<p>Current add: ' + address + '</p>';
+                            position.address = address;
+                        }
+                        else {
+                            window.alert('No results found');
+                        }
+                    }
+                    else {
+                        window.alert('Geocoder failed due to: ' + status);
+                    }
+                });
+            }
+            function init () {
+                google.maps.event.addDomListener(window, 'load', initialize);
+            }
+
+// initial map and pin by calling initialize function
+            return {
+                init: init,
+                initialize: initialize,
+                geocodeLatLng: geocodeLatLng,
+                position: position
+
+            }
+        });
