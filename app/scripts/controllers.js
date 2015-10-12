@@ -20,20 +20,6 @@ angular.module('app',['ui.router', 'ngStorage'])
 
 var app = angular.module('app');
 
-app.factory('authFactory', function ($http, $rootScope, $localStorage) {
-    return {
-        getAuth: function() {
-            return $localStorage.authToken;
-        },
-        setAuth: function(token) {
-            $localStorage.authToken = token;
-            $rootScope.$broadcast('authenticate');
-        }
-    };
-});
-
-var app = angular.module('app');
-
 app.controller('homeCtrl',['$scope','$http', '$state', '$rootScope',
   function($scope, $http, $state, $rootScope){
 
@@ -186,6 +172,20 @@ app.controller( 'registerCtrl', [ '$scope', '$http', 'googleMap', '$state', 'aut
 			}
 		};
 } ] );
+
+var app = angular.module('app');
+
+app.factory('authFactory', function ($http, $rootScope, $localStorage) {
+    return {
+        getAuth: function() {
+            return $localStorage.authToken;
+        },
+        setAuth: function(token) {
+            $localStorage.authToken = token;
+            $rootScope.$broadcast('authenticate');
+        }
+    };
+});
 
 app.factory( 'googleMap', function () {
 	var position = {

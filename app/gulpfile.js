@@ -4,7 +4,7 @@ var concatCss = require('gulp-concat-css');
 var server = require( 'gulp-develop-server' );
 
 gulp.task('scripts', function() {
-  return gulp.src(['./scripts/application.js', './scripts/controllers/*.js'])
+  return gulp.src(['./scripts/application.js', './scripts/controllers/*.js', './scripts/factories/*.js'])
     .pipe(concat('controllers.js'))
     .pipe(gulp.dest('./scripts/'));
 });
