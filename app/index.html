@@ -30,11 +30,13 @@
 						<li><a ng-click="login()">Login</a></li>
 						<li><a ng-click="register()">Register</a></li>
 						<!-- Mocked item cart -->
-						<li><a ng-click="logout()" id="item-cart">$0.00 (0 items) <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
+						<li><a id="item-cart">$0.00 (0 items) <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right" ng-show="member !== undefined">
 						<li><a ng-click="profile()">{{member.email}}</a></li>
-						<li><a ng-click="logout()" id="item-cart">$0.00 (0 items) <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
+						<li><a> | </a><li>
+						<li><a ng-click="logout()">Logout</a></li>
+						<li><a id="item-cart">$0.00 (0 items) <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
 					</ul>
 				</div>
 			</nav>
