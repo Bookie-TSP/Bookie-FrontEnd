@@ -4,14 +4,16 @@ angular.module('app',['ui.router', 'ngStorage'])
     $stateProvider
     .state('home', {
         url: '/',
-        templateUrl: 'views/home.html',
-        cache: false
+        templateUrl: 'views/home.html'
     })
    .state('login', {
 		url: '/login',
 		templateUrl: 'views/login.html'
-	});
-
+	})
+     .state('register', {
+        url: '/register',
+        templateUrl: 'views/register.html'
+    });
   $urlRouterProvider.otherwise('/');
 
 });

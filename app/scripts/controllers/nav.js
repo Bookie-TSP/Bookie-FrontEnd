@@ -11,6 +11,9 @@ app.controller('navCtrl',['$scope','$http', '$state', 'authFactory', '$rootScope
     $scope.logout = function(){
         authFactory.setAuth(undefined);
     };
+    $scope.register = function(){
+        $state.go("register");
+    };
     $scope.getMember = function(){
         if(authFactory.getAuth() !== undefined){
             var config = {headers: {
