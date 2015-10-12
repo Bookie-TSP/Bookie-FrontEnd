@@ -5,7 +5,7 @@ function ($scope, $http) {
     $scope.login = function(){
       console.log("Loging In");
     	$http.post('https://bookieservice.herokuapp.com/api/sessions',{
-    		email: "bookie@ku.th",
+    		email: "test@test.test",
     		password: "12345678"
     	})
     	.success(function(data){
@@ -18,7 +18,7 @@ function ($scope, $http) {
     $scope.getProfile = function() {
       console.log("Getting the profile");
     	var config = {headers: {
-            'Authorization': "M8LzsSzLYD-7mCfMgqf7"
+            'Authorization': "nZVpNDd93-vbK5QRZuts"
       	}};
       	$http.get('https://bookieservice.herokuapp.com/api/myprofile', config)
       	.success(function(data){

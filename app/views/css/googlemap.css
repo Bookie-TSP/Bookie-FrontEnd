@@ -1,0 +1,12 @@
+<style type="text/css">
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+#googleMap {
+	height: 65%;
+	width: 80%;
+	margin: 0 auto 0 auto;
+}
