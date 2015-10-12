@@ -5,8 +5,9 @@ var server = require( 'gulp-develop-server' );
 var browserSync = require('browser-sync').create();
 
 gulp.task('scripts', function() {
-  return gulp.src(['./scripts/application.js', './scripts/controllers/*.js'])
-    .pipe(concat('scripts.js'))
+  return gulp.src(['./scripts/application.js', './scripts/controllers/*.js', './scripts/factories/*.js'])
+    .pipe(concat('controllers.js'))
+>>>>>>> master:app/gulpfile.js
     .pipe(gulp.dest('./scripts/'));
 });
 

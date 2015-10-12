@@ -1,5 +1,3 @@
-var app = angular.module('app');
-
 app.controller('navCtrl',['$scope','$http', '$state', 'authFactory', '$rootScope',
   function($scope, $http, $state, authFactory, $rootScope){
     $scope.goHome = function(){
@@ -10,6 +8,9 @@ app.controller('navCtrl',['$scope','$http', '$state', 'authFactory', '$rootScope
     };
     $scope.logout = function(){
         authFactory.setAuth(undefined);
+    };
+    $scope.register = function(){
+        $state.go("register");
     };
     $scope.getMember = function(){
         if(authFactory.getAuth() !== undefined){

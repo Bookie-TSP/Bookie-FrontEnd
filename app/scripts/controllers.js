@@ -167,8 +167,6 @@ app.controller( 'registerCtrl', [ '$scope', '$http', 'googleMap', '$state', 'aut
 		};
 } ] );
 
-var app = angular.module('app');
-
 app.factory('authFactory', function ($http, $rootScope, $localStorage) {
     return {
         getAuth: function() {
