@@ -176,12 +176,12 @@ app.controller( 'registerCtrl', [ '$scope', '$http', 'googleMap', '$state', 'aut
 					} )
 					.success( function ( data ) {
 						console.log( data );
-						authFactory.setAuth(data.auth_token);
-                        $state.go("home");
+						authFactory.setAuth( data.auth_token );
+						$state.go( "home" );
 					} )
 					.error( function ( data ) {
 						console.log( data );
-                        alert( "error : " + data.error );
+						alert( "error : " + data.error );
 					} );
 			}
 		};
@@ -211,73 +211,58 @@ app.factory( 'googleMap', function () {
 			draggable: true
 		} );
 
-		var styles = [
-			{
+		var styles = [ {
 				"featureType": "landscape",
 				"elementType": "labels",
-				"stylers": [
-					{
-						"visibility": "off"
-                            }
-                        ]
-                    },
-			{
+				"stylers": [ {
+					"visibility": "off"
+                } ]
+            },
+            {
 				"featureType": "poi",
 				"elementType": "labels",
-				"stylers": [
-					{
-						"visibility": "off"
-                            }
-                        ]
-                    },
-			{
+				"stylers": [ {
+					"visibility": "off"
+                } ]
+            },
+            {
 				"featureType": "road",
 				"elementType": "geometry",
-				"stylers": [
-					{
-						"lightness": 57
-                            }
-                        ]
-                    },
-			{
+				"stylers": [ {
+					"lightness": 57
+                } ]
+            },
+            {
 				"featureType": "road",
 				"elementType": "labels.text.fill",
-				"stylers": [
-					{
-						"visibility": "on"
-                            },
-					{
-						"lightness": 24
-                            }
-                        ]
-                    },
-			{
+				"stylers": [ {
+					"visibility": "on"
+                },
+                {
+					"lightness": 24
+                } ]
+            },
+            {
 				"featureType": "road",
 				"elementType": "labels.icon",
-				"stylers": [
-					{
-						"visibility": "off"
-                            }
-                        ]
-                    },
+				"stylers": [ {
+					"visibility": "off"
+                } ]
+            },
 			{
 				"featureType": "transit",
 				"elementType": "labels",
-				"stylers": [
-					{
-						"visibility": "off"
-                            }
-                        ]
-                    },
+				"stylers": [ {
+					"visibility": "off"
+                } ]
+            },
 			{
 				"featureType": "water",
 				"elementType": "labels",
-				"stylers": [
-					{
-						"visibility": "off"
-                            }
-                        ]
-                    }
+				"stylers": [ {
+					"visibility": "off"
+                } ]
+            }
         ];
 
 		var map = new google.maps.Map( document.getElementById( "googleMap" ), mapProp );
@@ -327,7 +312,7 @@ app.factory( 'googleMap', function () {
 
 	function init() {
 		google.maps.event.addDomListener( window, 'load', initialize );
-        console.log("init");
+		console.log( "init" );
 	}
 
 	// initial map and pin by calling initialize function
