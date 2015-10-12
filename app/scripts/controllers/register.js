@@ -3,6 +3,9 @@
  */
 app.controller( 'registerCtrl', [ '$scope', '$http', 'googleMap', '$state', 'authFactory',
         function ( $scope, $http, googleMap, $state, authFactory ) {
+		if ( authFactory.getAuth() !== undefined ) {
+			$state.go( "home" );
+		}
 		googleMap.init();
 		setInterval( function () {
 			// console.log(googleMap.position);

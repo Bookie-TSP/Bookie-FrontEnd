@@ -1,5 +1,5 @@
-angular.module('app',['ui.router', 'ngStorage'])
-.config(function($stateProvider, $urlRouterProvider) {
+var app = angular.module('app',['ui.router', 'ngStorage']);
+app.config(function($stateProvider, $urlRouterProvider) {
 
     $stateProvider
     .state('home', {
@@ -13,10 +13,81 @@ angular.module('app',['ui.router', 'ngStorage'])
      .state('register', {
         url: '/register',
         templateUrl: 'views/register.html'
+    })
+    .state('viewProfile', {
+        url: '/viewProfile',
+        templateUrl: 'views/viewProfile.html'
+    })
+    .state('editProfile', {
+        url: '/editProfile',
+        templateUrl: 'views/editProfile.html'
     });
   $urlRouterProvider.otherwise('/');
 
 });
+
+app.controller( 'editProfileCtrl', [ '$scope', '$http', 'googleMap', 'authFactory', '$q', '$state',
+    function ( $scope, $http, googleMap, authFactory, $q, $state ) {
+		if ( authFactory.getAuth() === undefined ) {
+			$state.go( "home" );
+		}
+		$scope.profileData = {};
+		$scope.getProfile = function () {
+			console.log( "Getting the profile" );
+			var config = {
+				headers: {
+					'Authorization': authFactory.getAuth()
+				}
+			};
+			var birth = {};
+			$q.all( [
+                $http.get( 'https://bookieservice.herokuapp.com/api/myprofile', config )
+              	.success( function ( data ) {
+						$scope.profileData = data;
+						console.log( data );
+					} )
+					.error( function ( data ) {
+						console.log( data );
+					} )
+            ] )
+				.then( function () {
+					birth = $scope.profileData.birth_date.split( "-" );
+					$scope.date = birth[ 2 ];
+					$scope.month = birth[ 1 ];
+					$scope.year = birth[ 0 ];
+				} );
+		};
+		$scope.getProfile();
+		$scope.editProfile = function () {
+			console.log( "Editing the profile" );
+			var config = {
+				headers: {
+					'Authorization': authFactory.getAuth()
+				}
+			};
+			var birth_date = $scope.date + "/" + $scope.month + "/" + $scope.year;
+			$http.put( 'https://bookieservice.herokuapp.com/api/members', {
+					member: {
+						email: $scope.profileData.email,
+						password: $scope.profileData.password,
+						password_confirmation: $scope.profileData.password,
+						first_name: $scope.profileData.first_name,
+						last_name: $scope.profileData.last_name,
+						phone_number: $scope.profileData.phone_number,
+						identification_number: $scope.profileData.identification_number,
+						gender: $scope.profileData.gender,
+						birth_date: birth_date
+					}
+				}, config )
+				.success( function ( data ) {
+					console.log( data );
+					$state.go( "viewProfile" );
+				} )
+				.error( function ( data ) {
+					console.log( data );
+				} );
+		};
+ } ] );
 
 app.controller('homeCtrl',['$scope','$http', '$state', '$rootScope',
   function($scope, $http, $state, $rootScope){
@@ -25,6 +96,9 @@ app.controller('homeCtrl',['$scope','$http', '$state', '$rootScope',
 
 app.controller('loginCtrl',['$scope','$http','$state', 'authFactory',
   function($scope, $http, $state, authFactory){
+      if ( authFactory.getAuth() !== undefined ) {
+          $state.go( "home" );
+      }
   	$scope.validation = "";
     setValidation = function(s){
     	$scope.validation = s;
@@ -51,7 +125,7 @@ app.controller('navCtrl',['$scope','$http', '$state', 'authFactory', '$rootScope
     $scope.goHome = function(){
         $state.go("home");
     };
-    $scope.goLogin = function(){
+    $scope.login = function(){
         $state.go("login");
     };
     $scope.logout = function(){
@@ -59,6 +133,10 @@ app.controller('navCtrl',['$scope','$http', '$state', 'authFactory', '$rootScope
     };
     $scope.register = function(){
         $state.go("register");
+    };
+    $scope.profile = function(){
+        console.log("asda");
+        $state.go("viewProfile");
     };
     $scope.getMember = function(){
         if(authFactory.getAuth() !== undefined){
@@ -83,41 +161,14 @@ app.controller('navCtrl',['$scope','$http', '$state', 'authFactory', '$rootScope
     });
 }]);
 
-angular.module('todo', [])
-	.controller('profileCtrl', ['$scope', '$http',
-function ($scope, $http) {
-	$scope.profileData = {};
-    $scope.login = function(){
-    	$http.post('https://bookieservice.herokuapp.com/api/sessions',{
-    		email: "bookie@ku.th",
-    		password: "12345678"
-    	})
-    	.success(function(data){
-    		console.log(JSON.stringify(data));
-    		console.log(data);
-    	}).error(function(data){
-    		console.log(JSON.stringify(data));
-    	});
-    };
-    $scope.getProfile = function() {
-    	var config = {headers: {
-            'Authorization': "UsUz-qtXaxcLGWf-_aaw"
-      	}};
-      	$http.get('https://bookieservice.herokuapp.com/api/myprofile', config)
-      	.success(function(data){
-      		$scope.profileData = data;
-      		console.log(JSON.stringify(data));
-      		console.log(data);
-      	}).error(function(data){
-      		console.log(JSON.stringify(data));
-      	});
-    }
-}]);
 /**
  * Created by nathakorn on 10/5/15 AD.
  */
 app.controller( 'registerCtrl', [ '$scope', '$http', 'googleMap', '$state', 'authFactory',
         function ( $scope, $http, googleMap, $state, authFactory ) {
+		if ( authFactory.getAuth() !== undefined ) {
+			$state.go( "home" );
+		}
 		googleMap.init();
 		setInterval( function () {
 			// console.log(googleMap.position);
@@ -167,7 +218,30 @@ app.controller( 'registerCtrl', [ '$scope', '$http', 'googleMap', '$state', 'aut
 		};
 } ] );
 
-var app = angular.module('app');
+app.controller('profileCtrl', ['$scope', '$http', '$state', 'authFactory',
+function ($scope, $http, $state, authFactory) {
+	if ( authFactory.getAuth() === undefined ) {
+		$state.go( "home" );
+	}
+	$scope.profileData = {};
+	$scope.editProfile = function(){
+		$state.go("editProfile");
+	};
+    $scope.getProfile = function() {
+      console.log("Getting the profile");
+    	var config = {headers: {
+            'Authorization': authFactory.getAuth()
+      	}};
+      	$http.get('https://bookieservice.herokuapp.com/api/myprofile', config)
+      	.success(function(data){
+      		$scope.profileData = data;
+      		console.log(data);
+      	}).error(function(data){
+      		console.log(JSON.stringify(data));
+      	});
+    };
+	$scope.getProfile();
+}]);
 
 app.factory('authFactory', function ($http, $rootScope, $localStorage) {
     return {
