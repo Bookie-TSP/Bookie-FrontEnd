@@ -8,42 +8,43 @@
     <link rel="stylesheet" type="css" href="../styles/vendor/bootstrap.min.css">
     <link rel="stylesheet" type="css" href="../styles/assets/googlemap.css">
     <script src="../scripts/vendor/googlemapAPI.js"></script>
+    <script src="../scripts/controllers/mapFactory.js"></script>
 </head>
 <body>
     <div ng-app="app" ng-controller="editProfileCtrl">
         <h1>{{profileData.first_name}} {{profileData.last_name}} Edit Profile Page</h1>
         <table class="table table-striped">
             <tr>
-                <td>User ID:</td>
-                <td>{{profileData.id}}</td>
-            </tr>
-            <tr>
-                <td>User E-Mail:</td>
+                <td>E-Mail:</td>
                 <td><input type="text" ng-model="profileData.email" id="email"></input><br></td>
             </tr>
             <tr>
-                <td>User First Name:</td>
+                <td>First Name:</td>
                 <td><input type="text" ng-model="profileData.first_name" id="firstname"></input><br></td>
             </tr>
             <tr>
-                <td>User Last Name:</td>
+                <td>Last Name:</td>
                 <td><input type="text" ng-model="profileData.last_name" id="lastname"></input><br></td>
             </tr>
             <tr>
-                <td>User Phone Number:</td>
+                <td>Phone Number:</td>
                 <td><input type="text" ng-model="profileData.phone_number" id="phonenumber"></input><br></td>
             </tr>
             <tr>
-                <td>User Identification Number:</td>
+                <td>Identification Number:</td>
                 <td><input type="text" ng-model="profileData.identification_number" id="idennumber"></input><br></td>
             </tr>
             <tr>
-                <td>User Gender:</td>
+                <td>Gender:</td>
                 <td><input type="text" ng-model="profileData.gender" id="gender"></input><br></td>
             </tr>
             <tr>
-                <td>User Birth Date:</td>
+                <td>Birth Date:</td>
                 <td><input type="text" ng-model="profileData.birth_date" id="birthdate"></input><br></td>
+            </tr>
+            <tr>
+                <td>Information:</td>
+                <td><input type="text" ng-model="profileData.information" id="birthdate"></input><br></td>
             </tr>
         </table>
         Password: <input type="password" ng-model="profileData.password" id="password"></input><br>

@@ -1,6 +1,6 @@
 angular.module('app', [])
-.controller('editProfileCtrl', ['$scope', '$http',
-  function ($scope, $http) {
+.controller('editProfileCtrl', ['$scope', '$http', 'googleMap',
+  function ($scope, $http, googleMap) {
      $scope.profileData = {};
      $scope.login = function(){
         console.log("Loging In");
@@ -39,6 +39,7 @@ angular.module('app', [])
         // $scope.member.password_confirmation = "123451234";
         console.log($scope.profileData);
         console.log("Password: " + $scope.profileData.password);
+        console.log("Information: " + $scope.profileData.information);
         $scope.email = $scope.profileData.email
         $http.put('https://bookieservice.herokuapp.com/api/members', {
             member: 
@@ -51,8 +52,15 @@ angular.module('app', [])
                 phone_number: $scope.profileData.phone_number,
                 identification_number: $scope.profileData.identification_number,
                 gender: $scope.profileData.gender,
-                birth_date: $scope.profileData.birth_date,
-                test: "TEST"
+                birth_date: $scope.profileData.birth_date
+            },
+            address:
+            {
+                first_name: $scope.profileData.first_name,
+                last_name: $scope.profileData.last_name,
+                latitude: "12",
+                longitude: "24",
+                information: $scope.profileData.information
             }
         },config)
         .success(function(data){
