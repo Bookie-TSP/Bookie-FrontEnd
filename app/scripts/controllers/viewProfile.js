@@ -1,5 +1,8 @@
 app.controller('profileCtrl', ['$scope', '$http', '$state', 'authFactory',
 function ($scope, $http, $state, authFactory) {
+	if ( authFactory.getAuth() === undefined ) {
+		$state.go( "home" );
+	}
 	$scope.profileData = {};
 	$scope.editProfile = function(){
 		$state.go("editProfile");

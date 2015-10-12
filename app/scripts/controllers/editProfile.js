@@ -1,5 +1,8 @@
 app.controller( 'editProfileCtrl', [ '$scope', '$http', 'googleMap', 'authFactory', '$q', '$state',
-  function ( $scope, $http, googleMap, authFactory, $q, $state ) {
+    function ( $scope, $http, googleMap, authFactory, $q, $state ) {
+		if ( authFactory.getAuth() === undefined ) {
+			$state.go( "home" );
+		}
 		$scope.profileData = {};
 		$scope.getProfile = function () {
 			console.log( "Getting the profile" );
@@ -36,7 +39,7 @@ app.controller( 'editProfileCtrl', [ '$scope', '$http', 'googleMap', 'authFactor
 			};
 			var birth_date = $scope.date + "/" + $scope.month + "/" + $scope.year;
 			$http.put( 'https://bookieservice.herokuapp.com/api/members', {
-			        member: {
+					member: {
 						email: $scope.profileData.email,
 						password: $scope.profileData.password,
 						password_confirmation: $scope.profileData.password,
@@ -50,10 +53,10 @@ app.controller( 'editProfileCtrl', [ '$scope', '$http', 'googleMap', 'authFactor
 				}, config )
 				.success( function ( data ) {
 					console.log( data );
-                    $state.go("viewProfile");
+					$state.go( "viewProfile" );
 				} )
 				.error( function ( data ) {
 					console.log( data );
-			});
+				} );
 		};
- }]);
+ } ] );
