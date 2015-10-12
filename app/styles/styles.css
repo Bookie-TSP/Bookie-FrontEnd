@@ -1,6 +1,19 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,300,400italic,500,700,100);
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,800,300,600,700);
 @import url(http://fonts.googleapis.com/css?family=Abel);
+<style type="text/css">
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#googleMap {
+  height: 65%;
+  width: 80%;
+  margin: 0 auto 0 auto;
+}
 .header-top {
   background: #000;
   padding: 15px 0;
