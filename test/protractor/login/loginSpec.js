@@ -1,9 +1,11 @@
 describe('Test Login Bookie App', function() {
     var email = element(by.model('email'));
     var password = element(by.model('password'));
+    var submit = element(by.css('[ng-click="login()"]'));
+    var errormsg = element(by.binding('validation'));
 
     beforeEach(function() {
-        browser.get('');
+        browser.get('index.html#/login');
     });
 
     var urlChanged = function(url) {
@@ -15,37 +17,39 @@ describe('Test Login Bookie App', function() {
     };
 
     it('should have a title', function() {
-        expect(browser.getTitle()).toEqual('Login');
+        expect(browser.getTitle()).toEqual('Bookie');
     });
 
-    // it('should check length of password', function() {
-    //     password.sendKeys('12345678');
-    //     password.getAttribute('value').then(function(psw) {
-    //         // var size = psw.length;
-    //         // expect(size).toEqual(8)
-    //         expect(psw).toHaveLength(3);
-    //     });
-    // });
-
-    it('should chang to index page', function() {
-       expect(false).toBeFalse();
+    it('should check length of password', function() {
+        password.sendKeys('12345678');
+        password.getAttribute('value').then(function(psw) {
+            var size = psw.length;
+            expect(size).toBeGreaterThan(7);
+        });
     });
 
-    /* it('email ', function() {
+     it('email should have @ symbol', function() {
         email.sendKeys('1111@a.com');
         email.getAttribute('value').then(function(mail) {
-            // var at = "";
-            // for(var i=0 , i<mail.length , i++){
-            //     if(mail.charAt(i) == "@"){
-            //         at = "@";
-            //         break;
-            //     }
-            // }
-            var at = mail.charAt(4);
-            expect(at).toEqual('@');
+            expect(mail).toContain("@");
         });
-        // expect('111@a.com').toEqual('111@a.com');
-    }); */
+    }); 
+
+     it('should filter email', function(){
+        //wrong email format
+        email.sendKeys('wrong_email');
+        password.sendKeys('12345678');
+        submit.click();
+        expect(browser.getCurrentUrl()).toEqual('http://127.0.0.1:8081/index.html#/login');
+        expect(errormsg.getText()).toBe('Invalid email or password');
+
+        //valid email
+        email.sendKeys('bookie@ku.th');
+        password.sendKeys('12345678');
+        submit.click();
+        expect(browser.getCurrentUrl()).toEqual('http://127.0.0.1:8081/index.html#/');
+        expect(errormsg.getText()).toBe('Invalid email or password');
+    });
 
     afterAll(function(done) {
         process.nextTick(done);
