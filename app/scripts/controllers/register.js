@@ -1,22 +1,19 @@
-/**
- * Created by nathakorn on 10/5/15 AD.
- */
-app.controller( 'registerCtrl', [ '$scope', '$http', 'googleMap', '$state', 'authFactory',
-        function ( $scope, $http, googleMap, $state, authFactory ) {
-		if ( authFactory.getAuth() !== undefined ) {
-			$state.go( "home" );
+app.controller('registerCtrl', ['$scope', '$http', 'googleMap', '$state', 'authFactory',
+        function ($scope, $http, googleMap, $state, authFactory) {
+		if (authFactory.getAuth() !== undefined) {
+			$state.go("home");
 		}
 		googleMap.init();
-		setInterval( function () {
+		setInterval(function () {
 			// console.log(googleMap.position);
-		}, 1000 );
+		}, 1000);
 
 		$scope.submit = function () {
 			var birth_date = $scope.day_birth + "/" + $scope.month_birth + "/" + $scope.year_birth;
 			var address_info = googleMap.position.address + " " + $scope.more_info;
 
-			if ( !$scope.agreeTerm ) {
-				alert( "Please agree the term of condition" );
+			if (!$scope.agreeTerm) {
+				alert("Please agree the term of condition");
 			} else {
 				var member = {
 					email: $scope.email,
@@ -38,19 +35,19 @@ app.controller( 'registerCtrl', [ '$scope', '$http', 'googleMap', '$state', 'aut
 				};
 
 				//send member&address
-				$http.post( 'https://bookieservice.herokuapp.com/api/members', {
+				$http.post('https://bookieservice.herokuapp.com/api/members', {
 						member: member,
 						address: address
-					} )
-					.success( function ( data ) {
-						console.log( data );
-						authFactory.setAuth( data.auth_token );
-						$state.go( "home" );
-					} )
-					.error( function ( data ) {
-						console.log( data );
-						alert( "error : " + data.error );
-					} );
+					})
+					.success(function (data) {
+						console.log(data);
+						authFactory.setAuth(data.auth_token);
+						$state.go("home");
+					})
+					.error(function (data) {
+						console.log(data);
+						alert("error : " + data.error);
+					});
 			}
 		};
-} ] );
+}]);

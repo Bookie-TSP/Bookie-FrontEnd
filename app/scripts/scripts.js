@@ -1,72 +1,72 @@
-var app = angular.module('app',['ui.router', 'ngStorage']);
-app.config(function($stateProvider, $urlRouterProvider) {
-
-    $stateProvider
-    .state('home', {
-        url: '/',
-        templateUrl: 'views/home.html'
-    })
-   .state('login', {
-		url: '/login',
-		templateUrl: 'views/login.html'
-	})
-     .state('register', {
-        url: '/register',
-        templateUrl: 'views/register.html'
-    })
-    .state('viewProfile', {
-        url: '/viewProfile',
-        templateUrl: 'views/viewProfile.html'
-    })
-    .state('editProfile', {
-        url: '/editProfile',
-        templateUrl: 'views/editProfile.html'
-    });
-  $urlRouterProvider.otherwise('/');
+var app = angular.module('app', ['ui.router', 'ngStorage']);
+app.config(function ($stateProvider, $urlRouterProvider) {
+	$stateProvider
+		.state('home', {
+			url: '/',
+			templateUrl: 'views/home.html'
+		})
+		.state('login', {
+			url: '/login',
+			templateUrl: 'views/login.html'
+		})
+		.state('register', {
+			url: '/register',
+			templateUrl: 'views/register.html'
+		})
+		.state('viewProfile', {
+			url: '/viewProfile',
+			templateUrl: 'views/viewProfile.html'
+		})
+		.state('editProfile', {
+			url: '/editProfile',
+			templateUrl: 'views/editProfile.html'
+		});
+	$urlRouterProvider.otherwise('/');
 
 });
 
-app.controller( 'editProfileCtrl', [ '$scope', '$http', 'googleMap', 'authFactory', '$q', '$state',
-    function ( $scope, $http, googleMap, authFactory, $q, $state ) {
-		if ( authFactory.getAuth() === undefined ) {
-			$state.go( "home" );
+app.controller('editProfileCtrl', ['$scope', '$http', 'googleMap', 'authFactory', '$q', '$state',
+	function ($scope, $http, googleMap, authFactory, $q, $state) {
+		if (authFactory.getAuth() === undefined) {
+			$state.go("home");
 		}
 		$scope.profileData = {};
 		$scope.getProfile = function () {
-			console.log( "Getting the profile" );
+			console.log("Getting the profile");
 			var config = {
 				headers: {
 					'Authorization': authFactory.getAuth()
 				}
 			};
 			var birth = {};
-			$q.all( [
-                $http.get( 'https://bookieservice.herokuapp.com/api/myprofile', config )
-              	.success( function ( data ) {
+			$q.all([
+					$http.get('https://bookieservice.herokuapp.com/api/myprofile', config)
+					.success(function (data) {
 						$scope.profileData = data;
-						console.log( data );
-					} )
-					.error( function ( data ) {
-						console.log( data );
-					} )
-            ] )
-				.then( function () {
-					birth = $scope.profileData.birth_date.split( "-" );
-					$scope.date = birth[ 2 ];
-					$scope.month = birth[ 1 ];
-					$scope.year = birth[ 0 ];
-				} );
+						console.log(data);
+					})
+					.error(function (data) {
+						console.log(data);
+					})
+				])
+				.then(function () {
+					birth = $scope.profileData.birth_date.split("-");
+					$scope.date = birth[2];
+					$scope.month = birth[1];
+					$scope.year = birth[0];
+				});
 		};
 		$scope.getProfile();
+
 		$scope.editProfile = function () {
-			console.log( "Editing the profile" );
+			console.log("Editing the profile");
 			var config = {
 				headers: {
 					'Authorization': authFactory.getAuth()
 				}
 			};
 			var birth_date = $scope.date + "/" + $scope.month + "/" + $scope.year;
-			$http.put( 'https://bookieservice.herokuapp.com/api/members', {
+			$http.put('https://bookieservice.herokuapp.com/api/members', {
 					member: {
 						email: $scope.profileData.email,
 						password: $scope.profileData.password,
@@ -78,108 +78,110 @@ app.controller( 'editProfileCtrl', [ '$scope', '$http', 'googleMap', 'authFactor
 						gender: $scope.profileData.gender,
 						birth_date: birth_date
 					}
-				}, config )
-				.success( function ( data ) {
-					console.log( data );
-					$state.go( "viewProfile" );
-				} )
-				.error( function ( data ) {
-					console.log( data );
-				} );
+				}, config)
+				.success(function (data) {
+					console.log(data);
+					$state.go("viewProfile");
+				})
+				.error(function (data) {
+					console.log(data);
+				});
 		};
- } ] );
+	}
+]);
 
 app.controller('homeCtrl',['$scope','$http', '$state', '$rootScope',
-  function($scope, $http, $state, $rootScope){
+    function($scope, $http, $state, $rootScope){
 
 }]);
 
-app.controller('loginCtrl',['$scope','$http','$state', 'authFactory',
-  function($scope, $http, $state, authFactory){
-      if ( authFactory.getAuth() !== undefined ) {
-          $state.go( "home" );
-      }
-  	$scope.validation = "";
-    setValidation = function(s){
-    	$scope.validation = s;
-    };
+app.controller('loginCtrl', ['$scope', '$http', '$state', 'authFactory',
+	function ($scope, $http, $state, authFactory) {
+		if (authFactory.getAuth() !== undefined) {
+			$state.go("home");
+		}
+		$scope.validation = "";
+		setValidation = function (s) {
+			$scope.validation = s;
+		};
 
-    $scope.login = function(){
-      $http.post('https://bookieservice.herokuapp.com/api/sessions',{
-        email: $scope.email,
-        password: $scope.password
-      })
-      .success(function(data){
-        $scope.auth = data.auth_token;
-        authFactory.setAuth($scope.auth);
-        $state.go("home");
-      }).error(function(data){
-        console.log(data);
-        setValidation("Invalid email or password");
-      });
-    };
+		$scope.login = function () {
+			$http.post('https://bookieservice.herokuapp.com/api/sessions', {
+					email: $scope.email,
+					password: $scope.password
+				})
+				.success(function (data) {
+					$scope.auth = data.auth_token;
+					authFactory.setAuth($scope.auth);
+					$state.go("home");
+				})
+				.error(function (data) {
+					console.log(data);
+					setValidation("Invalid email or password");
+				});
+		};
+	}
+]);
+
+app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootScope',
+  function ($scope, $http, $state, authFactory, $rootScope) {
+		$scope.goHome = function () {
+			$state.go("home");
+		};
+		$scope.login = function () {
+			$state.go("login");
+		};
+		$scope.logout = function () {
+			authFactory.setAuth(undefined);
+		};
+		$scope.register = function () {
+			$state.go("register");
+		};
+		$scope.profile = function () {
+			console.log("asda");
+			$state.go("viewProfile");
+		};
+		$scope.getMember = function () {
+			if (authFactory.getAuth() !== undefined) {
+				var config = {
+					headers: {
+						'Authorization': authFactory.getAuth()
+					}
+				};
+				$http.get('https://bookieservice.herokuapp.com/api/myprofile', config)
+					.success(function (data) {
+						$rootScope.member = data;
+					})
+					.error(function (data) {
+						console.log(data);
+					});
+			} else {
+				$rootScope.member = undefined;
+			}
+		};
+		$rootScope.member = $scope.getMember();
+		$scope.$on('authenticate', function () {
+			console.log("Change");
+			$rootScope.member = $scope.getMember();
+		});
 }]);
 
-app.controller('navCtrl',['$scope','$http', '$state', 'authFactory', '$rootScope',
-  function($scope, $http, $state, authFactory, $rootScope){
-    $scope.goHome = function(){
-        $state.go("home");
-    };
-    $scope.login = function(){
-        $state.go("login");
-    };
-    $scope.logout = function(){
-        authFactory.setAuth(undefined);
-    };
-    $scope.register = function(){
-        $state.go("register");
-    };
-    $scope.profile = function(){
-        console.log("asda");
-        $state.go("viewProfile");
-    };
-    $scope.getMember = function(){
-        if(authFactory.getAuth() !== undefined){
-            var config = {headers: {
-                    'Authorization': authFactory.getAuth()
-            }};
-            $http.get('https://bookieservice.herokuapp.com/api/myprofile',config)
-            .success(function(data){
-              $rootScope.member = data;
-            }).error(function(data){
-              console.log(data);
-            });
-        }
-        else{
-            $rootScope.member = undefined;
-        }
-    };
-    $rootScope.member = $scope.getMember();
-    $scope.$on('authenticate', function () {
-        console.log("Change");
-        $rootScope.member = $scope.getMember();
-    });
-}]);
-
-/**
- * Created by nathakorn on 10/5/15 AD.
- */
-app.controller( 'registerCtrl', [ '$scope', '$http', 'googleMap', '$state', 'authFactory',
-        function ( $scope, $http, googleMap, $state, authFactory ) {
-		if ( authFactory.getAuth() !== undefined ) {
-			$state.go( "home" );
+app.controller('registerCtrl', ['$scope', '$http', 'googleMap', '$state', 'authFactory',
+        function ($scope, $http, googleMap, $state, authFactory) {
+		if (authFactory.getAuth() !== undefined) {
+			$state.go("home");
 		}
 		googleMap.init();
-		setInterval( function () {
+		setInterval(function () {
 			// console.log(googleMap.position);
-		}, 1000 );
+		}, 1000);
 
 		$scope.submit = function () {
 			var birth_date = $scope.day_birth + "/" + $scope.month_birth + "/" + $scope.year_birth;
 			var address_info = googleMap.position.address + " " + $scope.more_info;
 
-			if ( !$scope.agreeTerm ) {
-				alert( "Please agree the term of condition" );
+			if (!$scope.agreeTerm) {
+				alert("Please agree the term of condition");
 			} else {
 				var member = {
 					email: $scope.email,
@@ -201,61 +203,64 @@ app.controller( 'registerCtrl', [ '$scope', '$http', 'googleMap', '$state', 'aut
 				};
 
 				//send member&address
-				$http.post( 'https://bookieservice.herokuapp.com/api/members', {
+				$http.post('https://bookieservice.herokuapp.com/api/members', {
 						member: member,
 						address: address
-					} )
-					.success( function ( data ) {
-						console.log( data );
-						authFactory.setAuth( data.auth_token );
-						$state.go( "home" );
-					} )
-					.error( function ( data ) {
-						console.log( data );
-						alert( "error : " + data.error );
-					} );
+					})
+					.success(function (data) {
+						console.log(data);
+						authFactory.setAuth(data.auth_token);
+						$state.go("home");
+					})
+					.error(function (data) {
+						console.log(data);
+						alert("error : " + data.error);
+					});
 			}
 		};
-} ] );
+}]);
 
 app.controller('profileCtrl', ['$scope', '$http', '$state', 'authFactory',
 function ($scope, $http, $state, authFactory) {
-	if ( authFactory.getAuth() === undefined ) {
-		$state.go( "home" );
-	}
-	$scope.profileData = {};
-	$scope.editProfile = function(){
-		$state.go("editProfile");
-	};
-    $scope.getProfile = function() {
-      console.log("Getting the profile");
-    	var config = {headers: {
-            'Authorization': authFactory.getAuth()
-      	}};
-      	$http.get('https://bookieservice.herokuapp.com/api/myprofile', config)
-      	.success(function(data){
-      		$scope.profileData = data;
-      		console.log(data);
-      	}).error(function(data){
-      		console.log(JSON.stringify(data));
-      	});
-    };
-	$scope.getProfile();
+		if (authFactory.getAuth() === undefined) {
+			$state.go("home");
+		}
+		$scope.profileData = {};
+		$scope.editProfile = function () {
+			$state.go("editProfile");
+		};
+		$scope.getProfile = function () {
+			console.log("Getting the profile");
+			var config = {
+				headers: {
+					'Authorization': authFactory.getAuth()
+				}
+			};
+			$http.get('https://bookieservice.herokuapp.com/api/myprofile', config)
+				.success(function (data) {
+					$scope.profileData = data;
+					console.log(data);
+				})
+				.error(function (data) {
+					console.log(JSON.stringify(data));
+				});
+		};
+		$scope.getProfile();
 }]);
 
 app.factory('authFactory', function ($http, $rootScope, $localStorage) {
-    return {
-        getAuth: function() {
-            return $localStorage.authToken;
-        },
-        setAuth: function(token) {
-            $localStorage.authToken = token;
-            $rootScope.$broadcast('authenticate');
-        }
-    };
+	return {
+		getAuth: function () {
+			return $localStorage.authToken;
+		},
+		setAuth: function (token) {
+			$localStorage.authToken = token;
+			$rootScope.$broadcast('authenticate');
+		}
+	};
 });
 
-app.factory( 'googleMap', function () {
+app.factory('googleMap', function () {
 	var position = {
 		lat: "13.752",
 		lng: "100.493",
@@ -266,7 +271,7 @@ app.factory( 'googleMap', function () {
 		var geocoder = new google.maps.Geocoder;
 		var infowindow = new google.maps.InfoWindow;
 
-		var bkk = new google.maps.LatLng( position.lat, position.lng );
+		var bkk = new google.maps.LatLng(position.lat, position.lng);
 		var mapProp = {
 			center: bkk,
 			zoom: 7,
@@ -274,113 +279,113 @@ app.factory( 'googleMap', function () {
 			disableDefaultUI: true
 		};
 
-		var marker = new google.maps.Marker( {
+		var marker = new google.maps.Marker({
 			position: bkk,
 			draggable: true
-		} );
+		});
 
-		var styles = [ {
+		var styles = [{
 				"featureType": "landscape",
 				"elementType": "labels",
-				"stylers": [ {
+				"stylers": [{
 					"visibility": "off"
-                } ]
+                }]
             },
-            {
+			{
 				"featureType": "poi",
 				"elementType": "labels",
-				"stylers": [ {
+				"stylers": [{
 					"visibility": "off"
-                } ]
+                }]
             },
-            {
+			{
 				"featureType": "road",
 				"elementType": "geometry",
-				"stylers": [ {
+				"stylers": [{
 					"lightness": 57
-                } ]
+                }]
             },
-            {
+			{
 				"featureType": "road",
 				"elementType": "labels.text.fill",
-				"stylers": [ {
-					"visibility": "on"
+				"stylers": [{
+						"visibility": "on"
                 },
-                {
-					"lightness": 24
-                } ]
+					{
+						"lightness": 24
+                }]
             },
-            {
+			{
 				"featureType": "road",
 				"elementType": "labels.icon",
-				"stylers": [ {
+				"stylers": [{
 					"visibility": "off"
-                } ]
+                }]
             },
 			{
 				"featureType": "transit",
 				"elementType": "labels",
-				"stylers": [ {
+				"stylers": [{
 					"visibility": "off"
-                } ]
+                }]
             },
 			{
 				"featureType": "water",
 				"elementType": "labels",
-				"stylers": [ {
+				"stylers": [{
 					"visibility": "off"
-                } ]
+                }]
             }
         ];
 
-		var map = new google.maps.Map( document.getElementById( "googleMap" ), mapProp );
-		marker.setMap( map );
-		map.setOptions( {
+		var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+		marker.setMap(map);
+		map.setOptions({
 			styles: styles
-		} );
+		});
 
-		google.maps.event.addListener( marker, 'dragend', function ( mark ) {
+		google.maps.event.addListener(marker, 'dragend', function (mark) {
 			var latitude = mark.latLng.lat();
 			var longitude = mark.latLng.lng();
-			geocodeLatLng( geocoder, map, marker, infowindow, latitude, longitude );
-			position.lat = latitude.toFixed( 3 );
-			position.lng = longitude.toFixed( 3 );
-			document.getElementById( 'current' )
-				.innerHTML = '<p>Marker dropped: Current Lat: ' + latitude.toFixed( 3 ) + ' Current Lng: ' + longitude.toFixed( 3 ) + '</p>';
-		} );
+			geocodeLatLng(geocoder, map, marker, infowindow, latitude, longitude);
+			position.lat = latitude.toFixed(3);
+			position.lng = longitude.toFixed(3);
+			document.getElementById('current')
+				.innerHTML = '<p>Marker dropped: Current Lat: ' + latitude.toFixed(3) + ' Current Lng: ' + longitude.toFixed(3) + '</p>';
+		});
 	}
 
 	// this function is used for convert lat and lng into address
-	function geocodeLatLng( geocoder, map, marker, infowindow, latitude, longitude ) {
+	function geocodeLatLng(geocoder, map, marker, infowindow, latitude, longitude) {
 		var latlng = {
 			lat: latitude,
 			lng: longitude
 		};
 
-		geocoder.geocode( {
+		geocoder.geocode({
 			'location': latlng
-		}, function ( results, status ) {
-			if ( status === google.maps.GeocoderStatus.OK ) {
-				if ( results[ 1 ] ) {
-					var address = results[ 1 ].formatted_address;
-					infowindow.setContent( address );
-					infowindow.open( map, marker );
+		}, function (results, status) {
+			if (status === google.maps.GeocoderStatus.OK) {
+				if (results[1]) {
+					var address = results[1].formatted_address;
+					infowindow.setContent(address);
+					infowindow.open(map, marker);
 
-					document.getElementById( 'address' )
+					document.getElementById('address')
 						.innerHTML = '<p>Current add: ' + address + '</p>';
 					position.address = address;
 				} else {
-					window.alert( 'No results found' );
+					window.alert('No results found');
 				}
 			} else {
-				window.alert( 'Geocoder failed due to: ' + status );
+				window.alert('Geocoder failed due to: ' + status);
 			}
-		} );
+		});
 	}
 
 	function init() {
-		google.maps.event.addDomListener( window, 'load', initialize );
-		console.log( "init" );
+		google.maps.event.addDomListener(window, 'load', initialize);
+		console.log("init");
 	}
 
 	// initial map and pin by calling initialize function
@@ -391,4 +396,4 @@ app.factory( 'googleMap', function () {
 		position: position
 
 	};
-} );
+});

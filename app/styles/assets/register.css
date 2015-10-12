@@ -1,14 +1,12 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,300,400italic,500,700,100);
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,800,300,600,700);
 @import url(http://fonts.googleapis.com/css?family=Abel);
-
 #form {
     display: block;
     margin-bottom: 185px;
     margin-top: 185px;
     overflow: hidden;
 }
-
 .register-form h2, .signup-form h2 {
     color: #696763;
     font-family: 'Roboto', sans-serif;
@@ -16,7 +14,6 @@
     font-weight: 300;
     margin-bottom: 30px;
 }
-
 .register-form form input {
     background: #F0F0E9;
     border: medium none;
@@ -31,22 +28,18 @@
     padding-left: 10px;
     width: 100%;
 }
-
-.register-form form span{
+.register-form form span {
     line-height: 25px;
 }
-
 .register-form form span input {
     width: 15px;
     float: left;
     height: 15px;
     margin-right: 5px;
 }
-
 .register-form form button {
     margin-top: 23px;
 }
-
 .register-form form button, .signup-form form button {
     background: #FE980F;
     border: medium none;
@@ -56,7 +49,6 @@
     font-family: 'Roboto', sans-serif;
     padding: 6px 25px;
 }
-
 .register-form label input {
     border: medium none;
     display: inline-block;
@@ -65,8 +57,7 @@
     outline: medium none;
     padding-left: 0;
 }
-
-.or{
+.or {
     background: #FE980F;
     border-radius: 40px;
     color: #FFFFFF;
@@ -86,13 +77,6 @@
     border-radius: 4px;
     color: #666;
 }
-
-#googleMap {
-    height: 350px;
-    width: 550px;
-    margin: 0 auto 0 auto;
-}
-
 .submitButton {
     display: block;
     width: 115px;
