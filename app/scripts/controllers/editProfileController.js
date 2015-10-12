@@ -51,7 +51,8 @@ angular.module('app', [])
                 phone_number: $scope.profileData.phone_number,
                 identification_number: $scope.profileData.identification_number,
                 gender: $scope.profileData.gender,
-                birth_date: $scope.profileData.birth_date
+                birth_date: $scope.profileData.birth_date,
+                test: "TEST"
             }
         },config)
         .success(function(data){

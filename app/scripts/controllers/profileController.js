@@ -1,4 +1,4 @@
-angular.module('todo', [])
+angular.module('app', [])
 	.controller('profileCtrl', ['$scope', '$http',
 function ($scope, $http) {
 	$scope.profileData = {};
