@@ -1,7 +1,6 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var concatCss = require('gulp-concat-css');
-var server = require( 'gulp-develop-server' );
 var browserSync = require('browser-sync').create();
 
 gulp.task('scripts', function() {
