@@ -32,7 +32,6 @@ describe('Login', function() {
         });
 
         it('should enter email correctly', function(){
-            //wrong email format
             email.sendKeys('wrong_email@ku.th');
             password.sendKeys('12345678');
             submit.click();
@@ -41,7 +40,6 @@ describe('Login', function() {
         });
 
         it('should enter valid email', function(){
-            //valid email
             email.sendKeys('bookie@ku.th');
             password.sendKeys('12345678');
             submit.click();
@@ -55,15 +53,44 @@ describe('Login', function() {
             expect(errormsg.getText()).toBe('Invalid email or password');
         });
 
+        it('should have @ only once', function() {
+            email.sendKeys('@@@@@@@.com');
+            password.sendKeys('12345678');
+            submit.click();
+            expect(errormsg.getText()).toBe('Invalid email or password');
+        });
     });
 
     describe('password', function() {
-        it('should check length of password', function() {
+        it('should have more than 8 letters long', function() {
             password.sendKeys('12345678');
             password.getAttribute('value').then(function(psw) {
                 var size = psw.length;
                 expect(size).toBeGreaterThan(7);
             });
+        });
+
+        it('can not less than 8 letters long', function() {
+            password.sendKeys('123');
+            password.getAttribute('value').then(function(psw) {
+                var size = psw.length;
+                expect(size).toBeLessThan(7);
+            });
+        });
+
+        it('space should be allowed', function() {
+            password.sendKeys('        ');
+            password.getAttribute('value').then(function(psw) {
+                var size = psw.length;
+                expect(size).toBeGreaterThan(7);
+            });
+        });
+
+        it('field can not be blank', function() {
+            email.sendKeys('123@ku.th');
+            submit.click();
+            expect(browser.getCurrentUrl()).toEqual('http://127.0.0.1:8081/index.html#/login');
+            expect(errormsg.getText()).toBe('Invalid email or password');
         });
     });
 
@@ -71,25 +98,25 @@ describe('Login', function() {
         var loginButton = element(by.css('[ng-click="goLogin()"]'));
         var registButton = element(by.css('[ng-click="getAuth()"]'));
 
-        it('should filter wrong input', function(){
+        it('should match with wrong input', function(){
             email.sendKeys('wrong_email');
             password.sendKeys('12345678');
             submit.click();
             expect(browser.getCurrentUrl()).toEqual('http://127.0.0.1:8081/index.html#/login');
             expect(errormsg.getText()).toBe('Invalid email or password');
-            expect(loginButton.isDisplayed()).toBe(true);
-            expect(registButton.isDisplayed()).toBe(true);
-            expect(navEmail.isDisplayed()).toBe(false);
+            // expect(loginButton.isDisplayed()).toBe(true);
+            // expect(registButton.isDisplayed()).toBe(true);
+            // expect(navEmail.isDisplayed()).toBe(false);
         });
 
-        it('should filter correct input', function(){
+        it('should match with correct input', function(){
             email.sendKeys('bookie@ku.th');
             password.sendKeys('12345678');
             submit.click();
             expect(browser.getCurrentUrl()).toEqual('http://127.0.0.1:8081/index.html#/');
             expect(navEmail.getText()).toBe('bookie@ku.th');
-            expect(loginButton.isDisplayed()).toBe(false);
-            expect(registButton.isDisplayed()).toBe(false);
+            // expect(loginButton.isDisplayed()).toBe(false);
+            // expect(registButton.isDisplayed()).toBe(false);
         });
     });
 
