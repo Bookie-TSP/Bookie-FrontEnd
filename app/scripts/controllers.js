@@ -1,125 +1,95 @@
-angular.module('app',['ui.router', 'ngStorage'])
-.config(function($stateProvider, $urlRouterProvider) {
+var app = angular.module('app',['ui.router', 'ngStorage']);
+app.config(function($stateProvider, $urlRouterProvider) {
 
     $stateProvider
     .state('home', {
         url: '/',
-        templateUrl: 'views/home.html',
-        cache: false
+        templateUrl: 'views/home.html'
     })
    .state('login', {
 		url: '/login',
 		templateUrl: 'views/login.html'
-	});
-
+	})
+     .state('register', {
+        url: '/register',
+        templateUrl: 'views/register.html'
+    })
+    .state('viewProfile', {
+        url: '/viewProfile',
+        templateUrl: 'views/viewProfile.html'
+    })
+    .state('editProfile', {
+        url: '/editProfile',
+        templateUrl: 'views/editProfile.html'
+    });
   $urlRouterProvider.otherwise('/');
 
 });
 
-var app = angular.module('app');
-
-app.factory('authFactory', function ($http, $rootScope, $localStorage) {
-    return {
-        getAuth: function() {
-            return $localStorage.authToken;
-        },
-        setAuth: function(token) {
-            $localStorage.authToken = token;
-            $rootScope.$broadcast('authenticate');
-        }
-    };
-});
-
-
-.controller( 'editProfileCtrl', [ '$scope', '$http', 'googleMap',
-  function ( $scope, $http, googleMap ) {
-			$scope.profileData = {};
-			$scope.login = function () {
-				console.log( "Loging In" );
-				$http.post( 'https://bookieservice.herokuapp.com/api/sessions', {
-						email: "bookie@ku.th",
-						password: "12345678"
-					} )
-					.success( function ( data ) {
-						console.log( JSON.stringify( data ) );
-						console.log( data );
-					} )
-					.error( function ( data ) {
-						console.log( JSON.stringify( data ) );
-					} );
+app.controller( 'editProfileCtrl', [ '$scope', '$http', 'googleMap', 'authFactory', '$q', '$state',
+  function ( $scope, $http, googleMap, authFactory, $q, $state ) {
+		$scope.profileData = {};
+		$scope.getProfile = function () {
+			console.log( "Getting the profile" );
+			var config = {
+				headers: {
+					'Authorization': authFactory.getAuth()
+				}
 			};
-			$scope.getProfile = function () {
-				console.log( "Getting the profile" );
-				var config = {
-					headers: {
-						'Authorization': "nZVpNDd93-vbK5QRZuts"
-					}
-				};
-				$http.get( 'https://bookieservice.herokuapp.com/api/myprofile', config )
-					.success( function ( data ) {
+			var birth = {};
+			$q.all( [
+                $http.get( 'https://bookieservice.herokuapp.com/api/myprofile', config )
+              	.success( function ( data ) {
 						$scope.profileData = data;
-
-						console.log( JSON.stringify( data ) );
 						console.log( data );
 					} )
 					.error( function ( data ) {
-						console.log( JSON.stringify( data ) );
-					} );
-			}
-			$scope.editProfile = function () {
-				console.log( "Editing the profile" );
-				var config = {
-					headers: {
-						'Authorization': "nZVpNDd93-vbK5QRZuts"
-					}
-				};
-				// $scope.member.password = "123451234";
-				// $scope.member.password_confirmation = "123451234";
-				console.log( $scope.profileData );
-				console.log( "Password: " + $scope.profileData.password );
-				console.log( "Information: " + $scope.profileData.information );
-				$scope.email = $scope.profileData.email
-				$http.put( 'https://bookieservice.herokuapp.com/api/members', {
-						member: {
-							email: $scope.profileData.email,
-							password: $scope.profileData.password,
-							password_confirmation: $scope.profileData.password,
-							first_name: $scope.profileData.first_name,
-							last_name: $scope.profileData.last_name,
-							phone_number: $scope.profileData.phone_number,
-							identification_number: $scope.profileData.identification_number,
-							gender: $scope.profileData.gender,
-							birth_date: $scope.profileData.birth_date
-						},
-						address: {
-							first_name: $scope.profileData.first_name,
-							last_name: $scope.profileData.last_name,
-							latitude: "12",
-							longitude: "24",
-							information: $scope.profileData.information
-						}
-					}, config )
-					.success( function ( data ) {
-						console.log( "Success" );
-						console.log( JSON.stringify( data ) );
 						console.log( data );
 					} )
-					.error( function ( data ) {
-						console.log( "Error" );
-						console.log( JSON.stringify( data ) );
-					} );
+            ] )
+				.then( function () {
+					birth = $scope.profileData.birth_date.split( "-" );
+					$scope.date = birth[ 2 ];
+					$scope.month = birth[ 1 ];
+					$scope.year = birth[ 0 ];
+				} );
+		};
+		$scope.getProfile();
+		$scope.editProfile = function () {
+			console.log( "Editing the profile" );
+			var config = {
+				headers: {
+					'Authorization': authFactory.getAuth()
+				}
 			};
-
-  } ] );
-
-var app = angular.module('app');
+			var birth_date = $scope.date + "/" + $scope.month + "/" + $scope.year;
+			$http.put( 'https://bookieservice.herokuapp.com/api/members', {
+			        member: {
+						email: $scope.profileData.email,
+						password: $scope.profileData.password,
+						password_confirmation: $scope.profileData.password,
+						first_name: $scope.profileData.first_name,
+						last_name: $scope.profileData.last_name,
+						phone_number: $scope.profileData.phone_number,
+						identification_number: $scope.profileData.identification_number,
+						gender: $scope.profileData.gender,
+						birth_date: birth_date
+					}
+				}, config )
+				.success( function ( data ) {
+					console.log( data );
+                    $state.go("viewProfile");
+				} )
+				.error( function ( data ) {
+					console.log( data );
+			});
+		};
+ }]);
 
 app.controller('homeCtrl',['$scope','$http', '$state', '$rootScope',
   function($scope, $http, $state, $rootScope){
 
 }]);
-
-var app = angular.module('app');
 
 app.controller('loginCtrl',['$scope','$http','$state', 'authFactory',
   function($scope, $http, $state, authFactory){
@@ -144,9 +114,136 @@ app.controller('loginCtrl',['$scope','$http','$state', 'authFactory',
     };
 }]);
 
+app.controller('navCtrl',['$scope','$http', '$state', 'authFactory', '$rootScope',
+  function($scope, $http, $state, authFactory, $rootScope){
+    $scope.goHome = function(){
+        $state.go("home");
+    };
+    $scope.login = function(){
+        $state.go("login");
+    };
+    $scope.logout = function(){
+        authFactory.setAuth(undefined);
+    };
+    $scope.register = function(){
+        $state.go("register");
+    };
+    $scope.profile = function(){
+        console.log("asda");
+        $state.go("viewProfile");
+    };
+    $scope.getMember = function(){
+        if(authFactory.getAuth() !== undefined){
+            var config = {headers: {
+                    'Authorization': authFactory.getAuth()
+            }};
+            $http.get('https://bookieservice.herokuapp.com/api/myprofile',config)
+            .success(function(data){
+              $rootScope.member = data;
+            }).error(function(data){
+              console.log(data);
+            });
+        }
+        else{
+            $rootScope.member = undefined;
+        }
+    };
+    $rootScope.member = $scope.getMember();
+    $scope.$on('authenticate', function () {
+        console.log("Change");
+        $rootScope.member = $scope.getMember();
+    });
+}]);
 
-angular.module('app')
-.factory('googleMap', function () {
+/**
+ * Created by nathakorn on 10/5/15 AD.
+ */
+app.controller( 'registerCtrl', [ '$scope', '$http', 'googleMap', '$state', 'authFactory',
+        function ( $scope, $http, googleMap, $state, authFactory ) {
+		googleMap.init();
+		setInterval( function () {
+			// console.log(googleMap.position);
+		}, 1000 );
+
+		$scope.submit = function () {
+			var birth_date = $scope.day_birth + "/" + $scope.month_birth + "/" + $scope.year_birth;
+			var address_info = googleMap.position.address + " " + $scope.more_info;
+
+			if ( !$scope.agreeTerm ) {
+				alert( "Please agree the term of condition" );
+			} else {
+				var member = {
+					email: $scope.email,
+					password: $scope.password,
+					password_confirmation: $scope.password_confirmation,
+					first_name: $scope.first_name,
+					last_name: $scope.last_name,
+					phone_number: $scope.phone_number,
+					identification_number: $scope.identification_number,
+					gender: $scope.gender,
+					birth_date: birth_date
+				};
+				var address = {
+					first_name: $scope.first_name,
+					last_name: $scope.last_name,
+					latitude: googleMap.position.lat,
+					longitude: googleMap.position.lng,
+					information: address_info
+				};
+
+				//send member&address
+				$http.post( 'https://bookieservice.herokuapp.com/api/members', {
+						member: member,
+						address: address
+					} )
+					.success( function ( data ) {
+						console.log( data );
+						authFactory.setAuth( data.auth_token );
+						$state.go( "home" );
+					} )
+					.error( function ( data ) {
+						console.log( data );
+						alert( "error : " + data.error );
+					} );
+			}
+		};
+} ] );
+
+app.controller('profileCtrl', ['$scope', '$http', '$state', 'authFactory',
+function ($scope, $http, $state, authFactory) {
+	$scope.profileData = {};
+	$scope.editProfile = function(){
+		$state.go("editProfile");
+	};
+    $scope.getProfile = function() {
+      console.log("Getting the profile");
+    	var config = {headers: {
+            'Authorization': authFactory.getAuth()
+      	}};
+      	$http.get('https://bookieservice.herokuapp.com/api/myprofile', config)
+      	.success(function(data){
+      		$scope.profileData = data;
+      		console.log(data);
+      	}).error(function(data){
+      		console.log(JSON.stringify(data));
+      	});
+    };
+	$scope.getProfile();
+}]);
+
+app.factory('authFactory', function ($http, $rootScope, $localStorage) {
+    return {
+        getAuth: function() {
+            return $localStorage.authToken;
+        },
+        setAuth: function(token) {
+            $localStorage.authToken = token;
+            $rootScope.$broadcast('authenticate');
+        }
+    };
+});
+
+app.factory( 'googleMap', function () {
 	var position = {
 		lat: "13.752",
 		lng: "100.493",
@@ -283,71 +380,3 @@ angular.module('app')
 
 	};
 } );
-var app = angular.module('app');
-
-app.controller('navCtrl',['$scope','$http', '$state', 'authFactory', '$rootScope',
-  function($scope, $http, $state, authFactory, $rootScope){
-    $scope.goHome = function(){
-        $state.go("home");
-    };
-    $scope.goLogin = function(){
-        $state.go("login");
-    };
-    $scope.logout = function(){
-        authFactory.setAuth(undefined);
-    };
-    $scope.getMember = function(){
-        if(authFactory.getAuth() !== undefined){
-            var config = {headers: {
-                    'Authorization': authFactory.getAuth()
-            }};
-            $http.get('https://bookieservice.herokuapp.com/api/myprofile',config)
-            .success(function(data){
-              $rootScope.member = data;
-            }).error(function(data){
-              console.log(data);
-            });
-        }
-        else{
-            $rootScope.member = undefined;
-        }
-    };
-    $rootScope.member = $scope.getMember();
-    $scope.$on('authenticate', function () {
-        console.log("Change");
-        $rootScope.member = $scope.getMember();
-    });
-}]);
-
-angular.module('app', [])
-	.controller('profileCtrl', ['$scope', '$http',
-function ($scope, $http) {
-	$scope.profileData = {};
-    $scope.login = function(){
-      console.log("Loging In");
-    	$http.post('https://bookieservice.herokuapp.com/api/sessions',{
-    		email: "test@test.test",
-    		password: "12345678"
-    	})
-    	.success(function(data){
-    		console.log(JSON.stringify(data));
-    		console.log(data);
-    	}).error(function(data){
-    		console.log(JSON.stringify(data));
-    	});
-    };
-    $scope.getProfile = function() {
-      console.log("Getting the profile");
-    	var config = {headers: {
-            'Authorization': "nZVpNDd93-vbK5QRZuts"
-      	}};
-      	$http.get('https://bookieservice.herokuapp.com/api/myprofile', config)
-      	.success(function(data){
-      		$scope.profileData = data;
-      		console.log(JSON.stringify(data));
-      		console.log(data);
-      	}).error(function(data){
-      		console.log(JSON.stringify(data));
-      	});
-    }
-}]);

@@ -1,39 +1,51 @@
-<div ng-app="app" ng-controller="profileCtrl">
-    <h1>{{profileData.first_name}} {{profileData.last_name}} Profile Page</h1>
+<div ng-controller="profileCtrl">
+    <h1>Profile Page</h1>
+    <h3>Information</h3>
     <table class="table table-striped">
         <tr>
-            <td>User ID:</td>
-            <td>{{profileData.id}}</td>
-        </tr>
-        <tr>
-            <td>User E-Mail:</td>
+            <td>E-Mail:</td>
             <td>{{profileData.email}}</td>
         </tr>
         <tr>
-            <td>User First Name:</td>
+            <td>First Name:</td>
             <td>{{profileData.first_name}}</td>
         </tr>
         <tr>
-            <td>User Last Name:</td>
+            <td>Last Name:</td>
             <td>{{profileData.last_name}}</td>
         </tr>
         <tr>
-            <td>User Phone Number:</td>
+            <td>Phone Number:</td>
             <td>{{profileData.phone_number}}</td>
         </tr>
         <tr>
-            <td>User Identification Number:</td>
+            <td>Identification Number:</td>
             <td>{{profileData.identification_number}}</td>
         </tr>
         <tr>
-            <td>User Gender:</td>
+            <td>Gender:</td>
             <td>{{profileData.gender}}</td>
         </tr>
         <tr>
-            <td>User Birth Date:</td>
+            <td>Birth Date:</td>
             <td>{{profileData.birth_date}}</td>
         </tr>
     </table>
-    <button type="submit" class="btn btn-default" ng-click="login()">Login</button>
-    <button type="submit" class="btn btn-default" ng-click="getProfile()">Get Profile</button>
+    
+    <h3>Address</h3>
+    <table class="table table-striped">
+        <tr>
+            <td>Longitude:</td>
+            <td>{{profileData.addresses[0].longitude}}</td>
+        </tr>
+        <tr>
+            <td>Laitude:</td>
+            <td>{{profileData.addresses[0].latitude}}</td>
+        </tr>
+        <tr>
+            <td>Information:</td>
+            <td>{{profileData.addresses[0].information}}</td>
+        </tr>
+    </table>
+    <button type="submit" class="btn btn-default" ng-click="editProfile()">Edit Profile</button>
 </div>

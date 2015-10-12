@@ -1,15 +1,20 @@
-var app = angular.module('app');
-
 app.controller('navCtrl',['$scope','$http', '$state', 'authFactory', '$rootScope',
   function($scope, $http, $state, authFactory, $rootScope){
     $scope.goHome = function(){
         $state.go("home");
     };
-    $scope.goLogin = function(){
+    $scope.login = function(){
         $state.go("login");
     };
     $scope.logout = function(){
         authFactory.setAuth(undefined);
+    };
+    $scope.register = function(){
+        $state.go("register");
+    };
+    $scope.profile = function(){
+        console.log("asda");
+        $state.go("viewProfile");
     };
     $scope.getMember = function(){
         if(authFactory.getAuth() !== undefined){

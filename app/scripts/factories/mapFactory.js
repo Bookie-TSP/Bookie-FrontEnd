@@ -1,6 +1,4 @@
-
-angular.module('app')
-.factory('googleMap', function () {
+app.factory( 'googleMap', function () {
 	var position = {
 		lat: "13.752",
 		lng: "100.493",
