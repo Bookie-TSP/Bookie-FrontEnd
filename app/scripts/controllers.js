@@ -18,14 +18,10 @@ angular.module('app',['ui.router', 'ngStorage'])
 
 });
 
-var app = angular.module('app');
-
 app.controller('homeCtrl',['$scope','$http', '$state', '$rootScope',
   function($scope, $http, $state, $rootScope){
 
 }]);
-
-var app = angular.module('app');
 
 app.controller('loginCtrl',['$scope','$http','$state', 'authFactory',
   function($scope, $http, $state, authFactory){
@@ -49,8 +45,6 @@ app.controller('loginCtrl',['$scope','$http','$state', 'authFactory',
       });
     };
 }]);
-
-var app = angular.module('app');
 
 app.controller('navCtrl',['$scope','$http', '$state', 'authFactory', '$rootScope',
   function($scope, $http, $state, authFactory, $rootScope){

@@ -1,5 +1,3 @@
-var app = angular.module('app');
-
 app.controller('loginCtrl',['$scope','$http','$state', 'authFactory',
   function($scope, $http, $state, authFactory){
   	$scope.validation = "";

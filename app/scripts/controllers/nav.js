@@ -1,5 +1,3 @@
-var app = angular.module('app');
-
 app.controller('navCtrl',['$scope','$http', '$state', 'authFactory', '$rootScope',
   function($scope, $http, $state, authFactory, $rootScope){
     $scope.goHome = function(){
