@@ -1,5 +1,8 @@
 app.controller('loginCtrl',['$scope','$http','$state', 'authFactory',
   function($scope, $http, $state, authFactory){
+      if ( authFactory.getAuth() !== undefined ) {
+          $state.go( "home" );
+      }
   	$scope.validation = "";
     setValidation = function(s){
     	$scope.validation = s;
