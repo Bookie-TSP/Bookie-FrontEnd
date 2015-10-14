@@ -26,8 +26,10 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
 				$http.get('https://bookieservice.herokuapp.com/api/myprofile', config)
 					.success(function (data) {
 						$rootScope.member = data;
+                        authFactory.setMember(data);
 					})
 					.error(function (data) {
+                        authFactory.setAuth(undefined);
 						console.log(data);
 					});
 			} else {

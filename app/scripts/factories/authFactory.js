@@ -6,6 +6,12 @@ app.factory('authFactory', function ($http, $rootScope, $localStorage) {
 		setAuth: function (token) {
 			$localStorage.authToken = token;
 			$rootScope.$broadcast('authenticate');
+		},
+		setMember: function (member) {
+			$localStorage.member = member;
+		},
+		getMember: function () {
+			return $localStorage.member;
 		}
 	};
 });

@@ -3,7 +3,7 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'googleMap', 'authFactory'
 		if (authFactory.getAuth() === undefined) {
 			$state.go("home");
 		}
-		$scope.profileData = {};
+
 		$scope.getProfile = function () {
 			console.log("Getting the profile");
 			var config = {
@@ -16,6 +16,8 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'googleMap', 'authFactory'
 					$http.get('https://bookieservice.herokuapp.com/api/myprofile', config)
 					.success(function (data) {
 						$scope.profileData = data;
+						authFactory.setMember(data);
+						$scope.profileData = authFactory.getMember();
 						console.log(data);
 					})
 					.error(function (data) {
@@ -23,15 +25,19 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'googleMap', 'authFactory'
 					})
 			])
 			.then(function () {
-				if($scope.profileData.birth_date !== null){
-					birth = $scope.profileData.birth_date.split("-");
-					$scope.date = birth[2];
-					$scope.month = birth[1];
-					$scope.year = birth[0];
-				}
+				$scope.setDate();
+				$state.go("viewProfile");
 			});
 		};
-		$scope.getProfile();
+
+		$scope.setDate = function () {
+			if($scope.profileData.birth_date !== null){
+				birth = $scope.profileData.birth_date.split("-");
+				$scope.date = birth[2];
+				$scope.month = birth[1];
+				$scope.year = birth[0];
+			}
+		};
 
 		$scope.editProfile = function () {
 			console.log("Editing the profile");
@@ -55,12 +61,20 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'googleMap', 'authFactory'
 					}
 				}, config)
 				.success(function (data) {
+					$scope.profileData.password = "";
+					$scope.getProfile();
 					console.log(data);
-					$state.go("viewProfile");
 				})
 				.error(function (data) {
 					console.log(data);
 				});
 		};
+
+		$scope.initial = function () {
+			$scope.profileData = authFactory.getMember();
+			$scope.setDate();
+		};
+
+		$scope.initial();
 	}
 ]);
