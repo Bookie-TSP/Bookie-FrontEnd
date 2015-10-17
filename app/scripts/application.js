@@ -20,6 +20,10 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 		.state('editProfile', {
 			url: '/editProfile',
 			templateUrl: 'views/editProfile.html'
+		})
+		.state('cart', {
+			url: '/cart',
+			templateUrl: 'views/cart.html'
 		});
 	$urlRouterProvider.otherwise('/');
 
