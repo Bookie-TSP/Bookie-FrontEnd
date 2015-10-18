@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<html>
-
+<html ng-app="app">
 	<head lang="en">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>Bookie</title>
+		<title ng-bind="$state.current.data.pageTitle"></title>
 		<link rel="stylesheet" href="styles/vendor/bootstrap.min.css">
 		<link rel="stylesheet" href="styles/styles.css">
 	</head>
 
-	<body ng-app="app">
+	<body>
 		<div class="script">
-			<script src="scripts/vendor/google-map.js"></script>
+			<script src="http://maps.googleapis.com/maps/api/js"></script>
 			<script src="scripts/vendor/jquery.js"></script>
 			<script src="scripts/vendor/angular.min.js"></script>
 			<script src="scripts/vendor/bootstrap.min.js"></script>
