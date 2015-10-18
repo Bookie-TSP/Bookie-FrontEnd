@@ -1,13 +1,14 @@
 <div ng-controller="bookProfileCtrl">
     <h1>Book Profile Page</h1>
     <h3>Book Informations</h3>
+    <image src="../images/emily.jpeg">
     <ul class="unstyled">
-        <li>Name: </li>
-        <li>ISBN: </li>
-        <li>author: </li>
-        <li>language: </li>
-        <li>pages: </li>
-        <li>publisher: </li>
+        <li>Title: {{bookInfo.title}}</li>
+        <li>ISBN: {{bookInfo.isbn}}</li>
+        <li>author: {{bookInfo.author}}</li>
+        <li>language: {{bookInfo.language}}</li>
+        <li>pages: {{bookInfo.pages}}</li>
+        <li>publisher: {{bookInfo.publisher}}</li>
     </ul>
     <div>
         <label class="radio">
