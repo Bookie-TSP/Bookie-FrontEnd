@@ -1,0 +1,23 @@
+<div ng-controller="bookProfileCtrl">
+    <h1>Book Profile Page</h1>
+    <h3>Book Informations</h3>
+    <ul class="unstyled">
+        <li>Name: </li>
+        <li>ISBN: </li>
+        <li>author: </li>
+        <li>language: </li>
+        <li>pages: </li>
+        <li>publisher: </li>
+    </ul>
+    <div>
+        <label class="radio">
+            <input type="radio" name="rentOrBuy" id="rent" value="rent" checked>
+            Rent
+        </label>
+        <label class="radio">
+            <input type="radio" name="rentOrBuy" id="buy" value="buy">
+            Buy
+        </label>
+    </div>
+    <button type="submit" class="btn btn-default" ng-click="addToCart()">Add To Cart</button>
+</div>

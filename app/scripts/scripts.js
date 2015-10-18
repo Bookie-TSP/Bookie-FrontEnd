@@ -25,6 +25,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			url: '/editProfile',
 			templateUrl: 'views/editProfile.html',
 			data : { pageTitle: 'Edit Profile' }
+		})
+		.state('bookProfile', {
+			url: '/bookProfile',
+			templateUrl: '/views/bookProfile.html',
+			data : { pageTitle: 'Book Profile' }
 		});
 	$urlRouterProvider.otherwise('/');
 
@@ -116,10 +121,18 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'googleMap', 'authFactory'
 	}
 ]);
 
-app.controller('homeCtrl',['$scope','$http', '$state', '$rootScope',
+app.controller('homeCtrl',['$scope', '$http', '$state', '$rootScope',
     function($scope, $http, $state, $rootScope){
 
 }]);
+
+app.controller('bookProfileCtrl',['$scope', '$http', '$state', 
+	function($scope, $http, $state, $rootScope){
+		$scope.addToCart = function() {
+			console.log("addToCart()");
+		}
+	}
+]);
 
 app.controller('loginCtrl', ['$scope', '$http', '$state', 'authFactory',
 	function ($scope, $http, $state, authFactory) {
