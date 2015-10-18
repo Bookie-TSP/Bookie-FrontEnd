@@ -35,6 +35,13 @@ function ($rootScope, $state, $stateParams) {
   $rootScope.$stateParams = $stateParams;
 }]);
 
+app.controller('bookCatalogCtrl', ['$scope', '$http', '$state', 'authFactory',
+function ($scope, $http, $state, authFactory) {
+		if (authFactory.getAuth() === undefined) {
+			$state.go("home");
+		}
+		
+}])
 app.controller('editProfileCtrl', ['$scope', '$http', 'googleMap', 'authFactory', '$q', '$state',
 	function ($scope, $http, googleMap, authFactory, $q, $state) {
 		if (authFactory.getAuth() === undefined) {
