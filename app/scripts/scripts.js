@@ -172,17 +172,6 @@ app.controller('registerCtrl', ['$scope', '$http', 'googleMap', '$state', 'authF
 		};
 }]);
 
-app.controller('profileCtrl', ['$scope', '$http', '$state', 'authFactory',
-function ($scope, $http, $state, authFactory) {
-		if (authFactory.getAuth() === undefined) {
-			$state.go("home");
-		}
-		$scope.profileData = authFactory.getMember();
-		$scope.editProfile = function () {
-			$state.go("editProfile");
-		};
-}]);
-
 app.factory('authFactory', function ($http, $rootScope, $localStorage) {
 	return {
 		getAuth: function () {
