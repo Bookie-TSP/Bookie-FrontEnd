@@ -40,7 +40,6 @@ function ($rootScope, $state, $stateParams) {
   $rootScope.$stateParams = $stateParams;
 }]);
 
-
 app.controller('homeCtrl',['$scope','$http', '$state', '$rootScope',
     function($scope, $http, $state, $rootScope){
 
