@@ -6,7 +6,7 @@ describe('Login', function() {
     var navEmail = element(by.binding('member.email'));
 
     beforeEach(function() {
-        browser.get('index.html#/login');
+        browser.get('/#/login');
     });
 
     var urlChanged = function(url) {
@@ -36,7 +36,7 @@ describe('Login', function() {
             email.sendKeys('wrong_email@ku.th');
             password.sendKeys('12345678');
             submit.click();
-            expect(browser.getCurrentUrl()).toEqual('http://127.0.0.1:8081/index.html#/login');
+            expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/login');
             expect(errormsg.getText()).toBe('Invalid email or password');
         });
 
@@ -45,53 +45,41 @@ describe('Login', function() {
             email.sendKeys('bookie@ku.th');
             password.sendKeys('12345678');
             submit.click();
-            expect(browser.getCurrentUrl()).toEqual('http://127.0.0.1:8081/index.html#/');
+            expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/');
         });
 
         it('field can not be blank', function() {
             password.sendKeys('12345678');
             submit.click();
-            expect(browser.getCurrentUrl()).toEqual('http://127.0.0.1:8081/index.html#/login');
+            expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/login');
             expect(errormsg.getText()).toBe('Invalid email or password');
         });
 
     });
 
-    describe('password', function() {
-        it('should check length of password', function() {
-            password.sendKeys('12345678');
-            password.getAttribute('value').then(function(psw) {
-                var size = psw.length;
-                expect(size).toBeGreaterThan(7);
-            });
-        });
-    });
+    // describe('password', function() {
+    //     it('should check length of password', function() {
+    //         password.sendKeys('12345678');
+    //         password.getAttribute('value').then(function(psw) {
+    //             var size = psw.length;
+    //             expect(size).toBeGreaterThan(7);
+    //         });
+    //     });
+    // });
 
-    describe('nav bar', function() {
-        var loginButton = element(by.css('[ng-click="goLogin()"]'));
-        var registButton = element(by.css('[ng-click="getAuth()"]'));
+    // describe('nav bar', function() {
+    //     var loginButton = element(by.css('[ng-click="goLogin()"]'));
+    //     var registButton = element(by.css('[ng-click="getAuth()"]'));
 
-        it('should filter wrong input', function(){
-            email.sendKeys('wrong_email');
-            password.sendKeys('12345678');
-            submit.click();
-            expect(browser.getCurrentUrl()).toEqual('http://127.0.0.1:8081/index.html#/login');
-            expect(errormsg.getText()).toBe('Invalid email or password');
-            expect(loginButton.isDisplayed()).toBe(true);
-            expect(registButton.isDisplayed()).toBe(true);
-            expect(navEmail.isDisplayed()).toBe(false);
-        });
-
-        it('should filter correct input', function(){
-            email.sendKeys('bookie@ku.th');
-            password.sendKeys('12345678');
-            submit.click();
-            expect(browser.getCurrentUrl()).toEqual('http://127.0.0.1:8081/index.html#/');
-            expect(navEmail.getText()).toBe('bookie@ku.th');
-            expect(loginButton.isDisplayed()).toBe(false);
-            expect(registButton.isDisplayed()).toBe(false);
-        });
-    });
+    //     it('should filter correct input', function(){
+    //         email.sendKeys('bookie@ku.th');
+    //         password.sendKeys('12345678');
+    //         submit.click();
+    //         expect(navEmail.getText()).toBe('bookie@ku.th');
+    //         // expect(loginButton.isDisplayed()).toBe(false);
+    //         // expect(registButton.isDisplayed()).toBe(false);
+    //     });
+    // });
 
     afterAll(function(done) {
         process.nextTick(done);
