@@ -7,14 +7,14 @@
     margin-top: 185px;
     overflow: hidden;
 }
-.login-form h2, .signup-form h2 {
+.register-form h2, .signup-form h2 {
     color: #696763;
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
     font-weight: 300;
     margin-bottom: 30px;
 }
-.login-form form input {
+.register-form form input {
     background: #F0F0E9;
     border: medium none;
     color: #696763;
@@ -28,19 +28,19 @@
     padding-left: 10px;
     width: 100%;
 }
-.login-form form span {
+.register-form form span {
     line-height: 25px;
 }
-.login-form form span input {
+.register-form form span input {
     width: 15px;
     float: left;
     height: 15px;
     margin-right: 5px;
 }
-.login-form form button {
+.register-form form button {
     margin-top: 23px;
 }
-.login-form form button, .signup-form form button {
+.register-form form button, .signup-form form button {
     background: #FE980F;
     border: medium none;
     border-radius: 0;
@@ -49,7 +49,7 @@
     font-family: 'Roboto', sans-serif;
     padding: 6px 25px;
 }
-.login-form label input {
+.register-form label input {
     border: medium none;
     display: inline-block;
     height: 0;
@@ -69,6 +69,22 @@
     text-align: center;
     width: 50px;
 }
-#validate {
-    color: #ff0000;
+.datefield {
+    display: inline;
+    padding: 0.3em;
+    border: inset 1px #CCC;
+    background: #FFF;
+    border-radius: 4px;
+    color: #666;
+}
+.submitButton {
+    display: block;
+    width: 115px;
+    height: 35px;
+    background: #4E9CAF;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
 }

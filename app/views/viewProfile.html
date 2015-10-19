@@ -1,0 +1,51 @@
+<div ng-controller="profileCtrl">
+    <h1>Profile Page</h1>
+    <h3>Information</h3>
+    <table class="table table-striped">
+        <tr>
+            <td>E-Mail:</td>
+            <td>{{profileData.email}}</td>
+        </tr>
+        <tr>
+            <td>First Name:</td>
+            <td>{{profileData.first_name}}</td>
+        </tr>
+        <tr>
+            <td>Last Name:</td>
+            <td>{{profileData.last_name}}</td>
+        </tr>
+        <tr>
+            <td>Phone Number:</td>
+            <td>{{profileData.phone_number}}</td>
+        </tr>
+        <tr>
+            <td>Identification Number:</td>
+            <td>{{profileData.identification_number}}</td>
+        </tr>
+        <tr>
+            <td>Gender:</td>
+            <td>{{profileData.gender}}</td>
+        </tr>
+        <tr>
+            <td>Birth Date:</td>
+            <td>{{profileData.birth_date}}</td>
+        </tr>
+    </table>
+
+    <h3>Address</h3>
+    <table class="table table-striped">
+        <tr>
+            <td>Longitude:</td>
+            <td>{{profileData.addresses[0].longitude}}</td>
+        </tr>
+        <tr>
+            <td>Laitude:</td>
+            <td>{{profileData.addresses[0].latitude}}</td>
+        </tr>
+        <tr>
+            <td>Information:</td>
+            <td>{{profileData.addresses[0].information}}</td>
+        </tr>
+    </table>
+    <button type="submit" class="btn btn-default" ng-click="editProfile()">Edit Profile</button>
+</div>
