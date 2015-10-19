@@ -40,6 +40,11 @@ function ($rootScope, $state, $stateParams) {
   $rootScope.$stateParams = $stateParams;
 }]);
 
+app.controller('cartCtrl',['$scope','$http', '$state',
+    function($scope, $http, $state){
+
+}]);
+
 app.controller('editProfileCtrl', ['$scope', '$http', 'googleMap', 'authFactory', '$q', '$state',
 	function ($scope, $http, googleMap, authFactory, $q, $state) {
 		if (authFactory.getAuth() === undefined) {
