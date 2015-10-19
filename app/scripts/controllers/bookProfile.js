@@ -84,11 +84,6 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
 			console.log("The book " + $scope.bookInfo.title + " has been added to the cart.");
 		}
 
-		$scope.moveToTop = function() {
-			$location.hash('top');
-			$anchorScroll();
-		}
-
 		// Use for scrolling the page to bottom
 		$scope.moveToBottom = function() {
 			$location.hash('bottom');

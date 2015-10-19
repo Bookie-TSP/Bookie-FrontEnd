@@ -1,5 +1,4 @@
 <div ng-controller="bookProfileCtrl">
-    <button id="top" ng-click="moveToBottom()">Move to bottom</button>
     <div class="container">
         <div class = "row">
             <div class="col-sm-6">
@@ -27,7 +26,7 @@
                 </ul>
             </div>
         </div>
-        
+
         <!-- Selecting to use the default address or new address the Member wants to receive the book -->
         <div>
             <h3>Shipping Address</h3><br>
@@ -36,8 +35,10 @@
             <div id="googleMap" style="width:400px;height:300px;"></div>
         </div><br><br>
 
-        <!-- Buy New Books tab heading and its items -->
+        <!-- Lists of shops in the nearby location that have the book to sell or for rent -->
         <uib-tabset justified="true">
+
+            <!-- Buy New Books tab heading and its items -->
             <uib-tab heading="Buy New Books" ng-click="moveToBottom()">
                 <table class="table table-striped">
                     <tr ng-repeat="book in newBooksInfo">
@@ -46,12 +47,13 @@
                         <td>{{book.address}}</td>
                         <td>In stock: {{book.quantity}}</td>
                         <td ng-if="book.quantity >= 1"><button>Add To Cart</button></td>
+                        <td ng-if="book.quantity == 0"></td>
                     </tr>
                 </table>
             </uib-tab>
 
             <!-- Buy Used Books tab heading and its items -->
-            <uib-tab heading="Buy Used Books">
+            <uib-tab heading="Buy Used Books" ng-click="moveToBottom()">
                 <table class="table table-striped">
                     <tr ng-repeat="book in oldBooksInfo">
                         <td>${{book.price}}</td>
@@ -59,12 +61,13 @@
                         <td>{{book.address}}</td>
                         <td>In stock: {{book.quantity}}</td>
                         <td ng-if="book.quantity >= 1"><button>Add To Cart</button></td>
+                        <td ng-if="book.quantity == 0"></td>
                     </tr>
                 </table>
             </uib-tab>
 
             <!-- Rent Books tab heading and its items -->
-            <uib-tab heading="Rent Books">
+            <uib-tab heading="Rent Books" ng-click="moveToBottom()">
                 <table class="table table-striped">
                     <tr ng-repeat="book in rentBooksInfo">
                         <td>${{book.price}}</td>
@@ -72,12 +75,13 @@
                         <td>{{book.address}}</td>
                         <td>In stock: {{book.quantity}}</td>
                         <td ng-if="book.quantity >= 1"><button>Add To Cart</button></td>
+                        <td ng-if="book.quantity == 0"></td>
                     </tr>
                 </table>
             </uib-tab>
         </uib-tabset>
 
-        <!-- This one below this is used mark an id for the scroller to scroll to it -->
-        <button id="bottom" ng-click="moveToTop()">Move to top</button>
+        <!-- A random tag used to locate a place for moveToBottom() to scroll to -->
+        <div id="bottom"></div>
     </div>
 </div>
