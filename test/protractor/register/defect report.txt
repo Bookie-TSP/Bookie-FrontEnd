@@ -1,0 +1,13 @@
+==== register ====
+- register แล้วยังไม่ต้องlogin
+- ช่องconfirm passwordเปลี่ยนสีคำ password match!
+- mobile view ---> nav bug
+- UI date of birth
+- map bug (have to refresh once)
+- title font ไม่เหมือนกับlogin เลือกเอาแค่แบบเดียว ทำให้เหมือนกัน
+- term of condition ---> nothing happen
+- sign up button ตัวหนังสือตกลงมา ไม่อยู่ตรงกลาง
+- 
+
+==== Profile ====
+- table ไม่ตรงกัน
