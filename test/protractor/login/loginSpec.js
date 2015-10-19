@@ -19,7 +19,7 @@ describe('Login', function() {
 
     describe('title', function() {
         it('should have a title', function() {
-            expect(browser.getTitle()).toEqual('Bookie');
+            expect(browser.getTitle()).toEqual('Login');
         });
     });
 
@@ -40,8 +40,8 @@ describe('Login', function() {
         });
 
         it('should enter valid email', function(){
-            email.sendKeys('bookie@ku.th');
-            password.sendKeys('12345678');
+            email.sendKeys('test@ku.th');
+            password.sendKeys('11111111');
             submit.click();
             expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/');
         });
@@ -89,7 +89,7 @@ describe('Login', function() {
         it('field can not be blank', function() {
             email.sendKeys('123@ku.th');
             submit.click();
-            expect(browser.getCurrentUrl()).toEqual('http://127.0.0.1:8081/index.html#/login');
+            expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/login');
             expect(errormsg.getText()).toBe('Invalid email or password');
         });
     });
@@ -102,7 +102,7 @@ describe('Login', function() {
             email.sendKeys('wrong_email');
             password.sendKeys('12345678');
             submit.click();
-            expect(browser.getCurrentUrl()).toEqual('http://127.0.0.1:8081/index.html#/login');
+            expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/login');
             expect(errormsg.getText()).toBe('Invalid email or password');
             // expect(loginButton.isDisplayed()).toBe(true);
             // expect(registButton.isDisplayed()).toBe(true);
@@ -113,7 +113,7 @@ describe('Login', function() {
             email.sendKeys('bookie@ku.th');
             password.sendKeys('12345678');
             submit.click();
-            expect(browser.getCurrentUrl()).toEqual('http://127.0.0.1:8081/index.html#/');
+            expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#');
             expect(navEmail.getText()).toBe('bookie@ku.th');
             // expect(loginButton.isDisplayed()).toBe(false);
             // expect(registButton.isDisplayed()).toBe(false);
