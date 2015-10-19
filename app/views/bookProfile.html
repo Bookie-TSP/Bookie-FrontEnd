@@ -1,4 +1,5 @@
 <div ng-controller="bookProfileCtrl">
+    <button id="top" ng-click="moveToBottom()">Move to bottom</button>
     <div class="container">
         <div class = "row">
             <div class="col-sm-6">
@@ -6,6 +7,8 @@
             </div>
         </div>
         <hr>
+
+        <!-- Information of the book -->
         <div class = "row">
             <div class="col-sm-4 col-sm-offset-2">
                 <image id = "book-cover" src="../images/emily.jpeg"></image>
@@ -24,14 +27,18 @@
                 </ul>
             </div>
         </div>
+        
+        <!-- Selecting to use the default address or new address the Member wants to receive the book -->
         <div>
             <h3>Shipping Address</h3><br>
             <input type="radio" name="address" id="defaultAddress" value="defaultAddress" checked><span style ="margin-left: 10px;margin-right: 10px">Default Address</span><br><br>
             <input type="radio" name="address" id="newAddress" value="newAddress"><span style ="margin-left: 10px; margin-right: 10px">New Address</span>
             <div id="googleMap" style="width:400px;height:300px;"></div>
         </div><br><br>
+
+        <!-- Buy New Books tab heading and its items -->
         <uib-tabset justified="true">
-            <uib-tab heading="Buy New Books">
+            <uib-tab heading="Buy New Books" ng-click="moveToBottom()">
                 <table class="table table-striped">
                     <tr ng-repeat="book in newBooksInfo">
                         <td>${{book.price}}</td>
@@ -42,6 +49,8 @@
                     </tr>
                 </table>
             </uib-tab>
+
+            <!-- Buy Used Books tab heading and its items -->
             <uib-tab heading="Buy Used Books">
                 <table class="table table-striped">
                     <tr ng-repeat="book in oldBooksInfo">
@@ -53,6 +62,8 @@
                     </tr>
                 </table>
             </uib-tab>
+
+            <!-- Rent Books tab heading and its items -->
             <uib-tab heading="Rent Books">
                 <table class="table table-striped">
                     <tr ng-repeat="book in rentBooksInfo">
@@ -65,5 +76,8 @@
                 </table>
             </uib-tab>
         </uib-tabset>
+
+        <!-- This one below this is used mark an id for the scroller to scroll to it -->
+        <button id="bottom" ng-click="moveToTop()">Move to top</button>
     </div>
 </div>
