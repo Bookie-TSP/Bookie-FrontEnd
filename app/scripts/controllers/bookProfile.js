@@ -44,6 +44,12 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
   			quantity: 11
   		},
   		{
+  			price: 198,
+  			quality: "Perfect",
+  			address: "505 Sampson Apt 3C",
+  			quantity: 23
+  		},
+  		{
   			price: 84,
   			quality: "Almost perfect",
   			address: "4770 Main St Dodgeville, WI 53222",
@@ -57,6 +63,18 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
   			quality: "Perfect",
   			address: "402 E Park Apt 202B Montfort, WI 53555",
   			quantity: 0
+  		},
+  		{
+  			price: 98,
+  			quality: "Very Good",
+  			address: "9910 High Hill Smd 941A",
+  			quantity: 0
+  		},
+  		{
+  			price: 176,
+  			quality: "Perfect",
+  			address: "505 Sampson Apt 3C",
+  			quantity: 32
   		},
   		{
   			price: 92,
