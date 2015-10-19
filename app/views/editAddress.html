@@ -1,0 +1,39 @@
+<div ng-controller="addressCtrl">
+    <h1>Edit Address</h1>
+    <div id="googleMap"></div>
+    <div id="current"></div>
+    <div id="address"></div>
+    <br>
+    <table class="table table-striped">
+        <tr>
+            <td>Latitude:</td>
+            <td>
+                <label>{{address.latitude}}</label>
+                <br>
+            </td>
+        </tr>
+        <tr>
+            <td>Longitude:</td>
+            <td>
+                <label>{{address.longitude}}</label>
+                <br>
+            </td>
+        </tr>
+        <tr>
+            <td>More Information:</td>
+            <td>
+                <input type="text" ng-model="address.information"></input>
+                <br>
+            </td>
+        </tr>
+        <tr>
+            <td>Password (For Confirmation):</td>
+            <td>
+                <input type="password" ng-model="profileData.password" id="birthdate"></input>
+                <br>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <button type="submit" class="btn btn-default" ng-click="editProfile()" id="editProfileBtn">Edit</button>
+</div>

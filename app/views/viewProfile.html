@@ -1,4 +1,4 @@
-<div ng-controller="profileCtrl">
+<div class="container" ng-controller="profileCtrl">
     <h1>Profile Page</h1>
     <h3>Information</h3>
     <table class="table table-striped">
@@ -31,6 +31,7 @@
             <td>{{profileData.birth_date}}</td>
         </tr>
     </table>
+    <button type="submit" class="btn btn-default" ng-click="editProfile()">Edit Profile</button>
 
     <h3>Address</h3>
     <table class="table table-striped">
@@ -47,5 +48,6 @@
             <td>{{profileData.addresses[0].information}}</td>
         </tr>
     </table>
-    <button type="submit" class="btn btn-default" ng-click="editProfile()">Edit Profile</button>
+    <button type="submit" class="btn btn-default" ng-click="editAddress()">Edit Address</button>
+
 </div>

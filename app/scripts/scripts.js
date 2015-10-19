@@ -25,6 +25,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			url: '/editProfile',
 			templateUrl: 'views/editProfile.html',
 			data : { pageTitle: 'Edit Profile' }
+		})
+		.state('editAddress', {
+			url: '/editAddress',
+			templateUrl: 'views/editAddress.html',
+			data : { pageTitle: 'Edit Address' }
 		});
 	$urlRouterProvider.otherwise('/');
 
@@ -33,6 +38,17 @@ app.run([ '$rootScope', '$state', '$stateParams',
 function ($rootScope, $state, $stateParams) {
   $rootScope.$state = $state;
   $rootScope.$stateParams = $stateParams;
+}]);
+
+app.controller('addressCtrl',['$scope','$http', '$state', 'googleMap', 'authFactory', '$rootScope',
+    function($scope, $http, $state, googleMap, authFactory, $rootScope){
+        $rootScope.address = authFactory.getMember().addresses[0];
+        googleMap.setPosition($rootScope.address.latitude, $rootScope.address.longitude);
+        googleMap.init();
+
+        
+
+
 }]);
 
 app.controller('editProfileCtrl', ['$scope', '$http', 'googleMap', 'authFactory', '$q', '$state',
@@ -257,6 +273,9 @@ function ($scope, $http, $state, authFactory) {
 		$scope.editProfile = function () {
 			$state.go("editProfile");
 		};
+		$scope.editAddress = function () {
+			$state.go("editAddress");
+		};
 }]);
 
 app.factory('authFactory', function ($http, $rootScope, $localStorage) {
@@ -277,12 +296,17 @@ app.factory('authFactory', function ($http, $rootScope, $localStorage) {
 	};
 });
 
-app.factory('googleMap', function () {
+app.factory('googleMap', function ($rootScope) {
 	var position = {
 		lat: "13.752",
 		lng: "100.493",
 		address: ""
 	};
+
+	function setPosition(latitude, longitude){
+		position.lat = latitude;
+		position.lng = longitude;
+	}
 
 	function initialize() {
 		var geocoder = new google.maps.Geocoder;
@@ -369,6 +393,7 @@ app.factory('googleMap', function () {
 			position.lng = longitude.toFixed(3);
 			document.getElementById('current')
 				.innerHTML = '<p>Marker dropped: Current Lat: ' + latitude.toFixed(3) + ' Current Lng: ' + longitude.toFixed(3) + '</p>';
+
 		});
 	}
 
@@ -410,7 +435,7 @@ app.factory('googleMap', function () {
 		init: init,
 		initialize: initialize,
 		geocodeLatLng: geocodeLatLng,
-		position: position
-
+		position: position,
+		setPosition: setPosition
 	};
 });

@@ -1,9 +1,14 @@
-app.factory('googleMap', function () {
+app.factory('googleMap', function ($rootScope) {
 	var position = {
 		lat: "13.752",
 		lng: "100.493",
 		address: ""
 	};
+
+	function setPosition(latitude, longitude){
+		position.lat = latitude;
+		position.lng = longitude;
+	}
 
 	function initialize() {
 		var geocoder = new google.maps.Geocoder;
@@ -90,6 +95,7 @@ app.factory('googleMap', function () {
 			position.lng = longitude.toFixed(3);
 			document.getElementById('current')
 				.innerHTML = '<p>Marker dropped: Current Lat: ' + latitude.toFixed(3) + ' Current Lng: ' + longitude.toFixed(3) + '</p>';
+
 		});
 	}
 
@@ -131,7 +137,7 @@ app.factory('googleMap', function () {
 		init: init,
 		initialize: initialize,
 		geocodeLatLng: geocodeLatLng,
-		position: position
-
+		position: position,
+		setPosition: setPosition
 	};
 });

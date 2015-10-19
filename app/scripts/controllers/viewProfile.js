@@ -7,4 +7,7 @@ function ($scope, $http, $state, authFactory) {
 		$scope.editProfile = function () {
 			$state.go("editProfile");
 		};
+		$scope.editAddress = function () {
+			$state.go("editAddress");
+		};
 }]);
