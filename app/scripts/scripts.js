@@ -29,7 +29,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 		.state('cart', {
 			url: '/cart',
 			templateUrl: 'views/cart.html',
-			data : { pageTitle: 'Cart' }
+			data : { pageTitle: 'My Cart' }
 		});
 	$urlRouterProvider.otherwise('/');
 

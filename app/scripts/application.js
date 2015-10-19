@@ -23,16 +23,13 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 		})
 		.state('editProfile', {
 			url: '/editProfile',
-<<<<<<< HEAD
-			templateUrl: 'views/editProfile.html'
+			templateUrl: 'views/editProfile.html',
+			data : { pageTitle: 'Edit Profile' }
 		})
 		.state('cart', {
 			url: '/cart',
-			templateUrl: 'views/cart.html'
-=======
-			templateUrl: 'views/editProfile.html',
-			data : { pageTitle: 'Edit Profile' }
->>>>>>> master
+			templateUrl: 'views/cart.html',
+			data : { pageTitle: 'My Cart' }
 		});
 	$urlRouterProvider.otherwise('/');
 
