@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ui.router', 'ngStorage']);
+var app = angular.module('app', ['ui.router', 'ngStorage', 'ui.bootstrap']);
 app.config(function ($stateProvider, $urlRouterProvider) {
 	$stateProvider
 		.state('home', {
