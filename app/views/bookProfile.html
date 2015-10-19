@@ -31,9 +31,39 @@
             <div id="googleMap" style="width:400px;height:300px;"></div>
         </div><br><br>
         <uib-tabset justified="true">
-            <uib-tab heading="Justified">Justified content</uib-tab>
-            <uib-tab heading="SJ">Short Labeled Justified content</uib-tab>
-            <uib-tab heading="Long Justified">Long Labeled Justified content</uib-tab>
+            <uib-tab heading="Buy New Books">
+                <table class="table table-striped">
+                    <tr ng-repeat="book in newBooksInfo">
+                        <td>${{book.price}}</td>
+                        <td>{{book.quality}}</td>
+                        <td>{{book.address}}</td>
+                        <td>In stock: {{book.quantity}}</td>
+                        <td ng-if="book.quantity >= 1"><button>Add To Cart</button></td>
+                    </tr>
+                </table>
+            </uib-tab>
+            <uib-tab heading="Buy Used Books">
+                <table class="table table-striped">
+                    <tr ng-repeat="book in oldBooksInfo">
+                        <td>${{book.price}}</td>
+                        <td>{{book.quality}}</td>
+                        <td>{{book.address}}</td>
+                        <td>In stock: {{book.quantity}}</td>
+                        <td ng-if="book.quantity >= 1"><button>Add To Cart</button></td>
+                    </tr>
+                </table>
+            </uib-tab>
+            <uib-tab heading="Rent Books">
+                <table class="table table-striped">
+                    <tr ng-repeat="book in rentBooksInfo">
+                        <td>${{book.price}}</td>
+                        <td>{{book.quality}}</td>
+                        <td>{{book.address}}</td>
+                        <td>In stock: {{book.quantity}}</td>
+                        <td ng-if="book.quantity >= 1"><button>Add To Cart</button></td>
+                    </tr>
+                </table>
+            </uib-tab>
         </uib-tabset>
     </div>
 </div>
