@@ -1,10 +1,9 @@
 app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$location', '$state', 'googleMap', 'authFactory',
   function ($scope, $http, $anchorScroll, $location, $state, googleMap, authFactory) {
     $scope.loggedIn = false;
-
+    googleMap.initialize();
     // Check whether the Member has logged in or not
     if (authFactory.getAuth() !== undefined) {
-      googleMap.initialize();
       loggedIn = true;
     }
 
