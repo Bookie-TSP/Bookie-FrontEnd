@@ -29,28 +29,30 @@
 
                 <h4>Date of Birth</h4>
                 <br>
-                <div>
-                    <select id="date" ng-model="day_birth">
-                        <option value="">---Date---</option>
-                        <option ng-repeat="date in initDates" value="{{date}}">{{date}}</option>
-                    </select>
+                <center>
+                    <div>
+                        <select id="date" ng-model="day_birth">
+                            <option value="">---Date---</option>
+                            <option ng-repeat="date in initDates" value="{{date}}">{{date}}</option>
+                        </select>
 
-                    <select id="month" ng-model="month_birth">
-                        <option value="">---Month---</option>
-                        <option ng-repeat="month in initMonths" value="{{month}}">{{month}}</option>
-                    </select>
+                        <select id="month" ng-model="month_birth">
+                            <option value="">---Month---</option>
+                            <option ng-repeat="month in initMonths" value="{{month}}">{{month}}</option>
+                        </select>
 
-                    <select id="year" ng-model="year_birth">
-                        <option value="">---Year---</option>
-                        <option ng-repeat="year in initYears" value="{{year}}">{{year}}</option>
-                    </select>
-                </div>
+                        <select id="year" ng-model="year_birth">
+                            <option value="">---Year---</option>
+                            <option ng-repeat="year in initYears" value="{{year}}">{{year}}</option>
+                        </select>
+                    </div>
+                </center>
                 <br>
                 <br>
                 <div>
                     <h4> Gender </h4>
-                    <input type="radio" name="sex" value="male" ng-model="gender"> Male
-                    <input type="radio" name="sex" value="female" ng-model="gender"> Female
+                    <input type="radio" name="sex" value="Male" ng-model="gender"> Male &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="sex" value="Female" ng-model="gender"> Female
                 </div>
                 <br>
                 <h4>Address</h4>
@@ -62,13 +64,15 @@
                     <div id="address"></div>
                 </div>
                 <br>
+                <br>
                 <div class="register-form">
                     <form action="#">
                         <input type="text" placeholder="More Info" ng-model="more_info">
                         <br>
                         <input type="text" placeholder="Phone number" ng-model="phone_number">
                         <br>
-                        <a href=""><h4>Term of condition</h4></a>
+                        <a href="">Terms of condition</a>
+                        <br>
                         <br>
                         <span>
                             <input type="checkbox" ng-model="agreeTerm">I agree with term of condition

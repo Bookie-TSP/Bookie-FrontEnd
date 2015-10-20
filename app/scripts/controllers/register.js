@@ -57,7 +57,7 @@ app.controller('registerCtrl', ['$scope', '$http', 'googleMap', '$state', 'authF
 					.success(function (data) {
 						console.log(data);
 						authFactory.setAuth(data.auth_token);
-						$state.go("home");
+						$state.go("login");
 					})
 					.error(function (data) {
 						console.log(data);

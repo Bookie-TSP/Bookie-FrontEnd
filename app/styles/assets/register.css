@@ -10,7 +10,6 @@
 .register-form h2, .signup-form h2 {
     color: #696763;
     font-family: 'Roboto', sans-serif;
-    font-weight: 300;
     margin-bottom: 30px;
 }
 
@@ -103,4 +102,5 @@
 
 #date, #month, #year {
     width: 120px;
+    margin-left: 10px;
 }

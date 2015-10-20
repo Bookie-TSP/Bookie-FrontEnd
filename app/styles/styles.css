@@ -85,20 +85,20 @@ body {
   font-family: 'Roboto', sans-serif;
   padding-top: 70px;
 }
-#form {
-  display: block;
-  margin-bottom: 185px;
-  margin-top: 185px;
-  overflow: hidden;
-}
+/*#form {
+    display: block;
+    margin-bottom: 185px;
+    margin-top: 180px;
+    overflow: hidden;
+}*/
 
 .login-form h2,
 .signup-form h2 {
   color: #696763;
   font-family: 'Roboto', sans-serif;
-  font-size: 20px;
-  font-weight: 300;
-  margin-bottom: 30px;
+  /*font-size: 20px;
+    font-weight: 300;*/
+  /*margin-bottom: 30px;*/
 }
 
 .login-form form input {
@@ -178,7 +178,6 @@ body {
 .signup-form h2 {
   color: #696763;
   font-family: 'Roboto', sans-serif;
-  font-weight: 300;
   margin-bottom: 30px;
 }
 
@@ -284,4 +283,5 @@ body {
 #month,
 #year {
   width: 120px;
+  margin-left: 10px;
 }
