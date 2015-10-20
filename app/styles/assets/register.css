@@ -14,6 +14,11 @@
     margin-bottom: 30px;
 }
 
+.register-form h4, .register-form h5{
+    color: #696763;
+    font-family: 'Roboto', sans-serif;
+}
+
 #validate {
     color: #ff0000;
 }
@@ -94,4 +99,8 @@
     border-radius: 5px;
     color: white;
     font-weight: bold;
+}
+
+#date, #month, #year {
+    width: 120px;
 }
