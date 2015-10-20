@@ -6,7 +6,7 @@
 @import url(http://fonts.googleapis.com/css?family=Abel);
 #googleMap {
   height: 350px;
-  width: 550px;
+  width: 500px;
   margin: 0 auto 0 auto;
 }
 .header-top {
@@ -178,9 +178,16 @@ body {
 .signup-form h2 {
   color: #696763;
   font-family: 'Roboto', sans-serif;
-  font-size: 20px;
   font-weight: 300;
   margin-bottom: 30px;
+}
+
+#validate {
+  color: #ff0000;
+}
+
+#pass {
+  color: #007500;
 }
 
 .register-form form input {
