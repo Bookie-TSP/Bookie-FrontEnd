@@ -228,6 +228,10 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'googleMap', 'authFactory'
 			$scope.setDate();
 		};
 
+		$scope.backToViewProfile = function() {
+			$state.go("viewProfile");
+		}
+
 		$scope.initial();
 	}
 ]);
