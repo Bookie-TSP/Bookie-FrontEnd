@@ -1,22 +1,22 @@
-<div ng-controller="editProfileCtrl">
+<div class="container" ng-controller="editProfileCtrl">
     <h1>Edit Profile Page</h1>
     <table class="table table-striped">
         <tr>
-            <td>E-Mail:</td>
+            <td>Email:</td>
             <td>
                 <input type="text" ng-model="profileData.email" id="email"></input>
                 <br>
             </td>
         </tr>
         <tr>
-            <td>First Name:</td>
+            <td>Firstname:</td>
             <td>
                 <input type="text" ng-model="profileData.first_name" id="firstname"></input>
                 <br>
             </td>
         </tr>
         <tr>
-            <td>Last Name:</td>
+            <td>Lastname:</td>
             <td>
                 <input type="text" ng-model="profileData.last_name" id="lastname"></input>
                 <br>
@@ -39,19 +39,29 @@
         <tr>
             <td>Gender:</td>
             <td>
-                <input type="radio" name="sex" value="male" ng-model="profileData.gender"> Male
-                <input type="radio" name="sex" value="female" ng-model="profileData.gender"> Female
+                <input type="radio" name="sex" value="Male" ng-model="profileData.gender"> Male
+                <input type="radio" name="sex" value="Female" ng-model="profileData.gender"> Female
                 <br>
             </td>
         </tr>
         <tr>
             <td>Birth Date:</td>
             <td>
-                <div id="Birth_Date" class="datefield">
-                    <input id="day" type="tel" maxlength="2" placeholder="DD" ng-model="date" />
-                    <input id="month" type="tel" maxlength="2" placeholder="MM" ng-model="month" />
-                    <input id="year" type="tel" maxlength="4" placeholder="YYYY (A.D.)" ng-model="year" />
-                </div>
+                <select id="date" ng-model="date">
+                    <option value="">---Date---</option>
+                    <option ng-repeat="d in initDates" value="{{d}}" ng-selected="date == d">{{d}}</option>
+                </select>
+
+                <select id="month" ng-model="month">
+                    <option value="">---Month---</option>
+                    <option ng-repeat="m in initMonths" value="{{m}}" ng-selected="month == m">{{m}}</option>
+                </select>
+
+                <select id="year" ng-model="year">
+                    <option value="">---Year---</option>
+                    <option ng-repeat="y in initYears" value="{{y}}" ng-selected="year == y">{{y}}</option>
+                </select>
+
                 <br>
             </td>
         </tr>
@@ -59,13 +69,12 @@
             <td>Password (For Confirmation):</td>
             <td>
                 <input type="password" ng-model="profileData.password" id="birthdate"></input>
+                <p id="validate" ng-show="error">Password is not correct</p>
                 <br>
             </td>
         </tr>
     </table>
     <br>
     <button type="submit" class="btn btn-default" ng-click="editProfile()" id="editProfileBtn">Edit</button>
+    <button type="submit" class="btn btn-default" ng-click="backToViewProfile()" id="backToViewProfileBtn">Back</button>
 </div>
-<div id="googleMap" style="width:500px;height:380px;"></div>
-<div id="current"></div>
-<div id="address"></div>

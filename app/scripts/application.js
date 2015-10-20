@@ -25,11 +25,6 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			url: '/editProfile',
 			templateUrl: 'views/editProfile.html',
 			data : { pageTitle: 'Edit Profile' }
-		})
-		.state('cart', {
-			url: '/cart',
-			templateUrl: 'views/cart.html',
-			data : { pageTitle: 'My Cart' }
 		});
 	$urlRouterProvider.otherwise('/');
 
