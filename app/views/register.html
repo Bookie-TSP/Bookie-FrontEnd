@@ -18,6 +18,9 @@
                     <div ng-show="password == password_confirmation && password != null">
                         <h5 id="pass">Password match!</h5>
                     </div>
+                    <div ng-show="password !== password_confirmation && password_confirmation != null" >
+                        <h5 id="validate">Password not match!</h5>
+                    </div>
                     <br>
                     <input type="text" placeholder="Firstname" ng-model="first_name">
                     <br>
