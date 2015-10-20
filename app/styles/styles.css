@@ -6,7 +6,7 @@
 @import url(http://fonts.googleapis.com/css?family=Abel);
 #googleMap {
   height: 350px;
-  width: 550px;
+  width: 500px;
   margin: 0 auto 0 auto;
 }
 .header-top {
@@ -85,20 +85,20 @@ body {
   font-family: 'Roboto', sans-serif;
   padding-top: 70px;
 }
-#form {
-  display: block;
-  margin-bottom: 185px;
-  margin-top: 185px;
-  overflow: hidden;
-}
+/*#form {
+    display: block;
+    margin-bottom: 185px;
+    margin-top: 180px;
+    overflow: hidden;
+}*/
 
 .login-form h2,
 .signup-form h2 {
   color: #696763;
   font-family: 'Roboto', sans-serif;
-  font-size: 20px;
-  font-weight: 300;
-  margin-bottom: 30px;
+  /*font-size: 20px;
+    font-weight: 300;*/
+  /*margin-bottom: 30px;*/
 }
 
 .login-form form input {
@@ -178,9 +178,21 @@ body {
 .signup-form h2 {
   color: #696763;
   font-family: 'Roboto', sans-serif;
-  font-size: 20px;
-  font-weight: 300;
   margin-bottom: 30px;
+}
+
+.register-form h4,
+.register-form h5 {
+  color: #696763;
+  font-family: 'Roboto', sans-serif;
+}
+
+#validate {
+  color: #ff0000;
+}
+
+#pass {
+  color: #007500;
 }
 
 .register-form form input {
@@ -265,4 +277,11 @@ body {
   border-radius: 5px;
   color: white;
   font-weight: bold;
+}
+
+#date,
+#month,
+#year {
+  width: 120px;
+  margin-left: 10px;
 }
