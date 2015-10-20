@@ -154,7 +154,7 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
 app.controller('editProfileCtrl', ['$scope', '$http', 'googleMap', 'authFactory', '$q', '$state',
 	function ($scope, $http, googleMap, authFactory, $q, $state) {
 		if (authFactory.getAuth() === undefined) {
-			$state.go("home");
+			$state.go("login");
 		}
 
 		$scope.getProfile = function () {
@@ -368,7 +368,7 @@ app.controller('registerCtrl', ['$scope', '$http', 'googleMap', '$state', 'authF
 app.controller('profileCtrl', ['$scope', '$http', '$state', 'authFactory',
 	function ($scope, $http, $state, authFactory) {
 		if (authFactory.getAuth() === undefined) {
-			$state.go("home");
+			$state.go("login");
 		}
 		$scope.profileData = authFactory.getMember();
 		$scope.editProfile = function () {
