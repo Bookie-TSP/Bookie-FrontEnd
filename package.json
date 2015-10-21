@@ -8,10 +8,16 @@
   },
   "dependencies": {
     "browser-sync": "^2.9.10",
+    "ejs": "^2.3.4",
+    "errorhandler": "^1.4.2",
+    "express": "^4.13.3",
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",
     "gulp-concat-css": "^2.2.0",
-    "ngstorage": "^0.3.9"
+    "morgan": "^1.6.1",
+    "ngstorage": "^0.3.9",
+    "requirejs": "^2.1.20",
+    "serve-favicon": "^2.3.0"
   },
   "devDependencies": {
     "gulp-install": "^0.6.0"
