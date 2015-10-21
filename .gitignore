@@ -2,4 +2,5 @@ node_modules/
 .DS_Store
 .idea/
 .iml
-/test_results/
+test/protractor/login/test_results/
+test/protractor/register/test_results/

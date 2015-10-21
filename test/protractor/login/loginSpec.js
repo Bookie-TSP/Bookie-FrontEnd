@@ -1,11 +1,10 @@
 describe('Login', function() {
     var email = element(by.model('email'));
     var password = element(by.model('password'));
-    // var submit = element(by.css('[ng-click="login()"]'));
-    var submit = element(by.id('submit'));
+    var submit = element(by.id('submitB'));
     var errormsg = element(by.binding('validation'));
     var navEmail = element(by.binding('member.email'));
-    var logout = element(by.css('[ng-click="logout()"]'));
+    var logout = element(by.id('logoutB'));
 
     beforeEach(function() {
         browser.get('/#/login');
@@ -33,17 +32,16 @@ describe('Login', function() {
             });
         });
 
-        it('should not login when enter the wrong email', function(){
+        it('should enter email correctly', function(){
             email.sendKeys('wrong_email@ku.th');
             password.sendKeys('12345678');
             submit.click();
             expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/login');
             expect(errormsg.isDisplayed()).toBeTruthy();
-            expect(errormsg.getText()).toEqual("Invalid email or password");
         });
 
         it('should enter valid email', function(){
-            email.sendKeys('a@a.com');
+            email.sendKeys('n@n.neen');
             password.sendKeys('11111111');
             submit.click();
             expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/');
@@ -55,7 +53,6 @@ describe('Login', function() {
             submit.click();
             expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/login');
             expect(errormsg.isDisplayed()).toBeTruthy();
-            expect(errormsg.getText()).toEqual("Invalid email or password");
         });
 
         it('should have @ only once', function() {
@@ -63,7 +60,6 @@ describe('Login', function() {
             password.sendKeys('12345678');
             submit.click();
             expect(errormsg.isDisplayed()).toBeTruthy();
-            expect(errormsg.getText()).toEqual("Invalid email or password");
         });
     });
 
@@ -97,32 +93,34 @@ describe('Login', function() {
             submit.click();
             expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/login');
             expect(errormsg.isDisplayed()).toBeTruthy();
-            expect(errormsg.getText()).toEqual("Invalid email or password");
         });
     });
-describe('nav bar', function() {
-        var loginButton = element(by.css('[ng-click="goLogin()"]'));
-        var registButton = element(by.css('[ng-click="getAuth()"]'));
+
+    describe('nav bar', function() {
+        var loginButton = element(by.id('loginB'));
+        var registButton = element(by.id('registB'));
 
         it('should match with wrong input', function(){
             email.sendKeys('wrong_email');
             password.sendKeys('12345678');
             submit.click();
             expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/login');
-            expect(errormsg.isDisplayed()).toBeTruthy();
-            expect(errormsg.getText()).toEqual("Invalid email or password");
+            expect(errormsg.getText()).toBe('Invalid email or password');
+            expect(loginButton.isDisplayed()).toBe(true);
+            expect(registButton.isDisplayed()).toBe(true);
+            expect(navEmail.isDisplayed()).toBe(false);
         });
 
-        // it('should match with correct input', function(){
-        //     email.sendKeys('aaa@a.com');
-        //     password.sendKeys('111111111');
-        //     submit.click();
-        //     expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/');
-        //     expect(navEmail.getText()).toBe('aaa@a.com');
-        //     expect(navEmail.isDisplayed()).toBeTruthy();
-        // });
+        it('should match with correct input', function(){
+            email.sendKeys('n@n.neen');
+            password.sendKeys('11111111');
+            submit.click();
+            expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/');
+            expect(navEmail.getText()).toBe('n@n.neen');
+            expect(loginButton.isDisplayed()).toBe(false);
+            expect(registButton.isDisplayed()).toBe(false);
+        });
     });
-    
 
     afterAll(function(done) {
         process.nextTick(done);
