@@ -43,7 +43,7 @@
                 <table class="table table-striped">
                     <tr ng-repeat="book in newBooksInfo">
                         <td>${{book.price}}</td>
-                        <td>{{book.quality}}</td>
+                        <td>{{book.condition}}</td>
                         <td>{{book.address}}</td>
                         <td>In stock: {{book.quantity}}</td>
                         <td ng-if="book.quantity >= 1"><button>Add To Cart</button></td>
@@ -57,7 +57,7 @@
                 <table class="table table-striped">
                     <tr ng-repeat="book in oldBooksInfo">
                         <td>${{book.price}}</td>
-                        <td>{{book.quality}}</td>
+                        <td>{{book.condition}}</td>
                         <td>{{book.address}}</td>
                         <td>In stock: {{book.quantity}}</td>
                         <td ng-if="book.quantity >= 1"><button>Add To Cart</button></td>
@@ -71,7 +71,7 @@
                 <table class="table table-striped">
                     <tr ng-repeat="book in rentBooksInfo">
                         <td>${{book.price}}</td>
-                        <td>{{book.quality}}</td>
+                        <td>{{book.condition}}</td>
                         <td>{{book.address}}</td>
                         <td>In stock: {{book.quantity}}</td>
                         <td ng-if="book.quantity >= 1"><button>Add To Cart</button></td>
