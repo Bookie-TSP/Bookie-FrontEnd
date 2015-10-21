@@ -25,11 +25,6 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			url: '/editProfile',
 			templateUrl: 'views/editProfile.html',
 			data : { pageTitle: 'Edit Profile' }
-		})
-		.state('bookProfile', {
-			url: '/bookProfile',
-			templateUrl: '/views/bookProfile.html',
-			data : { pageTitle: 'Book Profile' }
 		});
 	$urlRouterProvider.otherwise('/');
 
@@ -236,8 +231,24 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
 app.controller('editProfileCtrl', ['$scope', '$http', 'googleMap', 'authFactory', '$q', '$state',
 	function ($scope, $http, googleMap, authFactory, $q, $state) {
 		if (authFactory.getAuth() === undefined) {
-			$state.go("home");
+			$state.go("login");
 		}
+
+		$scope.initDate = function() {
+            $scope.initDates = new Array(31);
+            for( var i = 1; i <=31 ; i++ ){
+                $scope.initDates[i-1] = i;
+            }
+			$scope.initMonths = ["January", "February", "March", "April", "May",
+								"June", "July", "August", "September", "October",
+								"November", "December"];
+            var d = new Date();
+            var n = d.getFullYear();
+            $scope.initYears = new Array(100);
+            for( i = 0; i < 100; i++ ){
+                $scope.initYears[i] = n-i;
+            }
+        };
 
 		$scope.getProfile = function () {
 			console.log("Getting the profile");
@@ -269,7 +280,7 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'googleMap', 'authFactory'
 			if($scope.profileData.birth_date !== null){
 				birth = $scope.profileData.birth_date.split("-");
 				$scope.date = birth[2];
-				$scope.month = birth[1];
+				$scope.month = $scope.initMonths[birth[1]-1];
 				$scope.year = birth[0];
 			}
 		};
@@ -281,7 +292,7 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'googleMap', 'authFactory'
 					'Authorization': authFactory.getAuth()
 				}
 			};
-			var birth_date = $scope.date + "/" + $scope.month + "/" + $scope.year;
+			var birth_date = $scope.date + "/" + ($scope.initMonths.indexOf($scope.month)+1) + "/" + $scope.year;
 			$http.put('https://bookieservice.herokuapp.com/api/members', {
 					member: {
 						email: $scope.profileData.email,
@@ -296,28 +307,36 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'googleMap', 'authFactory'
 					}
 				}, config)
 				.success(function (data) {
-					$scope.profileData.password = "";
 					$scope.getProfile();
+					$scope.error = false;
 					console.log(data);
+					$scope.profileData.password = "";
 				})
 				.error(function (data) {
+					$scope.error = true;
 					console.log(data);
 				});
 		};
 
+
+		$scope.backToViewProfile = function() {
+			$state.go("viewProfile");
+		};
+
 		$scope.initial = function () {
-			$scope.profileData = authFactory.getMember();
+			$scope.initDate();
+			var profile = authFactory.getMember();
+			var text = JSON.stringify(profile);
+			$scope.profileData = JSON.parse(text);
 			$scope.setDate();
 		};
 
 		$scope.initial();
 	}
 ]);
+
 app.controller('homeCtrl',['$scope','$http', '$state', '$rootScope',
     function($scope, $http, $state, $rootScope){
-    	$scope.bookProfile = function() {
-    		$state.go("bookProfile");
-    	}
 }]);
 
 app.controller('loginCtrl', ['$scope', '$http', '$state', 'authFactory',
@@ -350,21 +369,8 @@ app.controller('loginCtrl', ['$scope', '$http', '$state', 'authFactory',
 
 app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootScope',
   function ($scope, $http, $state, authFactory, $rootScope) {
-		$scope.goHome = function () {
-			$state.go("home");
-		};
-		$scope.login = function () {
-			$state.go("login");
-		};
 		$scope.logout = function () {
 			authFactory.setAuth(undefined);
-		};
-		$scope.register = function () {
-			$state.go("register");
-		};
-		$scope.profile = function () {
-			console.log("asda");
-			$state.go("viewProfile");
 		};
 		$scope.getMember = function () {
 			if (authFactory.getAuth() !== undefined) {
@@ -398,13 +404,28 @@ app.controller('registerCtrl', ['$scope', '$http', 'googleMap', '$state', 'authF
 		if (authFactory.getAuth() !== undefined) {
 			$state.go("home");
 		}
-		googleMap.init();
+        googleMap.init();
 		setInterval(function () {
 			// console.log(googleMap.position);
 		}, 1000);
+        $scope.initDate = function() {
+            $scope.initDates = new Array(31);
+            for( var i = 1; i <=31 ; i++ ){
+                $scope.initDates[i-1] = i;
+            }
+            $scope.initMonths = ["January", "February", "March", "April", "May",
+                                "June", "July", "August", "September", "October",
+                                "November", "December"];
+            var d = new Date();
+            var n = d.getFullYear();
+            $scope.initYears = new Array(100);
+            for( i = 0; i < 100; i++ ){
+                $scope.initYears[i] = n-i;
+            }
+        };
 
 		$scope.submit = function () {
-			var birth_date = $scope.day_birth + "/" + $scope.month_birth + "/" + $scope.year_birth;
+			var birth_date = $scope.day_birth + "/" + ($scope.initMonths.indexOf($scope.month_birth)+1) + "/" + $scope.year_birth;
 			var address_info = googleMap.position.address + " " + $scope.more_info;
 
 			if (!$scope.agreeTerm) {
@@ -436,21 +457,25 @@ app.controller('registerCtrl', ['$scope', '$http', 'googleMap', '$state', 'authF
 					})
 					.success(function (data) {
 						console.log(data);
-						authFactory.setAuth(data.auth_token);
-						$state.go("home");
+						$state.go("login");
 					})
 					.error(function (data) {
 						console.log(data);
-						alert("error : " + data.error);
+						alert("error : " + data.errors);
 					});
 			}
 		};
+
+        $scope.initial = function() {
+            $scope.initDate();
+        };
+        $scope.initial();
 }]);
 
 app.controller('profileCtrl', ['$scope', '$http', '$state', 'authFactory',
 	function ($scope, $http, $state, authFactory) {
 		if (authFactory.getAuth() === undefined) {
-			$state.go("home");
+			$state.go("login");
 		}
 		$scope.profileData = authFactory.getMember();
 		$scope.editProfile = function () {
