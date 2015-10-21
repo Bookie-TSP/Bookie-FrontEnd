@@ -2,28 +2,70 @@
     <div class="container">
         <div class = "row">
             <div class="col-sm-6">
-                <h1>EMILY CARR</h1>
+                <h1 style="text-transform: uppercase;">{{bookInfo.title}}</h1>
             </div>
         </div>
         <hr>
 
         <!-- Information of the book -->
-        <div class = "row">
+        <div class="row">
             <div class="col-sm-4 col-sm-offset-2">
                 <image id = "book-cover" src="../images/emily.jpeg"></image>
             </div>
             <div class="col-sm-6">
                 <h3>Book Informations</h3>
-                <ul class="unstyled">
-                    <li class="text-info">Title: {{bookInfo.title}}</li>
-                    <li class="text-info">ISBN: {{bookInfo.isbn}}</li>
-                    <li class="text-info">Author: {{bookInfo.author}}</li>
-                    <li class="text-info">Language: {{bookInfo.language}}</li>
-                    <li class="text-info">Pages: {{bookInfo.pages}}</li>
-                    <li class="text-info">Publisher: {{bookInfo.publisher}}</li>
-                    <li class="text-info">Published Date: {{bookInfo.publishedDate}}</li>
-                    <li class="text-success">Book Description: {{bookInfo.description}}</li>
-                </ul>
+                <div class="row">
+                    <div class="col-sm-6 text-info">
+                        <p>Title:</p>
+                        <p>ISBN 10:</p>
+                        <p>ISBN 13:</p>
+                        <p>Author:</p>
+                        <div ng-repeat="author in bookInfo.authors">
+                            <p ng-show="bookInfo.authors.indexOf(author) != 0">&nbsp;</p>
+                        </div>
+                        <p>Language:</p>
+                        <p>Pages:</p>
+                        <p>Publisher:</p>
+                        <p>Published Date:</p>
+                        <p>Book Description:</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>{{bookInfo.title}}</p>
+                        <p ng-show="bookInfo.title === null">undefined</p>
+                        <p>{{bookInfo.ISBN10}}</p>
+                        <p ng-show="bookInfo.ISBN10 === null">undefined</p>
+                        <p>{{bookInfo.ISBN13}}</p>
+                        <p ng-show="bookInfo.ISBN13 === null">undefined</p>
+                        <div ng-repeat="author in bookInfo.authors">
+                            <p>{{author}}</p>
+                        </div>
+                        <p ng-show="bookInfo.author === null">undefined</p>
+                        <p>{{bookInfo.language}}</p>
+                        <p ng-show="bookInfo.language === null">undefined</p>
+                        <p>{{bookInfo.pages}}</p>
+                        <p ng-show="bookInfo.pages === null">undefined</p>
+                        <p>{{bookInfo.publisher}}</p>
+                        <p ng-show="bookInfo.publisher === null">undefined</p>
+                        <p>{{bookInfo.publish_date}}</p>
+                        <p ng-show="bookInfo.publish_date === null">undefined</p>
+                        <p>{{bookInfo.description}}</p>
+                        <p ng-show="bookInfo.description === null">undefined</p>
+                    </div>
+                    <!-- <ul class="unstyled">
+                        <li class="text-info">Title: {{bookInfo.title}}</li>
+                        <li class="text-info">ISBN 10: {{bookInfo.ISBN10}}</li>
+                        <li class="text-info">ISBN 13: {{bookInfo.ISBN13}}</li>
+                        <li class="text-info">Author:  </li>
+                        <div ng-repeat="author in bookInfo.authors">
+                            <span class="text-info">{{author}}</span>
+                        </div>
+                        <li class="text-info">Language: {{bookInfo.language}}</li>
+                        <li class="text-info">Pages: {{bookInfo.pages}}</li>
+                        <li class="text-info">Publisher: {{bookInfo.publisher}}</li>
+                        <li class="text-info">Published Date: {{bookInfo.publish_date}}</li>
+                        <li class="text-success">Book Description: {{bookInfo.description}}</li>
+                    </ul> -->
+                </div>
             </div>
         </div>
 
