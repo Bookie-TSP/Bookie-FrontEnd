@@ -114,10 +114,10 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'googleMap', 'authFactory'
 					}
 				}, config)
 				.success(function (data) {
-					$scope.profileData.password = "";
 					$scope.getProfile();
 					$scope.error = false;
 					console.log(data);
+					$scope.profileData.password = "";
 				})
 				.error(function (data) {
 					$scope.error = true;
@@ -133,7 +133,8 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'googleMap', 'authFactory'
 		$scope.initial = function () {
 			$scope.initDate();
 			var profile = authFactory.getMember();
-			$scope.profileData = profile;
+			var text = JSON.stringify(profile);
+			$scope.profileData = JSON.parse(text);
 			$scope.setDate();
 		};
 
