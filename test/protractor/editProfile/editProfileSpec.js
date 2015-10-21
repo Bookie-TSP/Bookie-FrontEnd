@@ -6,11 +6,11 @@ describe('Edit Profile', function() {
     var profile = element(by.css('[ng-click="profile()"]'));
 
     beforeEach(function() {
-        browser.get('/#/login');
-        email.sendKeys('tester@ku.th');
-        password.sendKeys('11111111');
-        submit.click();
-        profile.click();
+        browser.get('/#/editProfile');
+        // email.sendKeys('tester@ku.th');
+        // password.sendKeys('11111111');
+        // submit.click();
+        // profile.click();
         
     });
 

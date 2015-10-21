@@ -2,9 +2,10 @@ describe('Login', function() {
     var email = element(by.model('email'));
     var password = element(by.model('password'));
     // var submit = element(by.css('[ng-click="login()"]'));
-    var submit = element(by.css('.login-form'));
+    var submit = element(by.id('submit'));
     var errormsg = element(by.binding('validation'));
     var navEmail = element(by.binding('member.email'));
+    var logout = element(by.css('[ng-click="logout()"]'));
 
     beforeEach(function() {
         browser.get('/#/login');
@@ -32,19 +33,21 @@ describe('Login', function() {
             });
         });
 
-        it('should enter email correctly', function(){
+        it('should not login when enter the wrong email', function(){
             email.sendKeys('wrong_email@ku.th');
             password.sendKeys('12345678');
             submit.click();
             expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/login');
             expect(errormsg.isDisplayed()).toBeTruthy();
+            expect(errormsg.getText()).toEqual("Invalid email or password");
         });
 
         it('should enter valid email', function(){
-            email.sendKeys('bookie@ku.th');
-            password.sendKeys('12345678');
+            email.sendKeys('a@a.com');
+            password.sendKeys('11111111');
             submit.click();
             expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/');
+            logout.click();
         });
 
         it('field can not be blank', function() {
@@ -52,6 +55,7 @@ describe('Login', function() {
             submit.click();
             expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/login');
             expect(errormsg.isDisplayed()).toBeTruthy();
+            expect(errormsg.getText()).toEqual("Invalid email or password");
         });
 
         it('should have @ only once', function() {
@@ -59,6 +63,7 @@ describe('Login', function() {
             password.sendKeys('12345678');
             submit.click();
             expect(errormsg.isDisplayed()).toBeTruthy();
+            expect(errormsg.getText()).toEqual("Invalid email or password");
         });
     });
 
@@ -92,10 +97,10 @@ describe('Login', function() {
             submit.click();
             expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/login');
             expect(errormsg.isDisplayed()).toBeTruthy();
+            expect(errormsg.getText()).toEqual("Invalid email or password");
         });
     });
-
-    describe('nav bar', function() {
+describe('nav bar', function() {
         var loginButton = element(by.css('[ng-click="goLogin()"]'));
         var registButton = element(by.css('[ng-click="getAuth()"]'));
 
@@ -105,17 +110,19 @@ describe('Login', function() {
             submit.click();
             expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/login');
             expect(errormsg.isDisplayed()).toBeTruthy();
+            expect(errormsg.getText()).toEqual("Invalid email or password");
         });
 
-        it('should match with correct input', function(){
-            email.sendKeys('bookie@ku.th');
-            password.sendKeys('12345678');
-            submit.click();
-            expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/');
-            // expect(navEmail.getAttribute("innerText")).toBe('tester@ku.th');
-            expect(navEmail.isDisplayed()).toBeTruthy();
-        });
+        // it('should match with correct input', function(){
+        //     email.sendKeys('aaa@a.com');
+        //     password.sendKeys('111111111');
+        //     submit.click();
+        //     expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/');
+        //     expect(navEmail.getText()).toBe('aaa@a.com');
+        //     expect(navEmail.isDisplayed()).toBeTruthy();
+        // });
     });
+    
 
     afterAll(function(done) {
         process.nextTick(done);
