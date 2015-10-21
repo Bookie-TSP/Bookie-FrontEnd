@@ -53,49 +53,49 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
       $scope.newBooksInfo = [
       {
         price: 84,
-        quality: "Perfect",
+        condition: "Perfect",
         address: "508 Treeview Trail Barneveld, WI 55303",
         quantity: 16
       },
       {
         price: 175,
-        quality: "Perfect",
+        condition: "Perfect",
         address: "217 E Division Madison, WI 53666",
         quantity: 32
       },
       {
         price: 98,
-        quality: "Perfect",
+        condition: "Perfect",
         address: "505 Sampson Apt 3C",
         quantity: 0
       },
       {
         price: 144,
-        quality: "Perfect",
+        condition: "Perfect",
         address: "4204 Military Ridge Rd Dodgeville, WI 53224",
         quantity: 0
       },
       {
         price: 175,
-        quality: "Perfect",
+        condition: "Perfect",
         address: "217 E Division Madison, WI 53666",
         quantity: 59
       },
       {
         price: 98,
-        quality: "Perfect",
+        condition: "Perfect",
         address: "505 Sampson Apt 3C",
         quantity: 0
       },
       {
         price: 175,
-        quality: "Perfect",
+        condition: "Perfect",
         address: "217 E Division Madison, WI 53666",
         quantity: 5
       },
       {
         price: 98,
-        quality: "Perfect",
+        condition: "Perfect",
         address: "505 Sampson Apt 3C",
         quantity: 123
       }];
@@ -104,37 +104,37 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
       $scope.oldBooksInfo = [
       {
         price: 142,
-        quality: "Good",
+        condition: "Good",
         address: "619 Maiden St Mineral Point, WI 53444",
         quantity: 11
       },
       {
         price: 62,
-        quality: "Pretty Good",
+        condition: "Pretty Good",
         address: "941 Crystal St Mirana Point, WI 4145",
         quantity: 0
       },
       {
         price: 198,
-        quality: "Perfect",
+        condition: "Perfect",
         address: "505 Sampson Apt 3C",
         quantity: 23
       },
       {
         price: 62,
-        quality: "Pretty Good",
+        condition: "Pretty Good",
         address: "941 Crystal St Mirana Point, WI 4145",
         quantity: 0
       },
       {
         price: 198,
-        quality: "Perfect",
+        condition: "Perfect",
         address: "505 Sampson Apt 3C",
         quantity: 23
       },
       {
         price: 84,
-        quality: "Almost Perfect",
+        condition: "Almost Perfect",
         address: "4770 Main St Dodgeville, WI 53222",
         quantity: 5
       }];
@@ -143,61 +143,61 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
       $scope.rentBooksInfo = [
       {
         price: 65,
-        quality: "Perfect",
+        condition: "Perfect",
         address: "402 E Park Apt 202B Montfort, WI 53555",
         quantity: 0
       },
       {
         price: 98,
-        quality: "Very Good",
+        condition: "Very Good",
         address: "9910 High Hill Smd 941A",
         quantity: 0
       },
       {
         price: 175,
-        quality: "Very Good",
+        condition: "Very Good",
         address: "217 E Division Madison, WI 53666",
         quantity: 5
       },
       {
         price: 90,
-        quality: "Good",
+        condition: "Good",
         address: "505 Sampson Apt 3C",
         quantity: 32
       },
       {
         price: 175,
-        quality: "Bad",
+        condition: "Bad",
         address: "217 E Division Madison, WI 53666",
         quantity: 0
       },
       {
         price: 94,
-        quality: "Very Good",
+        condition: "Very Good",
         address: "505 Sampson Apt 3C",
         quantity: 36
       },
       {
         price: 175,
-        quality: "Perfect",
+        condition: "Perfect",
         address: "217 E Division Madison, WI 53666",
         quantity: 5
       },
       {
         price: 98,
-        quality: "Almost Perfect",
+        condition: "Almost Perfect",
         address: "505 Sampson Apt 3C",
         quantity: 0
       },
       {
         price: 176,
-        quality: "Perfect",
+        condition: "Perfect",
         address: "505 Sampson Apt 3C",
         quantity: 91
       },
       {
         price: 92,
-        quality: "Good",
+        condition: "Good",
         address: "102 Center St Cobb, WI 53666",
         quantity: 10
       }];
