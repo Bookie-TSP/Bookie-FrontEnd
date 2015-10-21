@@ -25,6 +25,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			url: '/editProfile',
 			templateUrl: 'views/editProfile.html',
 			data : { pageTitle: 'Edit Profile' }
+		})
+		.state('bookProfile', {
+			url: '/book',
+			templateUrl: 'views/bookProfile.html',
+			data : { pageTitle: 'Book Profile' }
 		});
 	$urlRouterProvider.otherwise('/');
 

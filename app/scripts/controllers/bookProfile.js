@@ -2,6 +2,10 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
     function ($scope, $http, $anchorScroll, $location, $state, googleMap, authFactory) {
         $scope.loggedIn = false;
         googleMap.initialize();
+
+        // Define bookInfo
+        $scope.bookInfo = {};
+
         // Check whether the Member has logged in or not
         if (authFactory.getAuth() !== undefined) {
             loggedIn = true;
@@ -16,7 +20,7 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
             quantity: 16
         },
         {
-            price: 175,
+            price: 110,
             condition: "Perfect",
             address: "217 E Division Madison, WI 53666",
             quantity: 32
@@ -34,7 +38,7 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
             quantity: 0
         },
         {
-            price: 175,
+            price: 170,
             condition: "Perfect",
             address: "217 E Division Madison, WI 53666",
             quantity: 59
@@ -85,7 +89,7 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
             quantity: 0
         },
         {
-            price: 198,
+            price: 300,
             condition: "Perfect",
             address: "505 Sampson Apt 3C",
             quantity: 23
@@ -112,7 +116,7 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
             quantity: 0
         },
         {
-            price: 175,
+            price: 100,
             condition: "Very Good",
             address: "217 E Division Madison, WI 53666",
             quantity: 5
@@ -124,7 +128,7 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
             quantity: 32
         },
         {
-            price: 175,
+            price: 148,
             condition: "Bad",
             address: "217 E Division Madison, WI 53666",
             quantity: 0
@@ -136,7 +140,7 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
             quantity: 36
         },
         {
-            price: 175,
+            price: 132,
             condition: "Perfect",
             address: "217 E Division Madison, WI 53666",
             quantity: 5
@@ -148,7 +152,7 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
             quantity: 0
         },
         {
-            price: 176,
+            price: 116,
             condition: "Perfect",
             address: "505 Sampson Apt 3C",
             quantity: 91
@@ -159,9 +163,6 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
             address: "102 Center St Cobb, WI 53666",
             quantity: 10
         }];
-
-        // Define bookInfo
-        $scope.bookInfo = {};
 
         // Get information of the book from the API
         $scope.getBookProfile = function() {
@@ -179,9 +180,22 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
         $scope.getBookProfile();
 
         // Use for adding the book to the cart with its details
-        $scope.addToCart = function () {
-            console.log("Adding " + $scope.bookInfo.title + " to the cart");
-            console.log("The book " + $scope.bookInfo.title + " has been added to the cart.");
+        $scope.addToCart = function (book) {
+            console.log("Adding the book that costs $" + book.price + " to the cart");
+            $http.post('https://bookieservice.herokuapp.com/api/members/cart/add', {
+                stocks: {
+                    stock_id: 1
+                }
+            })
+            .success(function(data){
+                console.log(JSON.stringify(data));
+                console.log(data);
+                $scope.auth = data.auth_token;
+            })
+            .error(function(data){
+                console.log(JSON.stringify(data));
+            });
+            console.log("The book that costs $" + book.price + " has been added to the cart.");
         }
 
         // Use for scrolling the page to bottom

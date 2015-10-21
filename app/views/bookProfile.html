@@ -93,7 +93,7 @@
                         <div class="col-sm-2">{{book.condition}}</div>
                         <div class="col-sm-5">{{book.address}}</div>
                         <div class="col-sm-2">In stock: {{book.quantity}}</div>
-                        <div class="col-sm-2" ng-if="book.quantity >= 1"><button>Add To Cart</button></div>
+                        <div class="col-sm-2" ng-if="book.quantity >= 1"><button ng-click="addToCart(book)">Add To Cart</button></div>
                         <p ng-if="book.quantity == 0"></p>
                     </div>
                     <hr>
@@ -109,7 +109,7 @@
                         <div class="col-sm-2">{{book.condition}}</div>
                         <div class="col-sm-5">{{book.address}}</div>
                         <div class="col-sm-2">In stock: {{book.quantity}}</div>
-                        <div class="col-sm-2" ng-if="book.quantity >= 1"><button>Add To Cart</button></div>
+                        <div class="col-sm-2" ng-if="book.quantity >= 1"><button ng-click="addToCart(book)">Add To Cart</button></div>
                         <p ng-if="book.quantity == 0"></p>
                     </div>
                     <hr>
@@ -125,7 +125,7 @@
                         <div class="col-sm-2">{{book.condition}}</div>
                         <div class="col-sm-5">{{book.address}}</div>
                         <div class="col-sm-2">In stock: {{book.quantity}}</div>
-                        <div class="col-sm-2" ng-if="book.quantity >= 1"><button>Add To Cart</button></div>
+                        <div class="col-sm-2" ng-if="book.quantity >= 1"><button ng-click="addToCart(book)">Add To Cart</button></div>
                         <p ng-if="book.quantity == 0"></p>
                     </div>
                     <hr>
