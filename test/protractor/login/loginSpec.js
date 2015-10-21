@@ -37,7 +37,7 @@ describe('Login', function() {
             password.sendKeys('12345678');
             submit.click();
             expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/login');
-            expect(errormsg.getText()).toBe('Invalid email or password');
+            expect(errormsg.isDisplayed()).toBeTruthy();
         });
 
         it('should enter valid email', function(){
@@ -52,14 +52,14 @@ describe('Login', function() {
             password.sendKeys('12345678');
             submit.click();
             expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/login');
-            expect(errormsg.getText()).toBe('Invalid email or password');
+            expect(errormsg.isDisplayed()).toBeTruthy();
         });
 
         it('should have @ only once', function() {
             email.sendKeys('@@@@@@@.com');
             password.sendKeys('12345678');
             submit.click();
-            expect(errormsg.getText()).toBe('Invalid email or password');
+            expect(errormsg.isDisplayed()).toBeTruthy();
         });
     });
 
@@ -92,7 +92,7 @@ describe('Login', function() {
             email.sendKeys('123@ku.th');
             submit.click();
             expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/login');
-            expect(errormsg.getText()).toBe('Invalid email or password');
+            expect(errormsg.isDisplayed()).toBeTruthy();
         });
     });
 
