@@ -1,9 +1,10 @@
 describe('Login', function() {
     var email = element(by.model('email'));
     var password = element(by.model('password'));
-    var submit = element(by.css('[ng-click="login()"]'));
+    var submit = element(by.id('submitB'));
     var errormsg = element(by.binding('validation'));
     var navEmail = element(by.binding('member.email'));
+    var logout = element(by.id('logoutB'));
 
     beforeEach(function() {
         browser.get('/#/login');
@@ -40,10 +41,11 @@ describe('Login', function() {
         });
 
         it('should enter valid email', function(){
-            email.sendKeys('test@ku.th');
+            email.sendKeys('n@n.neen');
             password.sendKeys('11111111');
             submit.click();
             expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/');
+            logout.click();
         });
 
         it('field can not be blank', function() {
@@ -95,8 +97,8 @@ describe('Login', function() {
     });
 
     describe('nav bar', function() {
-        var loginButton = element(by.css('[ng-click="goLogin()"]'));
-        var registButton = element(by.css('[ng-click="getAuth()"]'));
+        var loginButton = element(by.id('loginB'));
+        var registButton = element(by.id('registB'));
 
         it('should match with wrong input', function(){
             email.sendKeys('wrong_email');
@@ -104,19 +106,19 @@ describe('Login', function() {
             submit.click();
             expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/login');
             expect(errormsg.getText()).toBe('Invalid email or password');
-            // expect(loginButton.isDisplayed()).toBe(true);
-            // expect(registButton.isDisplayed()).toBe(true);
-            // expect(navEmail.isDisplayed()).toBe(false);
+            expect(loginButton.isDisplayed()).toBe(true);
+            expect(registButton.isDisplayed()).toBe(true);
+            expect(navEmail.isDisplayed()).toBe(false);
         });
 
         it('should match with correct input', function(){
-            email.sendKeys('bookie@ku.th');
-            password.sendKeys('12345678');
+            email.sendKeys('n@n.neen');
+            password.sendKeys('11111111');
             submit.click();
-            expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#');
-            expect(navEmail.getText()).toBe('bookie@ku.th');
-            // expect(loginButton.isDisplayed()).toBe(false);
-            // expect(registButton.isDisplayed()).toBe(false);
+            expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/');
+            expect(navEmail.getText()).toBe('n@n.neen');
+            expect(loginButton.isDisplayed()).toBe(false);
+            expect(registButton.isDisplayed()).toBe(false);
         });
     });
 

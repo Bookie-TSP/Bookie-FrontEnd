@@ -27,10 +27,10 @@
 					</div>
 					<ul class="nav navbar-nav navbar-right" ng-show="member === undefined">
 						<li>
-							<a ng-click="login()">Login</a>
+							<a id="loginB" ng-click="login()">Login</a>
 						</li>
 						<li>
-							<a ng-click="register()">Register</a>
+							<a id="registB" ng-click="register()">Register</a>
 						</li>
 						<!-- Mocked item cart -->
 						<li>
@@ -47,7 +47,7 @@
 							<a>|</a>
 						</li>
 						<li>
-							<a ng-click="logout()" ui-sref="home">Logout</a>
+							<a id="logoutB" ng-click="logout()" ui-sref="home">Logout</a>
 						</li>
 						<li>
 							<a id="item-cart">
