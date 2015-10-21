@@ -1,6 +1,15 @@
 app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$location', '$state', 'googleMap', 'authFactory',
     function ($scope, $http, $anchorScroll, $location, $state, googleMap, authFactory) {
         $scope.loggedIn = false;
+
+        // Variables for Pagers
+        $scope.maxSize = 5;
+        $scope.bigTotalItems = 175;
+        $scope.bigCurrentPage = 1;
+        $scope.totalItems = 64;
+        $scope.currentPage = 4;
+
+        // Initialize Google Map from the mapFactory.js
         googleMap.initialize();
 
         // Define bookInfo
