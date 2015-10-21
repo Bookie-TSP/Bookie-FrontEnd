@@ -98,6 +98,7 @@
                     </div>
                     <hr>
                 </div>
+                <uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages"></uib-pagination>
             </uib-tab>
 
             <!-- Buy Used Books tab heading and its items -->
@@ -115,6 +116,7 @@
                     <hr>
                 </div>
                 <br>
+                <uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages"></uib-pagination>
             </uib-tab>
             <!-- Rent Books tab heading and its items -->
             <uib-tab heading="Rent Books" ng-click="moveToBottom()">
@@ -130,9 +132,10 @@
                     </div>
                     <hr>
                 </div>
+                <uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages"></uib-pagination>
             </uib-tab>
         </uib-tabset>
         <!-- A random tag used to locate a place for moveToBottom() to scroll to -->
-            <div id="bottom"></div>
+        <div id="bottom"></div>
     </div>
 </div>
