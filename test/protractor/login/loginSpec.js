@@ -32,7 +32,7 @@ describe('Login', function() {
             });
         });
 
-        it('should enter email correctly', function(){
+        it('should display error message when enter wrong email', function(){
             email.sendKeys('wrong_email@ku.th');
             password.sendKeys('12345678');
             submit.click();
@@ -41,7 +41,7 @@ describe('Login', function() {
         });
 
         it('should enter valid email', function(){
-            email.sendKeys('n@n.neen');
+            email.sendKeys('mint@test.com');
             password.sendKeys('11111111');
             submit.click();
             expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/');
@@ -80,6 +80,14 @@ describe('Login', function() {
             });
         });
 
+        it('can not more than 72 letters long', function() {
+            password.sendKeys('1111111111111111111111111111111111111111111111111111111111111111111111111');
+            password.getAttribute('value').then(function(psw) {
+                var size = psw.length;
+                expect(size).toBeGreaterThan(72);
+            });
+        });
+
         it('space should be allowed', function() {
             password.sendKeys('        ');
             password.getAttribute('value').then(function(psw) {
@@ -112,11 +120,11 @@ describe('Login', function() {
         });
 
         it('should match with correct input', function(){
-            email.sendKeys('n@n.neen');
+            email.sendKeys('mint@test.com');
             password.sendKeys('11111111');
             submit.click();
             expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/');
-            expect(navEmail.getText()).toBe('n@n.neen');
+            expect(navEmail.getText()).toBe('mint@test.com');
             expect(loginButton.isDisplayed()).toBe(false);
             expect(registButton.isDisplayed()).toBe(false);
         });
