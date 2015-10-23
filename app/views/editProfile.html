@@ -39,8 +39,8 @@
         <tr>
             <td>Gender:</td>
             <td>
-                <input type="radio" name="sex" value="Male" ng-model="profileData.gender"> Male
-                <input type="radio" name="sex" value="Female" ng-model="profileData.gender"> Female
+                <input type="radio" id="male" name="sex" value="Male" ng-model="profileData.gender"> Male
+                <input type="radio" id="female" name="sex" value="Female" ng-model="profileData.gender"> Female
                 <br>
             </td>
         </tr>
@@ -68,7 +68,7 @@
         <tr>
             <td>Password (For Confirmation):</td>
             <td>
-                <input type="password" ng-model="profileData.password" id="birthdate"></input>
+                <input type="password" ng-model="profileData.password" id="confirmation"></input>
                 <p id="validate" ng-show="error">Password is not correct</p>
                 <br>
             </td>
