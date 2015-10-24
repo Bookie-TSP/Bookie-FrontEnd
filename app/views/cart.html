@@ -2,7 +2,7 @@
 	<div class="col-md-9 cart-items">
 		<div class="panel panel-warning">
 			<div class="panel-heading">
-				<h4><b>{{stock.type}}</b></h4>
+				<h4><b>Buy</b></h4>
 			</div>
 			<div class="panel-body">
 				<div class="row" ng-repeat="stock in stocks">
@@ -14,27 +14,38 @@
 					<div class="col-md-8">
 						<div class="row">
 							<div class="col-md-4"><b>Name</b></div>
-							<div class="col-md-8">{{stock.book.name}}</div>
+							<div class="col-md-8">{{stock.book.title}}</div>
 						</div>
 
 						<div class="row">
 							<div class="col-md-4"><b>ISBN</b></div>
-							<div class="col-md-8">978-616-369-739-4</div>
+							<div class="col-md-8">{{stock.book.isbn}}</div>
 						</div>
 
 						<div class="row">
 							<div class="col-md-4"><b>Author</b></div>
-							<div class="col-md-8"></div>
+							<div class="col-md-8">{{stock.book.author}}</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4"><b>Language</b></div>
+							<div class="col-md-8">{{stock.book.language}}</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4"><b>Pages</b></div>
+							<div class="col-md-8">{{stock.book.pages}}</div>
 						</div>
 
 						<div class="row">
 							<div class="col-md-4"><b>Publisher</b></div>
-							<div class="col-md-8"></div>
+							<div class="col-md-8">{{stock.book.publisher}}
+							</div>
 						</div>
 
 						<div class="row">
 							<div class="col-md-4"><b>Price</b></div>
-							<div class="col-md-8"><b>50 baht</b></div>
+							<div class="col-md-8"><b>{{stock.price}}</b></div>
 						</div>
 						<br>
 						<div class="row">
