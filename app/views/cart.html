@@ -2,10 +2,10 @@
 	<div class="col-md-9 cart-items">
 		<div class="panel panel-warning">
 			<div class="panel-heading">
-				<h4><b>Buy</b></h4>
+				<h4><b>{{stock.type}}</b></h4>
 			</div>
 			<div class="panel-body">
-				<div class="row">
+				<div class="row" ng-repeat="stock in stocks">
 					<div class="col-md-4">
 						<center>
 							<img src="images/naruto.jpg" class="img-responsive" style="width:150px;height:225px;">
@@ -14,7 +14,7 @@
 					<div class="col-md-8">
 						<div class="row">
 							<div class="col-md-4"><b>Name</b></div>
-							<div class="col-md-8">Naruto(#64)</div>
+							<div class="col-md-8">{{stock.book.name}}</div>
 						</div>
 
 						<div class="row">
