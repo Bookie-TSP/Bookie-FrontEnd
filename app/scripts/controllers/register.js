@@ -1,12 +1,8 @@
-app.controller('registerCtrl', ['$scope', '$http', 'googleMap', '$state', 'authFactory',
-        function ($scope, $http, googleMap, $state, authFactory) {
+app.controller('registerCtrl', ['$scope', '$http', 'mapFactory', '$state', 'authFactory',
+        function ($scope, $http, $map, $state, authFactory) {
 		if (authFactory.getAuth() !== undefined) {
 			$state.go("home");
 		}
-        googleMap.init();
-		setInterval(function () {
-			// console.log(googleMap.position);
-		}, 1000);
         $scope.initDate = function() {
             $scope.initDates = new Array(31);
             for( var i = 1; i <=31 ; i++ ){
@@ -25,7 +21,7 @@ app.controller('registerCtrl', ['$scope', '$http', 'googleMap', '$state', 'authF
 
 		$scope.submit = function () {
 			var birth_date = $scope.day_birth + "/" + ($scope.initMonths.indexOf($scope.month_birth)+1) + "/" + $scope.year_birth;
-			var address_info = googleMap.position.address + " " + $scope.more_info;
+			var address_info = $scope.more_info + " " + $scope.address;
 
 			if (!$scope.agreeTerm) {
 				alert("Please agree the term of condition");
@@ -44,8 +40,8 @@ app.controller('registerCtrl', ['$scope', '$http', 'googleMap', '$state', 'authF
 				var address = {
 					first_name: $scope.first_name,
 					last_name: $scope.last_name,
-					latitude: googleMap.position.lat,
-					longitude: googleMap.position.lng,
+					latitude: $scope.latitude,
+					longitude: $scope.longitude,
 					information: address_info
 				};
 
@@ -65,8 +61,25 @@ app.controller('registerCtrl', ['$scope', '$http', 'googleMap', '$state', 'authF
 			}
 		};
 
+        $scope.position = function() {
+            $scope.latitude = $map.getLat().toFixed(5);
+            $scope.longitude = $map.getLng().toFixed(5);
+            $scope.address = $map.getAddress();
+        };
+
         $scope.initial = function() {
             $scope.initDate();
+            $scope.map = $map.map;
+            $scope.marker = $map.marker;
+            $scope.options = $map.options;
+            $scope.position();
         };
+        $scope.$on('marker', function () {
+			console.log("marker");
+            $scope.position();
+            console.log($scope.latitude);
+            console.log($scope.longitude);
+            console.log($scope.address);
+		});
         $scope.initial();
 }]);
