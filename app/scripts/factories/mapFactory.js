@@ -13,16 +13,15 @@ app.factory('mapFactory', function ($log, $rootScope) {
 			'location': latlng
 		}, function (results, status) {
 			if (status === google.maps.GeocoderStatus.OK) {
-				if (results[1]) {
-					address = results[1].formatted_address;
-					console.log("asdasd" + address);
+				if (results[0]) {
+					address = results[0].formatted_address;
 					$rootScope.$broadcast('marker');
 				}
 			} else {
 				window.alert('Geocoder failed due to: ' + status);
 			}
 		});
-	};
+	}
 
 	var map = {
 		center: {

@@ -219,6 +219,9 @@ app.controller('registerCtrl', ['$scope', '$http', 'mapFactory', '$state', 'auth
 		if (authFactory.getAuth() !== undefined) {
 			$state.go("home");
 		}
+        $scope.latitude = "";
+        $scope.longitude = "";
+        $scope.address = "";
         $scope.initDate = function() {
             $scope.initDates = new Array(31);
             for( var i = 1; i <=31 ; i++ ){
@@ -237,7 +240,10 @@ app.controller('registerCtrl', ['$scope', '$http', 'mapFactory', '$state', 'auth
 
 		$scope.submit = function () {
 			var birth_date = $scope.day_birth + "/" + ($scope.initMonths.indexOf($scope.month_birth)+1) + "/" + $scope.year_birth;
-			var address_info = $scope.more_info + " " + $scope.address;
+            var address_info = $scope.address;
+            if( $scope.more_info !== undefined){
+                address_info = $scope.more_info + " " + address_info;
+            }
 
 			if (!$scope.agreeTerm) {
 				alert("Please agree the term of condition");
@@ -277,25 +283,18 @@ app.controller('registerCtrl', ['$scope', '$http', 'mapFactory', '$state', 'auth
 			}
 		};
 
-        $scope.position = function() {
-            $scope.latitude = $map.getLat().toFixed(5);
-            $scope.longitude = $map.getLng().toFixed(5);
-            $scope.address = $map.getAddress();
-        };
-
         $scope.initial = function() {
             $scope.initDate();
             $scope.map = $map.map;
             $scope.marker = $map.marker;
             $scope.options = $map.options;
-            $scope.position();
         };
         $scope.$on('marker', function () {
 			console.log("marker");
-            $scope.position();
-            console.log($scope.latitude);
-            console.log($scope.longitude);
-            console.log($scope.address);
+            $scope.latitude = $map.getLat().toFixed(5);
+            $scope.longitude = $map.getLng().toFixed(5);
+            $scope.address = $map.getAddress();
+            $scope.$digest();
 		});
         $scope.initial();
 }]);
@@ -345,16 +344,15 @@ app.factory('mapFactory', function ($log, $rootScope) {
 			'location': latlng
 		}, function (results, status) {
 			if (status === google.maps.GeocoderStatus.OK) {
-				if (results[1]) {
-					address = results[1].formatted_address;
-					console.log("asdasd" + address);
+				if (results[0]) {
+					address = results[0].formatted_address;
 					$rootScope.$broadcast('marker');
 				}
 			} else {
 				window.alert('Geocoder failed due to: ' + status);
 			}
 		});
-	};
+	}
 
 	var map = {
 		center: {
