@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ui.router', 'ngStorage']);
+var app = angular.module('app', ['ui.router', 'ngStorage', 'ui.bootstrap']);
 app.config(function ($stateProvider, $urlRouterProvider) {
 	$stateProvider
 		.state('home', {
@@ -25,6 +25,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			url: '/editProfile',
 			templateUrl: 'views/editProfile.html',
 			data : { pageTitle: 'Edit Profile' }
+		})
+		.state('bookProfile', {
+			url: '/book/:bookId',
+			templateUrl: 'views/bookProfile.html',
+			data : { pageTitle: 'Book Profile' }
 		});
 	$urlRouterProvider.otherwise('/');
 

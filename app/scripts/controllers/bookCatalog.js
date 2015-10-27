@@ -5,7 +5,6 @@ function ($scope, $http, $state, authFactory) {
 		// 	$state.go("home");
 		// }
 
-
 		//getting books from api
 		$http.get('https://bookieservice.herokuapp.com/api/books')
 			.success(function(data) {
