@@ -3,28 +3,28 @@ app.controller('registerCtrl', ['$scope', '$http', 'googleMap', '$state', 'authF
 		if (authFactory.getAuth() !== undefined) {
 			$state.go("home");
 		}
-        googleMap.init();
+		googleMap.init();
 		setInterval(function () {
 			// console.log(googleMap.position);
 		}, 1000);
-        $scope.initDate = function() {
-            $scope.initDates = new Array(31);
-            for( var i = 1; i <=31 ; i++ ){
-                $scope.initDates[i-1] = i;
-            }
-            $scope.initMonths = ["January", "February", "March", "April", "May",
+		$scope.initDate = function () {
+			$scope.initDates = new Array(31);
+			for (var i = 1; i <= 31; i++) {
+				$scope.initDates[i - 1] = i;
+			}
+			$scope.initMonths = ["January", "February", "March", "April", "May",
                                 "June", "July", "August", "September", "October",
                                 "November", "December"];
-            var d = new Date();
-            var n = d.getFullYear();
-            $scope.initYears = new Array(100);
-            for( i = 0; i < 100; i++ ){
-                $scope.initYears[i] = n-i;
-            }
-        };
+			var d = new Date();
+			var n = d.getFullYear();
+			$scope.initYears = new Array(100);
+			for (i = 0; i < 100; i++) {
+				$scope.initYears[i] = n - i;
+			}
+		};
 
 		$scope.submit = function () {
-			var birth_date = $scope.day_birth + "/" + ($scope.initMonths.indexOf($scope.month_birth)+1) + "/" + $scope.year_birth;
+			var birth_date = $scope.day_birth + "/" + ($scope.initMonths.indexOf($scope.month_birth) + 1) + "/" + $scope.year_birth;
 			var address_info = googleMap.position.address + " " + $scope.more_info;
 
 			if (!$scope.agreeTerm) {
@@ -65,8 +65,8 @@ app.controller('registerCtrl', ['$scope', '$http', 'googleMap', '$state', 'authF
 			}
 		};
 
-        $scope.initial = function() {
-            $scope.initDate();
-        };
-        $scope.initial();
+		$scope.initial = function () {
+			$scope.initDate();
+		};
+		$scope.initial();
 }]);
