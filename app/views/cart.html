@@ -5,7 +5,7 @@
 				<h4><b>Buy</b></h4>
 			</div>
 			<div class="panel-body">
-				<div class="row" ng-repeat="stock in stocks">
+				<div class="row" ng-repeat="stock in stocks" ng-show="stock.type === 'sale'">
 					<div class="col-md-4">
 						<center>
 							<img src="images/naruto.jpg" class="img-responsive" style="width:150px;height:225px;">
@@ -24,7 +24,11 @@
 
 						<div class="row">
 							<div class="col-md-4"><b>Author</b></div>
-							<div class="col-md-8">{{stock.book.author}}</div>
+							<div class="col-md-8">
+								<div ng-repeat="author in stock.book.authors">
+									{{author}}
+								</div>
+							</div>
 						</div>
 
 						<div class="row">
@@ -61,7 +65,7 @@
 						<div class="row">
 							<div class="col-md-9"></div>
 							<div class="col-md-3">
-								<button class="btn btn-danger">
+								<button class="btn btn-danger" ng-click="removeStock(stock.id)">
 									Cancel
 									<span class="glyphicon glyphicon-remove">
 								</button>
