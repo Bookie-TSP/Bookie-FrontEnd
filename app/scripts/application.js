@@ -30,17 +30,15 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			url: '/editAddress',
 			templateUrl: 'views/editAddress.html',
 			data : { pageTitle: 'Edit Address' }
+		})
+		.state('cart', {
+			url: '/cart',
+			templateUrl: 'views/cart.html',
+			data : { pageTitle: 'My Cart' }
 		});
 	$urlRouterProvider.otherwise('/');
 
 });
-// app.config(function(uiGmapGoogleMapApiProvider) {
-//     uiGmapGoogleMapApiProvider.configure({
-//     	key: 'AIzaSyBiB61BZiU_nXIBF3tZAAHyRfQeBSd9Jzo',
-//         v: '3.20', //defaults to latest 3.X anyhow
-//         libraries: 'weather,geometry,visualization'
-//     });
-// });
 app.run([ '$rootScope', '$state', '$stateParams',
 function ($rootScope, $state, $stateParams) {
   $rootScope.$state = $state;

@@ -30,21 +30,52 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			url: '/editAddress',
 			templateUrl: 'views/editAddress.html',
 			data : { pageTitle: 'Edit Address' }
+		})
+		.state('cart', {
+			url: '/cart',
+			templateUrl: 'views/cart.html',
+			data : { pageTitle: 'My Cart' }
 		});
 	$urlRouterProvider.otherwise('/');
 
 });
-// app.config(function(uiGmapGoogleMapApiProvider) {
-//     uiGmapGoogleMapApiProvider.configure({
-//     	key: 'AIzaSyBiB61BZiU_nXIBF3tZAAHyRfQeBSd9Jzo',
-//         v: '3.20', //defaults to latest 3.X anyhow
-//         libraries: 'weather,geometry,visualization'
-//     });
-// });
 app.run([ '$rootScope', '$state', '$stateParams',
 function ($rootScope, $state, $stateParams) {
   $rootScope.$state = $state;
   $rootScope.$stateParams = $stateParams;
+}]);
+
+app.controller('cartCtrl',['$scope','$http', '$state', 'authFactory',
+    function ($scope, $http, $state, authFactory){
+        var config = {
+            headers: {
+                'Authorization': authFactory.getAuth()
+            }
+        };
+		$scope.getCart = function() {
+            $http.get('https://bookieservice.herokuapp.com/api/members/cart/show',config)
+            .success(function (data) {
+                console.log(data);
+                $scope.cart = data;
+                $scope.stocks = $scope.cart.stocks;
+            })
+            .error(function (data) {
+                console.log(data);
+            });
+        };
+        // $scope.removeStock = function(id) {
+        //     $http.post('https://bookieservice.herokuapp.com/api/members/cart/remove',{
+        //         stock_id: id
+        //     },config)
+        //     .success(function(data){
+        //         $scope.cart = data;
+        //         $scope.stocks = $scope.cart.stocks;
+        //     })
+        //     .error(function(data){
+        //         console.log(data);
+        //     });
+        // };
+        $scope.getCart();
 }]);
 
 app.controller('addressCtrl',['$scope','$http', '$state', 'authFactory', '$rootScope', 'mapFactory',
