@@ -1,3 +1,4 @@
-app.controller('homeCtrl',['$scope','$http', '$state', '$rootScope',
-    function($scope, $http, $state, $rootScope){
+app.controller('homeCtrl', ['$scope', '$http', '$state', '$rootScope',
+    function ($scope, $http, $state, $rootScope) {
+
 }]);

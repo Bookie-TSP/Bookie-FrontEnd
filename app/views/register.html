@@ -1,12 +1,6 @@
 <div class="container" ng-controller="registerCtrl">
     <div class="register-form">
         <!--form-->
-<<<<<<< HEAD
-        <div>
-            <div class="row">
-                <div class="col-sm-6 col-sm-offset-3">
-                    <h2>Register</h2>
-=======
         <div class="row">
             <div class="col-sm-7 col-sm-offset-3">
                 <h2><b>Register</b></h2>
@@ -14,7 +8,6 @@
                 <!--register form-->
                 <form action="#">
                     <input type="text" placeholder="Email" ng-model="email">
->>>>>>> master
                     <br>
                     <input type="password" placeholder="Password *more than or equal 8 characters" ng-model="password">
                     <div ng-show="password.length < 8">
@@ -25,7 +18,7 @@
                     <div ng-show="password == password_confirmation && password != null">
                         <h5 id="pass">Password match!</h5>
                     </div>
-                    <div ng-show="password !== password_confirmation && password_confirmation != null" >
+                    <div ng-show="password !== password_confirmation && password_confirmation != null">
                         <h5 id="validate">Password not match!</h5>
                     </div>
                     <br>
@@ -69,9 +62,35 @@
                 <br>
                 <!-- map -->
                 <div>
-                    <div id="googleMap"></div>
-                    <div id="current"></div>
-                    <div id="address"></div>
+                    <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options">
+                        <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">
+                        </ui-gmap-marker>
+                    </ui-gmap-google-map>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-3 col-md-offset-2">
+                            Latitude :
+                        </div>
+                        <div class="col-md-7">
+                            {{latitude}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-md-offset-2">
+                            Longitude :
+                        </div>
+                        <div class="col-md-7">
+                            {{longitude}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-md-offset-2">
+                            Address :
+                        </div>
+                        <div class="col-md-7">
+                            {{address}}
+                        </div>
+                    </div>
                 </div>
                 <br>
                 <br>
