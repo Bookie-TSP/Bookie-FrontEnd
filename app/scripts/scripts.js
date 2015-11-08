@@ -25,6 +25,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			url: '/editProfile',
 			templateUrl: 'views/editProfile.html',
 			data : { pageTitle: 'Edit Profile' }
+		})
+		.state('editAddress', {
+			url: '/editAddress',
+			templateUrl: 'views/editAddress.html',
+			data : { pageTitle: 'Edit Address' }
 		});
 	$urlRouterProvider.otherwise('/');
 
@@ -40,6 +45,58 @@ app.run([ '$rootScope', '$state', '$stateParams',
 function ($rootScope, $state, $stateParams) {
   $rootScope.$state = $state;
   $rootScope.$stateParams = $stateParams;
+}]);
+
+app.controller('addressCtrl',['$scope','$http', '$state', 'authFactory', '$rootScope', 'mapFactory',
+    function($scope, $http, $state, authFactory, $rootScope, $map){
+        if (authFactory.getAuth() === undefined) {
+			$state.go("login");
+		}
+        
+        $scope.info = "";
+        $scope.initial = function(){
+            $scope.address = authFactory.getMember().addresses[0];
+            $scope.map = $map.map;
+            $scope.marker = $map.marker;
+            $scope.marker.coords = {
+                latitude: $scope.address.latitude,
+    			longitude: $scope.address.longitude
+            };
+            $scope.options = $map.options;
+        };
+
+        $scope.editAddress = function() {
+            $scope.address.information = $scope.info + $scope.address.information;
+            var config = {
+				headers: {
+					'Authorization': authFactory.getAuth()
+				}
+			};
+            $http.post('https://bookieservice.herokuapp.com/api/members/edit_address',{
+                address: $scope.address
+            },config)
+            .success(function(data){
+                console.log(data);
+                authFactory.setMember(data);
+                $state.go("viewProfile");
+            })
+            .error(function(data){
+                $scope.error = true;
+                console.log(data);
+            });
+
+        };
+
+        $scope.$on('marker', function () {
+			console.log("marker");
+            $scope.address.latitude = $map.getLat().toFixed(5);
+            $scope.address.longitude = $map.getLng().toFixed(5);
+            $scope.address.information = $map.getAddress();
+            $scope.$digest();
+		});
+
+        $scope.initial();
+
 }]);
 
 app.controller('editProfileCtrl', ['$scope', '$http', 'authFactory', '$q', '$state',
@@ -230,13 +287,13 @@ app.controller('registerCtrl', ['$scope', '$http', 'mapFactory', '$state', 'auth
             $scope.initMonths = ["January", "February", "March", "April", "May",
                                 "June", "July", "August", "September", "October",
                                 "November", "December"];
-            var d = new Date();
-            var n = d.getFullYear();
-            $scope.initYears = new Array(100);
-            for( i = 0; i < 100; i++ ){
-                $scope.initYears[i] = n-i;
-            }
-        };
+			var d = new Date();
+			var n = d.getFullYear();
+			$scope.initYears = new Array(100);
+			for (i = 0; i < 100; i++) {
+				$scope.initYears[i] = n - i;
+			}
+		};
 
 		$scope.submit = function () {
 			var birth_date = $scope.day_birth + "/" + ($scope.initMonths.indexOf($scope.month_birth)+1) + "/" + $scope.year_birth;
@@ -308,8 +365,10 @@ app.controller('profileCtrl', ['$scope', '$http', '$state', 'authFactory',
 		$scope.editProfile = function () {
 			$state.go("editProfile");
 		};
-	}
-]);
+		$scope.editAddress = function () {
+			$state.go("editAddress");
+		};
+}]);
 
 app.factory('authFactory', function ($http, $rootScope, $localStorage) {
 	return {
@@ -361,7 +420,6 @@ app.factory('mapFactory', function ($log, $rootScope) {
 		},
 		zoom: 8
 	};
-
 	var options = {
 		scrollwheel: false
 	};
@@ -393,7 +451,7 @@ app.factory('mapFactory', function ($log, $rootScope) {
 		longitude = long;
 	};
 
-	var getLat = function () {
+	var getLat = function () {   
 		return latitude;
 	};
 
@@ -411,6 +469,7 @@ app.factory('mapFactory', function ($log, $rootScope) {
 		options: options,
 		getLat: getLat,
 		getLng: getLng,
-		getAddress: getAddress
+		getAddress: getAddress,
+		setPosition: setPosition
 	};
 });

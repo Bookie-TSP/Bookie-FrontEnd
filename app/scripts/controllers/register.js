@@ -14,13 +14,13 @@ app.controller('registerCtrl', ['$scope', '$http', 'mapFactory', '$state', 'auth
             $scope.initMonths = ["January", "February", "March", "April", "May",
                                 "June", "July", "August", "September", "October",
                                 "November", "December"];
-            var d = new Date();
-            var n = d.getFullYear();
-            $scope.initYears = new Array(100);
-            for( i = 0; i < 100; i++ ){
-                $scope.initYears[i] = n-i;
-            }
-        };
+			var d = new Date();
+			var n = d.getFullYear();
+			$scope.initYears = new Array(100);
+			for (i = 0; i < 100; i++) {
+				$scope.initYears[i] = n - i;
+			}
+		};
 
 		$scope.submit = function () {
 			var birth_date = $scope.day_birth + "/" + ($scope.initMonths.indexOf($scope.month_birth)+1) + "/" + $scope.year_birth;

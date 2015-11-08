@@ -1,0 +1,75 @@
+<div class="container" ng-controller="addressCtrl">
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h3>Edit Address</h3>
+        </div>
+        <div class="panel-body">
+            <br>
+            <div>
+                <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options">
+                    <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">
+                    </ui-gmap-marker>
+                </ui-gmap-google-map>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col-md-2 col-md-offset-4">
+                        Latitude :
+                    </div>
+                    <div class="col-md-6">
+                        {{address.latitude}}
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-2 col-md-offset-4">
+                        Longitude :
+                    </div>
+                    <div class="col-md-6">
+                        {{address.longitude}}
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-2 col-md-offset-4">
+                        Address :
+                    </div>
+                    <div class="col-md-5">
+                        {{address.information}}
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-2 col-md-offset-4">
+                        More Information:
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" placeholder="More Info" ng-model="info">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-2 col-md-offset-4">
+                        Password (For Confirmation):
+                    </div>
+                    <div class="col-md-6">
+                        <input type="password" placeholder="Password" ng-model="address.password">
+                    </div>
+                    <div class="col-md-6 col-md-offset-6">
+                        <p id="validate" ng-show="error">Password is not correct</p>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-1 col-md-offset-5">
+                        <button type="submit" class="btn btn-warning" ng-click="editAddress()" id="editAddress">Edit</button>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-default" ui-sref="viewProfile">Back</button>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
+</div>
