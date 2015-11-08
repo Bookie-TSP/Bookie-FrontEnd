@@ -1,50 +1,118 @@
 <div class="container" ng-controller="profileCtrl">
-    <h1>Profile Page</h1>
-    <h3>Information</h3>
-    <div class="row">
-        <div class="col-sm-4 col-sm-offset-2">
-            <p>Email:</p>
-            <p>Firstname:</p>
-            <p>Lastname:</p>
-            <p>Phone Number:</p>
-            <p>Identification Number:</p>
-            <p>Gender:</p>
-            <p>Birth Date:</p>
+    <h1>My Profile</h1>
+    <br>
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h4>Information</h4>
         </div>
-        <div class="col-sm-5 col-sm-offset-1">
-            <p>{{profileData.email}}</p>
-            <p ng-show="profileData.email === null">undefined</p>
-            <p>{{profileData.first_name}}</p>
-            <p ng-show="profileData.first_name === null">undefined</p>
-            <p>{{profileData.last_name}}</p>
-            <p ng-show="profileData.last_name === null">undefined</p>
-            <p>{{profileData.phone_number}}</p>
-            <p ng-show="profileData.phone_number === null">undefined</p>
-            <p>{{profileData.identification_number}}</p>
-            <p ng-show="profileData.identification_number === null">undefined</p>
-            <p>{{profileData.gender}}</p>
-            <p ng-show="profileData.gender === null">undefined</p>
-            <p>{{profileData.birth_date}}</p>
-            <p ng-show="profileData.birth_date === null">undefined</p>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-2">
+                    <b>Email:</b>
+                </div>
+                <div class="col-sm-5 col-sm-offset-1">
+                    <p>{{profileData.email}}</p>
+                    <p ng-show="profileData.email === null">undefined</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-2">
+                    <b>Firstname:</b>
+                </div>
+                <div class="col-sm-5 col-sm-offset-1">
+                    <p>{{profileData.first_name}}</p>
+                    <p ng-show="profileData.first_name === null">undefined</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-2">
+                    <b>Lastname:</b>
+                </div>
+                <div class="col-sm-5 col-sm-offset-1">
+                    <p>{{profileData.last_name}}</p>
+                    <p ng-show="profileData.last_name === null">undefined</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-2">
+                    <b>Phone Number:</b>
+                </div>
+                <div class="col-sm-5 col-sm-offset-1">
+                    <p>{{profileData.phone_number}}</p>
+                    <p ng-show="profileData.phone_number === null">undefined</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-2">
+                    <b>Identification Number:</b>
+                </div>
+                <div class="col-sm-5 col-sm-offset-1">
+                    <p>{{profileData.identification_number}}</p>
+                    <p ng-show="profileData.identification_number === null">undefined</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-2">
+                    <b>Gender:</b>
+                </div>
+                <div class="col-sm-5 col-sm-offset-1">
+                    <p>{{profileData.gender}}</p>
+                    <p ng-show="profileData.gender === null">undefined</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-2">
+                    <b>Birth Date:</b>
+                </div>
+                <div class="col-sm-5 col-sm-offset-1">
+                    <p>{{profileData.birth_date}}</p>
+                    <p ng-show="profileData.birth_date === null">undefined</p>
+                </div>
+            </div>
+            <br>
         </div>
     </div>
-
-    <h3>Address</h3>
-    <div class="row">
-        <div class="col-sm-4 col-sm-offset-2">
-            <p>Longitude:</p>
-            <p>Latitude:</p>
-            <p>Information:</p>
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h4>Address</h4>
         </div>
-        <div class="col-sm-5 col-sm-offset-1">
-            <p>{{profileData.addresses[0].longitude}}</p>
-            <p ng-show="profileData.addresses[0].longitude === null">undefined</p>
-            <p>{{profileData.addresses[0].latitude}}</p>
-            <p ng-show="profileData.addresses[0].latitude === null">undefined</p>
-            <p>{{profileData.addresses[0].information}}</p>
-            <p ng-show="profileData.addresses[0].information === null">undefined</p>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-2">
+                    <b>Longitude:</b>
+                </div>
+                <div class="col-sm-5 col-sm-offset-1">
+                    <p>{{profileData.addresses[0].longitude}}</p>
+                    <p ng-show="profileData.addresses[0].longitude === null">undefined</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-2">
+                    <b>Information:</b>
+                </div>
+                <div class="col-sm-5 col-sm-offset-1">
+                    <p>{{profileData.addresses[0].latitude}}</p>
+                    <p ng-show="profileData.addresses[0].latitude === null">undefined</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-2">
+                    <b>Longitude:</b>
+                </div>
+                <div class="col-sm-5 col-sm-offset-1">
+                    <p>{{profileData.addresses[0].information}}</p>
+                    <p ng-show="profileData.addresses[0].information === null">undefined</p>
+                </div>
+            </div>
         </div>
-    </div><br>
+    </div>
+    <br>
     <center>
         <button type="submit" class="btn btn-default" ng-click="editProfile()">Edit Profile</button>
     </center>
