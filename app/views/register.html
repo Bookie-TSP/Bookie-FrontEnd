@@ -1,71 +1,120 @@
-<div ng-controller="registerCtrl">
-    <section id="form">
+<div class="container" ng-controller="registerCtrl">
+    <div class="register-form">
         <!--form-->
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6 col-sm-offset-3">
-                    <h2>Register</h2>
+        <div class="row">
+            <div class="col-sm-7 col-sm-offset-3">
+                <h2><b>Register</b></h2>
+                <br>
+                <!--register form-->
+                <form action="#">
+                    <input type="text" placeholder="Email" ng-model="email">
                     <br>
-                    <div class="register-form">
-                        <!--register form-->
-                        <form action="#">
-                            <input type="text" placeholder="Email" ng-model="email">
-                            <br>
-                            <div ng-show="password.length < 8">Not enough characters</div>
-                            <input type="password" placeholder="Password *more than or equal 8 characters" ng-model="password">
-                            <br>
-                            <div ng-show="password == password_confirmation && password != null">Password match!</div>
-                            <input type="password" placeholder="Password comfirmation" ng-model="password_confirmation">
-                            <br>
-                            <input type="text" placeholder="Firstname" ng-model="first_name">
-                            <br>
-                            <input type="text" placeholder="Lastname" ng-model="last_name">
-                            <br>
-                            <input type="text" placeholder="Identification number" ng-model="identification_number">
-                            <br>
-                        </form>
+                    <input type="password" placeholder="Password *more than or equal 8 characters" ng-model="password">
+                    <div ng-show="password.length < 8">
+                        <h5 id="validate">Not enough characters</h5>
                     </div>
+                    <br>
+                    <input type="password" placeholder="Password comfirmation" ng-model="password_confirmation">
+                    <div ng-show="password == password_confirmation && password != null">
+                        <h5 id="pass">Password match!</h5>
+                    </div>
+                    <div ng-show="password !== password_confirmation && password_confirmation != null">
+                        <h5 id="validate">Password not match!</h5>
+                    </div>
+                    <br>
+                    <input type="text" placeholder="Firstname" ng-model="first_name">
+                    <br>
+                    <input type="text" placeholder="Lastname" ng-model="last_name">
+                    <br>
+                    <input type="text" placeholder="Identification number" ng-model="identification_number">
+                    <br>
+                </form>
 
-                    <h4>Date of Birth</h4>
-                    <br>
-                    <div id="Birth_Date" class="datefield">
-                        <input id="day" type="tel" maxlength="2" placeholder="DD" ng-model="day_birth" />
-                        <input id="month" type="tel" maxlength="2" placeholder="MM" ng-model="month_birth" />
-                        <input id="year" type="tel" maxlength="4" placeholder="YYYY (A.D.)" ng-model="year_birth" />
-                    </div>
-                    <br>
+                <h4>Date of Birth</h4>
+                <br>
+                <center>
                     <div>
-                        <h4> Gender </h4>
-                        <input type="radio" name="sex" value="male" ng-model="gender"> Male
-                        <input type="radio" name="sex" value="female" ng-model="gender"> Female
+                        <select id="date" ng-model="day_birth">
+                            <option value="">---Date---</option>
+                            <option ng-repeat="date in initDates" value="{{date}}">{{date}}</option>
+                        </select>
+
+                        <select id="month" ng-model="month_birth">
+                            <option value="">---Month---</option>
+                            <option ng-repeat="month in initMonths" value="{{month}}">{{month}}</option>
+                        </select>
+
+                        <select id="year" ng-model="year_birth">
+                            <option value="">---Year---</option>
+                            <option ng-repeat="year in initYears" value="{{year}}">{{year}}</option>
+                        </select>
                     </div>
-                    <br>
-                    <h4>Address</h4>
-                    <br>
-                    <!-- map -->
-                    <div>
-                        <div id="googleMap"></div>
-                        <div id="current"></div>
-                        <div id="address"></div>
-                    </div>
-                    <br>
-                    <div class="register-form">
-                        <form action="#">
-                            <input type="text" placeholder="More Info" ng-model="more_info">
-                            <br>
-                            <input type="text" placeholder="Phone number" ng-model="phone_number">
-                            <br>
-                            <a href="">Term of condition</a>
-                            <br>
-                            <span>
-                                <input type="checkbox" ng-model="agreeTerm">I agree
-                            </span>
-                        </form>
-                    </div>
-                    <br>
-                    <a class="submitButton" ng-click="submit()">Sign up!</a>
+                </center>
+                <br>
+                <br>
+                <div>
+                    <h4> Gender </h4>
+                    <input type="radio" name="sex" value="Male" ng-model="gender"> Male &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="sex" value="Female" ng-model="gender"> Female
                 </div>
+                <br>
+                <h4>Address</h4>
+                <br>
+                <!-- map -->
+                <div>
+                    <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options">
+                        <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">
+                        </ui-gmap-marker>
+                    </ui-gmap-google-map>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-3 col-md-offset-2">
+                            Latitude :
+                        </div>
+                        <div class="col-md-7">
+                            {{latitude}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-md-offset-2">
+                            Longitude :
+                        </div>
+                        <div class="col-md-7">
+                            {{longitude}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-md-offset-2">
+                            Address :
+                        </div>
+                        <div class="col-md-7">
+                            {{address}}
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="register-form">
+                    <form action="#">
+                        <input type="text" placeholder="More Info" ng-model="more_info">
+                        <br>
+                        <input type="text" placeholder="Phone number" ng-model="phone_number">
+                        <br>
+                        <a href="">Terms of condition</a>
+                        <br>
+                        <br>
+                        <span>
+                            <input type="checkbox" ng-model="agreeTerm">I agree with term of condition
+                        </span>
+                    </form>
+                </div>
+                <br>
+                <center>
+                    <button class="btn btn-primary btn-lg" ng-click="submit()">Sign up!</button>
+                </center>
+                <br>
+                <br>
             </div>
         </div>
-    </section>
+    </div>
 </div>

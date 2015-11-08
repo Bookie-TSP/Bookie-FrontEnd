@@ -14,7 +14,11 @@
 			<script src="scripts/vendor/jquery.js"></script>
 			<script src="scripts/vendor/angular.min.js"></script>
 			<script src="scripts/vendor/bootstrap.min.js"></script>
+			<script src="scripts/vendor/loadash.js"></script>
+			<script src="scripts/vendor/angular-simple-logger.js"></script>
 			<script src="scripts/vendor/angular-ui-router.js"></script>
+			<script src="scripts/vendor/angular-google-map.js"></script>
+			<script src="scripts/vendor/angular-google-map.js"></script>
 			<script src="scripts/vendor/ui-bootstrap.min.js"></script>
 			<script src="scripts/vendor/ngstorage.min.js"></script>
 			<script src="scripts/scripts.js"></script>
@@ -23,14 +27,14 @@
 			<nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
 				<div class="container-fluid">
 					<div class="navbar-header">
-						<a class="navbar-brand" ng-click="goHome()">Bookie</a>
+						<a class="navbar-brand" ui-sref="home">Bookie</a>
 					</div>
 					<ul class="nav navbar-nav navbar-right" ng-show="member === undefined">
 						<li>
-							<a ng-click="login()">Login</a>
+							<a ui-sref="login">Login</a>
 						</li>
 						<li>
-							<a ng-click="register()">Register</a>
+							<a ui-sref="register">Register</a>
 						</li>
 						<!-- Mocked item cart -->
 						<li>
@@ -41,10 +45,7 @@
 					</ul>
 					<ul class="nav navbar-nav navbar-right" ng-show="member !== undefined">
 						<li>
-							<a ng-click="profile()">{{member.email}}</a>
-						</li>
-						<li>
-							<a>|</a>
+							<a ng-click="profile()" ui-sref="viewProfile">{{member.email}}</a>
 						</li>
 						<li>
 							<a ng-click="logout()" ui-sref="home">Logout</a>

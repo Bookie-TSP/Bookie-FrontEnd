@@ -1,8 +1,24 @@
-app.controller('editProfileCtrl', ['$scope', '$http', 'googleMap', 'authFactory', '$q', '$state',
-	function ($scope, $http, googleMap, authFactory, $q, $state) {
+app.controller('editProfileCtrl', ['$scope', '$http', 'authFactory', '$q', '$state',
+	function ($scope, $http, authFactory, $q, $state) {
 		if (authFactory.getAuth() === undefined) {
-			$state.go("home");
+			$state.go("login");
 		}
+
+		$scope.initDate = function() {
+            $scope.initDates = new Array(31);
+            for( var i = 1; i <=31 ; i++ ){
+                $scope.initDates[i-1] = i;
+            }
+			$scope.initMonths = ["January", "February", "March", "April", "May",
+								"June", "July", "August", "September", "October",
+								"November", "December"];
+            var d = new Date();
+            var n = d.getFullYear();
+            $scope.initYears = new Array(100);
+            for( i = 0; i < 100; i++ ){
+                $scope.initYears[i] = n-i;
+            }
+        };
 
 		$scope.getProfile = function () {
 			console.log("Getting the profile");
@@ -34,7 +50,7 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'googleMap', 'authFactory'
 			if($scope.profileData.birth_date !== null){
 				birth = $scope.profileData.birth_date.split("-");
 				$scope.date = birth[2];
-				$scope.month = birth[1];
+				$scope.month = $scope.initMonths[birth[1]-1];
 				$scope.year = birth[0];
 			}
 		};
@@ -46,7 +62,7 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'googleMap', 'authFactory'
 					'Authorization': authFactory.getAuth()
 				}
 			};
-			var birth_date = $scope.date + "/" + $scope.month + "/" + $scope.year;
+			var birth_date = $scope.date + "/" + ($scope.initMonths.indexOf($scope.month)+1) + "/" + $scope.year;
 			$http.put('https://bookieservice.herokuapp.com/api/members', {
 					member: {
 						email: $scope.profileData.email,
@@ -61,17 +77,27 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'googleMap', 'authFactory'
 					}
 				}, config)
 				.success(function (data) {
-					$scope.profileData.password = "";
 					$scope.getProfile();
+					$scope.error = false;
 					console.log(data);
+					$scope.profileData.password = "";
 				})
 				.error(function (data) {
+					$scope.error = true;
 					console.log(data);
 				});
 		};
 
+
+		$scope.backToViewProfile = function() {
+			$state.go("viewProfile");
+		};
+
 		$scope.initial = function () {
-			$scope.profileData = authFactory.getMember();
+			$scope.initDate();
+			var profile = authFactory.getMember();
+			var text = JSON.stringify(profile);
+			$scope.profileData = JSON.parse(text);
 			$scope.setDate();
 		};
 

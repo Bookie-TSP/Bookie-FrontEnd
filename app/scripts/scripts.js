@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ui.router', 'ngStorage']);
+var app = angular.module('app', ['ui.router', 'ngStorage', 'ui.bootstrap', 'uiGmapgoogle-maps']);
 app.config(function ($stateProvider, $urlRouterProvider) {
 	$stateProvider
 		.state('home', {
@@ -73,11 +73,27 @@ app.controller('cartCtrl',['$scope','$http', '$state', 'authFactory',
         $scope.getCart();
 }]);
 
-app.controller('editProfileCtrl', ['$scope', '$http', 'googleMap', 'authFactory', '$q', '$state',
-	function ($scope, $http, googleMap, authFactory, $q, $state) {
+app.controller('editProfileCtrl', ['$scope', '$http', 'authFactory', '$q', '$state',
+	function ($scope, $http, authFactory, $q, $state) {
 		if (authFactory.getAuth() === undefined) {
-			$state.go("home");
+			$state.go("login");
 		}
+
+		$scope.initDate = function() {
+            $scope.initDates = new Array(31);
+            for( var i = 1; i <=31 ; i++ ){
+                $scope.initDates[i-1] = i;
+            }
+			$scope.initMonths = ["January", "February", "March", "April", "May",
+								"June", "July", "August", "September", "October",
+								"November", "December"];
+            var d = new Date();
+            var n = d.getFullYear();
+            $scope.initYears = new Array(100);
+            for( i = 0; i < 100; i++ ){
+                $scope.initYears[i] = n-i;
+            }
+        };
 
 		$scope.getProfile = function () {
 			console.log("Getting the profile");
@@ -109,7 +125,7 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'googleMap', 'authFactory'
 			if($scope.profileData.birth_date !== null){
 				birth = $scope.profileData.birth_date.split("-");
 				$scope.date = birth[2];
-				$scope.month = birth[1];
+				$scope.month = $scope.initMonths[birth[1]-1];
 				$scope.year = birth[0];
 			}
 		};
@@ -121,7 +137,7 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'googleMap', 'authFactory'
 					'Authorization': authFactory.getAuth()
 				}
 			};
-			var birth_date = $scope.date + "/" + $scope.month + "/" + $scope.year;
+			var birth_date = $scope.date + "/" + ($scope.initMonths.indexOf($scope.month)+1) + "/" + $scope.year;
 			$http.put('https://bookieservice.herokuapp.com/api/members', {
 					member: {
 						email: $scope.profileData.email,
@@ -136,17 +152,27 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'googleMap', 'authFactory'
 					}
 				}, config)
 				.success(function (data) {
-					$scope.profileData.password = "";
 					$scope.getProfile();
+					$scope.error = false;
 					console.log(data);
+					$scope.profileData.password = "";
 				})
 				.error(function (data) {
+					$scope.error = true;
 					console.log(data);
 				});
 		};
 
+
+		$scope.backToViewProfile = function() {
+			$state.go("viewProfile");
+		};
+
 		$scope.initial = function () {
-			$scope.profileData = authFactory.getMember();
+			$scope.initDate();
+			var profile = authFactory.getMember();
+			var text = JSON.stringify(profile);
+			$scope.profileData = JSON.parse(text);
 			$scope.setDate();
 		};
 
@@ -154,8 +180,8 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'googleMap', 'authFactory'
 	}
 ]);
 
-app.controller('homeCtrl',['$scope','$http', '$state', '$rootScope',
-    function($scope, $http, $state, $rootScope){
+app.controller('homeCtrl', ['$scope', '$http', '$state', '$rootScope',
+    function ($scope, $http, $state, $rootScope) {
 
 }]);
 
@@ -189,21 +215,8 @@ app.controller('loginCtrl', ['$scope', '$http', '$state', 'authFactory',
 
 app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootScope',
   function ($scope, $http, $state, authFactory, $rootScope) {
-		$scope.goHome = function () {
-			$state.go("home");
-		};
-		$scope.login = function () {
-			$state.go("login");
-		};
 		$scope.logout = function () {
 			authFactory.setAuth(undefined);
-		};
-		$scope.register = function () {
-			$state.go("register");
-		};
-		$scope.profile = function () {
-			console.log("asda");
-			$state.go("viewProfile");
 		};
 		$scope.getMember = function () {
 			if (authFactory.getAuth() !== undefined) {
@@ -232,19 +245,36 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
 		});
 }]);
 
-app.controller('registerCtrl', ['$scope', '$http', 'googleMap', '$state', 'authFactory',
-        function ($scope, $http, googleMap, $state, authFactory) {
+app.controller('registerCtrl', ['$scope', '$http', 'mapFactory', '$state', 'authFactory',
+        function ($scope, $http, $map, $state, authFactory) {
 		if (authFactory.getAuth() !== undefined) {
 			$state.go("home");
 		}
-		googleMap.init();
-		setInterval(function () {
-			// console.log(googleMap.position);
-		}, 1000);
+        $scope.latitude = "";
+        $scope.longitude = "";
+        $scope.address = "";
+        $scope.initDate = function() {
+            $scope.initDates = new Array(31);
+            for( var i = 1; i <=31 ; i++ ){
+                $scope.initDates[i-1] = i;
+            }
+            $scope.initMonths = ["January", "February", "March", "April", "May",
+                                "June", "July", "August", "September", "October",
+                                "November", "December"];
+            var d = new Date();
+            var n = d.getFullYear();
+            $scope.initYears = new Array(100);
+            for( i = 0; i < 100; i++ ){
+                $scope.initYears[i] = n-i;
+            }
+        };
 
 		$scope.submit = function () {
-			var birth_date = $scope.day_birth + "/" + $scope.month_birth + "/" + $scope.year_birth;
-			var address_info = googleMap.position.address + " " + $scope.more_info;
+			var birth_date = $scope.day_birth + "/" + ($scope.initMonths.indexOf($scope.month_birth)+1) + "/" + $scope.year_birth;
+            var address_info = $scope.address;
+            if( $scope.more_info !== undefined){
+                address_info = $scope.more_info + " " + address_info;
+            }
 
 			if (!$scope.agreeTerm) {
 				alert("Please agree the term of condition");
@@ -263,8 +293,8 @@ app.controller('registerCtrl', ['$scope', '$http', 'googleMap', '$state', 'authF
 				var address = {
 					first_name: $scope.first_name,
 					last_name: $scope.last_name,
-					latitude: googleMap.position.lat,
-					longitude: googleMap.position.lng,
+					latitude: $scope.latitude,
+					longitude: $scope.longitude,
 					information: address_info
 				};
 
@@ -275,27 +305,42 @@ app.controller('registerCtrl', ['$scope', '$http', 'googleMap', '$state', 'authF
 					})
 					.success(function (data) {
 						console.log(data);
-						authFactory.setAuth(data.auth_token);
-						$state.go("home");
+						$state.go("login");
 					})
 					.error(function (data) {
 						console.log(data);
-						alert("error : " + data.error);
+						alert("error : " + data.errors);
 					});
 			}
 		};
+
+        $scope.initial = function() {
+            $scope.initDate();
+            $scope.map = $map.map;
+            $scope.marker = $map.marker;
+            $scope.options = $map.options;
+        };
+        $scope.$on('marker', function () {
+			console.log("marker");
+            $scope.latitude = $map.getLat().toFixed(5);
+            $scope.longitude = $map.getLng().toFixed(5);
+            $scope.address = $map.getAddress();
+            $scope.$digest();
+		});
+        $scope.initial();
 }]);
 
 app.controller('profileCtrl', ['$scope', '$http', '$state', 'authFactory',
-function ($scope, $http, $state, authFactory) {
+	function ($scope, $http, $state, authFactory) {
 		if (authFactory.getAuth() === undefined) {
-			$state.go("home");
+			$state.go("login");
 		}
 		$scope.profileData = authFactory.getMember();
 		$scope.editProfile = function () {
 			$state.go("editProfile");
 		};
-}]);
+	}
+]);
 
 app.factory('authFactory', function ($http, $rootScope, $localStorage) {
 	return {
@@ -315,122 +360,24 @@ app.factory('authFactory', function ($http, $rootScope, $localStorage) {
 	};
 });
 
-app.factory('googleMap', function () {
-	var position = {
-		lat: "13.752",
-		lng: "100.493",
-		address: ""
-	};
+app.factory('mapFactory', function ($log, $rootScope) {
+	var latitude = 13.725;
+	var longitude = 100.493;
+	var address = "";
 
-	function initialize() {
-		var geocoder = new google.maps.Geocoder;
-		var infowindow = new google.maps.InfoWindow;
-
-		var bkk = new google.maps.LatLng(position.lat, position.lng);
-		var mapProp = {
-			center: bkk,
-			zoom: 7,
-			mapTypeId: google.maps.MapTypeId.ROADMAP,
-			disableDefaultUI: true
-		};
-
-		var marker = new google.maps.Marker({
-			position: bkk,
-			draggable: true
-		});
-
-		var styles = [{
-				"featureType": "landscape",
-				"elementType": "labels",
-				"stylers": [{
-					"visibility": "off"
-                }]
-            },
-			{
-				"featureType": "poi",
-				"elementType": "labels",
-				"stylers": [{
-					"visibility": "off"
-                }]
-            },
-			{
-				"featureType": "road",
-				"elementType": "geometry",
-				"stylers": [{
-					"lightness": 57
-                }]
-            },
-			{
-				"featureType": "road",
-				"elementType": "labels.text.fill",
-				"stylers": [{
-						"visibility": "on"
-                },
-					{
-						"lightness": 24
-                }]
-            },
-			{
-				"featureType": "road",
-				"elementType": "labels.icon",
-				"stylers": [{
-					"visibility": "off"
-                }]
-            },
-			{
-				"featureType": "transit",
-				"elementType": "labels",
-				"stylers": [{
-					"visibility": "off"
-                }]
-            },
-			{
-				"featureType": "water",
-				"elementType": "labels",
-				"stylers": [{
-					"visibility": "off"
-                }]
-            }
-        ];
-
-		var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-		marker.setMap(map);
-		map.setOptions({
-			styles: styles
-		});
-
-		google.maps.event.addListener(marker, 'dragend', function (mark) {
-			var latitude = mark.latLng.lat();
-			var longitude = mark.latLng.lng();
-			geocodeLatLng(geocoder, map, marker, infowindow, latitude, longitude);
-			position.lat = latitude.toFixed(3);
-			position.lng = longitude.toFixed(3);
-			document.getElementById('current')
-				.innerHTML = '<p>Marker dropped: Current Lat: ' + latitude.toFixed(3) + ' Current Lng: ' + longitude.toFixed(3) + '</p>';
-		});
-	}
-
-	// this function is used for convert lat and lng into address
-	function geocodeLatLng(geocoder, map, marker, infowindow, latitude, longitude) {
+	function geocodeLatLng(latitude, longitude) {
 		var latlng = {
 			lat: latitude,
 			lng: longitude
 		};
-
+		var geocoder = new google.maps.Geocoder;
 		geocoder.geocode({
 			'location': latlng
 		}, function (results, status) {
 			if (status === google.maps.GeocoderStatus.OK) {
-				if (results[1]) {
-					var address = results[1].formatted_address;
-					infowindow.setContent(address);
-					infowindow.open(map, marker);
-
-					document.getElementById('address')
-						.innerHTML = '<p>Current add: ' + address + '</p>';
-					position.address = address;
-				} else {
-					window.alert('No results found');
+				if (results[0]) {
+					address = results[0].formatted_address;
+					$rootScope.$broadcast('marker');
 				}
 			} else {
 				window.alert('Geocoder failed due to: ' + status);
@@ -438,17 +385,63 @@ app.factory('googleMap', function () {
 		});
 	}
 
-	function init() {
-		google.maps.event.addDomListener(window, 'load', initialize);
-		console.log("init");
-	}
+	var map = {
+		center: {
+			latitude: 13.725,
+			longitude: 100.493
+		},
+		zoom: 8
+	};
 
-	// initial map and pin by calling initialize function
+	var options = {
+		scrollwheel: false
+	};
+
+	var marker = {
+		id: 0,
+		coords: {
+			latitude: 13.725,
+			longitude: 100.493
+		},
+		options: {
+			draggable: true
+		},
+		events: {
+			dragend: function (marker, eventName, args) {
+				$log.log('marker dragend');
+				var lat = marker.getPosition()
+					.lat();
+				var lon = marker.getPosition()
+					.lng();
+				setPosition(lat, lon);
+				geocodeLatLng(lat, lon);
+			}
+		}
+	};
+
+	var setPosition = function (lat, long) {
+		latitude = lat;
+		longitude = long;
+	};
+
+	var getLat = function () {
+		return latitude;
+	};
+
+	var getLng = function () {
+		return longitude;
+	};
+
+	var getAddress = function () {
+		return address;
+	};
+
 	return {
-		init: init,
-		initialize: initialize,
-		geocodeLatLng: geocodeLatLng,
-		position: position
-
+		map: map,
+		marker: marker,
+		options: options,
+		getLat: getLat,
+		getLng: getLng,
+		getAddress: getAddress
 	};
 });
