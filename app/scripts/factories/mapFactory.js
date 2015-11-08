@@ -61,7 +61,7 @@ app.factory('mapFactory', function ($log, $rootScope) {
 		longitude = long;
 	};
 
-	var getLat = function () {
+	var getLat = function () {   
 		return latitude;
 	};
 
@@ -79,6 +79,7 @@ app.factory('mapFactory', function ($log, $rootScope) {
 		options: options,
 		getLat: getLat,
 		getLng: getLng,
-		getAddress: getAddress
+		getAddress: getAddress,
+		setPosition: setPosition
 	};
 });
