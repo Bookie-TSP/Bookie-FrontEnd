@@ -38,20 +38,20 @@
 						</li>
 						<!-- Mocked item cart -->
 						<li>
-							<a id="item-cart">
+							<a id="item-cart" ui-sref="cart">
 								$0.00 (0 items) <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
 							</a>
 						</li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right" ng-show="member !== undefined">
 						<li>
-							<a ng-click="profile()" ui-sref="viewProfile">{{member.email}}</a>
+							<a ui-sref="viewProfile">{{member.email}}</a>
 						</li>
 						<li>
 							<a ng-click="logout()" ui-sref="home">Logout</a>
 						</li>
 						<li>
-							<a id="item-cart">
+							<a id="item-cart" ui-sref="cart">
 								$0.00 (0 items) <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
 							</a>
 						</li>

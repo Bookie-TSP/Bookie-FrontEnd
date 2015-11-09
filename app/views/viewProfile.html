@@ -1,51 +1,125 @@
 <div class="container" ng-controller="profileCtrl">
-    <h1>Profile Page</h1>
-    <h3>Information</h3>
-    <table class="table table-striped">
-        <tr>
-            <td>Email:</td>
-            <td>{{profileData.email}}</td>
-        </tr>
-        <tr>
-            <td>Firstname:</td>
-            <td>{{profileData.first_name}}</td>
-        </tr>
-        <tr>
-            <td>Lastname:</td>
-            <td>{{profileData.last_name}}</td>
-        </tr>
-        <tr>
-            <td>Phone Number:</td>
-            <td>{{profileData.phone_number}}</td>
-        </tr>
-        <tr>
-            <td>Identification Number:</td>
-            <td>{{profileData.identification_number}}</td>
-        </tr>
-        <tr>
-            <td>Gender:</td>
-            <td>{{profileData.gender}}</td>
-        </tr>
-        <tr>
-            <td>Birth Date:</td>
-            <td>{{profileData.birth_date}}</td>
-        </tr>
-    </table>
+    <h1>My Profile</h1>
+    <br>
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h4>Information</h4>
+        </div>
+        <div class="panel-body">
+            <br>
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-2">
+                    <b>Email:</b>
+                </div>
+                <div class="col-sm-5 col-sm-offset-1">
+                    <p>{{profileData.email}}</p>
+                    <p ng-show="profileData.email === null">undefined</p>
+                </div>
+            </div>
 
-    <h3>Address</h3>
-    <table class="table table-striped">
-        <tr>
-            <td>Longitude:</td>
-            <td>{{profileData.addresses[0].longitude}}</td>
-        </tr>
-        <tr>
-            <td>Laitude:</td>
-            <td>{{profileData.addresses[0].latitude}}</td>
-        </tr>
-        <tr>
-            <td>Information:</td>
-            <td>{{profileData.addresses[0].information}}</td>
-        </tr>
-    </table>
-    <button type="submit" class="btn btn-default" ng-click="editProfile()">Edit Profile</button>
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-2">
+                    <b>Firstname:</b>
+                </div>
+                <div class="col-sm-5 col-sm-offset-1">
+                    <p>{{profileData.first_name}}</p>
+                    <p ng-show="profileData.first_name === null">undefined</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-2">
+                    <b>Lastname:</b>
+                </div>
+                <div class="col-sm-5 col-sm-offset-1">
+                    <p>{{profileData.last_name}}</p>
+                    <p ng-show="profileData.last_name === null">undefined</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-2">
+                    <b>Phone Number:</b>
+                </div>
+                <div class="col-sm-5 col-sm-offset-1">
+                    <p>{{profileData.phone_number}}</p>
+                    <p ng-show="profileData.phone_number === null">undefined</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-2">
+                    <b>Identification Number:</b>
+                </div>
+                <div class="col-sm-5 col-sm-offset-1">
+                    <p>{{profileData.identification_number}}</p>
+                    <p ng-show="profileData.identification_number === null">undefined</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-2">
+                    <b>Gender:</b>
+                </div>
+                <div class="col-sm-5 col-sm-offset-1">
+                    <p>{{profileData.gender}}</p>
+                    <p ng-show="profileData.gender === null">undefined</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-2">
+                    <b>Birth Date:</b>
+                </div>
+                <div class="col-sm-5 col-sm-offset-1">
+                    <p>{{profileData.birth_date}}</p>
+                    <p ng-show="profileData.birth_date === null">undefined</p>
+                </div>
+            </div>
+            <br>
+            <center>
+                <button type="submit" class="btn btn-warning" ui-sref="editProfile">Edit Profile</button>
+            </center>
+        </div>
+    </div>
+
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h4>Address</h4>
+        </div>
+        <div class="panel-body">
+            <br>
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-2">
+                    <b>Longitude:</b>
+                </div>
+                <div class="col-sm-5 col-sm-offset-1">
+                    <p>{{profileData.addresses[0].longitude}}</p>
+                    <p ng-show="profileData.addresses[0].longitude === null">undefined</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-2">
+                    <b>Information:</b>
+                </div>
+                <div class="col-sm-5 col-sm-offset-1">
+                    <p>{{profileData.addresses[0].latitude}}</p>
+                    <p ng-show="profileData.addresses[0].latitude === null">undefined</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-2">
+                    <b>Longitude:</b>
+                </div>
+                <div class="col-sm-5 col-sm-offset-1">
+                    <p>{{profileData.addresses[0].information}}</p>
+                    <p ng-show="profileData.addresses[0].information === null">undefined</p>
+                </div>
+            </div>
+        </div>
+        <center>
+            <button type="submit" class="btn btn-warning" ui-sref="editAddress">Edit Address</button>
+        </center>
+        <br>
+    </div>
 </div>
