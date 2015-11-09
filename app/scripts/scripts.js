@@ -40,6 +40,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			url: '/cart',
 			templateUrl: 'views/cart.html',
 			data : { pageTitle: 'My Cart' }
+		})
+		.state('viewStock', {
+			url: '/viewStock',
+			templateUrl: 'views/viewStock.html',
+			data : { pageTitle: 'My Stock' }
 		});
 	$urlRouterProvider.otherwise('/');
 
@@ -612,6 +617,28 @@ app.controller('profileCtrl', ['$scope', '$http', '$state', 'authFactory',
 			$state.go("login");
 		}
 		$scope.profileData = authFactory.getMember();
+}]);
+
+app.controller('stockCtrl', ['$scope', '$http', '$state', 'authFactory',
+	function ($scope, $http, $state, authFactory) {
+		if (authFactory.getAuth() === undefined) {
+			$state.go("login");
+		}
+
+        $scoep.getStock = function(){
+            var config = {
+                headers: {
+                    'Authorization': authFactory.getAuth()
+                }
+            };
+            $http.get('https://bookieservice.herokuapp.com/api/mystocks',config)
+            .success(function(data){
+                $scope.stoks = data;
+            })
+            .error(function(data){
+
+            });
+        };
 }]);
 
 app.factory('authFactory', function ($http, $rootScope, $localStorage) {
