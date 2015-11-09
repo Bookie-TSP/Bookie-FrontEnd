@@ -1,5 +1,5 @@
-app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$location', '$state', '$stateParams', 'googleMap', 'authFactory',
-    function ($scope, $http, $anchorScroll, $location, $state, $stateParams, googleMap, authFactory) {
+app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$location', '$state', '$stateParams', 'mapFactory', 'authFactory',
+    function ($scope, $http, $anchorScroll, $location, $state, $stateParams, $map, authFactory) {
         $scope.loggedIn = false;
 
         // Variables for Pagers
@@ -10,7 +10,7 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
         $scope.currentPage = 4;
 
         // Initialize Google Map from the mapFactory.js
-        googleMap.initialize();
+        // googleMap.initialize();
 
         // Define bookInfo
         $scope.bookInfo = {};

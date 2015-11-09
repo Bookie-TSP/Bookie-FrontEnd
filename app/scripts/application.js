@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ui.router', 'ngStorage', 'ui.bootstrap']);
+var app = angular.module('app', ['ui.router', 'ngStorage', 'ui.bootstrap', 'uiGmapgoogle-maps']);
 app.config(function ($stateProvider, $urlRouterProvider) {
 	$stateProvider
 		.state('home', {
@@ -34,6 +34,13 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 	$urlRouterProvider.otherwise('/');
 
 });
+// app.config(function(uiGmapGoogleMapApiProvider) {
+//     uiGmapGoogleMapApiProvider.configure({
+//     	key: 'AIzaSyBiB61BZiU_nXIBF3tZAAHyRfQeBSd9Jzo',
+//         v: '3.20', //defaults to latest 3.X anyhow
+//         libraries: 'weather,geometry,visualization'
+//     });
+// });
 app.run([ '$rootScope', '$state', '$stateParams',
 function ($rootScope, $state, $stateParams) {
   $rootScope.$state = $state;
