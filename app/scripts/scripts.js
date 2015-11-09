@@ -45,6 +45,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			url: '/viewStock',
 			templateUrl: 'views/viewStock.html',
 			data : { pageTitle: 'My Stock' }
+		})
+		.state('newStock', {
+			url: '/newStock',
+			templateUrl: 'views/newStock.html',
+			data : { pageTitle: 'Add Stock' }
 		});
 	$urlRouterProvider.otherwise('/');
 
@@ -533,6 +538,11 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
 			console.log('Change');
 			$rootScope.member = $scope.getMember();
 		});
+}]);
+
+app.controller('newStockCtrl',['$scope','$http', '$state', '$rootScope',
+    function($scope, $http, $state, $rootScope){
+    	
 }]);
 
 app.controller('registerCtrl', ['$scope', '$http', 'mapFactory', '$state', 'authFactory', 'dateFactory',
