@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ui.router', 'ngStorage', 'ui.bootstrap']);
+var app = angular.module('app', ['ui.router', 'ngStorage', 'ui.bootstrap', 'uiGmapgoogle-maps']);
 app.config(function ($stateProvider, $urlRouterProvider) {
 	$stateProvider
 		.state('home', {
@@ -25,6 +25,21 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			url: '/editProfile',
 			templateUrl: 'views/editProfile.html',
 			data : { pageTitle: 'Edit Profile' }
+		})
+		.state('bookProfile', {
+			url: '/book/:bookId',
+			templateUrl: 'views/bookProfile.html',
+			data : { pageTitle: 'Book Profile' }
+		})
+		.state('editAddress', {
+			url: '/editAddress',
+			templateUrl: 'views/editAddress.html',
+			data : { pageTitle: 'Edit Address' }
+		})
+		.state('cart', {
+			url: '/cart',
+			templateUrl: 'views/cart.html',
+			data : { pageTitle: 'My Cart' }
 		});
 	$urlRouterProvider.otherwise('/');
 
