@@ -1,5 +1,5 @@
-app.controller('editProfileCtrl', ['$scope', '$http', 'googleMap', 'authFactory', '$q', '$state',
-	function ($scope, $http, googleMap, authFactory, $q, $state) {
+app.controller('editProfileCtrl', ['$scope', '$http', 'authFactory', '$q', '$state',
+	function ($scope, $http, authFactory, $q, $state) {
 		if (authFactory.getAuth() === undefined) {
 			$state.go("login");
 		}
