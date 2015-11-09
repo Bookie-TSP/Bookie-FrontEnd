@@ -386,7 +386,7 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'authFactory', '$q', '$sta
 				'Authorization': authFactory.getAuth()
 			}
 		};
-
+		
 		$scope.initDate = function() {
 			$scope.initDates = $date.days;
             $scope.initMonths = $date.months;
@@ -538,7 +538,7 @@ app.controller('registerCtrl', ['$scope', '$http', 'mapFactory', '$state', 'auth
         $scope.latitude = "";
         $scope.longitude = "";
         $scope.address = "";
-
+        
         $scope.initDate = function() {
             $scope.initDates = $date.days;
             $scope.initMonths = $date.months;
@@ -719,7 +719,7 @@ app.factory('mapFactory', function ($log, $rootScope) {
 		longitude = long;
 	};
 
-	var getLat = function () {
+	var getLat = function () {   
 		return latitude;
 	};
 
