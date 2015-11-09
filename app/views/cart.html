@@ -82,37 +82,41 @@
 				<h4><b>Rent</b></h4>
 			</div>
 			<div class="panel-body">
-				<div class="row">
+				<div class="row" ng-repeat="stock in stocks" ng-show="stock.type === 'rent'">
 					<div class="col-md-4">
 						<center>
-							<img src="images/hack.jpg" class="img-responsive" style="width:150px;height:225px;">
+							<img src="{{stock.book.cover_image_url}}" class="img-responsive" style="width:150px;height:225px;">
 						</center>
 					</div>
 					<div class="col-md-8">
 						<div class="row">
 							<div class="col-md-4"><b>Name</b></div>
-							<div class="col-md-8">H.A.C.K(#1)</div>
+							<div class="col-md-8">{{stock.book.title}}</div>
 						</div>
 
 						<div class="row">
 							<div class="col-md-4"><b>ISBN</b></div>
-							<div class="col-md-8">978-616-369-768-5</div>
+							<div class="col-md-8">{{stock.book.isbn}}</div>
 						</div>
 
 						<div class="row">
 							<div class="col-md-4"><b>Author</b></div>
-							<div class="col-md-8"></div>
+							<div class="col-md-8">
+								<div ng-repeat="author in stock.book.authors">
+									{{author}}
+								</div>
+							</div>
 						</div>
 
 						<div class="row">
 							<div class="col-md-4"><b>Publisher</b></div>
-							<div class="col-md-8"></div>
+							<div class="col-md-8">{{stock.book.publisher}}</div>
 						</div>
 
 						<div class="row">
 							<div class="col-md-4"><b>Price</b></div>
 							<div class="col-md-8">
-								<b>50 baht</b> for
+								<b>{{stock.price}}</b> for
 								<b>30 Days</b>
 							</div>
 						</div>
@@ -158,7 +162,7 @@
 			<div class="panel-body">
 				<div class="row">
 					<div class="col-md-7">Subtotal</div>
-					<div class="col-md-4">100.00฿</div>
+					<div class="col-md-4">{{total}}</div>
 				</div>
 				<div class="row">
 					<div class="col-md-7">Discount</div>
@@ -171,7 +175,7 @@
 				<hr>
 				<div class="row">
 					<div class="col-md-7">Total</div>
-					<div class="col-md-4">100.00฿</div>
+					<div class="col-md-4">{{total}}</div>
 				</div>
 			</div>
 		</div>

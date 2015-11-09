@@ -53,6 +53,11 @@ app.controller('cartCtrl',['$scope','$http', '$state', 'authFactory',
                 console.log(data);
                 $scope.cart = data;
                 $scope.stocks = $scope.cart.stocks;
+                $scope.total = 0;
+                    for(var i = 0, len = $scope.stocks.length; i < len; i++) {
+                        $scope.total += $scope.stocks[i].price;
+                    }
+                console.log($scope.total)
             })
             .error(function (data) {
                 console.log(data);
