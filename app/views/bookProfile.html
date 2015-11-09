@@ -73,13 +73,13 @@
             <!-- Buy New Books tab heading and its items -->
             <uib-tab heading="Buy New Books" ng-click="moveToBottom()">
                 <br>
-                <div ng-repeat="book in newBooksInfo">
+                <div ng-repeat="book in bookInfo.stocks" ng-show="book.condition === 'new'">
                     <div class = "row">
                         <div class="col-sm-1">${{book.price}}</div>
                         <div class="col-sm-2">{{book.condition}}</div>
                         <div class="col-sm-5">{{book.address}}</div>
                         <div class="col-sm-2">In stock: {{book.quantity}}</div>
-                        <div class="col-sm-2" ng-if="book.quantity >= 1"><button ng-click="addToCart(book)">Add To Cart</button></div>
+                        <div class="col-sm-2" ng-if="book.quantity >= 1"><button class="btn btn-inverse" ng-click="addToCart(book)">Add To Cart</button></div>
                         <div ng-if="book.quantity == 0"></div>
                     </div>
                     <hr>
@@ -89,7 +89,7 @@
             <!-- Buy Used Books tab heading and its items -->
             <uib-tab heading="Buy Used Books" ng-click="moveToBottom()">
                 <br>
-                <div ng-repeat="book in oldBooksInfo">
+                <div ng-repeat="book in bookInfo.stocks" ng-show="book.condition === 'used'">
                     <div class = "row">
                         <div class="col-sm-1">${{book.price}}</div>
                         <div class="col-sm-2">{{book.condition}}</div>
@@ -106,7 +106,7 @@
             <!-- Rent Books tab heading and its items -->
             <uib-tab heading="Rent Books" ng-click="moveToBottom()">
                 <br>
-                <div ng-repeat="book in rentBooksInfo">
+                <div ng-repeat="book in bookInfo.stocks" ng-show="book.condition === 'new'">
                     <div class = "row">
                         <div class="col-sm-1">${{book.price}}</div>
                         <div class="col-sm-2">{{book.condition}}</div>
