@@ -89,6 +89,10 @@ app.controller('addressCtrl',['$scope','$http', '$state', 'authFactory', '$rootS
             $scope.address = authFactory.getMember().addresses[0];
             $scope.map = $map.map;
             $scope.marker = $map.marker;
+            $scope.map.center = {
+    			latitude: $scope.address.latitude,
+    			longitude: $scope.address.longitude
+    		};
             $scope.marker.coords = {
                 latitude: $scope.address.latitude,
     			longitude: $scope.address.longitude

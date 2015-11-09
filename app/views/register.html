@@ -27,6 +27,9 @@
                     <input type="text" placeholder="Lastname" ng-model="last_name">
                     <br>
                     <input type="text" placeholder="Identification number" ng-model="identification_number">
+                    <div ng-show="identification_number.length !== 13 && identification_number.length !== undefined">
+                        <h5 id="validate">Must be 13 character</h5>
+                    </div>
                     <br>
                 </form>
 
