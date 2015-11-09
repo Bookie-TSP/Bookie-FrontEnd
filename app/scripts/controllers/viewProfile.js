@@ -4,10 +4,4 @@ app.controller('profileCtrl', ['$scope', '$http', '$state', 'authFactory',
 			$state.go("login");
 		}
 		$scope.profileData = authFactory.getMember();
-		$scope.editProfile = function () {
-			$state.go("editProfile");
-		};
-		$scope.editAddress = function () {
-			$state.go("editAddress");
-		};
 }]);

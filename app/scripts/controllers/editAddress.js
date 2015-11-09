@@ -1,10 +1,10 @@
 app.controller('addressCtrl',['$scope','$http', '$state', 'authFactory', '$rootScope', 'mapFactory',
     function($scope, $http, $state, authFactory, $rootScope, $map){
         if (authFactory.getAuth() === undefined) {
-			$state.go("login");
+			$state.go('login');
 		}
-        
-        $scope.info = "";
+
+        $scope.info = '';
         $scope.initial = function(){
             $scope.address = authFactory.getMember().addresses[0];
             $scope.map = $map.map;
@@ -29,7 +29,7 @@ app.controller('addressCtrl',['$scope','$http', '$state', 'authFactory', '$rootS
             .success(function(data){
                 console.log(data);
                 authFactory.setMember(data);
-                $state.go("viewProfile");
+                $state.go('viewProfile');
             })
             .error(function(data){
                 $scope.error = true;
@@ -39,7 +39,7 @@ app.controller('addressCtrl',['$scope','$http', '$state', 'authFactory', '$rootS
         };
 
         $scope.$on('marker', function () {
-			console.log("marker");
+			console.log('marker');
             $scope.address.latitude = $map.getLat().toFixed(5);
             $scope.address.longitude = $map.getLng().toFixed(5);
             $scope.address.information = $map.getAddress();
