@@ -14,41 +14,41 @@
             <div class="col-sm-6">
                 <h3>Book Informations</h3>
                 <div class="row">
-                    <div class="col-sm-6 text-info">
-                        <p>Title:</p>
-                        <p>ISBN 10:</p>
-                        <p>ISBN 13:</p>
-                        <p>Author:</p>
-                        <div ng-repeat="author in bookInfo.authors">
-                            <p ng-show="bookInfo.authors.indexOf(author) != 0">&nbsp;</p>
+                    <div class="col-sm-5 text-info">
+                        <div class = "row">Title:</div>
+                        <div class = "row">ISBN 10:</div>
+                        <div class = "row">ISBN 13:</div>
+                        <div class = "row">Author:</div>
+                        <div ng-repeat = "author in bookInfo.authors">
+                            <div class = "row" ng-show="bookInfo.authors.indexOf(author) != 0">&nbsp;</div>
                         </div>
-                        <p>Language:</p>
-                        <p>Pages:</p>
-                        <p>Publisher:</p>
-                        <p>Published Date:</p>
-                        <p>Book Description:</p>
+                        <div class="row">Language:</div>
+                        <div class="row">Pages:</div>
+                        <div class="row">Publisher:</div>
+                        <div class="row">Published Date:</div>
+                        <div class="row">Book Description:</div>
                     </div>
-                    <div class="col-sm-6">
-                        <p>{{bookInfo.title}}</p>
-                        <p ng-show="bookInfo.title === null">undefined</p>
-                        <p>{{bookInfo.ISBN10}}</p>
-                        <p ng-show="bookInfo.ISBN10 === null">undefined</p>
-                        <p>{{bookInfo.ISBN13}}</p>
-                        <p ng-show="bookInfo.ISBN13 === null">undefined</p>
+                    <div class="col-sm-7">
+                        <div class="row">{{bookInfo.title}}</div>
+                        <div class="row" ng-show="bookInfo.title === null">undefined</div>
+                        <div class="row">{{bookInfo.ISBN10}}</div>
+                        <div class="row" ng-show="bookInfo.ISBN10 === null">undefined</div>
+                        <div class="row">{{bookInfo.ISBN13}}</div>
+                        <div class="row" ng-show="bookInfo.ISBN13 === null">undefined</div>
                         <div ng-repeat="author in bookInfo.authors">
-                            <p>{{author}}</p>
+                            <div class="row">{{author}}</div>
                         </div>
-                        <p ng-show="bookInfo.author === null">undefined</p>
-                        <p>{{bookInfo.language}}</p>
-                        <p ng-show="bookInfo.language === null">undefined</p>
-                        <p>{{bookInfo.pages}}</p>
-                        <p ng-show="bookInfo.pages === null">undefined</p>
-                        <p>{{bookInfo.publisher}}</p>
-                        <p ng-show="bookInfo.publisher === null">undefined</p>
-                        <p>{{bookInfo.publish_date}}</p>
-                        <p ng-show="bookInfo.publish_date === null">undefined</p>
-                        <p>{{bookInfo.description}}</p>
-                        <p ng-show="bookInfo.description === null">undefined</p>
+                        <div class="row" ng-show="bookInfo.author === null">undefined</div>
+                        <div class="row">{{bookInfo.language}}</div>
+                        <div class="row" ng-show="bookInfo.language === null">undefined</div>
+                        <div class="row">{{bookInfo.pages}}</div>
+                        <div class="row" ng-show="bookInfo.pages === null">undefined</div>
+                        <div class="row">{{bookInfo.publisher}}</div>
+                        <div class="row" ng-show="bookInfo.publisher === null">undefined</div>
+                        <div class="row">{{bookInfo.publish_date}}</div>
+                        <div class="row" ng-show="bookInfo.publish_date === null">undefined</div>
+                        <div class="row">{{bookInfo.description}}</div>
+                        <div class="row" ng-show="bookInfo.description === null">undefined</div>
                     </div>
                 </div>
             </div>
@@ -57,9 +57,11 @@
         <!-- Selecting to use the default address or new address the Member wants to receive the book -->
         <div class = "row">
             <div class="col-sm-3">
-                <h3>Shipping Address</h3><br>
-                <input type="radio" name="address" id="defaultAddress" value="defaultAddress" checked><span style ="margin-left: 10px;margin-right: 10px">Default Address</span><br><br>
-                <input type="radio" name="address" id="newAddress" value="newAddress"><span style ="margin-left: 10px; margin-right: 10px">New Address</span>
+                <h3>Shipping Address</h3>
+                <div class = "row">
+                    <input type="radio" name="address" id="defaultAddress" value="defaultAddress" checked><span style ="margin-left: 10px;margin-right: 10px">Default Address</span><br><br>
+                    <input type="radio" name="address" id="newAddress" value="newAddress"><span style ="margin-left: 10px; margin-right: 10px">New Address</span>
+                </div>
             </div>
             <div class="col-sm-9">
                 <div id="googleMap" style="width:400px;height:300px;"></div>
@@ -78,7 +80,7 @@
                         <div class="col-sm-5">{{book.address}}</div>
                         <div class="col-sm-2">In stock: {{book.quantity}}</div>
                         <div class="col-sm-2" ng-if="book.quantity >= 1"><button ng-click="addToCart(book)">Add To Cart</button></div>
-                        <p ng-if="book.quantity == 0"></p>
+                        <div ng-if="book.quantity == 0"></div>
                     </div>
                     <hr>
                 </div>
@@ -94,7 +96,7 @@
                         <div class="col-sm-5">{{book.address}}</div>
                         <div class="col-sm-2">In stock: {{book.quantity}}</div>
                         <div class="col-sm-2" ng-if="book.quantity >= 1"><button ng-click="addToCart(book)">Add To Cart</button></div>
-                        <p ng-if="book.quantity == 0"></p>
+                        <div ng-if="book.quantity == 0"></div>
                     </div>
                     <hr>
                 </div>
@@ -111,7 +113,7 @@
                         <div class="col-sm-5">{{book.address}}</div>
                         <div class="col-sm-2">In stock: {{book.quantity}}</div>
                         <div class="col-sm-2" ng-if="book.quantity >= 1"><button ng-click="addToCart(book)">Add To Cart</button></div>
-                        <p ng-if="book.quantity == 0"></p>
+                        <div ng-if="book.quantity == 0"></div>
                     </div>
                     <hr>
                 </div>
