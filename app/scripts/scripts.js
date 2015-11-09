@@ -625,7 +625,7 @@ app.controller('stockCtrl', ['$scope', '$http', '$state', 'authFactory',
 			$state.go("login");
 		}
 
-        $scoep.getStock = function(){
+        $scope.getStock = function(){
             var config = {
                 headers: {
                     'Authorization': authFactory.getAuth()
@@ -633,12 +633,16 @@ app.controller('stockCtrl', ['$scope', '$http', '$state', 'authFactory',
             };
             $http.get('https://bookieservice.herokuapp.com/api/mystocks',config)
             .success(function(data){
-                $scope.stoks = data;
+				$scope.data = data;
+                $scope.stocks = data.stocks;
+				console.log($scope.stocks);
             })
             .error(function(data){
 
             });
         };
+
+		$scope.getStock();
 }]);
 
 app.factory('authFactory', function ($http, $rootScope, $localStorage) {
