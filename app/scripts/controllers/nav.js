@@ -25,7 +25,7 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
 		};
 		$rootScope.member = $scope.getMember();
 		$scope.$on('authenticate', function () {
-			console.log("Change");
+			console.log('Change');
 			$rootScope.member = $scope.getMember();
 		});
 }]);

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html ng-app="app">
+
 	<head lang="en">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -45,7 +46,17 @@
 					</ul>
 					<ul class="nav navbar-nav navbar-right" ng-show="member !== undefined">
 						<li>
-							<a ng-click="profile()" ui-sref="viewProfile">{{member.email}}</a>
+							<a class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+								{{member.email}}
+							</a>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+								<br>
+								<li><a ui-sref="viewProfile">My Profile</a></li>
+								<li><a href="#">My Orders</a></li>
+								<hr>
+								<li><a href="#">My Stocks</a></li>
+								<li><a href="#">Request Order</a></li>
+							</ul>
 						</li>
 						<li>
 							<a ng-click="logout()" ui-sref="home">Logout</a>
