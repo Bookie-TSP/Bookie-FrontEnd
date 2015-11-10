@@ -15,7 +15,9 @@ describe('Edit Profile', function() {
     var gender = element(by.model('profileData.gender'));
     var confirmation = element(by.model('profileData.password'));
     var editButton = element(by.id('editProfileBtn'));
-    var errormsg = element(by.id('validate'));
+    var incorrectConfirm = element(by.id('incorrectPass'));
+    var requireConfirm = element(by.id('requiredPass'));
+    var invalidEmail = element(by.id('emailValid'));
     var male = element(by.id('male'));
     var female = element(by.id('female'));
     var date = element(by.model('date'));
@@ -65,8 +67,8 @@ describe('Edit Profile', function() {
             email.sendKeys('edittttttt@t.com');
             editButton.click();
         
-            expect(errormsg.isDisplayed()).toBe(true);
-            expect(errormsg.getText()).toBe('Password is required');
+            expect(requireConfirm.isDisplayed()).toBe(true);
+            expect(requireConfirm.getText()).toBe('Password is required');
             browser.refresh();
             expect(email.getAttribute('value')).toBe('edit@test.com');
         });
@@ -76,8 +78,8 @@ describe('Edit Profile', function() {
             firstname.sendKeys('1234');
             editButton.click();
         
-            expect(errormsg.isDisplayed()).toBe(true);
-            expect(errormsg.getText()).toBe('Password is required');
+            expect(requireConfirm.isDisplayed()).toBe(true);
+            expect(requireConfirm.getText()).toBe('Password is required');
             browser.refresh();
             expect(firstname.getAttribute('value')).toBe('Mintra');
         });
@@ -87,8 +89,8 @@ describe('Edit Profile', function() {
             lastname.sendKeys('1234');
             editButton.click();
         
-            expect(errormsg.isDisplayed()).toBe(true);
-            expect(errormsg.getText()).toBe('Password is required');
+            expect(requireConfirm.isDisplayed()).toBe(true);
+            expect(requireConfirm.getText()).toBe('Password is required');
             browser.refresh();
             expect(lastname.getAttribute('value')).toBe('Thirasirisin');
         });
@@ -98,8 +100,8 @@ describe('Edit Profile', function() {
             phoneNo.sendKeys('1234');
             editButton.click();
         
-            expect(errormsg.isDisplayed()).toBe(true);
-            expect(errormsg.getText()).toBe('Password is required');
+            expect(requireConfirm.isDisplayed()).toBe(true);
+            expect(requireConfirm.getText()).toBe('Password is required');
             browser.refresh();
             expect(phoneNo.getAttribute('value')).toBe('0897606689');
         });
@@ -109,8 +111,8 @@ describe('Edit Profile', function() {
             idenNo.sendKeys('1111111111111');
             editButton.click();
         
-            expect(errormsg.isDisplayed()).toBe(true);
-            expect(errormsg.getText()).toBe('Password is required');
+            expect(requireConfirm.isDisplayed()).toBe(true);
+            expect(requireConfirm.getText()).toBe('Password is required');
             browser.refresh();
             expect(idenNo.getAttribute('value')).toBe('1100400740297');
         });
@@ -119,8 +121,8 @@ describe('Edit Profile', function() {
             male.click();
             editButton.click();
         
-            expect(errormsg.isDisplayed()).toBe(true);
-            expect(errormsg.getText()).toBe('Password is required');
+            expect(requireConfirm.isDisplayed()).toBe(true);
+            expect(requireConfirm.getText()).toBe('Password is required');
             browser.refresh();
             expect(male.isSelected()).toBe(false);
         });
@@ -130,8 +132,8 @@ describe('Edit Profile', function() {
         //     element(by.css('select option[value="1"]')).click();
         //     editButton.click();
         
-        //     expect(errormsg.isDisplayed()).toBe(true);
-        //     expect(errormsg.getText()).toBe('Password is required');
+        //     expect(requireConfirm.isDisplayed()).toBe(true);
+        //     expect(requireConfirm.getText()).toBe('Password is required');
         //     browser.refresh();
         //     expect(date.getAttribute('value')).toBe('20');
         // });
@@ -141,8 +143,8 @@ describe('Edit Profile', function() {
        //      element(by.css('select option[value="1"]')).click();
        //      editButton.click();
         
-       //      expect(errormsg.isDisplayed()).toBe(true);
-       //      expect(errormsg.getText()).toBe('Password is required');
+       //      expect(requireConfirm.isDisplayed()).toBe(true);
+       //      expect(requireConfirm.getText()).toBe('Password is required');
        //      browser.refresh();
        //      expect(date.getAttribute('value')).toBe('2');
        //  });
@@ -152,18 +154,13 @@ describe('Edit Profile', function() {
     //enter wrong password confirmation
     describe('can not complete when enter wrong password confirmation', function() {
         it('edit email', function() {
-            loginEmail.sendKeys('edit@test.com');
-            loginPassword.sendKeys('11111111');
-            submit.click();
-            dropdown.click();
-            viewProfile.click();
-            editProfile.click();
             email.clear();
             email.sendKeys('edittttttt@t.com');
+            confirmation.sendKeys('1');
             editButton.click();
         
-            expect(errormsg.isDisplayed()).toBe(true);
-            expect(errormsg.getText()).toBe('Incorrect Password');
+            expect(incorrectConfirm.isDisplayed()).toBe(true);
+            expect(incorrectConfirm.getText()).toBe('Incorrect Password');
             browser.refresh();
             expect(email.getAttribute('value')).toBe('edit@test.com');
         });
@@ -171,10 +168,11 @@ describe('Edit Profile', function() {
         it('edit firstname', function() {
             firstname.clear();
             firstname.sendKeys('1234');
+            confirmation.sendKeys('1');
             editButton.click();
         
-            expect(errormsg.isDisplayed()).toBe(true);
-            expect(errormsg.getText()).toBe('Incorrect Password');
+            expect(incorrectConfirm.isDisplayed()).toBe(true);
+            expect(incorrectConfirm.getText()).toBe('Incorrect Password');
             browser.refresh();
             expect(firstname.getAttribute('value')).toBe('Mintra');
         });
@@ -182,10 +180,11 @@ describe('Edit Profile', function() {
         it('edit lastname', function() {
             lastname.clear();
             lastname.sendKeys('1234');
+            confirmation.sendKeys('1');
             editButton.click();
         
-            expect(errormsg.isDisplayed()).toBe(true);
-            expect(errormsg.getText()).toBe('Incorrect Password');
+            expect(incorrectConfirm.isDisplayed()).toBe(true);
+            expect(incorrectConfirm.getText()).toBe('Incorrect Password');
             browser.refresh();
             expect(lastname.getAttribute('value')).toBe('Thirasirisin');
         });
@@ -193,10 +192,11 @@ describe('Edit Profile', function() {
         it('edit phone number', function() {
             phoneNo.clear();
             phoneNo.sendKeys('1234');
+            confirmation.sendKeys('1');
             editButton.click();
         
-            expect(errormsg.isDisplayed()).toBe(true);
-            expect(errormsg.getText()).toBe('Incorrect Password');
+            expect(incorrectConfirm.isDisplayed()).toBe(true);
+            expect(incorrectConfirm.getText()).toBe('Incorrect Password');
             browser.refresh();
             expect(phoneNo.getAttribute('value')).toBe('0897606689');
         });
@@ -204,20 +204,22 @@ describe('Edit Profile', function() {
         it('edit identification number', function() {
             idenNo.clear();
             idenNo.sendKeys('1111111111111');
+            confirmation.sendKeys('1');
             editButton.click();
         
-            expect(errormsg.isDisplayed()).toBe(true);
-            expect(errormsg.getText()).toBe('Incorrect Password');
+            expect(incorrectConfirm.isDisplayed()).toBe(true);
+            expect(incorrectConfirm.getText()).toBe('Incorrect Password');
             browser.refresh();
             expect(idenNo.getAttribute('value')).toBe('1100400740297');
         });
 
         it('edit gender', function() {
             male.click();
+            confirmation.sendKeys('1');
             editButton.click();
         
-            expect(errormsg.isDisplayed()).toBe(true);
-            expect(errormsg.getText()).toBe('Incorrect Password');
+            expect(incorrectConfirm.isDisplayed()).toBe(true);
+            expect(incorrectConfirm.getText()).toBe('Incorrect Password');
             browser.refresh();
             expect(male.isSelected()).toBe(false);
         });
@@ -225,10 +227,11 @@ describe('Edit Profile', function() {
         // it('edit date', function() {
         //     // date[0].click();
         //     element(by.css('select option[value="1"]')).click();
+        //     confirmation.sendKeys('1');
         //     editButton.click();
         
-        //     expect(errormsg.isDisplayed()).toBe(true);
-        //     expect(errormsg.getText()).toBe('Incorrect Password');
+        //     expect(incorrectConfirm.isDisplayed()).toBe(true);
+        //     expect(incorrectConfirm.getText()).toBe('Incorrect Password');
         //     browser.refresh();
         //     expect(date.getAttribute('value')).toBe('20');
         // });
@@ -236,10 +239,11 @@ describe('Edit Profile', function() {
        // it('edit month', function() {
        //      // date[0].click();
        //      element(by.css('select option[value="1"]')).click();
+       //      confirmation.sendKeys('1');
        //      editButton.click();
         
-       //      expect(errormsg.isDisplayed()).toBe(true);
-       //      expect(errormsg.getText()).toBe('Incorrect Password');
+       //      expect(incorrectConfirm.isDisplayed()).toBe(true);
+       //      expect(incorrectConfirm.getText()).toBe('Incorrect Password');
        //      browser.refresh();
        //      expect(date.getAttribute('value')).toBe('2');
        //  });
