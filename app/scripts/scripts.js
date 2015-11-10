@@ -455,7 +455,7 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'authFactory', '$q', '$sta
 						$scope.errorPass = true;
 					}
 					if( data.errors.password === 'parameter is required'){
-						$scope.errorRequired = true
+						$scope.errorRequired = true;
 					}
 					console.log(data);
 				});
