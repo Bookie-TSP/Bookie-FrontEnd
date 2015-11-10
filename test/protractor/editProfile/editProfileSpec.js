@@ -21,6 +21,7 @@ describe('Edit Profile', function() {
     var date = element(by.model('date'));
     var month = element(by.model('month'));
     var year = element(by.model('year'));
+    var dropdown = element(by.id('dropdownMenu1'));
 
     beforeEach(function() {
         browser.get('/#/editProfile');
@@ -39,6 +40,7 @@ describe('Edit Profile', function() {
             loginEmail.sendKeys('edit@test.com');
             loginPassword.sendKeys('11111111');
             submit.click();
+            dropdown.click();
             viewProfile.click();
             editProfile.click();
             expect(browser.getTitle()).toEqual('Edit Profile');
@@ -55,6 +57,7 @@ describe('Edit Profile', function() {
             loginEmail.sendKeys('edit@test.com');
             loginPassword.sendKeys('11111111');
             submit.click();
+            dropdown.click();
             viewProfile.click();
             editProfile.click();
             email.clear();
@@ -62,7 +65,7 @@ describe('Edit Profile', function() {
             editButton.click();
         
             expect(errormsg.isDisplayed()).toBe(true);
-            expect(errormsg.getText()).toBe('Password is not correct');
+            expect(errormsg.getText()).toBe('Password incorrect');
             browser.refresh();
             expect(email.getAttribute('value')).toBe('edit@test.com');
         });
@@ -73,7 +76,7 @@ describe('Edit Profile', function() {
             editButton.click();
         
             expect(errormsg.isDisplayed()).toBe(true);
-            expect(errormsg.getText()).toBe('Password is not correct');
+            expect(errormsg.getText()).toBe('Password incorrect');
             browser.refresh();
             expect(firstname.getAttribute('value')).toBe('Mintra');
         });
@@ -84,7 +87,7 @@ describe('Edit Profile', function() {
             editButton.click();
         
             expect(errormsg.isDisplayed()).toBe(true);
-            expect(errormsg.getText()).toBe('Password is not correct');
+            expect(errormsg.getText()).toBe('Password incorrect');
             browser.refresh();
             expect(lastname.getAttribute('value')).toBe('Thirasirisin');
         });
@@ -95,7 +98,7 @@ describe('Edit Profile', function() {
             editButton.click();
         
             expect(errormsg.isDisplayed()).toBe(true);
-            expect(errormsg.getText()).toBe('Password is not correct');
+            expect(errormsg.getText()).toBe('Password incorrect');
             browser.refresh();
             expect(phoneNo.getAttribute('value')).toBe('0897606689');
         });
@@ -106,7 +109,7 @@ describe('Edit Profile', function() {
             editButton.click();
         
             expect(errormsg.isDisplayed()).toBe(true);
-            expect(errormsg.getText()).toBe('Password is not correct');
+            expect(errormsg.getText()).toBe('Password incorrect');
             browser.refresh();
             expect(idenNo.getAttribute('value')).toBe('1100400740297');
         });
@@ -116,7 +119,7 @@ describe('Edit Profile', function() {
             editButton.click();
         
             expect(errormsg.isDisplayed()).toBe(true);
-            expect(errormsg.getText()).toBe('Password is not correct');
+            expect(errormsg.getText()).toBe('Password incorrect');
             browser.refresh();
             expect(male.isSelected()).toBe(false);
         });
@@ -127,7 +130,7 @@ describe('Edit Profile', function() {
             editButton.click();
         
             expect(errormsg.isDisplayed()).toBe(true);
-            expect(errormsg.getText()).toBe('Password is not correct');
+            expect(errormsg.getText()).toBe('Password incorrect');
             browser.refresh();
             expect(date.getAttribute('value')).toBe('20');
         });
@@ -138,7 +141,7 @@ describe('Edit Profile', function() {
        //      editButton.click();
         
        //      expect(errormsg.isDisplayed()).toBe(true);
-       //      expect(errormsg.getText()).toBe('Password is not correct');
+       //      expect(errormsg.getText()).toBe('Password incorrect');
        //      browser.refresh();
        //      expect(date.getAttribute('value')).toBe('2');
        //  });
@@ -152,7 +155,6 @@ describe('Edit Profile', function() {
             confirmation.sendKeys('11111111');
             editButton.click();
             editProfile.click();
-
             expect(email.getAttribute('value')).toBe('1234@a.com');
         });
 
