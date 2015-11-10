@@ -52,6 +52,7 @@ describe('Edit Profile', function() {
         });
     });
 
+    //not enter password confirmation
     describe('can not complete without password confirmation', function() {
         it('edit email', function() {
             loginEmail.sendKeys('edit@test.com');
@@ -61,11 +62,11 @@ describe('Edit Profile', function() {
             viewProfile.click();
             editProfile.click();
             email.clear();
-            email.sendKeys('1234@a.com');
+            email.sendKeys('edittttttt@t.com');
             editButton.click();
         
             expect(errormsg.isDisplayed()).toBe(true);
-            expect(errormsg.getText()).toBe('Password incorrect');
+            expect(errormsg.getText()).toBe('Password is required');
             browser.refresh();
             expect(email.getAttribute('value')).toBe('edit@test.com');
         });
@@ -76,7 +77,7 @@ describe('Edit Profile', function() {
             editButton.click();
         
             expect(errormsg.isDisplayed()).toBe(true);
-            expect(errormsg.getText()).toBe('Password incorrect');
+            expect(errormsg.getText()).toBe('Password is required');
             browser.refresh();
             expect(firstname.getAttribute('value')).toBe('Mintra');
         });
@@ -87,7 +88,7 @@ describe('Edit Profile', function() {
             editButton.click();
         
             expect(errormsg.isDisplayed()).toBe(true);
-            expect(errormsg.getText()).toBe('Password incorrect');
+            expect(errormsg.getText()).toBe('Password is required');
             browser.refresh();
             expect(lastname.getAttribute('value')).toBe('Thirasirisin');
         });
@@ -98,7 +99,7 @@ describe('Edit Profile', function() {
             editButton.click();
         
             expect(errormsg.isDisplayed()).toBe(true);
-            expect(errormsg.getText()).toBe('Password incorrect');
+            expect(errormsg.getText()).toBe('Password is required');
             browser.refresh();
             expect(phoneNo.getAttribute('value')).toBe('0897606689');
         });
@@ -109,7 +110,7 @@ describe('Edit Profile', function() {
             editButton.click();
         
             expect(errormsg.isDisplayed()).toBe(true);
-            expect(errormsg.getText()).toBe('Password incorrect');
+            expect(errormsg.getText()).toBe('Password is required');
             browser.refresh();
             expect(idenNo.getAttribute('value')).toBe('1100400740297');
         });
@@ -119,21 +120,21 @@ describe('Edit Profile', function() {
             editButton.click();
         
             expect(errormsg.isDisplayed()).toBe(true);
-            expect(errormsg.getText()).toBe('Password incorrect');
+            expect(errormsg.getText()).toBe('Password is required');
             browser.refresh();
             expect(male.isSelected()).toBe(false);
         });
 
-        it('edit date', function() {
-            // date[0].click();
-            element(by.css('select option[value="1"]')).click();
-            editButton.click();
+        // it('edit date', function() {
+        //     // date[0].click();
+        //     element(by.css('select option[value="1"]')).click();
+        //     editButton.click();
         
-            expect(errormsg.isDisplayed()).toBe(true);
-            expect(errormsg.getText()).toBe('Password incorrect');
-            browser.refresh();
-            expect(date.getAttribute('value')).toBe('20');
-        });
+        //     expect(errormsg.isDisplayed()).toBe(true);
+        //     expect(errormsg.getText()).toBe('Password is required');
+        //     browser.refresh();
+        //     expect(date.getAttribute('value')).toBe('20');
+        // });
        
        // it('edit month', function() {
        //      // date[0].click();
@@ -141,21 +142,119 @@ describe('Edit Profile', function() {
        //      editButton.click();
         
        //      expect(errormsg.isDisplayed()).toBe(true);
-       //      expect(errormsg.getText()).toBe('Password incorrect');
+       //      expect(errormsg.getText()).toBe('Password is required');
        //      browser.refresh();
        //      expect(date.getAttribute('value')).toBe('2');
        //  });
 
     });
 
+    //enter wrong password confirmation
+    describe('can not complete when enter wrong password confirmation', function() {
+        it('edit email', function() {
+            loginEmail.sendKeys('edit@test.com');
+            loginPassword.sendKeys('11111111');
+            submit.click();
+            dropdown.click();
+            viewProfile.click();
+            editProfile.click();
+            email.clear();
+            email.sendKeys('edittttttt@t.com');
+            editButton.click();
+        
+            expect(errormsg.isDisplayed()).toBe(true);
+            expect(errormsg.getText()).toBe('Incorrect Password');
+            browser.refresh();
+            expect(email.getAttribute('value')).toBe('edit@test.com');
+        });
+
+        it('edit firstname', function() {
+            firstname.clear();
+            firstname.sendKeys('1234');
+            editButton.click();
+        
+            expect(errormsg.isDisplayed()).toBe(true);
+            expect(errormsg.getText()).toBe('Incorrect Password');
+            browser.refresh();
+            expect(firstname.getAttribute('value')).toBe('Mintra');
+        });
+
+        it('edit lastname', function() {
+            lastname.clear();
+            lastname.sendKeys('1234');
+            editButton.click();
+        
+            expect(errormsg.isDisplayed()).toBe(true);
+            expect(errormsg.getText()).toBe('Incorrect Password');
+            browser.refresh();
+            expect(lastname.getAttribute('value')).toBe('Thirasirisin');
+        });
+
+        it('edit phone number', function() {
+            phoneNo.clear();
+            phoneNo.sendKeys('1234');
+            editButton.click();
+        
+            expect(errormsg.isDisplayed()).toBe(true);
+            expect(errormsg.getText()).toBe('Incorrect Password');
+            browser.refresh();
+            expect(phoneNo.getAttribute('value')).toBe('0897606689');
+        });
+
+        it('edit identification number', function() {
+            idenNo.clear();
+            idenNo.sendKeys('1111111111111');
+            editButton.click();
+        
+            expect(errormsg.isDisplayed()).toBe(true);
+            expect(errormsg.getText()).toBe('Incorrect Password');
+            browser.refresh();
+            expect(idenNo.getAttribute('value')).toBe('1100400740297');
+        });
+
+        it('edit gender', function() {
+            male.click();
+            editButton.click();
+        
+            expect(errormsg.isDisplayed()).toBe(true);
+            expect(errormsg.getText()).toBe('Incorrect Password');
+            browser.refresh();
+            expect(male.isSelected()).toBe(false);
+        });
+
+        // it('edit date', function() {
+        //     // date[0].click();
+        //     element(by.css('select option[value="1"]')).click();
+        //     editButton.click();
+        
+        //     expect(errormsg.isDisplayed()).toBe(true);
+        //     expect(errormsg.getText()).toBe('Incorrect Password');
+        //     browser.refresh();
+        //     expect(date.getAttribute('value')).toBe('20');
+        // });
+       
+       // it('edit month', function() {
+       //      // date[0].click();
+       //      element(by.css('select option[value="1"]')).click();
+       //      editButton.click();
+        
+       //      expect(errormsg.isDisplayed()).toBe(true);
+       //      expect(errormsg.getText()).toBe('Incorrect Password');
+       //      browser.refresh();
+       //      expect(date.getAttribute('value')).toBe('2');
+       //  });
+
+    });
+
+    //enter correct password confirmation
     describe('should complete when enter password confirmation', function() {
         it('edit email', function() {
             email.clear();
-            email.sendKeys('1234@a.com');
+            email.sendKeys('edittttttt@t.com');
             confirmation.sendKeys('11111111');
             editButton.click();
             editProfile.click();
-            expect(email.getAttribute('value')).toBe('1234@a.com');
+            expect(email.getAttribute('value')).toBe('edittttttt@t.com');
         });
 
         it('edit firstname', function() {
