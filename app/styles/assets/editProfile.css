@@ -1,9 +1,3 @@
-#email {
-    color: #ff0000;
-}
-#incorrectPass {
-    color: #ff0000;
-}
-#requiredPass {
+.validation {
     color: #ff0000;
 }

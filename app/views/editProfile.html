@@ -13,7 +13,7 @@
                     <input type="text" ng-model="profileData.email" id="email"></input>
                 </div>
                 <div class="col-sm-6 col-sm-offset-6">
-                    <p id="emailValid" ng-show="errorEmail">Email has already been taken</p>
+                    <p class="validation" id="emailValid" ng-show="errorEmail">Email has already been taken</p>
                 </div>
             </div>
             <br>
@@ -98,8 +98,8 @@
                     <input type="password" ng-model="profileData.password" id="password_confirmation"></input>
                 </div>
                 <div class="col-sm-6 col-sm-offset-6">
-                    <p id="incorrectPass" ng-show="errorPass">Incorrect Password</p>
-                    <p id="requiredPass" ng-show="errorRequired">Password is required</p>
+                    <p class="validation" id="incorrectPass" ng-show="errorPass">Incorrect Password</p>
+                    <p class="validation" id="requiredPass" ng-show="errorRequired">Password is required</p>
                 </div>
             </div>
             <br>
