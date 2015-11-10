@@ -9,7 +9,7 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'authFactory', '$q', '$sta
 				'Authorization': authFactory.getAuth()
 			}
 		};
-		
+
 		$scope.initDate = function() {
 			$scope.initDates = $date.days;
             $scope.initMonths = $date.months;
@@ -64,12 +64,18 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'authFactory', '$q', '$sta
 				}, config)
 				.success(function (data) {
 					$scope.getProfile();
-					$scope.error = false;
+					$scope.errorEmail = false;
+					$scope.errorPass = false;
 					console.log(data);
 					$scope.profileData.password = '';
 				})
 				.error(function (data) {
-					$scope.error = true;
+					if( data.errors.email !== undefined){
+						$scope.errorEmail = true;
+					}
+					if( data.errors === 'Wrong password'){
+						$scope.errorPass = true;
+					}
 					console.log(data);
 				});
 		};
