@@ -299,6 +299,23 @@ app.controller('cartCtrl',['$scope','$http', '$state', 'authFactory',
                 $scope.total += $scope.stocks[i].price;
             }
         };
+
+        $scope.countStocks = function() {
+            $scope.buyLength = 0;
+            for(var i = 0; i < $scope.stocks.length; i++){
+                if($scope.stocks[i].type === 'sale'){
+                    $scope.buyLength++;
+                }
+            }
+
+            $scope.rentLength = 0;
+            for(var j = 0; j < $scope.stocks.length; j++){
+                if($scope.stocks[j].type === 'rent'){
+                    $scope.rentLength++;
+                }
+            }
+        };
+
 		$scope.getCart = function() {
             $http.get('https://bookieservice.herokuapp.com/api/members/cart/show',config)
             .success(function (data) {
@@ -306,6 +323,7 @@ app.controller('cartCtrl',['$scope','$http', '$state', 'authFactory',
                 $scope.cart = data;
                 $scope.stocks = $scope.cart.stocks;
                 $scope.getTotal();
+                $scope.countStocks();
                 console.log($scope.total);
             })
             .error(function (data) {
@@ -322,11 +340,15 @@ app.controller('cartCtrl',['$scope','$http', '$state', 'authFactory',
             .success(function(data){
                 $scope.cart = data;
                 $scope.stocks = $scope.cart.stocks;
+                $scope.getTotal();
+                $scope.countStocks();
             })
             .error(function(data){
                 console.log(data);
             });
         };
+
+        //initialize
         $scope.getCart();
 }]);
 
