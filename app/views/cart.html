@@ -8,7 +8,7 @@
 				<div class="row" ng-repeat="stock in stocks" ng-show="stock.type === 'sale'">
 					<div class="col-md-4">
 						<center>
-							<img src="images/naruto.jpg" class="img-responsive" style="width:150px;height:225px;">
+							<img src="{{stock.book.cover_image_url}}" class="img-responsive" style="width:150px;height:225px;">
 						</center>
 					</div>
 					<div class="col-md-8">

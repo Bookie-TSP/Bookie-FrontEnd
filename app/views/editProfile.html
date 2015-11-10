@@ -12,6 +12,9 @@
                 <div class="col-sm-6">
                     <input type="text" ng-model="profileData.email" id="email"></input>
                 </div>
+                <div class="col-sm-6 col-sm-offset-6">
+                    <p id="validate" ng-show="errorEmail">Email has already been taken</p>
+                </div>
             </div>
             <br>
             <div class="row">
@@ -95,7 +98,7 @@
                     <input type="password" ng-model="profileData.password" id="birthdate"></input>
                 </div>
                 <div class="col-sm-6 col-sm-offset-6">
-                    <p id="validate" ng-show="error">Password incorrect</p>
+                    <p id="validate" ng-show="errorPass">Incorrect Password</p>
                 </div>
             </div>
             <br>
