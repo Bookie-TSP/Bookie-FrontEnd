@@ -5,75 +5,77 @@
 				<h4><b>Buy</b></h4>
 			</div>
 			<div class="panel-body">
-				<div class="row" ng-repeat="stock in stocks" ng-show="stock.type === 'sale'">
-					<div class="col-md-4">
-						<center>
-							<img src="{{stock.book.cover_image_url}}" class="img-responsive" style="width:150px;height:225px;">
-						</center>
-					</div>
-					<div class="col-md-8">
-						<div class="row">
-							<div class="col-md-4"><b>Name</b></div>
-							<div class="col-md-8">{{stock.book.title}}</div>
+				<div ng-repeat="stock in stocks" ng-show="stock.type === 'sale'">
+					<div class="row">
+						<div class="col-md-4">
+							<center>
+								<img src="{{stock.book.cover_image_url}}" class="img-responsive" style="width:150px;height:225px;">
+							</center>
 						</div>
+						<div class="col-md-8">
+							<div class="row">
+								<div class="col-md-4"><b>Name</b></div>
+								<div class="col-md-8">{{stock.book.title}}</div>
+							</div>
 
-						<div class="row">
-							<div class="col-md-4"><b>ISBN</b></div>
-							<div class="col-md-8">{{stock.book.isbn}}</div>
-						</div>
+							<div class="row">
+								<div class="col-md-4"><b>ISBN</b></div>
+								<div class="col-md-8">{{stock.book.isbn}}</div>
+							</div>
 
-						<div class="row">
-							<div class="col-md-4"><b>Author</b></div>
-							<div class="col-md-8">
-								<div ng-repeat="author in stock.book.authors">
-									{{author}}
+							<div class="row">
+								<div class="col-md-4"><b>Author</b></div>
+								<div class="col-md-8">
+									<div ng-repeat="author in stock.book.authors">
+										{{author}}
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-4"><b>Language</b></div>
+								<div class="col-md-8">{{stock.book.language}}</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-4"><b>Pages</b></div>
+								<div class="col-md-8">{{stock.book.pages}}</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-4"><b>Publisher</b></div>
+								<div class="col-md-8">{{stock.book.publisher}}
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-4"><b>Price</b></div>
+								<div class="col-md-8"><b>{{stock.price}}</b></div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-md-12">
+									<b>Seller Address</b>
+								</div>
+								<div class="col-md-12">
+									eieieiieiei
+								</div>
+							</div>
+							<br>
+							<br>
+							<div class="row">
+								<div class="col-md-9"></div>
+								<div class="col-md-3">
+									<button class="btn btn-danger" ng-click="removeStock(stock.id)">
+										Cancel
+										<span class="glyphicon glyphicon-remove">
+									</button>
 								</div>
 							</div>
 						</div>
-
-						<div class="row">
-							<div class="col-md-4"><b>Language</b></div>
-							<div class="col-md-8">{{stock.book.language}}</div>
-						</div>
-
-						<div class="row">
-							<div class="col-md-4"><b>Pages</b></div>
-							<div class="col-md-8">{{stock.book.pages}}</div>
-						</div>
-
-						<div class="row">
-							<div class="col-md-4"><b>Publisher</b></div>
-							<div class="col-md-8">{{stock.book.publisher}}
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-md-4"><b>Price</b></div>
-							<div class="col-md-8"><b>{{stock.price}}</b></div>
-						</div>
-						<br>
-						<div class="row">
-							<div class="col-md-12">
-								<b>Seller Address</b>
-							</div>
-							<div class="col-md-12">
-								eieieiieiei
-							</div>
-						</div>
-						<br>
-						<br>
-						<div class="row">
-							<div class="col-md-9"></div>
-							<div class="col-md-3">
-								<button class="btn btn-danger" ng-click="removeStock(stock.id)">
-									Cancel
-									<span class="glyphicon glyphicon-remove">
-								</button>
-							</div>
-						</div>
 					</div>
+					<hr>
 				</div>
-				<hr>
 			</div>
 		</div>
 
@@ -82,73 +84,76 @@
 				<h4><b>Rent</b></h4>
 			</div>
 			<div class="panel-body">
-				<div class="row" ng-repeat="stock in stocks" ng-show="stock.type === 'rent'">
-					<div class="col-md-4">
-						<center>
-							<img src="{{stock.book.cover_image_url}}" class="img-responsive" style="width:150px;height:225px;">
-						</center>
-					</div>
-					<div class="col-md-8">
-						<div class="row">
-							<div class="col-md-4"><b>Name</b></div>
-							<div class="col-md-8">{{stock.book.title}}</div>
+				<div ng-repeat="stock in stocks" ng-show="stock.type === 'rent'">
+					<div class="row">
+						<div class="col-md-4">
+							<center>
+								<img src="{{stock.book.cover_image_url}}" class="img-responsive" style="width:150px;height:225px;">
+							</center>
 						</div>
+						<div class="col-md-8">
+							<div class="row">
+								<div class="col-md-4"><b>Name</b></div>
+								<div class="col-md-8">{{stock.book.title}}</div>
+							</div>
 
-						<div class="row">
-							<div class="col-md-4"><b>ISBN</b></div>
-							<div class="col-md-8">{{stock.book.isbn}}</div>
-						</div>
+							<div class="row">
+								<div class="col-md-4"><b>ISBN</b></div>
+								<div class="col-md-8">{{stock.book.isbn}}</div>
+							</div>
 
-						<div class="row">
-							<div class="col-md-4"><b>Author</b></div>
-							<div class="col-md-8">
-								<div ng-repeat="author in stock.book.authors">
-									{{author}}
+							<div class="row">
+								<div class="col-md-4"><b>Author</b></div>
+								<div class="col-md-8">
+									<div ng-repeat="author in stock.book.authors">
+										{{author}}
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-4"><b>Publisher</b></div>
+								<div class="col-md-8">{{stock.book.publisher}}</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-4"><b>Price</b></div>
+								<div class="col-md-8">
+									<b>{{stock.price}}</b> for
+									<b>{{stock.duration}} Days</b>
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-md-12">
+									<b>Lender Address</b>
+								</div>
+								<div class="col-md-12">
+									eieieiieiei
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<b>Term of Conditions</b>
+								</div>
+								<div class="col-md-12">
+									Hallloooo
+								</div>
+							</div>
+							<br>
+							<br>
+							<div class="row">
+								<div class="col-md-9"></div>
+								<div class="col-md-3">
+									<button class="btn btn-danger" ng-click="removeStock(stock.id)">
+										Cancel
+										<span class="glyphicon glyphicon-remove">
+									</button>
 								</div>
 							</div>
 						</div>
-
-						<div class="row">
-							<div class="col-md-4"><b>Publisher</b></div>
-							<div class="col-md-8">{{stock.book.publisher}}</div>
-						</div>
-
-						<div class="row">
-							<div class="col-md-4"><b>Price</b></div>
-							<div class="col-md-8">
-								<b>{{stock.price}}</b> for
-								<b>30 Days</b>
-							</div>
-						</div>
-						<br>
-						<div class="row">
-							<div class="col-md-12">
-								<b>Lender Address</b>
-							</div>
-							<div class="col-md-12">
-								eieieiieiei
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<b>Term of Conditions</b>
-							</div>
-							<div class="col-md-12">
-								Hallloooo
-							</div>
-						</div>
-						<br>
-						<br>
-						<div class="row">
-							<div class="col-md-9"></div>
-							<div class="col-md-3">
-								<button class="btn btn-danger">
-									Cancel
-									<span class="glyphicon glyphicon-remove">
-								</button>
-							</div>
-						</div>
 					</div>
+					<hr>
 				</div>
 			</div>
 		</div>
@@ -179,7 +184,7 @@
 				</div>
 			</div>
 		</div>
-		<button class="btn btn-primary btn-block">
+		<button class="btn btn-primary btn-block" ui-sref="home">
 			Countinue Shopping
 		</button>
 
