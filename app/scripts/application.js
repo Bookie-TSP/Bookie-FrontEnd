@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ui.router', 'ngStorage', 'ui.bootstrap', 'uiGmapgoogle-maps']);
+var app = angular.module('app', ['ui.router', 'ngStorage', 'ngCookies','ui.bootstrap', 'uiGmapgoogle-maps']);
 app.config(function ($stateProvider, $urlRouterProvider) {
 	$stateProvider
 		.state('home', {

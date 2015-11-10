@@ -4,6 +4,7 @@ app.controller('loginCtrl', ['$scope', '$http', '$state', 'authFactory',
 			$state.go('home');
 		}
 		$scope.validation = '';
+		$scope.keepLogin = false;
 		setValidation = function (s) {
 			$scope.validation = s;
 		};
@@ -15,6 +16,7 @@ app.controller('loginCtrl', ['$scope', '$http', '$state', 'authFactory',
 				})
 				.success(function (data) {
 					$scope.auth = data.auth_token;
+					authFactory.setKeep($scope.keepLogin);
 					authFactory.setAuth($scope.auth);
 					$state.go('home');
 				})
