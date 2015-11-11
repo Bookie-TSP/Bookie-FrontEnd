@@ -9,7 +9,7 @@
         <!-- Information of the book -->
         <div class="row">
             <div class="col-sm-4 col-sm-offset-2">
-                <image id = "book-cover" src="../images/emily.jpeg"></image>
+                <image id = "book-cover" src="{{bookInfo.cover_image_url}}"></image>
             </div>
             <div class="col-sm-6">
                 <h3>Book Informations</h3>
@@ -75,14 +75,17 @@
             <!-- Buy New Books tab heading and its items -->
             <uib-tab heading="Buy New Books" ng-click="moveToBottom()">
                 <br>
-                <div ng-repeat="book in bookInfo.stocks" ng-show="book.condition === 'new'">
+                <div ng-repeat="line_stock in bookInfo.line_stocks" ng-show="line_stock.type === 'sell' && line_stock.stocks[0].condition === 'new'">
                     <div class = "row">
-                        <div class="col-sm-1">${{book.price}}</div>
-                        <div class="col-sm-2">{{book.condition}}</div>
-                        <div class="col-sm-5">{{book.address}}</div>
-                        <div class="col-sm-2">In stock: {{book.quantity}}</div>
-                        <div class="col-sm-2" ng-if="book.quantity >= 1"><button class="btn btn-inverse" ng-click="addToCart(book)">Add To Cart</button></div>
-                        <div ng-if="book.quantity == 0"></div>
+                        <!-- Check which index is the current object of the array -->
+                        <!-- {{bookInfo.line_stocks.indexOf(line_stock)}} -->
+                        <div class="col-sm-1">${{line_stock.stocks[0].price}}</div>
+                        <div class="col-sm-2">{{line_stock.stocks[0].condition}}</div>
+                        <div class="col-sm-2">{{line_stock.stocks[0].description}}</div>
+                        <div class="col-sm-5">{{line_stock.stocks[0].member.addresses[0].information}}</div>
+                        <div class="col-sm-2">In stock: {{line_stock.quantity}}</div>
+                        <div class="col-sm-2" ng-if="line_stock.quantity >= 1"><button class="btn btn-inverse" ng-click="addToCart(line_stock)">Add To Cart</button></div>
+                        <div ng-if="line_stock.quantity == 0"></div>
                     </div>
                     <hr>
                 </div>
@@ -91,14 +94,15 @@
             <!-- Buy Used Books tab heading and its items -->
             <uib-tab heading="Buy Used Books" ng-click="moveToBottom()">
                 <br>
-                <div ng-repeat="book in bookInfo.stocks" ng-show="book.condition === 'used'">
+                <div ng-repeat="line_stock in bookInfo.line_stocks" ng-show="line_stock.type === 'sell' && line_stock.stocks[0].condition === 'used'">
                     <div class = "row">
-                        <div class="col-sm-1">${{book.price}}</div>
-                        <div class="col-sm-2">{{book.condition}}</div>
-                        <div class="col-sm-5">{{book.address}}</div>
-                        <div class="col-sm-2">In stock: {{book.quantity}}</div>
-                        <div class="col-sm-2" ng-if="book.quantity >= 1"><button ng-click="addToCart(book)">Add To Cart</button></div>
-                        <div ng-if="book.quantity == 0"></div>
+                        <div class="col-sm-1">${{line_stock.stocks[0].price}}</div>
+                        <div class="col-sm-2">{{line_stock.stocks[0].condition}}</div>
+                        <div class="col-sm-2">{{line_stock.stocks[0].description}}</div>
+                        <div class="col-sm-5">{{line_stock.stocks[0].member.addresses[0].information}}</div>
+                        <div class="col-sm-2">In stock: {{line_stock.quantity}}</div>
+                        <div class="col-sm-2" ng-if="line_stock.quantity >= 1"><button class="btn btn-inverse" ng-click="addToCart(line_stock)">Add To Cart</button></div>
+                        <div ng-if="line_stock.quantity == 0"></div>
                     </div>
                     <hr>
                 </div>
@@ -108,20 +112,22 @@
             <!-- Rent Books tab heading and its items -->
             <uib-tab heading="Rent Books" ng-click="moveToBottom()">
                 <br>
-                <div ng-repeat="book in bookInfo.stocks" ng-show="book.condition === 'new'">
+                <div ng-repeat="line_stock in bookInfo.line_stocks" ng-show="line_stock.type === 'lend'">
                     <div class = "row">
-                        <div class="col-sm-1">${{book.price}}</div>
-                        <div class="col-sm-2">{{book.condition}}</div>
-                        <div class="col-sm-5">{{book.address}}</div>
-                        <div class="col-sm-2">In stock: {{book.quantity}}</div>
-                        <div class="col-sm-2" ng-if="book.quantity >= 1"><button ng-click="addToCart(book)">Add To Cart</button></div>
-                        <div ng-if="book.quantity == 0"></div>
+                        <div class="col-sm-1">${{line_stock.stocks[0].price}}</div>
+                        <div class="col-sm-2">{{line_stock.stocks[0].condition}}</div>
+                        <div class="col-sm-2">{{line_stock.stocks[0].description}}</div>
+                        <div class="col-sm-5">{{line_stock.stocks[0].member.addresses[0].information}}</div>
+                        <div class="col-sm-2">In stock: {{line_stock.quantity}}</div>
+                        <div class="col-sm-2" ng-if="line_stock.quantity >= 1"><button class="btn btn-inverse" ng-click="addToCart(line_stock)">Add To Cart</button></div>
+                        <div ng-if="line_stock.quantity == 0"></div>
                     </div>
                     <hr>
                 </div>
                 <uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages"></uib-pagination>
             </uib-tab>
         </uib-tabset>
+        {{line_stock.price}}
         <!-- A random tag used to locate a place for moveToBottom() to scroll to -->
         <div id="bottom"></div>
     </div>

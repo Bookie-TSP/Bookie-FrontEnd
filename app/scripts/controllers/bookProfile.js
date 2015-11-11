@@ -2,7 +2,7 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
     function ($scope, $http, $anchorScroll, $location, $state, authFactory) {
         $scope.loggedIn = false;
 
-        // Variables for Pagers
+        // Variables for Pagers (still developing)
         $scope.maxSize = 5;
         $scope.bigTotalItems = 175;
         $scope.bigCurrentPage = 1;
@@ -36,8 +36,8 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
         $scope.getBookProfile();
 
         // Use for adding the book to the cart with its details
-        $scope.addToCart = function (book) {
-            console.log("Adding the book that costs $" + book.price + " to the cart");
+        $scope.addToCart = function (line_stock) {
+            console.log("Adding the book that costs $" + line_stock.stocks[0].price + " to the cart");
             $http.post('https://bookieservice.herokuapp.com/api/members/cart/add', {
                 stocks: {
                     stock_id: 1
