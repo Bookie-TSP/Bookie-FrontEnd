@@ -37,13 +37,6 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-4 text-info">ISBN 13:</div>
-                    <div class="col-sm-8">
-                        <div class="row">{{bookInfo.ISBN13}}</div>
-                        <div class="row" ng-show="bookInfo.ISBN13 === null">undefined</div>
-                    </div>
-                </div>
-                <div class="row">
                     <div class="col-sm-4 text-info">Author:</div>
                     <div ng-repeat="author in bookInfo.authors">
                             <div class="row" ng-show="bookInfo.authors.indexOf(author) != 0">&nbsp;</div>
