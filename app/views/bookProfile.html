@@ -94,79 +94,84 @@
             </div>
         </div>
         <hr>
-        <!-- Selecting to use the default address or new address the Member wants to receive the book -->
-        <div class = "row">
-            <div class="col-sm-3">
-                <div class = "row">
-                    <h3>Shipping Address</h3>
+        <div ng-if="loggedIn">
+            <!-- Selecting to use the default address or new address the Member wants to receive the book -->
+            <div class = "row">
+                <div class="col-sm-3">
+                    <div class = "row">
+                        <h3>Shipping Address</h3>
+                    </div>
+                    <div class = "row">
+                        <input type="radio" name="address" id="defaultAddress" value="defaultAddress" checked><span style ="margin-left: 10px;margin-right: 10px">Default Address</span><br><br>
+                        <input type="radio" name="address" id="newAddress" value="newAddress"><span style ="margin-left: 10px; margin-right: 10px">New Address</span>
+                    </div>
                 </div>
-                <div class = "row">
-                    <input type="radio" name="address" id="defaultAddress" value="defaultAddress" checked><span style ="margin-left: 10px;margin-right: 10px">Default Address</span><br><br>
-                    <input type="radio" name="address" id="newAddress" value="newAddress"><span style ="margin-left: 10px; margin-right: 10px">New Address</span>
+                <div class="col-sm-9">
+                    <div id="googleMap" style="width:400px;height:300px;"></div>
                 </div>
             </div>
-            <div class="col-sm-9">
-                <div id="googleMap" style="width:400px;height:300px;"></div>
-            </div>
+            <br><br>
+            <!-- Lists of shops in the nearby location that have the book to sell or for rent -->
+            <uib-tabset justified="true">
+                <!-- Buy New Books tab heading and its items -->
+                <uib-tab heading="Buy New Books" ng-click="moveToBottom()">
+                    <br>
+                    <div ng-repeat="line_stock in buyNewBook" ng-show="buyNewBook.indexOf(line_stock) < buyNewBookCurrentPage * 5 && buyNewBook.indexOf(line_stock) >= (buyNewBookCurrentPage - 1) * 5">
+                        <div class = "row">
+                            <!-- Check which index is the current object of the array -->
+                            <!-- {{bookInfo.line_stocks.indexOf(line_stock)}} -->
+                            <div class="col-sm-1">${{line_stock.stocks[0].price}}</div>
+                            <div class="col-sm-1">{{line_stock.stocks[0].condition}}</div>
+                            <div class="col-sm-2">{{line_stock.stocks[0].description}}</div>
+                            <div class="col-sm-4">{{line_stock.stocks[0].member.addresses[0].information}}</div>
+                            <div class="col-sm-2">In stock: {{line_stock.quantity}}</div>
+                            <div class="col-sm-2" ng-if="line_stock.quantity >= 1"><button class="btn btn-warning" ng-click="addToCart(line_stock)">Add To Cart</button></div>
+                            <div ng-if="line_stock.quantity == 0"></div>
+                        </div>
+                        <hr>
+                    </div>
+                    <uib-pagination total-items="buyNewBookTotalItems" ng-model="buyNewBookCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" ng-click="moveToBottom()"></uib-pagination>
+                </uib-tab>
+                <!-- Buy Used Books tab heading and its items -->
+                <uib-tab heading="Buy Used Books" ng-click="moveToBottom()">
+                    <br>
+                    <div ng-repeat="line_stock in buyUsedBook" ng-show="buyUsedBook.indexOf(line_stock) < buyUsedBookCurrentPage * 5 && buyUsedBook.indexOf(line_stock) >= (buyUsedBookCurrentPage - 1) * 5">
+                        <div class = "row">
+                            <div class="col-sm-1">${{line_stock.stocks[0].price}}</div>
+                            <div class="col-sm-1">{{line_stock.stocks[0].condition}}</div>
+                            <div class="col-sm-2">{{line_stock.stocks[0].description}}</div>
+                            <div class="col-sm-4">{{line_stock.stocks[0].member.addresses[0].information}}</div>
+                            <div class="col-sm-2">In stock: {{line_stock.quantity}}</div>
+                            <div class="col-sm-2" ng-if="line_stock.quantity >= 1"><button class="btn btn-warning" ng-click="addToCart(line_stock)">Add To Cart</button></div>
+                            <div ng-if="line_stock.quantity == 0"></div>
+                        </div>
+                        <hr>
+                    </div>
+                    <br>
+                    <uib-pagination total-items="buyUsedBookTotalItems" ng-model="buyUsedBookCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" ng-click="moveToBottom()"></uib-pagination>
+                </uib-tab>
+                <!-- Rent Books tab heading and its items -->
+                <uib-tab heading="Rent Books" ng-click="moveToBottom()">
+                    <br>
+                    <div ng-repeat="line_stock in rentBook" ng-show="rentBook.indexOf(line_stock) < rentBookCurrentPage * 5 && rentBook.indexOf(line_stock) >= (rentBookCurrentPage - 1) * 5">
+                        <div class = "row">
+                            <div class="col-sm-1">${{line_stock.stocks[0].price}}</div>
+                            <div class="col-sm-1">{{line_stock.stocks[0].condition}}</div>
+                            <div class="col-sm-2">{{line_stock.stocks[0].description}}</div>
+                            <div class="col-sm-4">{{line_stock.stocks[0].member.addresses[0].information}}</div>
+                            <div class="col-sm-2">In stock: {{line_stock.quantity}}</div>
+                            <div class="col-sm-2" ng-if="line_stock.quantity >= 1"><button class="btn btn-warning" ng-click="addToCart(line_stock)">Add To Cart</button></div>
+                            <div ng-if="line_stock.quantity == 0"></div>
+                        </div>
+                        <hr>
+                    </div>
+                    <uib-pagination total-items="rentBookTotalItems" ng-model="rentBookCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" ng-click="moveToBottom()"></uib-pagination>
+                </uib-tab>
+            </uib-tabset>
         </div>
-        <br><br>
-        <!-- Lists of shops in the nearby location that have the book to sell or for rent -->
-        <uib-tabset justified="true">
-            <!-- Buy New Books tab heading and its items -->
-            <uib-tab heading="Buy New Books" ng-click="moveToBottom()">
-                <br>
-                <div ng-repeat="line_stock in buyNewBook" ng-show="buyNewBook.indexOf(line_stock) < buyNewBookCurrentPage * 5 && buyNewBook.indexOf(line_stock) >= (buyNewBookCurrentPage - 1) * 5">
-                    <div class = "row">
-                        <!-- Check which index is the current object of the array -->
-                        <!-- {{bookInfo.line_stocks.indexOf(line_stock)}} -->
-                        <div class="col-sm-1">${{line_stock.stocks[0].price}}</div>
-                        <div class="col-sm-1">{{line_stock.stocks[0].condition}}</div>
-                        <div class="col-sm-2">{{line_stock.stocks[0].description}}</div>
-                        <div class="col-sm-4">{{line_stock.stocks[0].member.addresses[0].information}}</div>
-                        <div class="col-sm-2">In stock: {{line_stock.quantity}}</div>
-                        <div class="col-sm-2" ng-if="line_stock.quantity >= 1"><button class="btn btn-warning" ng-click="addToCart(line_stock)">Add To Cart</button></div>
-                        <div ng-if="line_stock.quantity == 0"></div>
-                    </div>
-                    <hr>
-                </div>
-                <uib-pagination total-items="buyNewBookTotalItems" ng-model="buyNewBookCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" ng-click="moveToBottom()"></uib-pagination>
-            </uib-tab>
-            <!-- Buy Used Books tab heading and its items -->
-            <uib-tab heading="Buy Used Books" ng-click="moveToBottom()">
-                <br>
-                <div ng-repeat="line_stock in buyUsedBook" ng-show="buyUsedBook.indexOf(line_stock) < buyUsedBookCurrentPage * 5 && buyUsedBook.indexOf(line_stock) >= (buyUsedBookCurrentPage - 1) * 5">
-                    <div class = "row">
-                        <div class="col-sm-1">${{line_stock.stocks[0].price}}</div>
-                        <div class="col-sm-1">{{line_stock.stocks[0].condition}}</div>
-                        <div class="col-sm-2">{{line_stock.stocks[0].description}}</div>
-                        <div class="col-sm-4">{{line_stock.stocks[0].member.addresses[0].information}}</div>
-                        <div class="col-sm-2">In stock: {{line_stock.quantity}}</div>
-                        <div class="col-sm-2" ng-if="line_stock.quantity >= 1"><button class="btn btn-warning" ng-click="addToCart(line_stock)">Add To Cart</button></div>
-                        <div ng-if="line_stock.quantity == 0"></div>
-                    </div>
-                    <hr>
-                </div>
-                <br>
-                <uib-pagination total-items="buyUsedBookTotalItems" ng-model="buyUsedBookCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" ng-click="moveToBottom()"></uib-pagination>
-            </uib-tab>
-            <!-- Rent Books tab heading and its items -->
-            <uib-tab heading="Rent Books" ng-click="moveToBottom()">
-                <br>
-                <div ng-repeat="line_stock in rentBook" ng-show="rentBook.indexOf(line_stock) < rentBookCurrentPage * 5 && rentBook.indexOf(line_stock) >= (rentBookCurrentPage - 1) * 5">
-                    <div class = "row">
-                        <div class="col-sm-1">${{line_stock.stocks[0].price}}</div>
-                        <div class="col-sm-1">{{line_stock.stocks[0].condition}}</div>
-                        <div class="col-sm-2">{{line_stock.stocks[0].description}}</div>
-                        <div class="col-sm-4">{{line_stock.stocks[0].member.addresses[0].information}}</div>
-                        <div class="col-sm-2">In stock: {{line_stock.quantity}}</div>
-                        <div class="col-sm-2" ng-if="line_stock.quantity >= 1"><button class="btn btn-warning" ng-click="addToCart(line_stock)">Add To Cart</button></div>
-                        <div ng-if="line_stock.quantity == 0"></div>
-                    </div>
-                    <hr>
-                </div>
-                <uib-pagination total-items="rentBookTotalItems" ng-model="rentBookCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" ng-click="moveToBottom()"></uib-pagination>
-            </uib-tab>
-        </uib-tabset>
+        <div ng-if="!loggedIn">
+            <center><h2 id="loginRequiredText">Before buying or renting books, please login...</h2></center>
+        </div>
         <!-- A random tag used to locate a place for moveToBottom() to scroll to -->
         <div id="bottom"></div>
     </div>

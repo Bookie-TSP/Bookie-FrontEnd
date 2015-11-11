@@ -11,6 +11,10 @@
 #googleMap {
   border: 2px solid black;
 }
+
+#loginRequiredText {
+  color: black;
+}
 #googleMap {
   height: 350px;
   width: 500px;
