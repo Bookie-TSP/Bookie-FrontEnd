@@ -2,6 +2,11 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
     function ($scope, $http, $anchorScroll, $location, $state, $stateParams, $map, authFactory) {
         $scope.loggedIn = false;
 
+        // Check whether the Member has logged in or not
+        if (authFactory.getAuth() !== undefined) {
+            $scope.loggedIn = true;
+        }
+        
         // Tab array of stocks
         $scope.buyNewBook = [];
         $scope.buyUsedBook = [];
@@ -25,11 +30,6 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
 
         // Define bookInfo
         $scope.bookInfo = {};
-
-        // Check whether the Member has logged in or not
-        if (authFactory.getAuth() !== undefined) {
-            loggedIn = true;
-        }
 
         // Get information of the book from the API
         $scope.getBookProfile = function(id) {
