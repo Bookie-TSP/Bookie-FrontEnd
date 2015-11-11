@@ -1,9 +1,9 @@
 app.controller('loginCtrl', ['$scope', '$http', '$state', 'authFactory',
 	function ($scope, $http, $state, authFactory) {
 		if (authFactory.getAuth() !== undefined) {
-			$state.go("home");
+			$state.go('home');
 		}
-		$scope.validation = "";
+		$scope.validation = '';
 		setValidation = function (s) {
 			$scope.validation = s;
 		};
@@ -16,11 +16,11 @@ app.controller('loginCtrl', ['$scope', '$http', '$state', 'authFactory',
 				.success(function (data) {
 					$scope.auth = data.auth_token;
 					authFactory.setAuth($scope.auth);
-					$state.go("home");
+					$state.go('home');
 				})
 				.error(function (data) {
 					console.log(data);
-					setValidation("Invalid email or password");
+					setValidation('Invalid email or password');
 				});
 		};
 	}

@@ -1,26 +1,17 @@
-app.controller('registerCtrl', ['$scope', '$http', 'mapFactory', '$state', 'authFactory',
-        function ($scope, $http, $map, $state, authFactory) {
+app.controller('registerCtrl', ['$scope', '$http', 'mapFactory', '$state', 'authFactory', 'dateFactory',
+        function ($scope, $http, $map, $state, authFactory, $date) {
 		if (authFactory.getAuth() !== undefined) {
 			$state.go("home");
 		}
         $scope.latitude = "";
         $scope.longitude = "";
         $scope.address = "";
+        
         $scope.initDate = function() {
-            $scope.initDates = new Array(31);
-            for( var i = 1; i <=31 ; i++ ){
-                $scope.initDates[i-1] = i;
-            }
-            $scope.initMonths = ["January", "February", "March", "April", "May",
-                                "June", "July", "August", "September", "October",
-                                "November", "December"];
-            var d = new Date();
-            var n = d.getFullYear();
-            $scope.initYears = new Array(100);
-            for( i = 0; i < 100; i++ ){
-                $scope.initYears[i] = n-i;
-            }
-        };
+            $scope.initDates = $date.days;
+            $scope.initMonths = $date.months;
+            $scope.initYears = $date.years;
+		};
 
 		$scope.submit = function () {
 			var birth_date = $scope.day_birth + "/" + ($scope.initMonths.indexOf($scope.month_birth)+1) + "/" + $scope.year_birth;
