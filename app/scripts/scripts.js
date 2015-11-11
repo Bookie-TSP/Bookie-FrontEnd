@@ -391,7 +391,7 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'authFactory', '$q', '$sta
 				'Authorization': authFactory.getAuth()
 			}
 		};
-		
+
 		$scope.initDate = function() {
 			$scope.initDates = $date.days;
             $scope.initMonths = $date.months;
@@ -430,6 +430,9 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'authFactory', '$q', '$sta
 
 		$scope.editProfile = function () {
 			console.log('Editing the profile');
+			$scope.errorRequired = false;
+			$scope.errorEmail = false;
+			$scope.errorPass = false;
 			var birth_date = $scope.date + '/' + ($scope.initMonths.indexOf($scope.month)+1) + '/' + $scope.year;
 			$http.put('https://bookieservice.herokuapp.com/api/members', {
 					member: {
@@ -446,12 +449,19 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'authFactory', '$q', '$sta
 				}, config)
 				.success(function (data) {
 					$scope.getProfile();
-					$scope.error = false;
 					console.log(data);
 					$scope.profileData.password = '';
 				})
 				.error(function (data) {
-					$scope.error = true;
+					if( data.errors.email !== undefined){
+						$scope.errorEmail = true;
+					}
+					if( data.errors === 'Wrong password'){
+						$scope.errorPass = true;
+					}
+					if( data.errors.password === 'parameter is required'){
+						$scope.errorRequired = true;
+					}
 					console.log(data);
 				});
 		};
