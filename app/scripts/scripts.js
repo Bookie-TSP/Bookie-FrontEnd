@@ -303,14 +303,14 @@ app.controller('cartCtrl',['$scope','$http', '$state', 'authFactory',
         $scope.countStocks = function() {
             $scope.buyLength = 0;
             for(var i = 0; i < $scope.stocks.length; i++){
-                if($scope.stocks[i].type === 'sale'){
+                if($scope.stocks[i].type === 'sell'){
                     $scope.buyLength++;
                 }
             }
 
             $scope.rentLength = 0;
             for(var j = 0; j < $scope.stocks.length; j++){
-                if($scope.stocks[j].type === 'rent'){
+                if($scope.stocks[j].type === 'lend'){
                     $scope.rentLength++;
                 }
             }
