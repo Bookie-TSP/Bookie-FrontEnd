@@ -1,54 +1,94 @@
 <div ng-controller="bookProfileCtrl">
     <div class="container">
         <div class = "row">
-            <div class="col-sm-6">
+            <div class="col-sm-12">
                 <h1 style="text-transform: uppercase;">{{bookInfo.title}}</h1>
             </div>
         </div>
         <hr>
         <!-- Information of the book -->
         <div class="row">
-            <div class="col-sm-4 col-sm-offset-2">
+            <div class="col-sm-3 col-sm-offset-1">
                 <image id = "book-cover" src="{{bookInfo.cover_image_url}}"></image>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-8">
                 <h3>Book Informations</h3>
+
+
                 <div class="row">
-                    <div class="col-sm-5 text-info">
-                        <div class = "row">Title:</div>
-                        <div class = "row">ISBN 10:</div>
-                        <div class = "row">ISBN 13:</div>
-                        <div class = "row">Author:</div>
-                        <div ng-repeat = "author in bookInfo.authors">
-                            <div class = "row" ng-show="bookInfo.authors.indexOf(author) != 0">&nbsp;</div>
-                        </div>
-                        <div class="row">Language:</div>
-                        <div class="row">Pages:</div>
-                        <div class="row">Publisher:</div>
-                        <div class="row">Published Date:</div>
-                        <div class="row">Book Description:</div>
-                    </div>
-                    <div class="col-sm-7">
+                    <div class="col-sm-4 text-info">Title:</div>
+                    <div class="col-sm-8">
                         <div class="row">{{bookInfo.title}}</div>
                         <div class="row" ng-show="bookInfo.title === null">undefined</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 text-info">ISBN 10:</div>
+                    <div class="col-sm-8">
                         <div class="row">{{bookInfo.ISBN10}}</div>
                         <div class="row" ng-show="bookInfo.ISBN10 === null">undefined</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 text-info">ISBN 13:</div>
+                    <div class="col-sm-8">
                         <div class="row">{{bookInfo.ISBN13}}</div>
                         <div class="row" ng-show="bookInfo.ISBN13 === null">undefined</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 text-info">ISBN 13:</div>
+                    <div class="col-sm-8">
+                        <div class="row">{{bookInfo.ISBN13}}</div>
+                        <div class="row" ng-show="bookInfo.ISBN13 === null">undefined</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 text-info">Author:</div>
+                    <div ng-repeat="author in bookInfo.authors">
+                            <div class="row" ng-show="bookInfo.authors.indexOf(author) != 0">&nbsp;</div>
+                    </div>
+                    <div class="col-sm-8">
                         <div ng-repeat="author in bookInfo.authors">
                             <div class="row">{{author}}</div>
                         </div>
-                        <div class="row" ng-show="bookInfo.author === null">undefined</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 text-info">Language:</div>
+                    <div class="col-sm-8">
                         <div class="row">{{bookInfo.language}}</div>
                         <div class="row" ng-show="bookInfo.language === null">undefined</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 text-info">Pages:</div>
+                    <div class="col-sm-8">
                         <div class="row">{{bookInfo.pages}}</div>
                         <div class="row" ng-show="bookInfo.pages === null">undefined</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 text-info">Publisher:</div>
+                    <div class="col-sm-8">
                         <div class="row">{{bookInfo.publisher}}</div>
                         <div class="row" ng-show="bookInfo.publisher === null">undefined</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 text-info">Published Date:</div>
+                    <div class="col-sm-8">
                         <div class="row">{{bookInfo.publish_date}}</div>
-                        <div class="row" ng-show="bookInfo.publish_date === null">undefined111</div>
+                        <div class="row" ng-show="bookInfo.publish_date === null">undefined</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 text-info">Book Description:</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-11 col-sm-offset-1">
                         <div class="row">{{bookInfo.description}}</div>
-                        <div class="row" ng-show="bookInfo.description === null">undefined11</div>
+                        <div class="row" ng-show="bookInfo.description === null">undefined</div>
                     </div>
                 </div>
             </div>
