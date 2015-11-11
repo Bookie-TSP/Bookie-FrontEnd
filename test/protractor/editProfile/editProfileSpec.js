@@ -17,12 +17,15 @@ describe('Edit Profile', function() {
     var editButton = element(by.id('editProfileBtn'));
     var incorrectConfirm = element(by.id('incorrectPass'));
     var requireConfirm = element(by.id('requiredPass'));
-    var invalidEmail = element(by.id('emailValid'));
+    var duplicateEmail = element(by.id('emailValid'));
     var male = element(by.id('male'));
     var female = element(by.id('female'));
-    var date = element(by.model('date'));
-    var month = element(by.model('month'));
-    var year = element(by.model('year'));
+    var date = element.all(by.repeater('d in initDates'));
+    var dateValue = element(by.model('date'));
+    var month = element.all(by.repeater('m in initMonths'));
+    var monthValue = element(by.model('month'));
+    var year = element.all(by.repeater('y in initYears'));
+    var yearValue = element(by.model('year'));
     var dropdown = element(by.id('dropdownMenu1'));
 
     beforeEach(function() {
@@ -37,7 +40,7 @@ describe('Edit Profile', function() {
         };
     };
 
-    describe('title', function() {
+    describe('other cases', function() {
         it('should match the title', function() {
             loginEmail.sendKeys('edit@test.com');
             loginPassword.sendKeys('11111111');
@@ -55,7 +58,7 @@ describe('Edit Profile', function() {
     });
 
     //not enter password confirmation
-    describe('can not complete without password confirmation', function() {
+    describe('should not complete without password confirmation', function() {
         it('edit email', function() {
             loginEmail.sendKeys('edit@test.com');
             loginPassword.sendKeys('11111111');
@@ -127,32 +130,39 @@ describe('Edit Profile', function() {
             expect(male.isSelected()).toBe(false);
         });
 
-        // it('edit date', function() {
-        //     // date[0].click();
-        //     element(by.css('select option[value="1"]')).click();
-        //     editButton.click();
+        it('edit date', function() {
+            date.get(0).click();
+            editButton.click();
         
-        //     expect(requireConfirm.isDisplayed()).toBe(true);
-        //     expect(requireConfirm.getText()).toBe('Password is required');
-        //     browser.refresh();
-        //     expect(date.getAttribute('value')).toBe('20');
-        // });
-       
-       // it('edit month', function() {
-       //      // date[0].click();
-       //      element(by.css('select option[value="1"]')).click();
-       //      editButton.click();
-        
-       //      expect(requireConfirm.isDisplayed()).toBe(true);
-       //      expect(requireConfirm.getText()).toBe('Password is required');
-       //      browser.refresh();
-       //      expect(date.getAttribute('value')).toBe('2');
-       //  });
+            expect(requireConfirm.isDisplayed()).toBe(true);
+            expect(requireConfirm.getText()).toBe('Password is required');
+            browser.refresh();
+            expect(dateValue.getAttribute('value')).toBe('20');
+        });
 
+        it('edit month', function() {
+            month.get(0).click();
+            editButton.click();
+        
+            expect(requireConfirm.isDisplayed()).toBe(true);
+            expect(requireConfirm.getText()).toBe('Password is required');
+            browser.refresh();
+            expect(monthValue.getAttribute('value')).toBe('February');
+        });
+
+        it('edit year', function() {
+            year.get(0).click();
+            editButton.click();
+        
+            expect(requireConfirm.isDisplayed()).toBe(true);
+            expect(requireConfirm.getText()).toBe('Password is required');
+            browser.refresh();
+            expect(yearValue.getAttribute('value')).toBe('1995');
+        });
     });
 
     //enter wrong password confirmation
-    describe('can not complete when enter wrong password confirmation', function() {
+    describe('should not complete when enter wrong password confirmation', function() {
         it('edit email', function() {
             email.clear();
             email.sendKeys('edittttttt@t.com');
@@ -224,30 +234,38 @@ describe('Edit Profile', function() {
             expect(male.isSelected()).toBe(false);
         });
 
-        // it('edit date', function() {
-        //     // date[0].click();
-        //     element(by.css('select option[value="1"]')).click();
-        //     confirmation.sendKeys('1');
-        //     editButton.click();
+        it('edit date', function() {
+            date.get(0).click();
+            confirmation.sendKeys('1');
+            editButton.click();
         
-        //     expect(incorrectConfirm.isDisplayed()).toBe(true);
-        //     expect(incorrectConfirm.getText()).toBe('Incorrect Password');
-        //     browser.refresh();
-        //     expect(date.getAttribute('value')).toBe('20');
-        // });
-       
-       // it('edit month', function() {
-       //      // date[0].click();
-       //      element(by.css('select option[value="1"]')).click();
-       //      confirmation.sendKeys('1');
-       //      editButton.click();
-        
-       //      expect(incorrectConfirm.isDisplayed()).toBe(true);
-       //      expect(incorrectConfirm.getText()).toBe('Incorrect Password');
-       //      browser.refresh();
-       //      expect(date.getAttribute('value')).toBe('2');
-       //  });
+            expect(incorrectConfirm.isDisplayed()).toBe(true);
+            expect(incorrectConfirm.getText()).toBe('Incorrect Password');
+            browser.refresh();
+            expect(dateValue.getAttribute('value')).toBe('20');
+        });
 
+        it('edit month', function() {
+            month.get(0).click();
+            confirmation.sendKeys('1');
+            editButton.click();
+        
+            expect(incorrectConfirm.isDisplayed()).toBe(true);
+            expect(incorrectConfirm.getText()).toBe('Incorrect Password');
+            browser.refresh();
+            expect(monthValue.getAttribute('value')).toBe('February');
+        });
+
+        it('edit year', function() {
+            year.get(0).click();
+            confirmation.sendKeys('1');
+            editButton.click();
+        
+            expect(incorrectConfirm.isDisplayed()).toBe(true);
+            expect(incorrectConfirm.getText()).toBe('Incorrect Password');
+            browser.refresh();
+            expect(yearValue.getAttribute('value')).toBe('1995');
+        });
     });
 
     //enter correct password confirmation
@@ -306,16 +324,43 @@ describe('Edit Profile', function() {
         });
 
         it('edit date', function() {
-            // date[0].click();
-            element(by.css('select option[value="1"]')).click();
+            date.get(0).click();
+            confirmation.sendKeys('11111111');
             editButton.click();
             editProfile.click();
-            expect(date.getAttribute('value')).toBe('1');
+            expect(dateValue.getAttribute('value')).toBe('1');
         });
 
+        it('edit month', function() {
+            month.get(0).click();
+            confirmation.sendKeys('11111111');
+            editButton.click();
+            editProfile.click();
+            expect(monthValue.getAttribute('value')).toBe('January');
+        });
+
+        it('edit year', function() {
+            year.get(0).click();
+            confirmation.sendKeys('11111111');
+            editButton.click();
+            editProfile.click();
+            expect(yearValue.getAttribute('value')).toBe('2015');
+        });
     });
 
-describe('back to the default', function() {
+    describe('should not complete when enter duplicate email', function() {
+        it('should show error message that email is already taken', function() {
+            email.clear();
+            email.sendKeys('mint@test.com');
+            confirmation.sendKeys('11111111');
+            editButton.click();
+
+            expect(duplicateEmail.isDisplayed()).toBe(true);
+            expect(duplicateEmail.getText()).toBe('Email has already been taken');
+        });
+    });
+
+    describe('back to the default', function() {
         it('should be non-edit version', function() {
             email.clear();
             email.sendKeys('edit@test.com');
@@ -328,37 +373,15 @@ describe('back to the default', function() {
             idenNo.clear();
             idenNo.sendKeys('1100400740297');
             female.click();
+            date.get(19).click();
+            month.get(1).click();
+            year.get(20).click();
 
             confirmation.sendKeys('11111111');
             editButton.click();
             logout.click();
         });
-
-        
-
-       //  it('edit date', function() {
-       //      // date[0].click();
-       //      element(by.css('select option[value="1"]')).click();
-       //      editButton.click();
-        
-       //      expect(errormsg.isDisplayed()).toBe(false);
-       //      browser.refresh();
-       //      expect(date.getAttribute('value')).toBe('20');
-       //  });
-       
-       // it('edit month', function() {
-       //      // date[0].click();
-       //      element(by.css('select option[value="1"]')).click();
-       //      editButton.click();
-        
-       //      expect(errormsg.isDisplayed()).toBe(false);
-       //      browser.refresh();
-       //      expect(date.getAttribute('value')).toBe('2');
-       //      logout.click();
-       //  });
-
     });
-
 
     afterAll(function(done) {
         process.nextTick(done);
