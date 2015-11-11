@@ -1,3 +1,21 @@
 <div ng-controller="newStockCtrl" class="container">
+	<!DOCTYPE html>
+<html lang="en">
 	
+		<input type="text" name="search" id="search-field"><button type="button" id="search-button">Search</button>
+		<input type="radio" name="type" value="isbn">isbn
+		<input type="radio" name="type" value="intitle">title
+		<input type="radio" name="type" value="inauthor">author
+		<input type="radio" name="type" value="inpublisher">publisher
+		<div id="result-pane">
+			<!-- result panel -->
+			<div id="result"></div>
+			<!-- hide the elements at first -->
+			<button class="pagination" id="previous-page" style="display:none">Previous page</button>
+			<button class="pagination" id="next-page" style="display:none">Next page</button>
+		</div>
+		<div class="script">
+			<script src="http://malsup.github.com/jquery.form.js"></script>
+		</div>
+</html>
 </div>
