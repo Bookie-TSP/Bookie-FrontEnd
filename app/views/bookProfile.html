@@ -83,6 +83,20 @@
                         <div class="row">{{bookInfo.description}}</div>
                         <div class="row" ng-show="bookInfo.description === null">undefined</div>
                     </div>
+                    <!-- <ul class="unstyled">
+                        <li class="text-info">Title: {{bookInfo.title}}</li>
+                        <li class="text-info">ISBN 10: {{bookInfo.ISBN10}}</li>
+                        <li class="text-info">ISBN 13: {{bookInfo.ISBN13}}</li>
+                        <li class="text-info">Author:  </li>
+                        <div ng-repeat="author in bookInfo.authors">
+                            <span class="text-info">{{author}}</span>
+                        </div>
+                        <li class="text-info">Language: {{bookInfo.language}}</li>
+                        <li class="text-info">Pages: {{bookInfo.pages}}</li>
+                        <li class="text-info">Publisher: {{bookInfo.publisher}}</li>
+                        <li class="text-info">Published Date: {{bookInfo.publish_date}}</li>
+                        <li class="text-success">Book Description: {{bookInfo.description}}</li>
+                    </ul> -->
                 </div>
             </div>
         </div>
@@ -166,6 +180,6 @@
             <center><h2 id="loginRequiredText">Before buying or renting books, please login...</h2></center>
         </div>
         <!-- A random tag used to locate a place for moveToBottom() to scroll to -->
-        <div id="bottom"></div>
+            <div id="bottom"></div>
     </div>
 </div>

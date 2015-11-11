@@ -1,33 +1,33 @@
-app.controller('editProfileCtrl', ['$scope', '$http', 'authFactory', '$q', '$state',
-	function ($scope, $http, authFactory, $q, $state) {
+app.controller('editProfileCtrl', ['$scope', '$http', 'authFactory', '$q', '$state', 'dateFactory',
+	function ($scope, $http, authFactory, $q, $state, $date) {
 		if (authFactory.getAuth() === undefined) {
-			$state.go("login");
+			$state.go('login');
 		}
 
+		var config = {
+			headers: {
+				'Authorization': authFactory.getAuth()
+			}
+		};
+
 		$scope.initDate = function() {
-            $scope.initDates = new Array(31);
-            for( var i = 1; i <=31 ; i++ ){
-                $scope.initDates[i-1] = i;
-            }
-			$scope.initMonths = ["January", "February", "March", "April", "May",
-								"June", "July", "August", "September", "October",
-								"November", "December"];
-            var d = new Date();
-            var n = d.getFullYear();
-            $scope.initYears = new Array(100);
-            for( i = 0; i < 100; i++ ){
-                $scope.initYears[i] = n-i;
-            }
+			$scope.initDates = $date.days;
+            $scope.initMonths = $date.months;
+            $scope.initYears = $date.years;
         };
 
+		$scope.setDate = function () {
+			if($scope.profileData.birth_date !== null){
+				birth = $scope.profileData.birth_date.split('-');
+				$scope.date = birth[2];
+				$scope.month = $scope.initMonths[birth[1]-1];
+				$scope.year = birth[0];
+			}
+		};
+
 		$scope.getProfile = function () {
-			console.log("Getting the profile");
-			var config = {
-				headers: {
-					'Authorization': authFactory.getAuth()
-				}
-			};
-			var birth = "";
+			console.log('Getting the profile');
+			var birth = '';
 			$q.all([
 					$http.get('https://bookieservice.herokuapp.com/api/myprofile', config)
 					.success(function (data) {
@@ -42,27 +42,16 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'authFactory', '$q', '$sta
 			])
 			.then(function () {
 				$scope.setDate();
-				$state.go("viewProfile");
+				$state.go('viewProfile');
 			});
 		};
 
-		$scope.setDate = function () {
-			if($scope.profileData.birth_date !== null){
-				birth = $scope.profileData.birth_date.split("-");
-				$scope.date = birth[2];
-				$scope.month = $scope.initMonths[birth[1]-1];
-				$scope.year = birth[0];
-			}
-		};
-
 		$scope.editProfile = function () {
-			console.log("Editing the profile");
-			var config = {
-				headers: {
-					'Authorization': authFactory.getAuth()
-				}
-			};
-			var birth_date = $scope.date + "/" + ($scope.initMonths.indexOf($scope.month)+1) + "/" + $scope.year;
+			console.log('Editing the profile');
+			$scope.errorRequired = false;
+			$scope.errorEmail = false;
+			$scope.errorPass = false;
+			var birth_date = $scope.date + '/' + ($scope.initMonths.indexOf($scope.month)+1) + '/' + $scope.year;
 			$http.put('https://bookieservice.herokuapp.com/api/members', {
 					member: {
 						email: $scope.profileData.email,
@@ -78,19 +67,21 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'authFactory', '$q', '$sta
 				}, config)
 				.success(function (data) {
 					$scope.getProfile();
-					$scope.error = false;
 					console.log(data);
-					$scope.profileData.password = "";
+					$scope.profileData.password = '';
 				})
 				.error(function (data) {
-					$scope.error = true;
+					if( data.errors.email !== undefined){
+						$scope.errorEmail = true;
+					}
+					if( data.errors === 'Wrong password'){
+						$scope.errorPass = true;
+					}
+					if( data.errors.password === 'parameter is required'){
+						$scope.errorRequired = true;
+					}
 					console.log(data);
 				});
-		};
-
-
-		$scope.backToViewProfile = function() {
-			$state.go("viewProfile");
 		};
 
 		$scope.initial = function () {

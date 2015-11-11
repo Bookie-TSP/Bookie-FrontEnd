@@ -1,5 +1,5 @@
-app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$location', '$state', 'authFactory',
-    function ($scope, $http, $anchorScroll, $location, $state, authFactory) {
+app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$location', '$state', '$stateParams', 'mapFactory', 'authFactory',
+    function ($scope, $http, $anchorScroll, $location, $state, $stateParams, $map, authFactory) {
         $scope.loggedIn = false;
 
         // Check whether the Member has logged in or not
@@ -26,14 +26,14 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
         $scope.rentBookCurrentPage = 1;
 
         // Initialize Google Map from the mapFactory.js
-        //googleMap.initialize();
+        // googleMap.initialize();
 
         // Define bookInfo
         $scope.bookInfo = {};
 
         // Get information of the book from the API
-        $scope.getBookProfile = function() {
-            $http.get('https://bookieservice.herokuapp.com/api/books/1')
+        $scope.getBookProfile = function(id) {
+            $http.get('https://bookieservice.herokuapp.com/api/books/'+id)
             .success(function (data) {
                 console.log(data);
                 $scope.bookInfo = data;
@@ -69,7 +69,7 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
         }
 
         // Call getBookProfile()
-        $scope.getBookProfile();
+        $scope.getBookProfile($stateParams.bookId);
 
         // Use for adding the book to the cart with its details
         $scope.addToCart = function(line_stock) {

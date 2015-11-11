@@ -27,28 +27,50 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			data : { pageTitle: 'Edit Profile' }
 		})
 		.state('bookProfile', {
-			url: '/book',
+			url: '/book/:bookId',
 			templateUrl: 'views/bookProfile.html',
 			data : { pageTitle: 'Book Profile' }
+		})
+		.state('editAddress', {
+			url: '/editAddress',
+			templateUrl: 'views/editAddress.html',
+			data : { pageTitle: 'Edit Address' }
+		})
+		.state('cart', {
+			url: '/cart',
+			templateUrl: 'views/cart.html',
+			data : { pageTitle: 'My Cart' }
 		});
 	$urlRouterProvider.otherwise('/');
 
 });
-// app.config(function(uiGmapGoogleMapApiProvider) {
-//     uiGmapGoogleMapApiProvider.configure({
-//     	key: 'AIzaSyBiB61BZiU_nXIBF3tZAAHyRfQeBSd9Jzo',
-//         v: '3.20', //defaults to latest 3.X anyhow
-//         libraries: 'weather,geometry,visualization'
-//     });
-// });
 app.run([ '$rootScope', '$state', '$stateParams',
 function ($rootScope, $state, $stateParams) {
   $rootScope.$state = $state;
   $rootScope.$stateParams = $stateParams;
 }]);
 
-app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$location', '$state', 'authFactory',
-    function ($scope, $http, $anchorScroll, $location, $state, authFactory) {
+app.controller('bookCatalogCtrl', ['$scope', '$http', '$state', 'authFactory',
+function ($scope, $http, $state, authFactory) {
+		//no need for auth factory
+		// if (authFactory.getAuth() === undefined) {
+		// 	$state.go("home");
+		// }
+
+		//getting books from api
+		$http.get('https://bookieservice.herokuapp.com/api/books')
+			.success(function(data) {
+				$scope.books = data.books;
+				console.log("success");
+				console.log($scope.books);
+			})
+			.error(function(data) {
+				console.log(data);
+			});
+
+}]);
+app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$location', '$state', '$stateParams', 'mapFactory', 'authFactory',
+    function ($scope, $http, $anchorScroll, $location, $state, $stateParams, $map, authFactory) {
         $scope.loggedIn = false;
 
         // Check whether the Member has logged in or not
@@ -75,14 +97,14 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
         $scope.rentBookCurrentPage = 1;
 
         // Initialize Google Map from the mapFactory.js
-        //googleMap.initialize();
+        // googleMap.initialize();
 
         // Define bookInfo
         $scope.bookInfo = {};
 
         // Get information of the book from the API
-        $scope.getBookProfile = function() {
-            $http.get('https://bookieservice.herokuapp.com/api/books/1')
+        $scope.getBookProfile = function(id) {
+            $http.get('https://bookieservice.herokuapp.com/api/books/'+id)
             .success(function (data) {
                 console.log(data);
                 $scope.bookInfo = data;
@@ -118,7 +140,7 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
         }
 
         // Call getBookProfile()
-        $scope.getBookProfile();
+        $scope.getBookProfile($stateParams.bookId);
 
         // Use for adding the book to the cart with its details
         $scope.addToCart = function(line_stock) {
@@ -153,36 +175,159 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
         }
     }
 ]);
-app.controller('editProfileCtrl', ['$scope', '$http', 'authFactory', '$q', '$state',
-	function ($scope, $http, authFactory, $q, $state) {
-		if (authFactory.getAuth() === undefined) {
-			$state.go("login");
-		}
 
-		$scope.initDate = function() {
-            $scope.initDates = new Array(31);
-            for( var i = 1; i <=31 ; i++ ){
-                $scope.initDates[i-1] = i;
+app.controller('cartCtrl',['$scope','$http', '$state', 'authFactory',
+    function ($scope, $http, $state, authFactory){
+        var config = {
+            headers: {
+                'Authorization': authFactory.getAuth()
             }
-			$scope.initMonths = ["January", "February", "March", "April", "May",
-								"June", "July", "August", "September", "October",
-								"November", "December"];
-            var d = new Date();
-            var n = d.getFullYear();
-            $scope.initYears = new Array(100);
-            for( i = 0; i < 100; i++ ){
-                $scope.initYears[i] = n-i;
+        };
+        $scope.getTotal = function() {
+            $scope.total = 0;
+            for(var i = 0, len = $scope.stocks.length; i < len; i++) {
+                $scope.total += $scope.stocks[i].price;
             }
         };
 
-		$scope.getProfile = function () {
-			console.log("Getting the profile");
-			var config = {
+        $scope.countStocks = function() {
+            $scope.buyLength = 0;
+            for(var i = 0; i < $scope.stocks.length; i++){
+                if($scope.stocks[i].type === 'sell'){
+                    $scope.buyLength++;
+                }
+            }
+
+            $scope.rentLength = 0;
+            for(var j = 0; j < $scope.stocks.length; j++){
+                if($scope.stocks[j].type === 'lend'){
+                    $scope.rentLength++;
+                }
+            }
+        };
+
+		$scope.getCart = function() {
+            $http.get('https://bookieservice.herokuapp.com/api/members/cart/show',config)
+            .success(function (data) {
+                console.log(data);
+                $scope.cart = data;
+                $scope.stocks = $scope.cart.stocks;
+                $scope.getTotal();
+                $scope.countStocks();
+                console.log($scope.total);
+            })
+            .error(function (data) {
+                console.log(data);
+            });
+        };
+        $scope.removeStock = function(id) {
+            console.log(id);
+            $http.post('https://bookieservice.herokuapp.com/api/members/cart/remove',{
+                stock: {
+                    stock_id: id
+                }
+            },config)
+            .success(function(data){
+                $scope.cart = data;
+                $scope.stocks = $scope.cart.stocks;
+                $scope.getTotal();
+                $scope.countStocks();
+            })
+            .error(function(data){
+                console.log(data);
+            });
+        };
+
+        //initialize
+        $scope.getCart();
+}]);
+
+app.controller('addressCtrl',['$scope','$http', '$state', 'authFactory', '$rootScope', 'mapFactory',
+    function($scope, $http, $state, authFactory, $rootScope, $map){
+        if (authFactory.getAuth() === undefined) {
+			$state.go('login');
+		}
+
+        $scope.info = '';
+        $scope.initial = function(){
+            $scope.address = authFactory.getMember().addresses[0];
+            $scope.map = $map.map;
+            $scope.marker = $map.marker;
+            $scope.map.center = {
+    			latitude: $scope.address.latitude,
+    			longitude: $scope.address.longitude
+    		};
+            $scope.marker.coords = {
+                latitude: $scope.address.latitude,
+    			longitude: $scope.address.longitude
+            };
+            $scope.options = $map.options;
+        };
+
+        $scope.editAddress = function() {
+            $scope.address.information = $scope.info + $scope.address.information;
+            var config = {
 				headers: {
 					'Authorization': authFactory.getAuth()
 				}
 			};
-			var birth = "";
+            $http.post('https://bookieservice.herokuapp.com/api/members/edit_address',{
+                address: $scope.address
+            },config)
+            .success(function(data){
+                console.log(data);
+                authFactory.setMember(data);
+                $state.go('viewProfile');
+            })
+            .error(function(data){
+                $scope.error = true;
+                console.log(data);
+            });
+
+        };
+
+        $scope.$on('marker', function () {
+			console.log('marker');
+            $scope.address.latitude = $map.getLat().toFixed(5);
+            $scope.address.longitude = $map.getLng().toFixed(5);
+            $scope.address.information = $map.getAddress();
+            $scope.$digest();
+		});
+
+        $scope.initial();
+
+}]);
+
+app.controller('editProfileCtrl', ['$scope', '$http', 'authFactory', '$q', '$state', 'dateFactory',
+	function ($scope, $http, authFactory, $q, $state, $date) {
+		if (authFactory.getAuth() === undefined) {
+			$state.go('login');
+		}
+
+		var config = {
+			headers: {
+				'Authorization': authFactory.getAuth()
+			}
+		};
+
+		$scope.initDate = function() {
+			$scope.initDates = $date.days;
+            $scope.initMonths = $date.months;
+            $scope.initYears = $date.years;
+        };
+
+		$scope.setDate = function () {
+			if($scope.profileData.birth_date !== null){
+				birth = $scope.profileData.birth_date.split('-');
+				$scope.date = birth[2];
+				$scope.month = $scope.initMonths[birth[1]-1];
+				$scope.year = birth[0];
+			}
+		};
+
+		$scope.getProfile = function () {
+			console.log('Getting the profile');
+			var birth = '';
 			$q.all([
 					$http.get('https://bookieservice.herokuapp.com/api/myprofile', config)
 					.success(function (data) {
@@ -197,27 +342,16 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'authFactory', '$q', '$sta
 			])
 			.then(function () {
 				$scope.setDate();
-				$state.go("viewProfile");
+				$state.go('viewProfile');
 			});
 		};
 
-		$scope.setDate = function () {
-			if($scope.profileData.birth_date !== null){
-				birth = $scope.profileData.birth_date.split("-");
-				$scope.date = birth[2];
-				$scope.month = $scope.initMonths[birth[1]-1];
-				$scope.year = birth[0];
-			}
-		};
-
 		$scope.editProfile = function () {
-			console.log("Editing the profile");
-			var config = {
-				headers: {
-					'Authorization': authFactory.getAuth()
-				}
-			};
-			var birth_date = $scope.date + "/" + ($scope.initMonths.indexOf($scope.month)+1) + "/" + $scope.year;
+			console.log('Editing the profile');
+			$scope.errorRequired = false;
+			$scope.errorEmail = false;
+			$scope.errorPass = false;
+			var birth_date = $scope.date + '/' + ($scope.initMonths.indexOf($scope.month)+1) + '/' + $scope.year;
 			$http.put('https://bookieservice.herokuapp.com/api/members', {
 					member: {
 						email: $scope.profileData.email,
@@ -233,19 +367,21 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'authFactory', '$q', '$sta
 				}, config)
 				.success(function (data) {
 					$scope.getProfile();
-					$scope.error = false;
 					console.log(data);
-					$scope.profileData.password = "";
+					$scope.profileData.password = '';
 				})
 				.error(function (data) {
-					$scope.error = true;
+					if( data.errors.email !== undefined){
+						$scope.errorEmail = true;
+					}
+					if( data.errors === 'Wrong password'){
+						$scope.errorPass = true;
+					}
+					if( data.errors.password === 'parameter is required'){
+						$scope.errorRequired = true;
+					}
 					console.log(data);
 				});
-		};
-
-
-		$scope.backToViewProfile = function() {
-			$state.go("viewProfile");
 		};
 
 		$scope.initial = function () {
@@ -270,9 +406,9 @@ app.controller('homeCtrl',['$scope','$http', '$state', '$rootScope',
 app.controller('loginCtrl', ['$scope', '$http', '$state', 'authFactory',
 	function ($scope, $http, $state, authFactory) {
 		if (authFactory.getAuth() !== undefined) {
-			$state.go("home");
+			$state.go('home');
 		}
-		$scope.validation = "";
+		$scope.validation = '';
 		setValidation = function (s) {
 			$scope.validation = s;
 		};
@@ -285,11 +421,11 @@ app.controller('loginCtrl', ['$scope', '$http', '$state', 'authFactory',
 				.success(function (data) {
 					$scope.auth = data.auth_token;
 					authFactory.setAuth($scope.auth);
-					$state.go("home");
+					$state.go('home');
 				})
 				.error(function (data) {
 					console.log(data);
-					setValidation("Invalid email or password");
+					setValidation('Invalid email or password');
 				});
 		};
 	}
@@ -322,34 +458,25 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
 		};
 		$rootScope.member = $scope.getMember();
 		$scope.$on('authenticate', function () {
-			console.log("Change");
+			console.log('Change');
 			$rootScope.member = $scope.getMember();
 		});
 }]);
 
-app.controller('registerCtrl', ['$scope', '$http', 'mapFactory', '$state', 'authFactory',
-        function ($scope, $http, $map, $state, authFactory) {
+app.controller('registerCtrl', ['$scope', '$http', 'mapFactory', '$state', 'authFactory', 'dateFactory',
+        function ($scope, $http, $map, $state, authFactory, $date) {
 		if (authFactory.getAuth() !== undefined) {
 			$state.go("home");
 		}
         $scope.latitude = "";
         $scope.longitude = "";
         $scope.address = "";
+        
         $scope.initDate = function() {
-            $scope.initDates = new Array(31);
-            for( var i = 1; i <=31 ; i++ ){
-                $scope.initDates[i-1] = i;
-            }
-            $scope.initMonths = ["January", "February", "March", "April", "May",
-                                "June", "July", "August", "September", "October",
-                                "November", "December"];
-            var d = new Date();
-            var n = d.getFullYear();
-            $scope.initYears = new Array(100);
-            for( i = 0; i < 100; i++ ){
-                $scope.initYears[i] = n-i;
-            }
-        };
+            $scope.initDates = $date.days;
+            $scope.initMonths = $date.months;
+            $scope.initYears = $date.years;
+		};
 
 		$scope.submit = function () {
 			var birth_date = $scope.day_birth + "/" + ($scope.initMonths.indexOf($scope.month_birth)+1) + "/" + $scope.year_birth;
@@ -418,11 +545,7 @@ app.controller('profileCtrl', ['$scope', '$http', '$state', 'authFactory',
 			$state.go("login");
 		}
 		$scope.profileData = authFactory.getMember();
-		$scope.editProfile = function () {
-			$state.go("editProfile");
-		};
-	}
-]);
+}]);
 
 app.factory('authFactory', function ($http, $rootScope, $localStorage) {
 	return {
@@ -439,6 +562,30 @@ app.factory('authFactory', function ($http, $rootScope, $localStorage) {
 		getMember: function () {
 			return $localStorage.member;
 		}
+	};
+});
+
+app.factory('dateFactory', function () {
+    var initDates = new Array(31);
+    for( var i = 1; i <=31 ; i++ ){
+        initDates[i-1] = i;
+    }
+
+     var initMonths = ['January', 'February', 'March', 'April', 'May',
+                        'June', 'July', 'August', 'September', 'October',
+                        'November', 'December'];
+
+    var d = new Date();
+    var n = d.getFullYear();
+    var initYears = new Array(100);
+    for( i = 0; i < 100; i++ ){
+        initYears[i] = n-i;
+    }
+
+	return {
+		days: initDates,
+        months: initMonths,
+        years: initYears
 	};
 });
 
@@ -474,7 +621,6 @@ app.factory('mapFactory', function ($log, $rootScope) {
 		},
 		zoom: 8
 	};
-
 	var options = {
 		scrollwheel: false
 	};
@@ -506,7 +652,7 @@ app.factory('mapFactory', function ($log, $rootScope) {
 		longitude = long;
 	};
 
-	var getLat = function () {
+	var getLat = function () {   
 		return latitude;
 	};
 
@@ -524,6 +670,7 @@ app.factory('mapFactory', function ($log, $rootScope) {
 		options: options,
 		getLat: getLat,
 		getLng: getLng,
-		getAddress: getAddress
+		getAddress: getAddress,
+		setPosition: setPosition
 	};
 });
