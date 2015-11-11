@@ -123,7 +123,7 @@
                 <!-- Buy New Books tab heading and its items -->
                 <uib-tab heading="Buy New Books" ng-click="moveToBottom()">
                     <br>
-                    <div ng-repeat="line_stock in buyNewBook" ng-show="buyNewBook.indexOf(line_stock) < buyNewBookCurrentPage * 5 && buyNewBook.indexOf(line_stock) >= (buyNewBookCurrentPage - 1) * 5">
+                    <div ng-repeat="line_stock in buyNewBook" ng-show="buyNewBook.indexOf(line_stock) < buyNewBookCurrentPage * itemPerPage && buyNewBook.indexOf(line_stock) >= (buyNewBookCurrentPage - 1) * itemPerPage">
                         <div class = "row">
                             <!-- Check which index is the current object of the array -->
                             <!-- {{bookInfo.line_stocks.indexOf(line_stock)}} -->
@@ -132,7 +132,7 @@
                             <div class="col-sm-2">{{line_stock.stocks[0].description}}</div>
                             <div class="col-sm-4">{{line_stock.stocks[0].member.addresses[0].information}}</div>
                             <div class="col-sm-2">In stock: {{line_stock.quantity}}</div>
-                            <div class="col-sm-2" ng-if="line_stock.quantity >= 1"><button class="btn btn-warning" ng-click="addToCart(line_stock)">Add To Cart</button></div>
+                            <div class="col-sm-2" ng-if="line_stock.quantity >= 1"><button class="btn btn-warning" ng-click="setTempLineStock(line_stock)" data-toggle="modal" data-target="#myModal">Add To Cart</button></div>
                             <div ng-if="line_stock.quantity == 0"></div>
                         </div>
                         <hr>
@@ -142,14 +142,14 @@
                 <!-- Buy Used Books tab heading and its items -->
                 <uib-tab heading="Buy Used Books" ng-click="moveToBottom()">
                     <br>
-                    <div ng-repeat="line_stock in buyUsedBook" ng-show="buyUsedBook.indexOf(line_stock) < buyUsedBookCurrentPage * 5 && buyUsedBook.indexOf(line_stock) >= (buyUsedBookCurrentPage - 1) * 5">
+                    <div ng-repeat="line_stock in buyUsedBook" ng-show="buyUsedBook.indexOf(line_stock) < buyUsedBookCurrentPage * itemPerPage && buyUsedBook.indexOf(line_stock) >= (buyUsedBookCurrentPage - 1) * itemPerPage">
                         <div class = "row">
                             <div class="col-sm-1">${{line_stock.stocks[0].price}}</div>
                             <div class="col-sm-1">{{line_stock.stocks[0].condition}}</div>
                             <div class="col-sm-2">{{line_stock.stocks[0].description}}</div>
                             <div class="col-sm-4">{{line_stock.stocks[0].member.addresses[0].information}}</div>
                             <div class="col-sm-2">In stock: {{line_stock.quantity}}</div>
-                            <div class="col-sm-2" ng-if="line_stock.quantity >= 1"><button class="btn btn-warning" ng-click="addToCart(line_stock)">Add To Cart</button></div>
+                            <div class="col-sm-2" ng-if="line_stock.quantity >= 1"><button class="btn btn-warning" ng-click="setTempLineStock(line_stock)" data-toggle="modal" data-target="#myModal">Add To Cart</button></div>
                             <div ng-if="line_stock.quantity == 0"></div>
                         </div>
                         <hr>
@@ -160,14 +160,14 @@
                 <!-- Rent Books tab heading and its items -->
                 <uib-tab heading="Rent Books" ng-click="moveToBottom()">
                     <br>
-                    <div ng-repeat="line_stock in rentBook" ng-show="rentBook.indexOf(line_stock) < rentBookCurrentPage * 5 && rentBook.indexOf(line_stock) >= (rentBookCurrentPage - 1) * 5">
+                    <div ng-repeat="line_stock in rentBook" ng-show="rentBook.indexOf(line_stock) < rentBookCurrentPage * itemPerPage && rentBook.indexOf(line_stock) >= (rentBookCurrentPage - 1) * itemPerPage">
                         <div class = "row">
                             <div class="col-sm-1">${{line_stock.stocks[0].price}}</div>
                             <div class="col-sm-1">{{line_stock.stocks[0].condition}}</div>
                             <div class="col-sm-2">{{line_stock.stocks[0].description}}</div>
                             <div class="col-sm-4">{{line_stock.stocks[0].member.addresses[0].information}}</div>
                             <div class="col-sm-2">In stock: {{line_stock.quantity}}</div>
-                            <div class="col-sm-2" ng-if="line_stock.quantity >= 1"><button class="btn btn-warning" ng-click="addToCart(line_stock)">Add To Cart</button></div>
+                            <div class="col-sm-2" ng-if="line_stock.quantity >= 1"><button class="btn btn-warning" ng-click="setTempLineStock(line_stock)" data-toggle="modal" data-target="#myModal">Add To Cart</button></div>
                             <div ng-if="line_stock.quantity == 0"></div>
                         </div>
                         <hr>
@@ -179,6 +179,24 @@
         <div ng-if="!loggedIn">
             <center><h2 id="loginRequiredText">Before buying or renting books, please login...</h2></center>
         </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Confirmation</h4>
+                    </div>
+                    <div class="modal-body">Are you sure you want to add {{bookInfo.title}} to the cart?</div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" ng-click="addToCart(tempLineStock)">Add To Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- A random tag used to locate a place for moveToBottom() to scroll to -->
             <div id="bottom"></div>
     </div>

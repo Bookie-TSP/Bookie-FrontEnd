@@ -1,7 +1,8 @@
-app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$location', '$state', '$stateParams', 'mapFactory', 'authFactory',
-    function ($scope, $http, $anchorScroll, $location, $state, $stateParams, $map, authFactory) {
+app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$location', '$state', '$stateParams', '$uibModal', 'mapFactory', 'authFactory',
+    function ($scope, $http, $anchorScroll, $location, $state, $stateParams, $uibModal, $map, authFactory) {
         $scope.loggedIn = false;
 
+        console.log("Start");
         // Check whether the Member has logged in or not
         if (authFactory.getAuth() !== undefined) {
             $scope.loggedIn = true;
@@ -15,6 +16,9 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
         // Max showing page for Pagers
         $scope.maxSize = 5;
 
+        // Number of items in each page of the tab
+        $scope.itemPerPage = 4;
+
         // Initialize pager variables for total items in each tab
         $scope.buyNewBookTotalItems;
         $scope.buyUsedBookTotalItems;
@@ -24,6 +28,9 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
         $scope.buyNewBookCurrentPage = 1;
         $scope.buyUsedBookCurrentPage = 1;
         $scope.rentBookCurrentPage = 1;
+
+        // Initialize temporary variable for adding line stock from the modal to the cart
+        $scope.tempLineStock;
 
         // Initialize Google Map from the mapFactory.js
         // googleMap.initialize();
@@ -63,9 +70,9 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
         }
 
         $scope.setPagerTotalItems = function() {
-            $scope.buyNewBookTotalItems = $scope.buyNewBook.length * 2;
-            $scope.buyUsedBookTotalItems = $scope.buyUsedBook.length * 2;
-            $scope.rentBookTotalItems = $scope.rentBook.length * 2;
+            $scope.buyNewBookTotalItems = $scope.buyNewBook.length * (10 / $scope.itemPerPage);
+            $scope.buyUsedBookTotalItems = $scope.buyUsedBook.length * (10 / $scope.itemPerPage);
+            $scope.rentBookTotalItems = $scope.rentBook.length * (10 / $scope.itemPerPage);
         }
 
         // Call getBookProfile()
@@ -73,17 +80,15 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
 
         // Use for adding the book to the cart with its details
         $scope.addToCart = function(line_stock) {
-            var stockRandomizer = Math.floor(Math.random() * (line_stock.stocks.length + 1));
+            console.log(line_stock);
             var config = {
                 headers: {
                     'Authorization': authFactory.getAuth()
                 }
             };
-            // console.log(line_stock);
-            // console.log("Adding the book that costs $" + line_stock.stocks[0].price + " to the cart");
             $http.post('https://bookieservice.herokuapp.com/api/members/cart/add', {
                 stock: {
-                    stock_id: line_stock.stocks[stockRandomizer].id
+                    stock_id: line_stock.stocks[0].id
                 }
             }, config)
             .success(function(data){
@@ -95,6 +100,10 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
                 console.log(JSON.stringify(data));
             });
             console.log("The book that costs $" + line_stock.stocks[0].price + " has been added to the cart.");
+        }
+
+        $scope.setTempLineStock = function(line_stock) {
+            $scope.tempLineStock = line_stock;
         }
 
         // Use for scrolling the page to bottom
