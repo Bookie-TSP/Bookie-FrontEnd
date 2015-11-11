@@ -25,7 +25,7 @@
 
 							<div class="row">
 								<div class="col-md-4"><b>ISBN</b></div>
-								<div class="col-md-8">{{stock.book.isbn}}</div>
+								<div class="col-md-8">{{stock.book.ISBN13}}</div>
 							</div>
 
 							<div class="row">
@@ -56,6 +56,11 @@
 							<div class="row">
 								<div class="col-md-4"><b>Price</b></div>
 								<div class="col-md-8"><b>{{stock.price  | number:2}}</b></div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-4"><b>Condition</b></div>
+								<div class="col-md-8">{{stock.condition}}</div>
 							</div>
 							<br>
 							<div class="row">
@@ -109,7 +114,7 @@
 
 							<div class="row">
 								<div class="col-md-4"><b>ISBN</b></div>
-								<div class="col-md-8">{{stock.book.isbn}}</div>
+								<div class="col-md-8">{{stock.book.ISBN13}}</div>
 							</div>
 
 							<div class="row">
@@ -147,7 +152,7 @@
 									<b>Term of Conditions</b>
 								</div>
 								<div class="col-md-12">
-									Hallloooo
+									{{stock.terms}}
 								</div>
 							</div>
 							<br>
@@ -177,22 +182,22 @@
 			<div class="panel-body">
 				<div class="row">
 					<div class="col-md-6">Subtotal</div>
-					<div class="col-md-4">{{total | number:2}}</div>
+					<div class="col-md-4"><center>{{total | number:2}}</center></div>
 					<div class="col-md-1">฿</div>
 				</div>
 				<div class="row">
 					<div class="col-md-6">Discount</div>
-					<div class="col-md-4">------</div>
+					<div class="col-md-4"><center>----</center></div>
 				</div>
 				<div class="row">
 					<div class="col-md-6">Charge</div>
-					<div class="col-md-4">0.00</div>
+					<div class="col-md-4"><center>0.00</center></div>
 					<div class="col-md-1">฿</div>
 				</div>
 				<hr>
 				<div class="row">
 					<div class="col-md-6">Total</div>
-					<div class="col-md-4">{{total | number:2}}</div>
+					<div class="col-md-4"><center>{{total | number:2}}</center></div>
 					<div class="col-md-1">฿</div>
 				</div>
 			</div>
