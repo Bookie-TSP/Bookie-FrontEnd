@@ -14,7 +14,7 @@ describe('Edit Profile', function() {
     var idenNo = element(by.model('profileData.identification_number'));
     var gender = element(by.model('profileData.gender'));
     var confirmation = element(by.model('profileData.password'));
-    var editButton = element(by.id('editProfileBtn'));
+    var editProfileButton = element(by.id('editProfileBtn'));
     var incorrectConfirm = element(by.id('incorrectPass'));
     var requireConfirm = element(by.id('requiredPass'));
     var duplicateEmail = element(by.id('emailValid'));
@@ -68,7 +68,7 @@ describe('Edit Profile', function() {
             editProfile.click();
             email.clear();
             email.sendKeys('edittttttt@t.com');
-            editButton.click();
+            editProfileButton.click();
         
             expect(requireConfirm.isDisplayed()).toBe(true);
             expect(requireConfirm.getText()).toBe('Password is required');
@@ -79,7 +79,7 @@ describe('Edit Profile', function() {
         it('edit firstname', function() {
             firstname.clear();
             firstname.sendKeys('1234');
-            editButton.click();
+            editProfileButton.click();
         
             expect(requireConfirm.isDisplayed()).toBe(true);
             expect(requireConfirm.getText()).toBe('Password is required');
@@ -90,7 +90,7 @@ describe('Edit Profile', function() {
         it('edit lastname', function() {
             lastname.clear();
             lastname.sendKeys('1234');
-            editButton.click();
+            editProfileButton.click();
         
             expect(requireConfirm.isDisplayed()).toBe(true);
             expect(requireConfirm.getText()).toBe('Password is required');
@@ -101,7 +101,7 @@ describe('Edit Profile', function() {
         it('edit phone number', function() {
             phoneNo.clear();
             phoneNo.sendKeys('1234');
-            editButton.click();
+            editProfileButton.click();
         
             expect(requireConfirm.isDisplayed()).toBe(true);
             expect(requireConfirm.getText()).toBe('Password is required');
@@ -112,7 +112,7 @@ describe('Edit Profile', function() {
         it('edit identification number', function() {
             idenNo.clear();
             idenNo.sendKeys('1111111111111');
-            editButton.click();
+            editProfileButton.click();
         
             expect(requireConfirm.isDisplayed()).toBe(true);
             expect(requireConfirm.getText()).toBe('Password is required');
@@ -122,7 +122,7 @@ describe('Edit Profile', function() {
 
         it('edit gender', function() {
             male.click();
-            editButton.click();
+            editProfileButton.click();
         
             expect(requireConfirm.isDisplayed()).toBe(true);
             expect(requireConfirm.getText()).toBe('Password is required');
@@ -132,7 +132,7 @@ describe('Edit Profile', function() {
 
         it('edit date', function() {
             date.get(0).click();
-            editButton.click();
+            editProfileButton.click();
         
             expect(requireConfirm.isDisplayed()).toBe(true);
             expect(requireConfirm.getText()).toBe('Password is required');
@@ -142,7 +142,7 @@ describe('Edit Profile', function() {
 
         it('edit month', function() {
             month.get(0).click();
-            editButton.click();
+            editProfileButton.click();
         
             expect(requireConfirm.isDisplayed()).toBe(true);
             expect(requireConfirm.getText()).toBe('Password is required');
@@ -152,7 +152,7 @@ describe('Edit Profile', function() {
 
         it('edit year', function() {
             year.get(0).click();
-            editButton.click();
+            editProfileButton.click();
         
             expect(requireConfirm.isDisplayed()).toBe(true);
             expect(requireConfirm.getText()).toBe('Password is required');
@@ -167,7 +167,7 @@ describe('Edit Profile', function() {
             email.clear();
             email.sendKeys('edittttttt@t.com');
             confirmation.sendKeys('1');
-            editButton.click();
+            editProfileButton.click();
         
             expect(incorrectConfirm.isDisplayed()).toBe(true);
             expect(incorrectConfirm.getText()).toBe('Incorrect Password');
@@ -179,7 +179,7 @@ describe('Edit Profile', function() {
             firstname.clear();
             firstname.sendKeys('1234');
             confirmation.sendKeys('1');
-            editButton.click();
+            editProfileButton.click();
         
             expect(incorrectConfirm.isDisplayed()).toBe(true);
             expect(incorrectConfirm.getText()).toBe('Incorrect Password');
@@ -191,7 +191,7 @@ describe('Edit Profile', function() {
             lastname.clear();
             lastname.sendKeys('1234');
             confirmation.sendKeys('1');
-            editButton.click();
+            editProfileButton.click();
         
             expect(incorrectConfirm.isDisplayed()).toBe(true);
             expect(incorrectConfirm.getText()).toBe('Incorrect Password');
@@ -203,7 +203,7 @@ describe('Edit Profile', function() {
             phoneNo.clear();
             phoneNo.sendKeys('1234');
             confirmation.sendKeys('1');
-            editButton.click();
+            editProfileButton.click();
         
             expect(incorrectConfirm.isDisplayed()).toBe(true);
             expect(incorrectConfirm.getText()).toBe('Incorrect Password');
@@ -215,7 +215,7 @@ describe('Edit Profile', function() {
             idenNo.clear();
             idenNo.sendKeys('1111111111111');
             confirmation.sendKeys('1');
-            editButton.click();
+            editProfileButton.click();
         
             expect(incorrectConfirm.isDisplayed()).toBe(true);
             expect(incorrectConfirm.getText()).toBe('Incorrect Password');
@@ -226,7 +226,7 @@ describe('Edit Profile', function() {
         it('edit gender', function() {
             male.click();
             confirmation.sendKeys('1');
-            editButton.click();
+            editProfileButton.click();
         
             expect(incorrectConfirm.isDisplayed()).toBe(true);
             expect(incorrectConfirm.getText()).toBe('Incorrect Password');
@@ -237,7 +237,7 @@ describe('Edit Profile', function() {
         it('edit date', function() {
             date.get(0).click();
             confirmation.sendKeys('1');
-            editButton.click();
+            editProfileButton.click();
         
             expect(incorrectConfirm.isDisplayed()).toBe(true);
             expect(incorrectConfirm.getText()).toBe('Incorrect Password');
@@ -248,7 +248,7 @@ describe('Edit Profile', function() {
         it('edit month', function() {
             month.get(0).click();
             confirmation.sendKeys('1');
-            editButton.click();
+            editProfileButton.click();
         
             expect(incorrectConfirm.isDisplayed()).toBe(true);
             expect(incorrectConfirm.getText()).toBe('Incorrect Password');
@@ -259,7 +259,7 @@ describe('Edit Profile', function() {
         it('edit year', function() {
             year.get(0).click();
             confirmation.sendKeys('1');
-            editButton.click();
+            editProfileButton.click();
         
             expect(incorrectConfirm.isDisplayed()).toBe(true);
             expect(incorrectConfirm.getText()).toBe('Incorrect Password');
@@ -274,7 +274,7 @@ describe('Edit Profile', function() {
             email.clear();
             email.sendKeys('edittttttt@t.com');
             confirmation.sendKeys('11111111');
-            editButton.click();
+            editProfileButton.click();
             editProfile.click();
             expect(email.getAttribute('value')).toBe('edittttttt@t.com');
         });
@@ -283,7 +283,7 @@ describe('Edit Profile', function() {
             firstname.clear();
             firstname.sendKeys('1234');
             confirmation.sendKeys('11111111');
-            editButton.click();
+            editProfileButton.click();
             editProfile.click();
             expect(firstname.getAttribute('value')).toBe('1234');
         });
@@ -292,7 +292,7 @@ describe('Edit Profile', function() {
             lastname.clear();
             lastname.sendKeys('1234');
             confirmation.sendKeys('11111111');
-            editButton.click();
+            editProfileButton.click();
             editProfile.click();
             expect(lastname.getAttribute('value')).toBe('1234');
         });
@@ -301,7 +301,7 @@ describe('Edit Profile', function() {
             phoneNo.clear();
             phoneNo.sendKeys('1234');
             confirmation.sendKeys('11111111');
-            editButton.click();
+            editProfileButton.click();
             editProfile.click();
             expect(phoneNo.getAttribute('value')).toBe('1234');
         });
@@ -310,7 +310,7 @@ describe('Edit Profile', function() {
             idenNo.clear();
             idenNo.sendKeys('1111111111111');
             confirmation.sendKeys('11111111');
-            editButton.click();
+            editProfileButton.click();
             editProfile.click();
             expect(idenNo.getAttribute('value')).toBe('1111111111111');
         });
@@ -318,7 +318,7 @@ describe('Edit Profile', function() {
         it('edit gender', function() {
             male.click();
             confirmation.sendKeys('11111111');
-            editButton.click();
+            editProfileButton.click();
             editProfile.click();
             expect(male.isSelected()).toBe(true);
         });
@@ -326,7 +326,7 @@ describe('Edit Profile', function() {
         it('edit date', function() {
             date.get(0).click();
             confirmation.sendKeys('11111111');
-            editButton.click();
+            editProfileButton.click();
             editProfile.click();
             expect(dateValue.getAttribute('value')).toBe('1');
         });
@@ -334,7 +334,7 @@ describe('Edit Profile', function() {
         it('edit month', function() {
             month.get(0).click();
             confirmation.sendKeys('11111111');
-            editButton.click();
+            editProfileButton.click();
             editProfile.click();
             expect(monthValue.getAttribute('value')).toBe('January');
         });
@@ -342,7 +342,7 @@ describe('Edit Profile', function() {
         it('edit year', function() {
             year.get(0).click();
             confirmation.sendKeys('11111111');
-            editButton.click();
+            editProfileButton.click();
             editProfile.click();
             expect(yearValue.getAttribute('value')).toBe('2015');
         });
@@ -353,7 +353,7 @@ describe('Edit Profile', function() {
             email.clear();
             email.sendKeys('mint@test.com');
             confirmation.sendKeys('11111111');
-            editButton.click();
+            editProfileButton.click();
 
             expect(duplicateEmail.isDisplayed()).toBe(true);
             expect(duplicateEmail.getText()).toBe('Email has already been taken');
@@ -378,7 +378,7 @@ describe('Edit Profile', function() {
             year.get(20).click();
 
             confirmation.sendKeys('11111111');
-            editButton.click();
+            editProfileButton.click();
             logout.click();
         });
     });
