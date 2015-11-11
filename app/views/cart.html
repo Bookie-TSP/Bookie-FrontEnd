@@ -10,7 +10,7 @@
 						<h2 id="noBook">No book has been added</h2>
 					</center>
 				</div>
-				<div ng-repeat="stock in stocks" ng-show="stock.type === 'sale'">
+				<div ng-repeat="stock in stocks" ng-show="stock.type === 'sell'">
 					<div class="row">
 						<div class="col-md-4">
 							<center>
@@ -55,7 +55,7 @@
 
 							<div class="row">
 								<div class="col-md-4"><b>Price</b></div>
-								<div class="col-md-8"><b>{{stock.price}}</b></div>
+								<div class="col-md-8"><b>{{stock.price  | number:2}}</b></div>
 							</div>
 							<br>
 							<div class="row">
@@ -94,7 +94,7 @@
 						<h2 id="noBook">No book has been added</h2>
 					</center>
 				</div>
-				<div ng-repeat="stock in stocks" ng-show="stock.type === 'rent'">
+				<div ng-repeat="stock in stocks" ng-show="stock.type === 'lend'">
 					<div class="row">
 						<div class="col-md-4">
 							<center>
@@ -129,7 +129,7 @@
 							<div class="row">
 								<div class="col-md-4"><b>Price</b></div>
 								<div class="col-md-8">
-									<b>{{stock.price}}</b> for
+									<b>{{stock.price | number:2}}</b> for
 									<b>{{stock.duration}} Days</b>
 								</div>
 							</div>
@@ -177,7 +177,7 @@
 			<div class="panel-body">
 				<div class="row">
 					<div class="col-md-6">Subtotal</div>
-					<div class="col-md-4">{{total}}</div>
+					<div class="col-md-4">{{total | number:2}}</div>
 					<div class="col-md-1">฿</div>
 				</div>
 				<div class="row">
@@ -192,7 +192,7 @@
 				<hr>
 				<div class="row">
 					<div class="col-md-6">Total</div>
-					<div class="col-md-4">{{total}}</div>
+					<div class="col-md-4">{{total | number:2}}</div>
 					<div class="col-md-1">฿</div>
 				</div>
 			</div>
