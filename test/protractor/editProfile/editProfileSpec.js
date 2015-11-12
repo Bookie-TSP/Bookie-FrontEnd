@@ -77,7 +77,7 @@ describe('Edit Profile', function() {
         });
     });
 
-    describe('should match with the content on the left', function() {
+    describe('should have correct label', function() {
         it('email', function() {
             loginEmail.sendKeys('edit@test.com');
             loginPassword.sendKeys('11111111');
