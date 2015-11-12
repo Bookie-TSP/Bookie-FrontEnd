@@ -85,7 +85,7 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
         $scope.rentBook = [];
 
         // Max showing page for Pagers
-        $scope.maxSize = 5;
+        $scope.maxSize = 4;
 
         // Number of items in each page of the tab
         $scope.itemPerPage = 4;
@@ -140,6 +140,7 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
             }
         };
 
+        // Set the amount of total items used for showing items in pages of each of the tabs
         $scope.setPagerTotalItems = function() {
             $scope.buyNewBookTotalItems = $scope.buyNewBook.length * (10 / $scope.itemPerPage);
             $scope.buyUsedBookTotalItems = $scope.buyUsedBook.length * (10 / $scope.itemPerPage);
@@ -158,8 +159,8 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
                 }
             };
             $http.post('https://bookieservice.herokuapp.com/api/members/cart/add', {
-                stock: {
-                    stock_id: line_stock.stocks[0].id
+                line_stock: {
+                    line_stock_id: line_stock.id
                 }
             }, config)
             .success(function(data){
@@ -167,9 +168,12 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
                 console.log(data);
                 $scope.auth = data.auth_token;
                 $rootScope.$broadcast('cart');
+                $scope.errorMessage = 'no error';
             })
             .error(function(data){
-                console.log(JSON.stringify(data.errors));
+                console.log(JSON.stringify(data));
+                $scope.errorMessage = JSON.stringify(data.errors);
+                console.log($scope.errorMessage);
             });
             console.log("The book that costs $" + line_stock.stocks[0].price + " has been added to the cart.");
         };
@@ -444,8 +448,8 @@ app.controller('loginCtrl', ['$scope', '$http', '$state', 'authFactory',
 
 app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootScope',
   function ($scope, $http, $state, authFactory, $rootScope) {
-      $scope.totalPrice = 0;
-      $scope.totalCount = 0;
+		$scope.totalPrice = 0;
+		$scope.totalCount = 0;
 		$scope.logout = function () {
 			authFactory.setAuth(undefined);
 		};
@@ -459,10 +463,10 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
 				$http.get('https://bookieservice.herokuapp.com/api/myprofile', config)
 					.success(function (data) {
 						$rootScope.member = data;
-                        authFactory.setMember(data);
+						authFactory.setMember(data);
 					})
 					.error(function (data) {
-                        authFactory.setAuth(undefined);
+						authFactory.setAuth(undefined);
 						console.log(data);
 					});
 			} else {
@@ -470,44 +474,43 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
 			}
 		};
 
-        $scope.getCart = function() {
-            if (authFactory.getAuth() !== undefined) {
+		$scope.getCart = function () {
+			if (authFactory.getAuth() !== undefined) {
 				var config = {
 					headers: {
 						'Authorization': authFactory.getAuth()
 					}
 				};
-				$http.get('https://bookieservice.herokuapp.com/api/members/cart/show',config)
+				$http.get('https://bookieservice.herokuapp.com/api/members/cart/show', config)
 					.success(function (data) {
-                        $scope.totalPrice = 0;
-                        $scope.totalCount = 0;
-                        $scope.stocks = data.stocks;
-						for(var i = 0; i < $scope.stocks.length; i++){
-                            $scope.totalPrice += $scope.stocks[i].price;
-                            $scope.totalCount++;
-                        }
+						$scope.totalPrice = 0;
+						$scope.totalCount = 0;
+						$scope.stocks = data.stocks;
+						for (var i = 0; i < $scope.stocks.length; i++) {
+							$scope.totalPrice += $scope.stocks[i].price;
+							$scope.totalCount++;
+						}
 					})
 					.error(function (data) {
-                        authFactory.setAuth(undefined);
+						authFactory.setAuth(undefined);
 						console.log(data);
 					});
+			} else {
+				$scope.totalPrice = 0;
+				$scope.totalCount = 0;
 			}
-            else{
-                $scope.totalPrice = 0;
-                $scope.totalCount = 0;
-            }
-        };
+		};
 
 		$rootScope.member = $scope.getMember();
-        $scope.getCart();
+		$scope.getCart();
 		$scope.$on('authenticate', function () {
 			console.log('Change');
 			$rootScope.member = $scope.getMember();
 		});
 
-        $scope.$on('cart', function() {
-            $scope.getCart();
-        });
+		$scope.$on('cart', function () {
+			$scope.getCart();
+		});
 }]);
 
 app.controller('registerCtrl', ['$scope', '$http', 'mapFactory', '$state', 'authFactory', 'dateFactory',
@@ -518,7 +521,7 @@ app.controller('registerCtrl', ['$scope', '$http', 'mapFactory', '$state', 'auth
         $scope.latitude = "";
         $scope.longitude = "";
         $scope.address = "";
-        
+
         $scope.initDate = function() {
             $scope.initDates = $date.days;
             $scope.initMonths = $date.months;
@@ -700,7 +703,7 @@ app.factory('mapFactory', function ($log, $rootScope) {
 		longitude = long;
 	};
 
-	var getLat = function () {   
+	var getLat = function () {
 		return latitude;
 	};
 

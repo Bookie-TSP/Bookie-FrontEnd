@@ -118,8 +118,8 @@
                             <div class="col-sm-2">{{line_stock.stocks[0].description}}</div>
                             <div class="col-sm-4">{{line_stock.stocks[0].member.addresses[0].information}}</div>
                             <div class="col-sm-2">In stock: {{line_stock.quantity}}</div>
-                            <div class="col-sm-2" ng-if="line_stock.quantity >= 1"><button class="btn btn-warning" ng-click="setTempLineStock(line_stock)" data-toggle="modal" data-target="#myModal">Add To Cart</button></div>
-                            <div ng-if="line_stock.quantity == 0"></div>
+                            <div class="col-sm-2" ng-if="line_stock.quantity >= 1"><button class="btn btn-warning" ng-click="setTempLineStock(line_stock)" data-toggle="modal" data-target="#confirmationModal">Add To Cart</button></div>
+                            <div ng-if="line_stock.quantity === 0"></div>
                         </div>
                         <hr>
                     </div>
@@ -135,8 +135,8 @@
                             <div class="col-sm-2">{{line_stock.stocks[0].description}}</div>
                             <div class="col-sm-4">{{line_stock.stocks[0].member.addresses[0].information}}</div>
                             <div class="col-sm-2">In stock: {{line_stock.quantity}}</div>
-                            <div class="col-sm-2" ng-if="line_stock.quantity >= 1"><button class="btn btn-warning" ng-click="setTempLineStock(line_stock)" data-toggle="modal" data-target="#myModal">Add To Cart</button></div>
-                            <div ng-if="line_stock.quantity == 0"></div>
+                            <div class="col-sm-2" ng-if="line_stock.quantity >= 1"><button class="btn btn-warning" ng-click="setTempLineStock(line_stock)" data-toggle="modal" data-target="#confirmationModal">Add To Cart</button></div>
+                            <div ng-if="line_stock.quantity === 0"></div>
                         </div>
                         <hr>
                     </div>
@@ -153,8 +153,8 @@
                             <div class="col-sm-2">{{line_stock.stocks[0].description}}</div>
                             <div class="col-sm-4">{{line_stock.stocks[0].member.addresses[0].information}}</div>
                             <div class="col-sm-2">In stock: {{line_stock.quantity}}</div>
-                            <div class="col-sm-2" ng-if="line_stock.quantity >= 1"><button class="btn btn-warning" ng-click="setTempLineStock(line_stock)" data-toggle="modal" data-target="#myModal">Add To Cart</button></div>
-                            <div ng-if="line_stock.quantity == 0"></div>
+                            <div class="col-sm-2" ng-if="line_stock.quantity >= 1"><button class="btn btn-warning" ng-click="setTempLineStock(line_stock)" data-toggle="modal" data-target="#confirmationModal">Add To Cart</button></div>
+                            <div ng-if="line_stock.quantity === 0"></div>
                         </div>
                         <hr>
                     </div>
@@ -166,8 +166,8 @@
             <center><h2 id="loginRequiredText">Before buying or renting books, please login...</h2></center>
         </div>
 
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <!-- Confirmation Modal -->
+        <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -178,6 +178,22 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-primary" ng-click="addToCart(tempLineStock)" data-dismiss="modal">Add To Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notice Modal (haven't used yet) -->
+        <div class="modal fade" id="errorNoticeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Error Notice</h4>
+                    </div>
+                    <div class="modal-body">{{errorMessage}}</div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>

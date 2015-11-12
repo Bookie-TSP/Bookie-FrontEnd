@@ -14,7 +14,7 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
         $scope.rentBook = [];
 
         // Max showing page for Pagers
-        $scope.maxSize = 5;
+        $scope.maxSize = 4;
 
         // Number of items in each page of the tab
         $scope.itemPerPage = 4;
@@ -69,6 +69,7 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
             }
         };
 
+        // Set the amount of total items used for showing items in pages of each of the tabs
         $scope.setPagerTotalItems = function() {
             $scope.buyNewBookTotalItems = $scope.buyNewBook.length * (10 / $scope.itemPerPage);
             $scope.buyUsedBookTotalItems = $scope.buyUsedBook.length * (10 / $scope.itemPerPage);
@@ -87,8 +88,8 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
                 }
             };
             $http.post('https://bookieservice.herokuapp.com/api/members/cart/add', {
-                stock: {
-                    stock_id: line_stock.stocks[0].id
+                line_stock: {
+                    line_stock_id: line_stock.id
                 }
             }, config)
             .success(function(data){
@@ -96,9 +97,12 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
                 console.log(data);
                 $scope.auth = data.auth_token;
                 $rootScope.$broadcast('cart');
+                $scope.errorMessage = 'no error';
             })
             .error(function(data){
-                console.log(JSON.stringify(data.errors));
+                console.log(JSON.stringify(data));
+                $scope.errorMessage = JSON.stringify(data.errors);
+                console.log($scope.errorMessage);
             });
             console.log("The book that costs $" + line_stock.stocks[0].price + " has been added to the cart.");
         };
