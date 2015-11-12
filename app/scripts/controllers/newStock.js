@@ -35,13 +35,16 @@ var buttonToggle = function() {
 }
 
 var htmlConvert = function(thumbnail, title, publisher, isbn) {
-	var htmlTemplate =  "<div  class=\"col-lg-2 col-md-3 col-xs-4\">" + 
+	var htmlTemplate =  "<div class=\"col-lg-2 col-md-3 col-xs-4\" style=\""+
+							"max-height: 300px;"+
+							"min-height: 300px;\">" + 
 							"<div class=\"book-info\" >" +
 								"<div class=\"thumbnail\"><img src=\""+ thumbnail + "\"></div>" +
 								"<div class=\"title\">Title: " + title + "</div>" + 
 								"<div class=\"publisher\">Publisher: " + publisher + "</div>" +				
 							"</div>" +
 						"</div>";
+
 	return htmlTemplate;
 }
 
