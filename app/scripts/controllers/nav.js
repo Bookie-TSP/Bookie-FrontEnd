@@ -48,6 +48,10 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
 						console.log(data);
 					});
 			}
+            else{
+                $scope.totalPrice = 0;
+                $scope.totalCount = 0;
+            }
         };
 
 		$rootScope.member = $scope.getMember();

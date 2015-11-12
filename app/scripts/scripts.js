@@ -169,7 +169,7 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
                 $rootScope.$broadcast('cart');
             })
             .error(function(data){
-                console.log(JSON.stringify(data));
+                console.log(JSON.stringify(data.errors));
             });
             console.log("The book that costs $" + line_stock.stocks[0].price + " has been added to the cart.");
         };
@@ -492,6 +492,10 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
 						console.log(data);
 					});
 			}
+            else{
+                $scope.totalPrice = 0;
+                $scope.totalCount = 0;
+            }
         };
 
 		$rootScope.member = $scope.getMember();
@@ -598,6 +602,7 @@ app.factory('authFactory', function ($http, $rootScope, $localStorage) {
 		setAuth: function (token) {
 			$localStorage.authToken = token;
 			$rootScope.$broadcast('authenticate');
+			$rootScope.$broadcast('cart');
 		},
 		setMember: function (member) {
 			$localStorage.member = member;

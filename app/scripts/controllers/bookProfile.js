@@ -98,7 +98,7 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
                 $rootScope.$broadcast('cart');
             })
             .error(function(data){
-                console.log(JSON.stringify(data));
+                console.log(JSON.stringify(data.errors));
             });
             console.log("The book that costs $" + line_stock.stocks[0].price + " has been added to the cart.");
         };

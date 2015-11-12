@@ -40,7 +40,13 @@
 						<!-- Mocked item cart -->
 						<li>
 							<a id="item-cart" ui-sref="cart">
-								{{totalPrice | number:2}} ฿ ({{totalCount}} items) <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+								{{totalPrice | number:2}} ฿
+								<ng-pluralize count="totalCount"
+                						when="{'0': '(0 item)',
+                       							'1': '(1 item)',
+                      						'other': '({} items)'}">
+  								</ng-pluralize>
+ 	 							<span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
 							</a>
 						</li>
 					</ul>
@@ -63,7 +69,13 @@
 						</li>
 						<li>
 							<a id="item-cart" ui-sref="cart">
-								{{totalPrice | number:2}} ฿ ({{totalCount}} items) <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+								{{totalPrice | number:2}} ฿
+								<ng-pluralize count="totalCount"
+                						when="{'0': '(0 item)',
+                       							'1': '(1 item)',
+                      						'other': '({} items)'}">
+  								</ng-pluralize>
+ 	 							<span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
 							</a>
 						</li>
 					</ul>
