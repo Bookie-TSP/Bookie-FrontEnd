@@ -35,6 +35,7 @@ describe('Edit Profile', function() {
     var genderLabel = element(by.id('genderLabel'));
     var bdLabel = element(by.id('bdLabel'));
     var confirmLabel = element(by.id('confirmLabel'));
+    var backButton = element(by.id('backToViewProfileBtn'));
 
     beforeEach(function() {
         browser.get('/#/editProfile');
@@ -49,6 +50,10 @@ describe('Edit Profile', function() {
     };
 
     describe('other cases', function() {
+        it('can not edit profile if not login', function() {
+            expect(browser.getTitle()).toEqual('Login');
+        });
+
         it('should match the title', function() {
             loginEmail.sendKeys('edit@test.com');
             loginPassword.sendKeys('11111111');
@@ -57,11 +62,18 @@ describe('Edit Profile', function() {
             viewProfile.click();
             editProfile.click();
             expect(browser.getTitle()).toEqual('Edit Profile');
-            logout.click();
+            expect(browser.getCurrentUrl()).toBe('http://localhost:8000/#/editProfile');
         });
 
-        it('can not edit profile if not login', function() {
-            expect(browser.getTitle()).toEqual('Login');
+        it('correctly label on edit profile button', function() {
+            expect(editProfileButton.isDisplayed()).toBe(true);
+            expect(editProfileButton.getText()).toEqual('Edit');
+        });
+
+        it('correctly label on back button', function() {
+            expect(backButton.isDisplayed()).toBe(true);
+            expect(backButton.getText()).toEqual('Back');
+            logout.click();
         });
     });
 
