@@ -68,7 +68,7 @@
 									<b>Seller Address</b>
 								</div>
 								<div class="col-md-12">
-									eieieiieiei
+									{{stock.member.addresses[0].information}}
 								</div>
 							</div>
 							<br>
@@ -144,7 +144,7 @@
 									<b>Lender Address</b>
 								</div>
 								<div class="col-md-12">
-									eieieiieiei
+									{{stock.member.addresses[0].information}}
 								</div>
 							</div>
 							<div class="row">
@@ -182,22 +182,30 @@
 			<div class="panel-body">
 				<div class="row">
 					<div class="col-md-6">Subtotal</div>
-					<div class="col-md-4"><center>{{total | number:2}}</center></div>
+					<div class="col-md-4">
+						<center>{{total | number:2}}</center>
+					</div>
 					<div class="col-md-1">฿</div>
 				</div>
 				<div class="row">
 					<div class="col-md-6">Discount</div>
-					<div class="col-md-4"><center>----</center></div>
+					<div class="col-md-4">
+						<center>----</center>
+					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-6">Charge</div>
-					<div class="col-md-4"><center>0.00</center></div>
+					<div class="col-md-4">
+						<center>0.00</center>
+					</div>
 					<div class="col-md-1">฿</div>
 				</div>
 				<hr>
 				<div class="row">
 					<div class="col-md-6">Total</div>
-					<div class="col-md-4"><center>{{total | number:2}}</center></div>
+					<div class="col-md-4">
+						<center>{{total | number:2}}</center>
+					</div>
 					<div class="col-md-1">฿</div>
 				</div>
 			</div>
@@ -206,7 +214,7 @@
 			Countinue Shopping
 		</button>
 
-		<button id="checkout"class="btn btn-block btn-warning" style="margin-top: 10px;">
+		<button id="checkout" class="btn btn-block btn-warning" style="margin-top: 10px;">
 			Checkout
 		</button>
 	</div>
