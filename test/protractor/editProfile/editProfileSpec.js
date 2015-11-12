@@ -27,6 +27,14 @@ describe('Edit Profile', function() {
     var year = element.all(by.repeater('y in initYears'));
     var yearValue = element(by.model('year'));
     var dropdown = element(by.id('dropdownMenu1'));
+    var emailLabel = element(by.id('emailLabel'));
+    var firstnameLabel = element(by.id('firstnameLabel'));
+    var lastnameLabel = element(by.id('lastnameLabel'));
+    var phoneNoLabel = element(by.id('phoneNoLabel'));
+    var idenNoLabel = element(by.id('idenNoLabel'));
+    var genderLabel = element(by.id('genderLabel'));
+    var bdLabel = element(by.id('bdLabel'));
+    var confirmLabel = element(by.id('confirmLabel'));
 
     beforeEach(function() {
         browser.get('/#/editProfile');
@@ -57,15 +65,58 @@ describe('Edit Profile', function() {
         });
     });
 
-    //not enter password confirmation
-    describe('should not complete without password confirmation', function() {
-        it('edit email', function() {
+    describe('should match with the content on the left', function() {
+        it('email', function() {
             loginEmail.sendKeys('edit@test.com');
             loginPassword.sendKeys('11111111');
             submit.click();
             dropdown.click();
             viewProfile.click();
             editProfile.click();
+
+            expect(emailLabel.isDisplayed()).toBe(true);
+            expect(emailLabel.getText()).toEqual('Email');
+        });
+
+        it('firstname', function() {
+            expect(firstnameLabel.isDisplayed()).toBe(true);
+            expect(firstnameLabel.getText()).toEqual('Firstname');
+        });
+
+        it('lastname', function() {
+            expect(lastnameLabel.isDisplayed()).toBe(true);
+            expect(lastnameLabel.getText()).toEqual('Lastname');
+        });
+
+        it('phone number', function() {
+            expect(phoneNoLabel.isDisplayed()).toBe(true);
+            expect(phoneNoLabel.getText()).toEqual('Phone Number');
+        });
+
+        it('identification number', function() {
+            expect(idenNoLabel.isDisplayed()).toBe(true);
+            expect(idenNoLabel.getText()).toEqual('Identification Number');
+        });
+
+        it('gender', function() {
+            expect(genderLabel.isDisplayed()).toBe(true);
+            expect(genderLabel.getText()).toEqual('Gender');
+        });
+
+        it('birth date', function() {
+            expect(bdLabel.isDisplayed()).toBe(true);
+            expect(bdLabel.getText()).toEqual('Birth Date');
+        });
+
+        it('confirmation password', function() {
+            expect(confirmLabel.isDisplayed()).toBe(true);
+            expect(confirmLabel.getText()).toEqual('Confirmation Password');
+        });
+    });
+
+    //not enter password confirmation
+    describe('should not complete without password confirmation', function() {
+        it('edit email', function() {
             email.clear();
             email.sendKeys('edittttttt@t.com');
             editProfileButton.click();
