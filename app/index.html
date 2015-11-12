@@ -40,7 +40,7 @@
 						<!-- Mocked item cart -->
 						<li>
 							<a id="item-cart" ui-sref="cart">
-								$0.00 (0 items) <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+								{{totalPrice | number:2}} ฿ ({{totalCount}} items) <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
 							</a>
 						</li>
 					</ul>
@@ -63,7 +63,7 @@
 						</li>
 						<li>
 							<a id="item-cart" ui-sref="cart">
-								$0.00 (0 items) <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+								{{totalPrice | number:2}} ฿ ({{totalCount}} items) <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
 							</a>
 						</li>
 					</ul>

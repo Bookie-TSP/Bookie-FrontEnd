@@ -1,5 +1,5 @@
-app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$location', '$state', '$stateParams', '$uibModal', 'mapFactory', 'authFactory',
-    function ($scope, $http, $anchorScroll, $location, $state, $stateParams, $uibModal, $map, authFactory) {
+app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$location', '$state', '$stateParams', '$uibModal', 'mapFactory', 'authFactory', '$rootScope',
+    function ($scope, $http, $anchorScroll, $location, $state, $stateParams, $uibModal, $map, authFactory, $rootScope) {
         $scope.loggedIn = false;
 
         console.log("Start");
@@ -7,7 +7,7 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
         if (authFactory.getAuth() !== undefined) {
             $scope.loggedIn = true;
         }
-        
+
         // Tab array of stocks
         $scope.buyNewBook = [];
         $scope.buyUsedBook = [];
@@ -30,7 +30,7 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
         $scope.rentBookCurrentPage = 1;
 
         // Initialize temporary variable for adding line stock from the modal to the cart
-        $scope.tempLineStock;
+        $scope.tempLineStock = {};
 
         // Initialize Google Map from the mapFactory.js
         // googleMap.initialize();
@@ -49,8 +49,8 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
             })
             .error(function (data) {
                 console.log(data);
-            })
-        }
+            });
+        };
 
         // Seperate books into categories
         $scope.seperate = function() {
@@ -67,13 +67,13 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
                     $scope.rentBook.push($scope.bookInfo.line_stocks[i]);
                 }
             }
-        }
+        };
 
         $scope.setPagerTotalItems = function() {
             $scope.buyNewBookTotalItems = $scope.buyNewBook.length * (10 / $scope.itemPerPage);
             $scope.buyUsedBookTotalItems = $scope.buyUsedBook.length * (10 / $scope.itemPerPage);
             $scope.rentBookTotalItems = $scope.rentBook.length * (10 / $scope.itemPerPage);
-        }
+        };
 
         // Call getBookProfile()
         $scope.getBookProfile($stateParams.bookId);
@@ -95,21 +95,22 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
                 console.log(JSON.stringify(data));
                 console.log(data);
                 $scope.auth = data.auth_token;
+                $rootScope.$broadcast('cart');
             })
             .error(function(data){
                 console.log(JSON.stringify(data));
             });
             console.log("The book that costs $" + line_stock.stocks[0].price + " has been added to the cart.");
-        }
+        };
 
         $scope.setTempLineStock = function(line_stock) {
             $scope.tempLineStock = line_stock;
-        }
+        };
 
         // Use for scrolling the page to bottom
         $scope.moveToBottom = function() {
             $location.hash('bottom');
             $anchorScroll();
-        }
+        };
     }
 ]);
