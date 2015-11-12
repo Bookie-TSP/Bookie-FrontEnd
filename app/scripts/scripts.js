@@ -91,9 +91,9 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
         $scope.itemPerPage = 4;
 
         // Initialize pager variables for total items in each tab
-        $scope.buyNewBookTotalItems;
-        $scope.buyUsedBookTotalItems;
-        $scope.rentBookTotalItems;
+        $scope.buyNewBookTotalItems = 0;
+        $scope.buyUsedBookTotalItems = 0;
+        $scope.rentBookTotalItems = 0;
 
         // Initialize pager variables for the current page of each tab
         $scope.buyNewBookCurrentPage = 1;
