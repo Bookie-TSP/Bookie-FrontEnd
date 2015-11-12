@@ -573,6 +573,7 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
 		});
 }]);
 
+
 app.controller('registerCtrl', ['$scope', '$http', 'mapFactory', '$state', 'authFactory', 'dateFactory',
         function ($scope, $http, $map, $state, authFactory, $date) {
 		if (authFactory.getAuth() !== undefined) {
