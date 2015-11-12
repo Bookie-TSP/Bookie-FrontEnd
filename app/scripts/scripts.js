@@ -36,6 +36,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			templateUrl: 'views/editAddress.html',
 			data : { pageTitle: 'Edit Address' }
 		})
+		.state('order', {
+			url: '/order',
+			templateUrl: 'views/order.html',
+			data : { pageTitle: 'Order' }
+		})
 		.state('cart', {
 			url: '/cart',
 			templateUrl: 'views/cart.html',
@@ -573,7 +578,25 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
 		});
 }]);
 
-
+app.controller('orderCtrl', ['$scope', '$http', '$state', 'authFactory',
+	function ($scope, $http, $state, authFactory) {
+		if (authFactory.getAuth() === undefined) {
+			$state.go('login');
+		}
+		$scope.pendingContents = [{
+			price: 120,
+			name: "Harry Potter the next gen",
+			status: "Ordered",
+			hasPaid: false
+		},
+		{
+			price: 325,
+			name: "Punpun and friends",
+			status: "Confirmed",
+			hasPaid: true
+		}]
+	}
+]);
 app.controller('registerCtrl', ['$scope', '$http', 'mapFactory', '$state', 'authFactory', 'dateFactory',
         function ($scope, $http, $map, $state, authFactory, $date) {
 		if (authFactory.getAuth() !== undefined) {
