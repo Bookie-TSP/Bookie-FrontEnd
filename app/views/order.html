@@ -1,57 +1,45 @@
 <div ng-controller="orderCtrl" class="container">
 	<!-- Lists of shops in the nearby location that have the book to sell or for rent -->
-        <uib-tabset justified="true">
+    <uib-tabset justified="true">
+        <!-- Buy New Books tab heading and its items -->
+        <uib-tab heading="Pending" ng-click="moveToBottom()">
+            <br>
+            <div ng-repeat="content in pendingContents">
+                <div class = "row">
+                    <div class="col-sm-2 col-sm-offset-1">${{content.price}}</div>
+                    <div class="col-sm-6">{{content.name}}</div>
+                    <div class="col-sm-2">{{content.orderDate}}</div>
+                    <div class="col-sm-1"><span class="label label-success">{{content.status}}</span></div>
+                </div>
+                <hr>
+            </div>
+        </uib-tab>
 
-            <!-- Buy New Books tab heading and its items -->
-            <uib-tab heading="Buy New Books" ng-click="moveToBottom()">
-                <br>
-                <div ng-repeat="content in pendingContents">
-                    <div class = "row">
-                        <div class="col-sm-3">${{content.price}}</div>
-                        <div class="col-sm-5">{{content.name}}</div>
-                        <div class="col-sm-2">{{content.status}}</div>
-                        <div class="col-sm-1"><button>Trash</button></div>
-                        <div class="col-sm-1">
-                        	<label class="checkbox">
-  								<input type="checkbox" value="{{content.hasPaid}}">
-  									Paid
-							</label>
-						</div>
-                    </div>
-                    <hr>
+        <!-- Buy Used Books tab heading and its items -->
+        <uib-tab heading="Active" ng-click="moveToBottom()">
+            <br>
+            <div ng-repeat="content in pendingContents">
+                <div class = "row">
+                    <div class="col-sm-2 col-sm-offset-1">${{content.price}}</div>
+                    <div class="col-sm-6">{{content.name}}</div>
+                    <div class="col-sm-2">{{content.orderDate}}</div>
+                    <div class="col-sm-1"><span class="label label-success">{{content.status}}</span></div>
                 </div>
-            </uib-tab>
-
-            <!-- Buy Used Books tab heading and its items -->
-            <uib-tab heading="Buy Used Books" ng-click="moveToBottom()">
-                <br>
-                <div ng-repeat="book in oldBooksInfo">
-                    <div class = "row">
-                        <div class="col-sm-1">${{book.price}}</div>
-                        <div class="col-sm-2">{{book.condition}}</div>
-                        <div class="col-sm-5">{{book.address}}</div>
-                        <div class="col-sm-2">In stock: {{book.quantity}}</div>
-                        <div class="col-sm-2" ng-if="book.quantity >= 1"><button ng-click="addToCart(book)">Add To Cart</button></div>
-                        <p ng-if="book.quantity == 0"></p>
-                    </div>
-                    <hr>
+                <hr>
+            </div>
+        </uib-tab>
+        <!-- Rent Books tab heading and its items -->
+        <uib-tab heading="Ended" ng-click="moveToBottom()">
+            <br>
+            <div ng-repeat="content in pendingContents">
+                <div class = "row">
+                    <div class="col-sm-2 col-sm-offset-1">${{content.price}}</div>
+                    <div class="col-sm-6">{{content.name}}</div>
+                    <div class="col-sm-2">{{content.orderDate}}</div>
+                    <div class="col-sm-1"><span class="label label-success">{{content.status}}</span></div>
                 </div>
-                <br>
-            </uib-tab>
-            <!-- Rent Books tab heading and its items -->
-            <uib-tab heading="Rent Books" ng-click="moveToBottom()">
-                <br>
-                <div ng-repeat="book in rentBooksInfo">
-                    <div class = "row">
-                        <div class="col-sm-1">${{book.price}}</div>
-                        <div class="col-sm-2">{{book.condition}}</div>
-                        <div class="col-sm-5">{{book.address}}</div>
-                        <div class="col-sm-2">In stock: {{book.quantity}}</div>
-                        <div class="col-sm-2" ng-if="book.quantity >= 1"><button ng-click="addToCart(book)">Add To Cart</button></div>
-                        <p ng-if="book.quantity == 0"></p>
-                    </div>
-                    <hr>
-                </div>
-            </uib-tab>
-        </uib-tabset>
+                <hr>
+            </div>
+        </uib-tab>
+    </uib-tabset>
 </div>
