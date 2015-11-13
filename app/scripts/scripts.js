@@ -588,7 +588,8 @@ var htmlConvert = function(thumbnail, title, publisher, isbn) {
     						"padding-right: 20px;" + 
     						"padding-left: 20px;" +
 
-							"border-style: solid;" +
+							"background-color: #fcf8e3;" +
+    						"border-color: #faebcc;" +
 
 							"height: 348px;\">" + 
 

@@ -1,12 +1,30 @@
 <div ng-controller="newStockCtrl" class="container">
 	<!DOCTYPE html>
 <html lang="en">
-	
-		<input type="text" name="search" id="search-field"><button type="button" id="search-button">Search</button>
-		<input type="radio" name="type" value="isbn">isbn
-		<input type="radio" name="type" value="intitle">title
-		<input type="radio" name="type" value="inauthor">author
-		<input type="radio" name="type" value="inpublisher">publisher
+		<div id="search-pane">
+			Search Types:
+			<input type="radio" name="type" value="isbn">ISBN
+			<input type="radio" name="type" value="intitle">Title
+			<input type="radio" name="type" value="inauthor">Author
+			<input type="radio" name="type" value="inpublisher">Publisher
+			<br><input type="text" name="search" id="search-field">  
+			<button type="button" id="search-button" class="btn btn-default" style="
+				border:1px solid #ffffff;
+				display:inline-block;
+				cursor:pointer;
+				color:#ffffff;
+				font-family:Arial;
+				font-size:15px;
+				padding:6px 15px;
+				text-decoration:none;
+				text-shadow:0px 1px 0px #fe9000;
+				background-color:#f0ad4e;
+				position:relative;
+				top:1px;">
+			Search</button>
+
+
+		</div>
 		<div id="result-pane">
 			<div class="container">
 			<div class="border row">
