@@ -549,11 +549,11 @@ var apiKey = "AIzaSyAY-BLl9HgepqEFBxR5YJbC_qdE4PZF_6g";
 var searchKey, operation;
 
 var hideButton = function(button) {
-	button.attr("style", "display:none;"); 
+	button.toggle(false);
 }
 
 var showButton = function(button) {
-	button.attr("style", ""); 
+	button.toggle(true);
 }
 
 var buttonToggle = function() {
