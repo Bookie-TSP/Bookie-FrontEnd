@@ -36,11 +36,27 @@ var buttonToggle = function() {
 
 var htmlConvert = function(thumbnail, title, publisher, isbn) {
 	var htmlTemplate =  "<div class=\"col-lg-2 col-md-3 col-xs-4\" style=\""+
-							"max-height: 300px;"+
-							"min-height: 300px;\">" + 
+	    					"margin-top: 12px;" +
+    						"margin-bottom: 0px;" +
+    						"margin-right: 0px;" +
+    						"margin-left: 12px;" +
+
+    						"padding-top: 20px;" +
+    						"padding-bottom: 20px;" +
+    						"padding-right: 20px;" + 
+    						"padding-left: 20px;" +
+
+							"border-style: solid;" +
+
+							"height: 348px;\">" + 
+
 							"<div class=\"book-info\" >" +
-								"<div class=\"thumbnail\"><img src=\""+ thumbnail + "\"></div>" +
-								"<div class=\"title\">Title: " + title + "</div>" + 
+							    
+								"<div class=\"thumbnail\" style=\"height: 200px;\" align=\"middle\"><img src=\""+ thumbnail + "\"></div>" +
+								 
+								"<div class=\"title\" style=\""+
+									"max-height: 600px;" +
+									"min-height: 0px;\">" + "Title:" + title + "</div>" + 
 								"<div class=\"publisher\">Publisher: " + publisher + "</div>" +				
 							"</div>" +
 						"</div>";
