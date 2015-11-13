@@ -592,14 +592,26 @@ var htmlConvert = function(thumbnail, title, publisher, isbn) {
 
 							"height: 348px;\">" + 
 
-							"<div class=\"book-info\" >" +
-							    
-								"<div class=\"thumbnail\" style=\"height: 200px;\" align=\"middle\"><img src=\""+ thumbnail + "\"></div>" +
+							"<div class=\"book-info\" >" +							    
+								"<div class=\"thumbnail\" style=\"height: 200px;\" ><img src=\""+ thumbnail + "\"></div>" +
 								 
-								"<div class=\"title\" style=\""+
-									"max-height: 600px;" +
-									"min-height: 0px;\">" + "Title:" + title + "</div>" + 
-								"<div class=\"publisher\">Publisher: " + publisher + "</div>" +				
+								"<div class=\"title\" style=\"" +
+
+								    "display: -webkit-box;" +
+    								"-webkit-line-clamp: 3;" +
+    								"-webkit-box-orient: vertical;" + 
+									"overflow: hidden;" +
+									"text-overflow:ellipsis;" +
+    								
+									
+									"max-height: 60px;" +
+									"min-height: 20px;\">" + 
+									"Title:" + title + "</div>" + 
+								"<div class=\"publisher\" style=\"" +
+									"overflow: hidden;" +
+									"max-height: 40px;" +
+									"min-height: 20px;\">" + 
+									"Publisher: " + publisher + "</div>" +				
 							"</div>" +
 						"</div>";
 
