@@ -95,8 +95,6 @@
                     <br>
                     <div ng-repeat="line_stock in buyNewBook" ng-show="buyNewBook.indexOf(line_stock) < buyNewBookCurrentPage * itemPerPage && buyNewBook.indexOf(line_stock) >= (buyNewBookCurrentPage - 1) * itemPerPage">
                         <div class = "row">
-                            <!-- Check which index is the current object of the array -->
-                            <!-- {{bookInfo.line_stocks.indexOf(line_stock)}} -->
                             <div class="col-sm-1">${{line_stock.price}}</div>
                             <div class="col-sm-1">{{line_stock.condition}}</div>
                             <div class="col-sm-2">{{line_stock.description}}</div>
@@ -109,6 +107,7 @@
                     </div>
                     <uib-pagination total-items="buyNewBookTotalItems" ng-model="buyNewBookCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" ng-click="moveToBottom()"></uib-pagination>
                 </uib-tab>
+
                 <!-- Buy Used Books tab heading and its items -->
                 <uib-tab heading="Buy Used Books" ng-click="moveToBottom()">
                     <br>
@@ -127,6 +126,7 @@
                     <br>
                     <uib-pagination total-items="buyUsedBookTotalItems" ng-model="buyUsedBookCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" ng-click="moveToBottom()"></uib-pagination>
                 </uib-tab>
+
                 <!-- Rent Books tab heading and its items -->
                 <uib-tab heading="Rent Books" ng-click="moveToBottom()">
                     <br>
@@ -156,7 +156,7 @@
             </center>
         </div>
 
-        <!-- Confirmation Modal -->
+        <!-- Add to cart Confirmation Modal -->
         <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
