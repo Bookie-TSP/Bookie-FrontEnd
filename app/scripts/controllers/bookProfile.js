@@ -55,18 +55,20 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
         // Seperate books into categories
         $scope.seperate = function() {
             for (var i = 0; i < $scope.bookInfo.line_stocks.length; i++) {
-                if ($scope.bookInfo.line_stocks[i].stocks[0].type === 'sell') {
-                    if ($scope.bookInfo.line_stocks[i].stocks[0].condition === 'new') {
+                if ($scope.bookInfo.line_stocks[i].type === 'sell') {
+                    if ($scope.bookInfo.line_stocks[i].condition === 'new') {
                         $scope.buyNewBook.push($scope.bookInfo.line_stocks[i]);
                     }
-                    else if ($scope.bookInfo.line_stocks[i].stocks[0].condition === 'used') {
+                    else if ($scope.bookInfo.line_stocks[i].condition === 'used') {
                         $scope.buyUsedBook.push($scope.bookInfo.line_stocks[i]);
                     }
                 }
-                else if ($scope.bookInfo.line_stocks[i].stocks[0].type === 'lend') {
+                else if ($scope.bookInfo.line_stocks[i].type === 'lend') {
                     $scope.rentBook.push($scope.bookInfo.line_stocks[i]);
                 }
             }
+            console.log($scope.buyNewBook);
+            console.log($scope.rentBook);
         };
 
         // Set the amount of total items used for showing items in pages of each of the tabs
@@ -104,7 +106,7 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
                 $scope.errorMessage = JSON.stringify(data.errors);
                 console.log($scope.errorMessage);
             });
-            console.log("The book that costs $" + line_stock.stocks[0].price + " has been added to the cart.");
+            console.log("The book that costs $" + line_stock.price + " has been added to the cart.");
         };
 
         $scope.setTempLineStock = function(line_stock) {
