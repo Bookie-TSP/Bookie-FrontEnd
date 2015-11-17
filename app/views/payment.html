@@ -1,0 +1,80 @@
+<div class="container" ng-controller="paymentCtrl">
+	<div class = "row">
+		<div class="col-sm-12">
+			<h1 style="text-transform: uppercase; text-align: center;">Payment</h1>
+		</div>
+	</div>
+
+	<hr>
+		<div class="col-md-6 payment-items">
+		<div class="panel panel-warning">
+			<div class="panel-body">
+				<div ng-repeat="stock in stocks">
+					<div class="row">
+						<div class="col-md-4">
+							<center>
+								<img src="{{stock.book.cover_image_url}}" class="img-responsive" style="width:150px;height:225px;">
+							</center>
+						</div>
+						<div class="col-md-8">
+							<div class="row">
+								<div class="col-md-4">
+									<h4><b>{{stock.type}}</b></h4>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-4"><b>{{stock.book.title}}</b></div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-8"><b>{{stock.price  | number:2}}</b></div>
+							</div>
+						</div>
+					</div>
+					<hr>
+				</div>
+				<div class="col-md-4">
+					<h4><b>Total: </b></h4>
+				</div>
+				<div class="col-md-8">
+					<h4><b>{{total | number:2}}</b></h4>
+				</div>
+			</div>
+		</div>
+		</div>
+	</hr>
+
+	<div class="col-md-6 payment-card">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4>Credit Card</h4>
+			</div>
+			<div class="panel-body">
+				<form>
+                    <input type="text" placeholder="Name" ng-model="name"></input>
+                    <br>
+                    <input type="text" placeholder="Number" ng-model="number"></input>
+                    <br>
+                    <input type="text" placeholder="Code" ng-model="code"></input>
+                    <select name="Type">
+                    	<option selected disabled>Type</option>
+  						<option value="1">1</option>
+  						<option value="2">2</option>
+					</select>
+                </form>
+			</div>
+		</div>
+
+		<div class="panel panel-default">
+			<div class="panel-body">
+				Term of Conditions
+			</div>
+		</div>
+
+		<button id="checkout" class="btn btn-block btn-warning" style="margin-top: 10px;">
+			Paid
+		</button>
+	</div>
+
+</div>
