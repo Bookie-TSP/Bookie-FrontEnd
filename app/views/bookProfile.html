@@ -95,7 +95,7 @@
                     <br>
                     <div ng-repeat="line_stock in buyNewBook" ng-show="buyNewBook.indexOf(line_stock) < buyNewBookCurrentPage * itemPerPage && buyNewBook.indexOf(line_stock) >= (buyNewBookCurrentPage - 1) * itemPerPage">
                         <div class = "row">
-                            <div class="col-sm-1">${{line_stock.price}}</div>
+                            <div class="col-sm-1">{{line_stock.price}} ฿</div>
                             <div class="col-sm-1">{{line_stock.condition}}</div>
                             <div class="col-sm-2">{{line_stock.description}}</div>
                             <div class="col-sm-4">{{line_stock.stocks[0].member.addresses[0].information}}</div>
@@ -113,7 +113,7 @@
                     <br>
                     <div ng-repeat="line_stock in buyUsedBook" ng-show="buyUsedBook.indexOf(line_stock) < buyUsedBookCurrentPage * itemPerPage && buyUsedBook.indexOf(line_stock) >= (buyUsedBookCurrentPage - 1) * itemPerPage">
                         <div class = "row">
-                            <div class="col-sm-1">${{line_stock.price}}</div>
+                            <div class="col-sm-1">{{line_stock.price}} ฿</div>
                             <div class="col-sm-1">{{line_stock.condition}}</div>
                             <div class="col-sm-2">{{line_stock.description}}</div>
                             <div class="col-sm-4">{{line_stock.stocks[0].member.addresses[0].information}}</div>
@@ -132,7 +132,7 @@
                     <br>
                     <div ng-repeat="line_stock in rentBook" ng-show="rentBook.indexOf(line_stock) < rentBookCurrentPage * itemPerPage && rentBook.indexOf(line_stock) >= (rentBookCurrentPage - 1) * itemPerPage">
                         <div class = "row">
-                            <div class="col-sm-1">${{line_stock.price}}</div>
+                            <div class="col-sm-1">{{line_stock.price}} ฿</div>
                             <div class="col-sm-1">{{line_stock.condition}}</div>
                             <div class="col-sm-2">{{line_stock.description}}</div>
                             <div class="col-sm-4">{{line_stock.stocks[0].member.addresses[0].information}}</div>
@@ -152,7 +152,7 @@
                     Before buying or renting books, please login...
                     <br>
                     Or register if you do not have an account.
-                </h2>    
+                </h2>
             </center>
         </div>
 

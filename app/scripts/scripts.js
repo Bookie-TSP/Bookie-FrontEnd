@@ -180,6 +180,11 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
             console.log("The book that costs $" + line_stock.price + " has been added to the cart.");
         };
 
+        //
+        $scope.setTempLineStock = function(line_stock){
+            $scope.tempLineStock = line_stock;
+        };
+
         // Use for scrolling the page to bottom
         $scope.moveToBottom = function() {
             $location.hash('bottom');
