@@ -316,7 +316,7 @@ app.controller('cartCtrl',['$scope','$http', '$state', 'authFactory',
             }
         };
 
-		$scope.getCart = function() {
+        $scope.getCart = function() {
             $http.get('https://bookieservice.herokuapp.com/api/members/cart/show',config)
             .success(function (data) {
                 console.log(data);

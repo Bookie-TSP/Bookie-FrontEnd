@@ -1,4 +1,4 @@
-app.controller('cartCtrl',['$scope','$http', '$state', 'authFactory'
+app.controller('cartCtrl',['$scope','$http', '$state', 'authFactory',
     function ($scope, $http, $state, authFactory){
         var config = {
             headers: {
