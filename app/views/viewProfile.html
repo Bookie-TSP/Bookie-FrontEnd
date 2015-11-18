@@ -9,69 +9,69 @@
             <br>
             <div class="row">
                 <div id="viewEmailLabel" class="col-sm-4 col-sm-offset-2">
-                    <b>Email:</b>
+                    <b>Email</b>
                 </div>
                 <div id="viewEmail" class="col-sm-5 col-sm-offset-1">
-                    <p>{{profileData.email}}</p>
+                    <p ng-hide="profileData.email === null">{{profileData.email}}</p>
                     <p ng-show="profileData.email === null">undefined</p>
                 </div>
             </div>
             <div class="row">
                 <div id="viewFirstnameLabel" class="col-sm-4 col-sm-offset-2">
-                    <b>Firstname:</b>
+                    <b>Firstname</b>
                 </div>
                 <div id="viewFirstname" class="col-sm-5 col-sm-offset-1">
-                    <p>{{profileData.first_name}}</p>
+                    <p ng-hide="profileData.first_name === null">{{profileData.first_name}}</p>
                     <p ng-show="profileData.first_name === null">undefined</p>
                 </div>
             </div>
 
             <div class="row">
                 <div id="viewLastnameLabel" class="col-sm-4 col-sm-offset-2">
-                    <b>Lastname:</b>
+                    <b>Lastname</b>
                 </div>
                 <div id="viewLastname" class="col-sm-5 col-sm-offset-1">
-                    <p>{{profileData.last_name}}</p>
+                    <p ng-hide="profileData.last_name === null">{{profileData.last_name}}</p>
                     <p ng-show="profileData.last_name === null">undefined</p>
                 </div>
             </div>
 
             <div class="row">
                 <div id="viewPhoneNoLabel" class="col-sm-4 col-sm-offset-2">
-                    <b>Phone Number:</b>
+                    <b>Phone Number</b>
                 </div>
                 <div id="viewPhoneNo" class="col-sm-5 col-sm-offset-1">
-                    <p>{{profileData.phone_number}}</p>
+                    <p ng-hide="profileData.phone_number === null">{{profileData.phone_number}}</p>
                     <p ng-show="profileData.phone_number === null">undefined</p>
                 </div>
             </div>
 
             <div class="row">
                 <div id="viewIdenNoLabel" class="col-sm-4 col-sm-offset-2">
-                    <b>Identification Number:</b>
+                    <b>Identification Number</b>
                 </div>
                 <div id="viewIdenNo" class="col-sm-5 col-sm-offset-1">
-                    <p>{{profileData.identification_number}}</p>
+                    <p ng-hide="profileData.identification_number === null">{{profileData.identification_number}}</p>
                     <p ng-show="profileData.identification_number === null">undefined</p>
                 </div>
             </div>
 
             <div class="row">
                 <div id="viewGenderLabel" class="col-sm-4 col-sm-offset-2">
-                    <b>Gender:</b>
+                    <b>Gender</b>
                 </div>
                 <div id="viewGender" class="col-sm-5 col-sm-offset-1">
-                    <p>{{profileData.gender}}</p>
+                    <p ng-hide="profileData.gender === null">{{profileData.gender}}</p>
                     <p ng-show="profileData.gender === null">undefined</p>
                 </div>
             </div>
 
             <div class="row">
                 <div id="viewBDLabel" class="col-sm-4 col-sm-offset-2">
-                    <b>Birth Date:</b>
+                    <b>Birth Date</b>
                 </div>
                 <div id="viewBD" class="col-sm-5 col-sm-offset-1">
-                    <p>{{profileData.birth_date}}</p>
+                    <p ng-hide="profileData.birth_date === null">{{profileData.birth_date}}</p>
                     <p ng-show="profileData.birth_date === null">undefined</p>
                 </div>
             </div>
@@ -90,25 +90,25 @@
             <br>
             <div class="row">
                 <div id="viewLatLabel" class="col-sm-4 col-sm-offset-2">
-                    <b>Longitude:</b>
+                    <b>Latitude</b>
                 </div>
                 <div class="col-sm-5 col-sm-offset-1">
-                    <p>{{profileData.addresses[0].longitude}}</p>
+                    <p>{{profileData.addresses[0].latitude}}</p>
                     <p ng-show="profileData.addresses[0].longitude === null">undefined</p>
                 </div>
             </div>
             <div class="row">
                 <div id="viewLongLabel" class="col-sm-4 col-sm-offset-2">
-                    <b>Information:</b>
+                    <b>Longitude</b>
                 </div>
                 <div class="col-sm-5 col-sm-offset-1">
-                    <p>{{profileData.addresses[0].latitude}}</p>
+                    <p>{{profileData.addresses[0].longitude}}</p>
                     <p ng-show="profileData.addresses[0].latitude === null">undefined</p>
                 </div>
             </div>
             <div class="row">
                 <div id="viewInfoLabel" class="col-sm-4 col-sm-offset-2">
-                    <b>Longitude:</b>
+                    <b>Information</b>
                 </div>
                 <div class="col-sm-5 col-sm-offset-1">
                     <p>{{profileData.addresses[0].information}}</p>
