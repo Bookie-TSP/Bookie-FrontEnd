@@ -6,40 +6,38 @@
 	</div>
 
 	<hr>
-	<div class="col-md-6 payment-items">
+	<div class="col-md-6 payment-items" style="height:720px;line-height:5em;overflow:scroll;padding:5px;">
 		<div class="panel panel-warning">
 			<div class="panel-body">
 				<div ng-repeat="stock in stocks">
 					<div class="row">
 						<div class="col-md-4">
 							<center>
-								<img src="{{stock.book.cover_image_url}}" class="img-responsive" style="width:150px;height:225px;">
+								<img src="{{stock.book.cover_image_url}}" class="img-responsive" style="width:105px;height:158px;">
 							</center>
 						</div>
 						<div class="col-md-8">
 							<div class="row">
-								<div class="col-md-4">
-									<h4><b>{{stock.type}}</b></h4>
-								</div>
+									<h4>
+										<span class="label label-success" style="text-transform: uppercase; " ng-show="stock.type === 'sell'">{{stock.type}}</span>
+									</h4>
+									<h4>
+										<span class="label label-primary" style="text-transform: uppercase; " ng-show="stock.type === 'lend'">{{stock.type}}</span>
+									</h4>
 							</div>
 
 							<div class="row">
-								<div class="col-md-4"><b>{{stock.book.title}}</b></div>
+									<h3>{{stock.book.title}}</h3>
 							</div>
 
 							<div class="row">
-								<div class="col-md-8"><b>{{stock.price  | number:2}}</b></div>
+									<h4 style="text-align: right; padding-right:3em;">{{stock.price  | number:2}} ฿</h4>
 							</div>
 						</div>
 					</div>
 					<hr>
 				</div>
-				<div class="col-md-4">
-					<h4><b>Total: </b></h4>
-				</div>
-				<div class="col-md-8">
-					<h4><b>{{total | number:2}}</b></h4>
-				</div>
+				<h1 style="text-align: right; padding-right:0.5em;">Total: {{total | number:2}} ฿</h1>
 			</div>
 		</div>
 	</div>
@@ -51,20 +49,32 @@
 			</div>
 			<div class="panel-body">
 				<form>
-                    <input type="text" placeholder="Name" ng-model="name"></input>
-                    <br>
-                    <input type="text" placeholder="Number" ng-model="number"></input>
-                    <br>
-                    <input type="text" placeholder="Expire Date MM/YY" ng-model="expire"></input>
-                    <br>
-                    <input type="text" placeholder="CVV" ng-model="cvv"></input>
-                    <select name="Type">
-                    	<option selected disabled>Credit Cart Type</option>
-  						<option value="Visa">Visa</option>
-  						<option value="MasterCard">MasterCard</option>
-  						<option value="American Express">American Express</option>
-  						<option value="Discover">Discover</option>
-					</select>
+					<div class="row">
+						<div class="col-md-6">
+		                    <input type="text" placeholder="Name" ng-model="billing_name"></input>
+	                	</div>
+	                	<div class="col-md-6">
+		                    <input type="text" placeholder="Last name" ng-model="billing_name"></input>
+	                	</div>
+	                	<div class="col-md-6">
+		                    <input type="text" placeholder="Number" ng-model="billing_card_number"></input>
+	                    </div>
+	                    <div class="col-md-6">
+		                    <input type="text" placeholder="CVV" ng-model="billing_card_security_number"></input>
+	               		</div>
+	               		<div class="col-md-6">
+	                    	<input type="text" placeholder="MM/YY" ng-model="billing_card_expire_date"></input>
+	                    </div>
+	                    <div class="col-md-6">
+		                    <select name="Type" ng-model="billing_type">
+		                    	<option ng-selected="true" selected disabled>Credit Cart Type</option>
+		  						<option value="Visa">Visa</option>
+		  						<option value="MasterCard">MasterCard</option>
+		  						<option value="American Express">American Express</option>
+		  						<option value="Discover">Discover</option>
+							</select>
+						</div>
+					</div>
                 </form>
 			</div>
 		</div>
@@ -75,7 +85,7 @@
 			</div>
 		</div>
 
-		<button id="checkout" class="btn btn-block btn-warning" style="margin-top: 10px;">
+		<button id="paid" class="btn btn-block btn-warning" style="margin-top: 10px;">
 			Paid
 		</button>
 	</div>
