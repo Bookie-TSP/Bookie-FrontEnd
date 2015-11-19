@@ -46,10 +46,15 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			templateUrl: 'views/viewStock.html',
 			data : { pageTitle: 'My Stock' }
 		})
-		.state('newStock', {
+		.state('newStock',{
 			url: '/newStock',
 			templateUrl: 'views/newStock.html',
-			data : { pageTitle: 'Add Stock' }
+			data : { pageTitle: 'New Stock' }
+		})
+		.state('newStock.first', {
+			url: '/1',
+			templateUrl: 'views/searchStock.html',
+			data : { pageTitle: 'Search Stock' }
 		});
 	$urlRouterProvider.otherwise('/');
 

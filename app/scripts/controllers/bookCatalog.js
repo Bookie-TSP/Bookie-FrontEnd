@@ -7,12 +7,12 @@ function ($scope, $http, $state, authFactory) {
 
 		//getting books from api
 		$http.get('https://bookieservice.herokuapp.com/api/books')
-			.success(function(data) {
+			.success(function (data) {
 				$scope.books = data.books;
 				console.log("success");
 				console.log($scope.books);
 			})
-			.error(function(data) {
+			.error(function (data) {
 				console.log(data);
 			});
 

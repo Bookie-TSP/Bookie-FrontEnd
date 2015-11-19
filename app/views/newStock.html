@@ -1,30 +1,11 @@
-<div ng-controller="newStockCtrl" class="container">
-	<!DOCTYPE html>
-<html lang="en">
-		<div id="search-pane">
-			<input type="radio" name="type" value="isbn">ISBN
-			<input type="radio" name="type" value="intitle">Title
-			<input type="radio" name="type" value="inauthor">Author
-			<input type="radio" name="type" value="inpublisher">Publisher
-			<br><input type="text" name="search" id="search-field">  
-			<button type="button" id="search-button" class="orange-colored-button">
-			Search</button>
-
-
-		</div>
-		<div id="result-pane">
-			<div class="container">
-			<div class="border row">
-			<!-- result panel -->
-			<div id="result"></div>
-			<!-- hide the elements at first -->
-			</div>
-			</div>
-			<button class="pagination orange-colored-button" id="previous-page" style="display:none">Previous page</button>
-			<button class="pagination orange-colored-button" id="next-page" style="display:none">Next page</button>
-		</div>
-		<div class="script">
-			<script src="http://malsup.github.com/jquery.form.js"></script>
-		</div>
-</html>
+<div class="container" ng-controller="newStockCtrl">
+    <h2>Add new stock</h2>
+    <br>
+    <br>
+    <br>
+    <div id="newStockBlog">
+        <div ui-view></div>
+    </div>
+    <br>
+    <br>
 </div>

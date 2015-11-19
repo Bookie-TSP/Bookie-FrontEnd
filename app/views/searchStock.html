@@ -1,0 +1,150 @@
+<div ng-controller="searchStockCtrl" class="container">
+	<h4>Search Book{{numBooks}}</h4>
+	<div id="search-pane">
+		<input type="radio" name="type" value="isbn">ISBN
+		<input type="radio" name="type" value="intitle">Title
+		<input type="radio" name="type" value="inauthor">Author
+		<input type="radio" name="type" value="inpublisher">Publisher
+		<br>
+		<input type="text" name="search" id="search-field">
+		<button type="button" id="search-button" class="orange-colored-button">
+			Search</button>
+	</div>
+	<div id="result-pane">
+		<div class="container">
+			<div class="border row">
+				<!-- result panel -->
+				<div id="result"></div>
+				<!-- hide the elements at first -->
+			</div>
+		</div>
+		<button class="pagination orange-colored-button" id="previous-page" style="display:none">Previous page</button>
+		<button class="pagination orange-colored-button" id="next-page" style="display:none">Next page</button>
+	</div>
+	<div class="script">
+		<script src="http://malsup.github.com/jquery.form.js"></script>
+	</div>
+	<br>
+	<hr>
+	<!--manual add stock-->
+	<div ng-show="numBooks === 0">
+		<div>
+			<h4>Please enter new book information</h4>
+			<h6>(* required)</h6>
+		</div>
+		<div class="row">
+			<div class="col-xs-5 col-xs-offset-1">
+				<div class="row">
+					<div class="col-xs-4">
+						Title *
+					</div>
+					<div class="col-xs-4">
+						<input type="text" placeholder="Title" ng-model="title">
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-xs-4">
+						Author *
+					</div>
+					<div class="col-xs-4">
+						<input type="text" placeholder="Author" ng-model="author">
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-xs-4">
+						Language *
+					</div>
+					<div class="col-xs-4">
+						<select id="lang" ng-model="language">
+							<option value="">Select Language</option>
+							<option ng-repeat="lang in langs" value="{{lang}}">{{lang}}</option>
+						</select>
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-xs-4">
+						Description *
+					</div>
+					<div class="col-xs-4">
+						<textarea rows="5" cols="30"></textarea>
+					</div>
+				</div>
+				<br>
+			</div>
+			<div class="col-xs-5">
+				<div class="row">
+					<div class="col-xs-4">
+						ISBN10
+					</div>
+					<div class="col-xs-4">
+						<input type="text" placeholder="ISBN10" ng-model="ISBN10">
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-xs-4">
+						ISBN13
+					</div>
+					<div class="col-xs-4">
+						<input type="text" placeholder="ISBN13" ng-model="ISBN13">
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-xs-4">
+						Pages
+					</div>
+					<div class="col-xs-4">
+						<input type="text" placeholder="Pages" ng-model="pages">
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-xs-4">
+						Publisher
+					</div>
+					<div class="col-xs-4">
+						<input type="text" placeholder="Publisher" ng-model="publisher">
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-xs-4">
+						Publish Date
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-xs-11 col-xs-offset-1">
+						<select id="date">
+							<option value="">Date</option>
+							<option ng-repeat="date in initDates" value="{{date}}">{{date}}</option>
+						</select>
+
+						<select id="month">
+							<option value="">Month</option>
+							<option ng-repeat="month in initMonths" value="{{month}}">{{month}}</option>
+						</select>
+
+						<select id="year">
+							<option value="">Year</option>
+							<option ng-repeat="year in initYears" value="{{year}}">{{year}}</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-5">
+			<button type="button" id="submit-button" class="orange-colored-button">
+				Submit</button>
+			</div>
+		</div>
+	</div>
+	<br>
+</div>
+</div>
