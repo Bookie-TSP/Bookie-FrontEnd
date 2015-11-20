@@ -1,13 +1,36 @@
-app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$location', '$state', '$stateParams', 'mapFactory', 'authFactory',
-    function ($scope, $http, $anchorScroll, $location, $state, $stateParams, $map, authFactory) {
+app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$location', '$state', '$stateParams', '$uibModal', 'mapFactory', 'authFactory', '$rootScope',
+    function ($scope, $http, $anchorScroll, $location, $state, $stateParams, $uibModal, $map, authFactory, $rootScope) {
         $scope.loggedIn = false;
 
-        // Variables for Pagers
-        $scope.maxSize = 5;
-        $scope.bigTotalItems = 175;
-        $scope.bigCurrentPage = 1;
-        $scope.totalItems = 64;
-        $scope.currentPage = 4;
+        console.log("Start");
+        // Check whether the Member has logged in or not
+        if (authFactory.getAuth() !== undefined) {
+            $scope.loggedIn = true;
+        }
+
+        // Tab array of stocks
+        $scope.buyNewBook = [];
+        $scope.buyUsedBook = [];
+        $scope.rentBook = [];
+
+        // Max showing page for Pagers
+        $scope.maxSize = 4;
+
+        // Number of items in each page of the tab
+        $scope.itemPerPage = 4;
+
+        // Initialize pager variables for total items in each tab
+        $scope.buyNewBookTotalItems = 0;
+        $scope.buyUsedBookTotalItems = 0;
+        $scope.rentBookTotalItems = 0;
+
+        // Initialize pager variables for the current page of each tab
+        $scope.buyNewBookCurrentPage = 1;
+        $scope.buyUsedBookCurrentPage = 1;
+        $scope.rentBookCurrentPage = 1;
+
+        // Initialize temporary variable for adding line stock from the modal to the cart
+        $scope.tempLineStock = {};
 
         // Initialize Google Map from the mapFactory.js
         // googleMap.initialize();
@@ -15,202 +38,86 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
         // Define bookInfo
         $scope.bookInfo = {};
 
-        // Check whether the Member has logged in or not
-        if (authFactory.getAuth() !== undefined) {
-            loggedIn = true;
-        }
-
-        // List that contains the price, condition, address, and quantity of the book in each shop for buying
-        $scope.newBooksInfo = [
-        {
-            price: 84,
-            condition: "Perfect",
-            address: "508 Treeview Trail Barneveld, WI 55303",
-            quantity: 16
-        },
-        {
-            price: 110,
-            condition: "Perfect",
-            address: "217 E Division Madison, WI 53666",
-            quantity: 32
-        },
-        {
-            price: 98,
-            condition: "Perfect",
-            address: "505 Sampson Apt 3C",
-            quantity: 0
-        },
-        {
-            price: 144,
-            condition: "Perfect",
-            address: "4204 Military Ridge Rd Dodgeville, WI 53224",
-            quantity: 0
-        },
-        {
-            price: 170,
-            condition: "Perfect",
-            address: "217 E Division Madison, WI 53666",
-            quantity: 59
-        },
-        {
-            price: 98,
-            condition: "Perfect",
-            address: "505 Sampson Apt 3C",
-            quantity: 0
-        },
-        {
-            price: 175,
-            condition: "Perfect",
-            address: "217 E Division Madison, WI 53666",
-            quantity: 5
-        },
-        {
-            price: 98,
-            condition: "Perfect",
-            address: "505 Sampson Apt 3C",
-            quantity: 123
-        }];
-
-        // List that contains the price, condition, address, and quantity of the book in each shop for buying
-        $scope.oldBooksInfo = [
-        {
-            price: 142,
-            condition: "Good",
-            address: "619 Maiden St Mineral Point, WI 53444",
-            quantity: 11
-        },
-        {
-            price: 62,
-            condition: "Pretty Good",
-            address: "941 Crystal St Mirana Point, WI 4145",
-            quantity: 0
-        },
-        {
-            price: 198,
-            condition: "Perfect",
-            address: "505 Sampson Apt 3C",
-            quantity: 23
-        },
-        {
-            price: 62,
-            condition: "Pretty Good",
-            address: "941 Crystal St Mirana Point, WI 4145",
-            quantity: 0
-        },
-        {
-            price: 300,
-            condition: "Perfect",
-            address: "505 Sampson Apt 3C",
-            quantity: 23
-        },
-        {
-            price: 84,
-            condition: "Almost Perfect",
-            address: "4770 Main St Dodgeville, WI 53222",
-            quantity: 5
-        }];
-
-        // List that contains the price, condition, address, and quantity of the book in each shop for renting
-        $scope.rentBooksInfo = [
-        {
-            price: 65,
-            condition: "Perfect",
-            address: "402 E Park Apt 202B Montfort, WI 53555",
-            quantity: 0
-        },
-        {
-            price: 98,
-            condition: "Very Good",
-            address: "9910 High Hill Smd 941A",
-            quantity: 0
-        },
-        {
-            price: 100,
-            condition: "Very Good",
-            address: "217 E Division Madison, WI 53666",
-            quantity: 5
-        },
-        {
-            price: 90,
-            condition: "Good",
-            address: "505 Sampson Apt 3C",
-            quantity: 32
-        },
-        {
-            price: 148,
-            condition: "Bad",
-            address: "217 E Division Madison, WI 53666",
-            quantity: 0
-        },
-        {
-            price: 94,
-            condition: "Very Good",
-            address: "505 Sampson Apt 3C",
-            quantity: 36
-        },
-        {
-            price: 132,
-            condition: "Perfect",
-            address: "217 E Division Madison, WI 53666",
-            quantity: 5
-        },
-        {
-            price: 98,
-            condition: "Almost Perfect",
-            address: "505 Sampson Apt 3C",
-            quantity: 0
-        },
-        {
-            price: 116,
-            condition: "Perfect",
-            address: "505 Sampson Apt 3C",
-            quantity: 91
-        },
-        {
-            price: 92,
-            condition: "Good",
-            address: "102 Center St Cobb, WI 53666",
-            quantity: 10
-        }];
-
         // Get information of the book from the API
         $scope.getBookProfile = function(id) {
             $http.get('https://bookieservice.herokuapp.com/api/books/'+id)
             .success(function (data) {
                 console.log(data);
                 $scope.bookInfo = data;
+                $scope.seperate();
+                $scope.setPagerTotalItems();
             })
             .error(function (data) {
                 console.log(data);
-            })
-        }
+            });
+        };
+
+        // Seperate books into categories
+        $scope.seperate = function() {
+            for (var i = 0; i < $scope.bookInfo.line_stocks.length; i++) {
+                if ($scope.bookInfo.line_stocks[i].type === 'sell') {
+                    if ($scope.bookInfo.line_stocks[i].condition === 'new') {
+                        $scope.buyNewBook.push($scope.bookInfo.line_stocks[i]);
+                    }
+                    else if ($scope.bookInfo.line_stocks[i].condition === 'used') {
+                        $scope.buyUsedBook.push($scope.bookInfo.line_stocks[i]);
+                    }
+                }
+                else if ($scope.bookInfo.line_stocks[i].type === 'lend') {
+                    $scope.rentBook.push($scope.bookInfo.line_stocks[i]);
+                }
+            }
+            console.log($scope.buyNewBook);
+            console.log($scope.rentBook);
+        };
+
+        // Set the amount of total items used for showing items in pages of each of the tabs
+        $scope.setPagerTotalItems = function() {
+            $scope.buyNewBookTotalItems = $scope.buyNewBook.length * (10 / $scope.itemPerPage);
+            $scope.buyUsedBookTotalItems = $scope.buyUsedBook.length * (10 / $scope.itemPerPage);
+            $scope.rentBookTotalItems = $scope.rentBook.length * (10 / $scope.itemPerPage);
+        };
 
         // Call getBookProfile()
         $scope.getBookProfile($stateParams.bookId);
 
         // Use for adding the book to the cart with its details
-        $scope.addToCart = function (book) {
-            console.log("Adding the book that costs $" + book.price + " to the cart");
-            $http.post('https://bookieservice.herokuapp.com/api/members/cart/add', {
-                stocks: {
-                    stock_id: 1
+        $scope.addToCart = function(line_stock) {
+            console.log(line_stock);
+            var config = {
+                headers: {
+                    'Authorization': authFactory.getAuth()
                 }
-            })
+            };
+            $http.post('https://bookieservice.herokuapp.com/api/members/cart/add', {
+                line_stock: {
+                    line_stock_id: line_stock.id
+                }
+            }, config)
             .success(function(data){
                 console.log(JSON.stringify(data));
                 console.log(data);
                 $scope.auth = data.auth_token;
+                $rootScope.$broadcast('cart');
+                $scope.errorMessage = 'no error';
             })
             .error(function(data){
                 console.log(JSON.stringify(data));
+                $scope.errorMessage = JSON.stringify(data.errors);
+                console.log($scope.errorMessage);
             });
-            console.log("The book that costs $" + book.price + " has been added to the cart.");
-        }
+            console.log("The book that costs $" + line_stock.price + " has been added to the cart.");
+        };
+
+        //
+        $scope.setTempLineStock = function(line_stock){
+            $scope.tempLineStock = line_stock;
+        };
 
         // Use for scrolling the page to bottom
         $scope.moveToBottom = function() {
             $location.hash('bottom');
             $anchorScroll();
-        }
+        };
     }
 ]);

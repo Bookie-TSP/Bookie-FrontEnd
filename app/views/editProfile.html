@@ -6,16 +6,19 @@
         <div class="panel-body">
             <br>
             <div class="row">
-                <div class="col-sm-4 col-sm-offset-2">
+                <div id="emailLabel" class="col-sm-4 col-sm-offset-2">
                     <b>Email</b>
                 </div>
                 <div class="col-sm-6">
                     <input type="text" ng-model="profileData.email" id="email"></input>
                 </div>
+                <div class="col-sm-6 col-sm-offset-6">
+                    <p class="validation" id="emailValid" ng-show="errorEmail">Email has already been taken</p>
+                </div>
             </div>
             <br>
             <div class="row">
-                <div class="col-sm-4 col-sm-offset-2">
+                <div id="firstnameLabel" class="col-sm-4 col-sm-offset-2">
                     <b>Firstname</b>
                 </div>
                 <div class="col-sm-6">
@@ -24,7 +27,7 @@
             </div>
             <br>
             <div class="row">
-                <div class="col-sm-4 col-sm-offset-2">
+                <div id="lastnameLabel" class="col-sm-4 col-sm-offset-2">
                     <b>Lastname</b>
                 </div>
                 <div class="col-sm-6">
@@ -34,7 +37,7 @@
             </div>
             <br>
             <div class="row">
-                <div class="col-sm-4 col-sm-offset-2">
+                <div id="phoneNoLabel" class="col-sm-4 col-sm-offset-2">
                     <b>Phone Number</b>
                 </div>
                 <div class="col-sm-6">
@@ -44,7 +47,7 @@
             </div>
             <br>
             <div class="row">
-                <div class="col-sm-4 col-sm-offset-2">
+                <div id="idenNoLabel" class="col-sm-4 col-sm-offset-2">
                     <b>Identification Number</b>
                 </div>
                 <div class="col-sm-6">
@@ -54,19 +57,19 @@
             </div>
             <br>
             <div class="row">
-                <div class="col-sm-4 col-sm-offset-2">
+                <div id="genderLabel" class="col-sm-4 col-sm-offset-2">
                     <b>Gender</b>
                 </div>
                 <div class="col-sm-6">
-                    <input type="radio" name="sex" value="Male" ng-model="profileData.gender">&nbsp;&nbsp;Male</input>
+                    <input id="male" type="radio" name="sex" value="Male" ng-model="profileData.gender">&nbsp;&nbsp;Male</input>
                     &nbsp;&nbsp;
-                    <input type="radio" name="sex" value="Female" ng-model="profileData.gender">&nbsp;&nbsp;Female</input>
+                    <input id="female" type="radio" name="sex" value="Female" ng-model="profileData.gender">&nbsp;&nbsp;Female</input>
 
                 </div>
             </div>
             <br>
             <div class="row">
-                <div class="col-sm-3 col-sm-offset-2">
+                <div id="bdLabel" class="col-sm-3 col-sm-offset-2">
                     <b>Birth Date</b>
                 </div>
                 <div class="col-sm-7">
@@ -88,14 +91,15 @@
             </div>
             <br>
             <div class="row">
-                <div class="col-sm-4 col-sm-offset-2">
+                <div id="confirmLabel" class="col-sm-4 col-sm-offset-2">
                     <b>Confirmation Password</b>
                 </div>
                 <div class="col-sm-6">
-                    <input type="password" ng-model="profileData.password" id="birthdate"></input>
+                    <input type="password" ng-model="profileData.password" id="password_confirmation"></input>
                 </div>
                 <div class="col-sm-6 col-sm-offset-6">
-                    <p id="validate" ng-show="error">Password incorrect</p>
+                    <p class="validation" id="incorrectPass" ng-show="errorPass">Incorrect Password</p>
+                    <p class="validation" id="requiredPass" ng-show="errorRequired">Password is required</p>
                 </div>
             </div>
             <br>

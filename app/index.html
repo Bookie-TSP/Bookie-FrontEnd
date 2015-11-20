@@ -43,12 +43,6 @@
 						<li>
 							<a id="registB" ui-sref="register">Register</a>
 						</li>
-						<!-- Mocked item cart -->
-						<li>
-							<a id="item-cart" ui-sref="cart">
-								$0.00 (0 items) <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-							</a>
-						</li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right" ng-show="member !== undefined">
 						<li>
@@ -57,7 +51,7 @@
 							</a>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 								<br>
-								<li><a ui-sref="viewProfile">My Profile</a></li>
+								<li><a id="viewProfile" ui-sref="viewProfile">My Profile</a></li>
 								<li><a href="#">My Orders</a></li>
 								<hr>
 								<li><a href="#">My Stocks</a></li>
@@ -69,7 +63,13 @@
 						</li>
 						<li>
 							<a id="item-cart" ui-sref="cart">
-								$0.00 (0 items) <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+								{{totalPrice | number:2}} ฿
+								<ng-pluralize count="totalCount"
+                						when="{'0': '(0 item)',
+                       							'1': '(1 item)',
+                      						'other': '({} items)'}">
+  								</ng-pluralize>
+ 	 							<span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
 							</a>
 						</li>
 					</ul>

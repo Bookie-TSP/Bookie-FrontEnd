@@ -2,136 +2,193 @@
     <div class="container">
         <div class = "row">
             <div class="col-sm-12">
-                <h1 style="text-transform: uppercase;">{{bookInfo.title}}</h1>
+                <h1 id="titile-header" style="text-transform: uppercase;">{{bookInfo.title}}</h1>
             </div>
         </div>
         <hr>
         <!-- Information of the book -->
         <div class="row">
-            <div class="col-sm-4 col-sm-offset-2">
+            <div class="col-sm-3 col-sm-offset-1">
                 <image id = "book-cover" src="{{bookInfo.cover_image_url}}"></image>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-8">
                 <h3>Book Informations</h3>
+
+
                 <div class="row">
-                    <div class="col-sm-6 text-info">
-                        <p>Title:</p>
-                        <p>ISBN 10:</p>
-                        <p>ISBN 13:</p>
-                        <p>Author:</p>
-                        <div ng-repeat="author in bookInfo.authors">
-                            <p ng-show="bookInfo.authors.indexOf(author) != 0">&nbsp;</p>
-                        </div>
-                        <p>Language:</p>
-                        <p>Pages:</p>
-                        <p>Publisher:</p>
-                        <p>Published Date:</p>
-                        <p>Book Description:</p>
+                    <div class="col-sm-4 text-info">Title:</div>
+                    <div class="col-sm-8">
+                        <div class="row">{{bookInfo.title}}</div>
+                        <div class="row" ng-show="bookInfo.title === null">undefined</div>
                     </div>
-                    <div class="col-sm-6">
-                        <p>{{bookInfo.title}}</p>
-                        <p ng-show="bookInfo.title === null">undefined</p>
-                        <p>{{bookInfo.ISBN10}}</p>
-                        <p ng-show="bookInfo.ISBN10 === null">undefined</p>
-                        <p>{{bookInfo.ISBN13}}</p>
-                        <p ng-show="bookInfo.ISBN13 === null">undefined</p>
-                        <div ng-repeat="author in bookInfo.authors">
-                            <p>{{author}}</p>
-                        </div>
-                        <p ng-show="bookInfo.author === null">undefined</p>
-                        <p>{{bookInfo.language}}</p>
-                        <p ng-show="bookInfo.language === null">undefined</p>
-                        <p>{{bookInfo.pages}}</p>
-                        <p ng-show="bookInfo.pages === null">undefined</p>
-                        <p>{{bookInfo.publisher}}</p>
-                        <p ng-show="bookInfo.publisher === null">undefined</p>
-                        <p>{{bookInfo.publish_date}}</p>
-                        <p ng-show="bookInfo.publish_date === null">undefined</p>
-                        <p>{{bookInfo.description}}</p>
-                        <p ng-show="bookInfo.description === null">undefined</p>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 text-info">ISBN 10:</div>
+                    <div class="col-sm-8">
+                        <div class="row">{{bookInfo.ISBN10}}</div>
+                        <div class="row" ng-show="bookInfo.ISBN10 === null">undefined</div>
                     </div>
-                    <!-- <ul class="unstyled">
-                        <li class="text-info">Title: {{bookInfo.title}}</li>
-                        <li class="text-info">ISBN 10: {{bookInfo.ISBN10}}</li>
-                        <li class="text-info">ISBN 13: {{bookInfo.ISBN13}}</li>
-                        <li class="text-info">Author:  </li>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 text-info">ISBN 13:</div>
+                    <div class="col-sm-8">
+                        <div class="row">{{bookInfo.ISBN13}}</div>
+                        <div class="row" ng-show="bookInfo.ISBN13 === null">undefined</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 text-info">Author:</div>
+                    <div ng-repeat="author in bookInfo.authors">
+                            <div class="row" ng-show="bookInfo.authors.indexOf(author) != 0">&nbsp;</div>
+                    </div>
+                    <div class="col-sm-8">
                         <div ng-repeat="author in bookInfo.authors">
-                            <span class="text-info">{{author}}</span>
+                            <div class="row">{{author}}</div>
                         </div>
-                        <li class="text-info">Language: {{bookInfo.language}}</li>
-                        <li class="text-info">Pages: {{bookInfo.pages}}</li>
-                        <li class="text-info">Publisher: {{bookInfo.publisher}}</li>
-                        <li class="text-info">Published Date: {{bookInfo.publish_date}}</li>
-                        <li class="text-success">Book Description: {{bookInfo.description}}</li>
-                    </ul> -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 text-info">Language:</div>
+                    <div class="col-sm-8">
+                        <div class="row">{{bookInfo.language}}</div>
+                        <div class="row" ng-show="bookInfo.language === null">undefined</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 text-info">Pages:</div>
+                    <div class="col-sm-8">
+                        <div class="row">{{bookInfo.pages}}</div>
+                        <div class="row" ng-show="bookInfo.pages === null">undefined</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 text-info">Publisher:</div>
+                    <div class="col-sm-8">
+                        <div class="row">{{bookInfo.publisher}}</div>
+                        <div class="row" ng-show="bookInfo.publisher === null">undefined</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 text-info">Published Date:</div>
+                    <div class="col-sm-8">
+                        <div class="row">{{bookInfo.publish_date}}</div>
+                        <div class="row" ng-show="bookInfo.publish_date === null">undefined</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 text-info">Book Description:</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-11 col-sm-offset-1">
+                        <div class="row">{{bookInfo.description}}</div>
+                        <div class="row" ng-show="bookInfo.description === null">undefined</div>
+                    </div>
                 </div>
             </div>
         </div>
-        <hr>
-        <!-- Selecting to use the default address or new address the Member wants to receive the book -->
-        <div class = "row">
-            <div class="col-sm-3">
-                <h3>Shipping Address</h3><br>
-                <input type="radio" name="address" id="defaultAddress" value="defaultAddress" checked><span style ="margin-left: 10px;margin-right: 10px">Default Address</span><br><br>
-                <input type="radio" name="address" id="newAddress" value="newAddress"><span style ="margin-left: 10px; margin-right: 10px">New Address</span>
-            </div>
-            <div class="col-sm-9">
-                <div id="googleMap" style="width:400px;height:300px;"></div>
+        <hr><br><br>
+        <div ng-if="loggedIn">
+            <!-- Lists of shops in the nearby location that have the book to sell or for rent -->
+            <uib-tabset justified="true">
+                <!-- Buy New Books tab heading and its items -->
+                <uib-tab heading="Buy New Books" ng-click="moveToBottom()">
+                    <br>
+                    <div ng-repeat="line_stock in buyNewBook" ng-show="buyNewBook.indexOf(line_stock) < buyNewBookCurrentPage * itemPerPage && buyNewBook.indexOf(line_stock) >= (buyNewBookCurrentPage - 1) * itemPerPage">
+                        <div class = "row">
+                            <div class="col-sm-1">{{line_stock.price}} ฿</div>
+                            <div class="col-sm-1">{{line_stock.condition}}</div>
+                            <div class="col-sm-2">{{line_stock.description}}</div>
+                            <div class="col-sm-4">{{line_stock.stocks[0].member.addresses[0].information}}</div>
+                            <div class="col-sm-2">In stock: {{line_stock.quantity}}</div>
+                            <div class="col-sm-2" ng-if="line_stock.quantity >= 1"><button class="btn btn-warning" ng-click="setTempLineStock(line_stock)" data-toggle="modal" data-target="#confirmationModal">Add To Cart</button></div>
+                            <div ng-if="line_stock.quantity === 0"></div>
+                        </div>
+                        <hr>
+                    </div>
+                    <uib-pagination total-items="buyNewBookTotalItems" ng-model="buyNewBookCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" ng-click="moveToBottom()"></uib-pagination>
+                </uib-tab>
+
+                <!-- Buy Used Books tab heading and its items -->
+                <uib-tab heading="Buy Used Books" ng-click="moveToBottom()">
+                    <br>
+                    <div ng-repeat="line_stock in buyUsedBook" ng-show="buyUsedBook.indexOf(line_stock) < buyUsedBookCurrentPage * itemPerPage && buyUsedBook.indexOf(line_stock) >= (buyUsedBookCurrentPage - 1) * itemPerPage">
+                        <div class = "row">
+                            <div class="col-sm-1">{{line_stock.price}} ฿</div>
+                            <div class="col-sm-1">{{line_stock.condition}}</div>
+                            <div class="col-sm-2">{{line_stock.description}}</div>
+                            <div class="col-sm-4">{{line_stock.stocks[0].member.addresses[0].information}}</div>
+                            <div class="col-sm-2">In stock: {{line_stock.quantity}}</div>
+                            <div class="col-sm-2" ng-if="line_stock.quantity >= 1"><button class="btn btn-warning" ng-click="setTempLineStock(line_stock)" data-toggle="modal" data-target="#confirmationModal">Add To Cart</button></div>
+                            <div ng-if="line_stock.quantity === 0"></div>
+                        </div>
+                        <hr>
+                    </div>
+                    <br>
+                    <uib-pagination total-items="buyUsedBookTotalItems" ng-model="buyUsedBookCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" ng-click="moveToBottom()"></uib-pagination>
+                </uib-tab>
+
+                <!-- Rent Books tab heading and its items -->
+                <uib-tab heading="Rent Books" ng-click="moveToBottom()">
+                    <br>
+                    <div ng-repeat="line_stock in rentBook" ng-show="rentBook.indexOf(line_stock) < rentBookCurrentPage * itemPerPage && rentBook.indexOf(line_stock) >= (rentBookCurrentPage - 1) * itemPerPage">
+                        <div class = "row">
+                            <div class="col-sm-1">{{line_stock.price}} ฿</div>
+                            <div class="col-sm-1">{{line_stock.condition}}</div>
+                            <div class="col-sm-2">{{line_stock.description}}</div>
+                            <div class="col-sm-4">{{line_stock.stocks[0].member.addresses[0].information}}</div>
+                            <div class="col-sm-2">In stock: {{line_stock.quantity}}</div>
+                            <div class="col-sm-2" ng-if="line_stock.quantity >= 1"><button class="btn btn-warning" ng-click="setTempLineStock(line_stock)" data-toggle="modal" data-target="#confirmationModal">Add To Cart</button></div>
+                            <div ng-if="line_stock.quantity === 0"></div>
+                        </div>
+                        <hr>
+                    </div>
+                    <uib-pagination total-items="rentBookTotalItems" ng-model="rentBookCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" ng-click="moveToBottom()"></uib-pagination>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+        <div ng-if="!loggedIn">
+            <center>
+                <h2 id="loginRequiredText">
+                    Before buying or renting books, please login...
+                    <br>
+                    Or register if you do not have an account.
+                </h2>
+            </center>
+        </div>
+
+        <!-- Add to cart Confirmation Modal -->
+        <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Confirmation</h4>
+                    </div>
+                    <div class="modal-body">Are you sure you want to add {{bookInfo.title}} to the cart?</div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" ng-click="addToCart(tempLineStock)" data-dismiss="modal">Add To Cart</button>
+                    </div>
+                </div>
             </div>
         </div>
-        <br><br>
 
-        <!-- Lists of shops in the nearby location that have the book to sell or for rent -->
-        <uib-tabset justified="true">
+        <!-- Notice Modal (haven't used yet) -->
+        <div class="modal fade" id="errorNoticeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Error Notice</h4>
+                    </div>
+                    <div class="modal-body">{{errorMessage}}</div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-            <!-- Buy New Books tab heading and its items -->
-            <uib-tab heading="Buy New Books" ng-click="moveToBottom()">
-                <br>
-                <div ng-repeat="book in newBooksInfo">
-                    <div class = "row">
-                        <div class="col-sm-1">${{book.price}}</div>
-                        <div class="col-sm-2">{{book.condition}}</div>
-                        <div class="col-sm-5">{{book.address}}</div>
-                        <div class="col-sm-2">In stock: {{book.quantity}}</div>
-                        <div class="col-sm-2" ng-if="book.quantity >= 1"><button ng-click="addToCart(book)">Add To Cart</button></div>
-                        <p ng-if="book.quantity == 0"></p>
-                    </div>
-                    <hr>
-                </div>
-            </uib-tab>
-
-            <!-- Buy Used Books tab heading and its items -->
-            <uib-tab heading="Buy Used Books" ng-click="moveToBottom()">
-                <br>
-                <div ng-repeat="book in oldBooksInfo">
-                    <div class = "row">
-                        <div class="col-sm-1">${{book.price}}</div>
-                        <div class="col-sm-2">{{book.condition}}</div>
-                        <div class="col-sm-5">{{book.address}}</div>
-                        <div class="col-sm-2">In stock: {{book.quantity}}</div>
-                        <div class="col-sm-2" ng-if="book.quantity >= 1"><button ng-click="addToCart(book)">Add To Cart</button></div>
-                        <p ng-if="book.quantity == 0"></p>
-                    </div>
-                    <hr>
-                </div>
-                <br>
-            </uib-tab>
-            <!-- Rent Books tab heading and its items -->
-            <uib-tab heading="Rent Books" ng-click="moveToBottom()">
-                <br>
-                <div ng-repeat="book in rentBooksInfo">
-                    <div class = "row">
-                        <div class="col-sm-1">${{book.price}}</div>
-                        <div class="col-sm-2">{{book.condition}}</div>
-                        <div class="col-sm-5">{{book.address}}</div>
-                        <div class="col-sm-2">In stock: {{book.quantity}}</div>
-                        <div class="col-sm-2" ng-if="book.quantity >= 1"><button ng-click="addToCart(book)">Add To Cart</button></div>
-                        <p ng-if="book.quantity == 0"></p>
-                    </div>
-                    <hr>
-                </div>
-            </uib-tab>
-        </uib-tabset>
         <!-- A random tag used to locate a place for moveToBottom() to scroll to -->
             <div id="bottom"></div>
     </div>

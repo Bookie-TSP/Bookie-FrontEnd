@@ -69,16 +69,39 @@ function ($scope, $http, $state, authFactory) {
 			});
 
 }]);
-app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$location', '$state', '$stateParams', 'mapFactory', 'authFactory',
-    function ($scope, $http, $anchorScroll, $location, $state, $stateParams, $map, authFactory) {
+app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$location', '$state', '$stateParams', '$uibModal', 'mapFactory', 'authFactory', '$rootScope',
+    function ($scope, $http, $anchorScroll, $location, $state, $stateParams, $uibModal, $map, authFactory, $rootScope) {
         $scope.loggedIn = false;
 
-        // Variables for Pagers
-        $scope.maxSize = 5;
-        $scope.bigTotalItems = 175;
-        $scope.bigCurrentPage = 1;
-        $scope.totalItems = 64;
-        $scope.currentPage = 4;
+        console.log("Start");
+        // Check whether the Member has logged in or not
+        if (authFactory.getAuth() !== undefined) {
+            $scope.loggedIn = true;
+        }
+
+        // Tab array of stocks
+        $scope.buyNewBook = [];
+        $scope.buyUsedBook = [];
+        $scope.rentBook = [];
+
+        // Max showing page for Pagers
+        $scope.maxSize = 4;
+
+        // Number of items in each page of the tab
+        $scope.itemPerPage = 4;
+
+        // Initialize pager variables for total items in each tab
+        $scope.buyNewBookTotalItems = 0;
+        $scope.buyUsedBookTotalItems = 0;
+        $scope.rentBookTotalItems = 0;
+
+        // Initialize pager variables for the current page of each tab
+        $scope.buyNewBookCurrentPage = 1;
+        $scope.buyUsedBookCurrentPage = 1;
+        $scope.rentBookCurrentPage = 1;
+
+        // Initialize temporary variable for adding line stock from the modal to the cart
+        $scope.tempLineStock = {};
 
         // Initialize Google Map from the mapFactory.js
         // googleMap.initialize();
@@ -86,236 +109,154 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
         // Define bookInfo
         $scope.bookInfo = {};
 
-        // Check whether the Member has logged in or not
-        if (authFactory.getAuth() !== undefined) {
-            loggedIn = true;
-        }
-
-        // List that contains the price, condition, address, and quantity of the book in each shop for buying
-        $scope.newBooksInfo = [
-        {
-            price: 84,
-            condition: "Perfect",
-            address: "508 Treeview Trail Barneveld, WI 55303",
-            quantity: 16
-        },
-        {
-            price: 110,
-            condition: "Perfect",
-            address: "217 E Division Madison, WI 53666",
-            quantity: 32
-        },
-        {
-            price: 98,
-            condition: "Perfect",
-            address: "505 Sampson Apt 3C",
-            quantity: 0
-        },
-        {
-            price: 144,
-            condition: "Perfect",
-            address: "4204 Military Ridge Rd Dodgeville, WI 53224",
-            quantity: 0
-        },
-        {
-            price: 170,
-            condition: "Perfect",
-            address: "217 E Division Madison, WI 53666",
-            quantity: 59
-        },
-        {
-            price: 98,
-            condition: "Perfect",
-            address: "505 Sampson Apt 3C",
-            quantity: 0
-        },
-        {
-            price: 175,
-            condition: "Perfect",
-            address: "217 E Division Madison, WI 53666",
-            quantity: 5
-        },
-        {
-            price: 98,
-            condition: "Perfect",
-            address: "505 Sampson Apt 3C",
-            quantity: 123
-        }];
-
-        // List that contains the price, condition, address, and quantity of the book in each shop for buying
-        $scope.oldBooksInfo = [
-        {
-            price: 142,
-            condition: "Good",
-            address: "619 Maiden St Mineral Point, WI 53444",
-            quantity: 11
-        },
-        {
-            price: 62,
-            condition: "Pretty Good",
-            address: "941 Crystal St Mirana Point, WI 4145",
-            quantity: 0
-        },
-        {
-            price: 198,
-            condition: "Perfect",
-            address: "505 Sampson Apt 3C",
-            quantity: 23
-        },
-        {
-            price: 62,
-            condition: "Pretty Good",
-            address: "941 Crystal St Mirana Point, WI 4145",
-            quantity: 0
-        },
-        {
-            price: 300,
-            condition: "Perfect",
-            address: "505 Sampson Apt 3C",
-            quantity: 23
-        },
-        {
-            price: 84,
-            condition: "Almost Perfect",
-            address: "4770 Main St Dodgeville, WI 53222",
-            quantity: 5
-        }];
-
-        // List that contains the price, condition, address, and quantity of the book in each shop for renting
-        $scope.rentBooksInfo = [
-        {
-            price: 65,
-            condition: "Perfect",
-            address: "402 E Park Apt 202B Montfort, WI 53555",
-            quantity: 0
-        },
-        {
-            price: 98,
-            condition: "Very Good",
-            address: "9910 High Hill Smd 941A",
-            quantity: 0
-        },
-        {
-            price: 100,
-            condition: "Very Good",
-            address: "217 E Division Madison, WI 53666",
-            quantity: 5
-        },
-        {
-            price: 90,
-            condition: "Good",
-            address: "505 Sampson Apt 3C",
-            quantity: 32
-        },
-        {
-            price: 148,
-            condition: "Bad",
-            address: "217 E Division Madison, WI 53666",
-            quantity: 0
-        },
-        {
-            price: 94,
-            condition: "Very Good",
-            address: "505 Sampson Apt 3C",
-            quantity: 36
-        },
-        {
-            price: 132,
-            condition: "Perfect",
-            address: "217 E Division Madison, WI 53666",
-            quantity: 5
-        },
-        {
-            price: 98,
-            condition: "Almost Perfect",
-            address: "505 Sampson Apt 3C",
-            quantity: 0
-        },
-        {
-            price: 116,
-            condition: "Perfect",
-            address: "505 Sampson Apt 3C",
-            quantity: 91
-        },
-        {
-            price: 92,
-            condition: "Good",
-            address: "102 Center St Cobb, WI 53666",
-            quantity: 10
-        }];
-
         // Get information of the book from the API
         $scope.getBookProfile = function(id) {
             $http.get('https://bookieservice.herokuapp.com/api/books/'+id)
             .success(function (data) {
                 console.log(data);
                 $scope.bookInfo = data;
+                $scope.seperate();
+                $scope.setPagerTotalItems();
             })
             .error(function (data) {
                 console.log(data);
-            })
-        }
+            });
+        };
+
+        // Seperate books into categories
+        $scope.seperate = function() {
+            for (var i = 0; i < $scope.bookInfo.line_stocks.length; i++) {
+                if ($scope.bookInfo.line_stocks[i].type === 'sell') {
+                    if ($scope.bookInfo.line_stocks[i].condition === 'new') {
+                        $scope.buyNewBook.push($scope.bookInfo.line_stocks[i]);
+                    }
+                    else if ($scope.bookInfo.line_stocks[i].condition === 'used') {
+                        $scope.buyUsedBook.push($scope.bookInfo.line_stocks[i]);
+                    }
+                }
+                else if ($scope.bookInfo.line_stocks[i].type === 'lend') {
+                    $scope.rentBook.push($scope.bookInfo.line_stocks[i]);
+                }
+            }
+            console.log($scope.buyNewBook);
+            console.log($scope.rentBook);
+        };
+
+        // Set the amount of total items used for showing items in pages of each of the tabs
+        $scope.setPagerTotalItems = function() {
+            $scope.buyNewBookTotalItems = $scope.buyNewBook.length * (10 / $scope.itemPerPage);
+            $scope.buyUsedBookTotalItems = $scope.buyUsedBook.length * (10 / $scope.itemPerPage);
+            $scope.rentBookTotalItems = $scope.rentBook.length * (10 / $scope.itemPerPage);
+        };
 
         // Call getBookProfile()
         $scope.getBookProfile($stateParams.bookId);
 
         // Use for adding the book to the cart with its details
-        $scope.addToCart = function (book) {
-            console.log("Adding the book that costs $" + book.price + " to the cart");
-            $http.post('https://bookieservice.herokuapp.com/api/members/cart/add', {
-                stocks: {
-                    stock_id: 1
+        $scope.addToCart = function(line_stock) {
+            console.log(line_stock);
+            var config = {
+                headers: {
+                    'Authorization': authFactory.getAuth()
                 }
-            })
+            };
+            $http.post('https://bookieservice.herokuapp.com/api/members/cart/add', {
+                line_stock: {
+                    line_stock_id: line_stock.id
+                }
+            }, config)
             .success(function(data){
                 console.log(JSON.stringify(data));
                 console.log(data);
                 $scope.auth = data.auth_token;
+                $rootScope.$broadcast('cart');
+                $scope.errorMessage = 'no error';
             })
             .error(function(data){
                 console.log(JSON.stringify(data));
+                $scope.errorMessage = JSON.stringify(data.errors);
+                console.log($scope.errorMessage);
             });
-            console.log("The book that costs $" + book.price + " has been added to the cart.");
-        }
+            console.log("The book that costs $" + line_stock.price + " has been added to the cart.");
+        };
+
+        //
+        $scope.setTempLineStock = function(line_stock){
+            $scope.tempLineStock = line_stock;
+        };
 
         // Use for scrolling the page to bottom
         $scope.moveToBottom = function() {
             $location.hash('bottom');
             $anchorScroll();
-        }
+        };
     }
 ]);
 
-app.controller('cartCtrl',['$scope','$http', '$state', 'authFactory',
-    function ($scope, $http, $state, authFactory){
+app.controller('cartCtrl',['$scope','$http', '$state', 'authFactory', '$rootScope',
+    function ($scope, $http, $state, authFactory, $rootScope){
         var config = {
             headers: {
                 'Authorization': authFactory.getAuth()
             }
         };
+        $scope.getTotal = function() {
+            $scope.total = 0;
+            for(var i = 0, len = $scope.stocks.length; i < len; i++) {
+                $scope.total += $scope.stocks[i].price;
+            }
+        };
+
+        $scope.countStocks = function() {
+            $scope.buyLength = 0;
+            for(var i = 0; i < $scope.stocks.length; i++){
+                if($scope.stocks[i].type === 'sell'){
+                    $scope.buyLength++;
+                }
+            }
+
+            $scope.rentLength = 0;
+            for(var j = 0; j < $scope.stocks.length; j++){
+                if($scope.stocks[j].type === 'lend'){
+                    $scope.rentLength++;
+                }
+            }
+        };
+
 		$scope.getCart = function() {
             $http.get('https://bookieservice.herokuapp.com/api/members/cart/show',config)
             .success(function (data) {
                 console.log(data);
                 $scope.cart = data;
                 $scope.stocks = $scope.cart.stocks;
+                $scope.getTotal();
+                $scope.countStocks();
+                console.log($scope.total);
             })
             .error(function (data) {
                 console.log(data);
             });
         };
-        // $scope.removeStock = function(id) {
-        //     $http.post('https://bookieservice.herokuapp.com/api/members/cart/remove',{
-        //         stock_id: id
-        //     },config)
-        //     .success(function(data){
-        //         $scope.cart = data;
-        //         $scope.stocks = $scope.cart.stocks;
-        //     })
-        //     .error(function(data){
-        //         console.log(data);
-        //     });
-        // };
+        $scope.removeStock = function(id) {
+            console.log(id);
+            $http.post('https://bookieservice.herokuapp.com/api/members/cart/remove',{
+                stock: {
+                    stock_id: id
+                }
+            },config)
+            .success(function(data){
+                $rootScope.$broadcast('cart');
+                $scope.cart = data;
+                $scope.stocks = $scope.cart.stocks;
+                $scope.getTotal();
+                $scope.countStocks();
+            })
+            .error(function(data){
+                console.log(data);
+            });
+        };
+
+        //initialize
         $scope.getCart();
 }]);
 
@@ -386,7 +327,7 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'authFactory', '$q', '$sta
 				'Authorization': authFactory.getAuth()
 			}
 		};
-		
+
 		$scope.initDate = function() {
 			$scope.initDates = $date.days;
             $scope.initMonths = $date.months;
@@ -425,6 +366,9 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'authFactory', '$q', '$sta
 
 		$scope.editProfile = function () {
 			console.log('Editing the profile');
+			$scope.errorRequired = false;
+			$scope.errorEmail = false;
+			$scope.errorPass = false;
 			var birth_date = $scope.date + '/' + ($scope.initMonths.indexOf($scope.month)+1) + '/' + $scope.year;
 			$http.put('https://bookieservice.herokuapp.com/api/members', {
 					member: {
@@ -441,12 +385,19 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'authFactory', '$q', '$sta
 				}, config)
 				.success(function (data) {
 					$scope.getProfile();
-					$scope.error = false;
 					console.log(data);
 					$scope.profileData.password = '';
 				})
 				.error(function (data) {
-					$scope.error = true;
+					if( data.errors.email !== undefined){
+						$scope.errorEmail = true;
+					}
+					if( data.errors === 'Wrong password'){
+						$scope.errorPass = true;
+					}
+					if( data.errors.password === 'parameter is required'){
+						$scope.errorRequired = true;
+					}
 					console.log(data);
 				});
 		};
@@ -500,6 +451,8 @@ app.controller('loginCtrl', ['$scope', '$http', '$state', 'authFactory',
 
 app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootScope',
   function ($scope, $http, $state, authFactory, $rootScope) {
+		$scope.totalPrice = 0;
+		$scope.totalCount = 0;
 		$scope.logout = function () {
 			authFactory.setAuth(undefined);
 		};
@@ -513,20 +466,53 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
 				$http.get('https://bookieservice.herokuapp.com/api/myprofile', config)
 					.success(function (data) {
 						$rootScope.member = data;
-                        authFactory.setMember(data);
+						authFactory.setMember(data);
 					})
 					.error(function (data) {
-                        authFactory.setAuth(undefined);
+						authFactory.setAuth(undefined);
 						console.log(data);
 					});
 			} else {
 				$rootScope.member = undefined;
 			}
 		};
+
+		$scope.getCart = function () {
+			if (authFactory.getAuth() !== undefined) {
+				var config = {
+					headers: {
+						'Authorization': authFactory.getAuth()
+					}
+				};
+				$http.get('https://bookieservice.herokuapp.com/api/members/cart/show', config)
+					.success(function (data) {
+						$scope.totalPrice = 0;
+						$scope.totalCount = 0;
+						$scope.stocks = data.stocks;
+						for (var i = 0; i < $scope.stocks.length; i++) {
+							$scope.totalPrice += $scope.stocks[i].price;
+							$scope.totalCount++;
+						}
+					})
+					.error(function (data) {
+						authFactory.setAuth(undefined);
+						console.log(data);
+					});
+			} else {
+				$scope.totalPrice = 0;
+				$scope.totalCount = 0;
+			}
+		};
+
 		$rootScope.member = $scope.getMember();
+		$scope.getCart();
 		$scope.$on('authenticate', function () {
 			console.log('Change');
 			$rootScope.member = $scope.getMember();
+		});
+
+		$scope.$on('cart', function () {
+			$scope.getCart();
 		});
 }]);
 
@@ -622,6 +608,7 @@ app.factory('authFactory', function ($http, $rootScope, $localStorage) {
 		setAuth: function (token) {
 			$localStorage.authToken = token;
 			$rootScope.$broadcast('authenticate');
+			$rootScope.$broadcast('cart');
 		},
 		setMember: function (member) {
 			$localStorage.member = member;

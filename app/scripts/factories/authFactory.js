@@ -6,6 +6,7 @@ app.factory('authFactory', function ($http, $rootScope, $localStorage) {
 		setAuth: function (token) {
 			$localStorage.authToken = token;
 			$rootScope.$broadcast('authenticate');
+			$rootScope.$broadcast('cart');
 		},
 		setMember: function (member) {
 			$localStorage.member = member;
