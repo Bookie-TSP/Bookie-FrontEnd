@@ -22,12 +22,11 @@ describe('Register', function() {
         browser.get('/#/register');
     });
 
-    function isAlertPopup(){
-        browser.wait(protractor.ExpectedConditions.alertIsPresent(), 6000); 
+    function isAlert(alerttext){
+        browser.wait(protractor.ExpectedConditions.alertIsPresent(), 10000); 
         var alertDialog = browser.switchTo().alert();
-        var result = alertDialog.alertIsPresent();
+        expect(alertDialog.getText()).toEqual(alerttext);
         alertDialog.accept();
-        return result;
     }
 
     describe('title', function() {
@@ -52,12 +51,12 @@ describe('Register', function() {
             browser.pause();
             agree.click();
             submit.click();
-
-            expect(isAlertPopup()).toBe(true);
+            isAlert('error : [object Object]');
+            expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/register', 5000);
         });
 
         // it('shouldn''t pass with invalid email (not email format)', function() {
-        //     email.sendKeys('&*#$@@@@ku.th');
+        //     email.sendKeys('@@@@@@@.com');
         //     password.sendKeys('password');
         //     confPass.sendKeys('password');
         //     firstname.sendKeys('test');
@@ -71,6 +70,8 @@ describe('Register', function() {
         //     browser.pause();
         //     agree.click();
         //     submit.click();
+        //     isAlert('error : [object Object]');
+        //     expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/register', 5000);
         // });
 
         // it('should pass with valid email', function() {
