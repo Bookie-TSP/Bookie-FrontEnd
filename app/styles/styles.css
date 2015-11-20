@@ -342,3 +342,32 @@ body {
   text-decoration: none;
   text-shadow: 0px 1px 0px #fe9000;
 }
+
+#indiBook {
+  margin-top: 12px;
+  margin-bottom: 0px;
+  margin-right: 0px;
+  margin-left: 12px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-right: 20px;
+  padding-left: 20px;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+  height: 348px;
+}
+
+.bookPic {
+  height: 200px;
+  width: auto;
+}
+
+.bookTitle {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 60px;
+  min-height: 20px;
+}
