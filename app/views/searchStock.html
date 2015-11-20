@@ -1,27 +1,37 @@
 <div ng-controller="searchStockCtrl" class="container">
-	<div class="script">
-		<script src="http://malsup.github.com/jquery.form.js"></script>
+	<h4>Search Book</h4>
+	<div class="row">
+		<div class="col-xs-4">
+			<input type="radio" name="type" value="isbn" ng-model="searchCat">ISBN
+			<input type="radio" name="type" value="intitle" ng-model="searchCat">Title
+			<input type="radio" name="type" value="inauthor" ng-model="searchCat">Author
+			<input type="radio" name="type" value="inpublisher" ng-model="searchCat">Publisher
+			<br>
+			<input type="text" name="search" id="search-field" ng-model="searchField">
+			<button type="button" id="search-button" class="orange-colored-button" ng-click="search()">
+				Search</button>
+		</div>
+		<div class="col-xs-4 col-xs-offset-4" ng-show="hadSearch">
+			<p>If no book matched, please click .. </p>
+			<button class="orange-colored-button" ng-click="manualAdd()">
+				Insert new book</button>
+		</div>
 	</div>
-	<h4>Search Book{{totalBooks}}</h4>
-	<div>
-		<input type="radio" name="type" value="isbn" ng-model="searchCat">ISBN
-		<input type="radio" name="type" value="intitle" ng-model="searchCat">Title
-		<input type="radio" name="type" value="inauthor" ng-model="searchCat">Author
-		<input type="radio" name="type" value="inpublisher" ng-model="searchCat">Publisher
-		<br>
-		<input type="text" name="search" id="search-field" ng-model="searchField">
-		<button type="button" id="search-button" class="orange-colored-button" ng-click="search()">
-			Search</button>
+	<br>
+	<div class="row">
+		<div class="col-xs-4" ng-show="totalBooks === 0">
+			No book found in database
+		</div>
 	</div>
-	<div>
-		<div class="border row">
+	<div class="container">
+		<div class="border row"  ng-hide="totalBooks === 0 || wantAdd">
 			<div id="result" ng-repeat="book in results">
 				<div id="indiBook" class="col-lg-2 col-md-3 col-xs-4">
 					<div class="book-info">
 
-						<div class="bookPic">
-							<img ng-show="book.volumeInfo.imageLinks.smallThumbnail === undefined" src="http://webmaster.ypsa.org/wp-content/uploads/2012/08/no_thumb.jpg">
-							<img ng-hide="book.volumeInfo.imageLinks.smallThumbnail === undefined" src="{{book.volumeInfo.imageLinks.smallThumbnail}}">
+						<div>
+							<img class="bookPic" ng-show="book.volumeInfo.imageLinks.smallThumbnail === undefined" src="http://webmaster.ypsa.org/wp-content/uploads/2012/08/no_thumb.jpg">
+							<img class="bookPic" ng-hide="book.volumeInfo.imageLinks.smallThumbnail === undefined" src="{{book.volumeInfo.imageLinks.smallThumbnail}}">
 						</div>
 						<br>
 						<div class="bookTitle">
@@ -41,14 +51,14 @@
 				</div>
 			</div>
 		</div>
-		<div ng-hide="results.length === 0">
+		<div ng-hide="results.length === 0 || totalBooks === 0 || wantAdd">
 			<button class="pagination orange-colored-button" id="previous-page" ng-show="hasPrevious()" ng-click="previousPage()">Previous page</button>
 			<button class="pagination orange-colored-button" id="next-page" ng-click="nextPage()" ng-show="hasNext()">Next page</button>
 		</div>
 		<br>
 		<hr>
 		<!--manual add stock-->
-		<div ng-show="totalBooks === 0">
+		<div ng-show="totalBooks === 0 || wantAdd">
 			<div>
 				<h4>Please enter new book information</h4>
 				<h6>(* required)</h6>

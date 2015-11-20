@@ -621,7 +621,8 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
     function ($scope, $http, $state, $rootScope, $date) {
         // amount of books from api
         $scope.totalBooks = -1;
-
+        $scope.hadSearch = false;
+        $scope.wantAdd = false;
         // language selections
         $scope.langs = ['English', 'Thai', 'Japanese', 'Chinese'];
 
@@ -635,7 +636,6 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 
         var maxResults = 10;
 		var startIndex = 0;
-		var totalBooks = 0;
 		var apiKey = "AIzaSyAY-BLl9HgepqEFBxR5YJbC_qdE4PZF_6g";
 
         $scope.hasNext = function(){
@@ -647,6 +647,10 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
             return startIndex !== 0;
         };
 
+        $scope.manualAdd = function() {
+            $scope.wantAdd = true;
+        };
+
 		$scope.getBooks = function (searchKey, operation, startIndex, maxResults, apiKey) {
 			$http.get("https://www.googleapis.com/books/v1/volumes?q=" + operation + ":" + searchKey +
 				"&maxResults=" + maxResults + "&startIndex=" + startIndex +
@@ -656,11 +660,13 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
         				"&maxResults=" + maxResults + "&startIndex=" + startIndex +
         				"&key=" + apiKey);
 					//data is the matched items that returned from Google books API
-					//totalBooks = data.totalItems;
                     console.log(data);
                     $scope.results = data.items;
                     $scope.totalBooks = data.totalItems;
-					//showResult(data);
+                    if($scope.totalBooks !== 0){
+                        $scope.hadSearch = true;
+                        $scope.wantAdd = false;
+                    }
 				})
                 .error(function(data){
                     console.log(data);
@@ -668,6 +674,7 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 		};
 
         $scope.search = function(){
+    		startIndex = 0;
             $scope.getBooks($scope.searchField, $scope.searchCat, startIndex, maxResults, apiKey);
         };
 
