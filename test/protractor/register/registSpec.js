@@ -151,7 +151,7 @@ describe('Register', function() {
     });
 
     describe('password checking', function() {
-        it('should show errer message if password not match', function{
+        it('should show errer message if password not match', function(){
             password.sendKeys('12345678');
             confPass.sendKeys('87654321');
             passwordMsg.toEqual('Not enough characters');
