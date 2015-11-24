@@ -1,6 +1,6 @@
 <div ng-controller="bookProfileCtrl">
     <div class="container">
-        <div class = "row">
+        <div class="row">
             <div class="col-sm-12">
                 <h1 style="text-transform: uppercase;">{{bookInfo.title}}</h1>
             </div>
@@ -9,7 +9,7 @@
         <!-- Information of the book -->
         <div class="row">
             <div class="col-sm-3 col-sm-offset-1">
-                <image id = "book-cover" src="{{bookInfo.cover_image_url}}"></image>
+                <image id="book-cover" src="{{bookInfo.cover_image_url}}"></image>
             </div>
             <div class="col-sm-8">
                 <h3>Book Informations</h3>
@@ -39,7 +39,7 @@
                 <div class="row">
                     <div class="col-sm-4 text-info">Author:</div>
                     <div ng-repeat="author in bookInfo.authors">
-                            <div class="row" ng-show="bookInfo.authors.indexOf(author) != 0">&nbsp;</div>
+                        <div class="row" ng-show="bookInfo.authors.indexOf(author) != 0">&nbsp;</div>
                     </div>
                     <div class="col-sm-8">
                         <div ng-repeat="author in bookInfo.authors">
@@ -86,7 +86,9 @@
                 </div>
             </div>
         </div>
-        <hr><br><br>
+        <hr>
+        <br>
+        <br>
         <div ng-if="loggedIn">
             <!-- Lists of shops in the nearby location that have the book to sell or for rent -->
             <uib-tabset justified="true">
@@ -94,13 +96,15 @@
                 <uib-tab heading="Buy New Books" ng-click="moveToBottom()">
                     <br>
                     <div ng-repeat="line_stock in buyNewBook" ng-show="buyNewBook.indexOf(line_stock) < buyNewBookCurrentPage * itemPerPage && buyNewBook.indexOf(line_stock) >= (buyNewBookCurrentPage - 1) * itemPerPage">
-                        <div class = "row">
+                        <div class="row">
                             <div class="col-sm-1">{{line_stock.price}} ฿</div>
                             <div class="col-sm-1">{{line_stock.condition}}</div>
                             <div class="col-sm-2">{{line_stock.description}}</div>
                             <div class="col-sm-4">{{line_stock.stocks[0].member.addresses[0].information}}</div>
                             <div class="col-sm-2">In stock: {{line_stock.quantity}}</div>
-                            <div class="col-sm-2" ng-if="line_stock.quantity >= 1"><button class="btn btn-warning" ng-click="setTempLineStock(line_stock)" data-toggle="modal" data-target="#confirmationModal">Add To Cart</button></div>
+                            <div class="col-sm-2" ng-if="line_stock.quantity >= 1">
+                                <button class="btn btn-warning" ng-click="setTempLineStock(line_stock)" data-toggle="modal" data-target="#confirmationModal">Add To Cart</button>
+                            </div>
                             <div ng-if="line_stock.quantity === 0"></div>
                         </div>
                         <hr>
@@ -112,13 +116,15 @@
                 <uib-tab heading="Buy Used Books" ng-click="moveToBottom()">
                     <br>
                     <div ng-repeat="line_stock in buyUsedBook" ng-show="buyUsedBook.indexOf(line_stock) < buyUsedBookCurrentPage * itemPerPage && buyUsedBook.indexOf(line_stock) >= (buyUsedBookCurrentPage - 1) * itemPerPage">
-                        <div class = "row">
+                        <div class="row">
                             <div class="col-sm-1">{{line_stock.price}} ฿</div>
                             <div class="col-sm-1">{{line_stock.condition}}</div>
                             <div class="col-sm-2">{{line_stock.description}}</div>
                             <div class="col-sm-4">{{line_stock.stocks[0].member.addresses[0].information}}</div>
                             <div class="col-sm-2">In stock: {{line_stock.quantity}}</div>
-                            <div class="col-sm-2" ng-if="line_stock.quantity >= 1"><button class="btn btn-warning" ng-click="setTempLineStock(line_stock)" data-toggle="modal" data-target="#confirmationModal">Add To Cart</button></div>
+                            <div class="col-sm-2" ng-if="line_stock.quantity >= 1">
+                                <button class="btn btn-warning" ng-click="setTempLineStock(line_stock)" data-toggle="modal" data-target="#confirmationModal">Add To Cart</button>
+                            </div>
                             <div ng-if="line_stock.quantity === 0"></div>
                         </div>
                         <hr>
@@ -131,13 +137,15 @@
                 <uib-tab heading="Rent Books" ng-click="moveToBottom()">
                     <br>
                     <div ng-repeat="line_stock in rentBook" ng-show="rentBook.indexOf(line_stock) < rentBookCurrentPage * itemPerPage && rentBook.indexOf(line_stock) >= (rentBookCurrentPage - 1) * itemPerPage">
-                        <div class = "row">
+                        <div class="row">
                             <div class="col-sm-1">{{line_stock.price}} ฿</div>
                             <div class="col-sm-1">{{line_stock.condition}}</div>
                             <div class="col-sm-2">{{line_stock.description}}</div>
                             <div class="col-sm-4">{{line_stock.stocks[0].member.addresses[0].information}}</div>
                             <div class="col-sm-2">In stock: {{line_stock.quantity}}</div>
-                            <div class="col-sm-2" ng-if="line_stock.quantity >= 1"><button class="btn btn-warning" ng-click="setTempLineStock(line_stock)" data-toggle="modal" data-target="#confirmationModal">Add To Cart</button></div>
+                            <div class="col-sm-2" ng-if="line_stock.quantity >= 1">
+                                <button class="btn btn-warning" ng-click="setTempLineStock(line_stock)" data-toggle="modal" data-target="#confirmationModal">Add To Cart</button>
+                            </div>
                             <div ng-if="line_stock.quantity === 0"></div>
                         </div>
                         <hr>
@@ -150,8 +158,7 @@
             <center>
                 <h2 id="loginRequiredText">
                     Before buying or renting books, please login...
-                    <br>
-                    Or register if you do not have an account.
+                    <br> Or register if you do not have an account.
                 </h2>
             </center>
         </div>
@@ -161,35 +168,40 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                         <h4 class="modal-title" id="myModalLabel">Confirmation</h4>
                     </div>
                     <div class="modal-body">Are you sure you want to add {{bookInfo.title}} to the cart?</div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" ng-click="addToCart(tempLineStock)" data-dismiss="modal">Add To Cart</button>
+                        <button type="button" class="btn btn-primary" ng-click="addToCart(tempLineStock)" data-dismiss="modal" data-toggle="modal" data-target="#errorNoticeModal">Add To Cart</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Notice Modal (haven't used yet) -->
+        <!-- Notice Modal -->
         <div class="modal fade" id="errorNoticeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Error Notice</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Notice</h4>
                     </div>
                     <div class="modal-body">{{errorMessage}}</div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" ng-hide="errorMessage === 'Sucessfully add to cart'">Close</button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal" ng-show="errorMessage === 'Sucessfully add to cart'">Close</button>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- A random tag used to locate a place for moveToBottom() to scroll to -->
-            <div id="bottom"></div>
+        <div id="bottom"></div>
     </div>
 </div>
