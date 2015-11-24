@@ -634,6 +634,8 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
         //books
         $scope.results = [];
 
+        $scope.specBook = {};
+
         var maxResults = 10;
 		var startIndex = 0;
 		var apiKey = "AIzaSyAY-BLl9HgepqEFBxR5YJbC_qdE4PZF_6g";
@@ -643,12 +645,15 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
         };
 
         $scope.hasPrevious = function(){
-            console.log(startIndex);
             return startIndex !== 0;
         };
 
         $scope.manualAdd = function() {
             $scope.wantAdd = true;
+        };
+
+        $scope.cancelManual = function() {
+            $scope.wantAdd = false;
         };
 
 		$scope.getBooks = function (searchKey, operation, startIndex, maxResults, apiKey) {
@@ -686,6 +691,46 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
         $scope.previousPage = function() {
             startIndex -= maxResults;
             $scope.getBooks($scope.searchField, $scope.searchCat, startIndex, maxResults, apiKey);
+        };
+
+        $scope.chooseBook = function(book, type) {
+            if (type === 'google'){
+                $scope.specBook = {
+                    title:  book.title,
+                    ISBN13: book.industryIdentifiers[0].identifier,
+                    ISBN10: book.industryIdentifiers[1].identifier,
+                    authors: book.authors,
+                    language: book.language,
+                    publisher: book.publisher,
+                    publish_date: book.publishedDate,
+                    pages: book.pageCount,
+                    description: book.description,
+                    cover_image_url: book.imageLinks.smallThumbnail
+                };
+            }
+            else if(type === 'manual'){
+                if( $scope.day !== undefined || $scope.initMonths.indexOf($scope.month)+1 > 0 ||
+                    $scope.year !== undefined){
+                        $scope.final_date = $scope.day + "/" + ($scope.initMonths.indexOf($scope.month)+1) +
+                                                "/" + $scope.year;
+                }
+                else{
+                    $scope.final_date = null;
+                }
+                $scope.specBook = {
+                    title:  $scope.title,
+                    ISBN13: $scope.ISBN13 || null,
+                    ISBN10: $scope.ISBN10 || null,
+                    authors: [$scope.author],
+                    language: $scope.language,
+                    publisher: $scope.publisher || null,
+                    publish_date: $scope.final_date,
+                    pages: $scope.pageCount || null,
+                    description: $scope.description,
+                    cover_image_url: undefined
+                };
+            }
+            console.log($scope.specBook);
         };
 }]);
 

@@ -11,7 +11,7 @@
 			<button type="button" id="search-button" class="orange-colored-button" ng-click="search()">
 				Search</button>
 		</div>
-		<div class="col-xs-4 col-xs-offset-4" ng-show="hadSearch">
+		<div class="col-xs-4 col-xs-offset-4" ng-show="hadSearch && !wantAdd">
 			<p>If no book matched, please click .. </p>
 			<button class="orange-colored-button" ng-click="manualAdd()">
 				Insert new book</button>
@@ -24,11 +24,10 @@
 		</div>
 	</div>
 	<div class="container">
-		<div class="border row"  ng-hide="totalBooks === 0 || wantAdd">
+		<div class="border row" ng-hide="totalBooks === 0 || wantAdd">
 			<div id="result" ng-repeat="book in results">
-				<div id="indiBook" class="col-lg-2 col-md-3 col-xs-4">
+				<div id="indiBook" class="col-lg-2 col-md-3 col-xs-4" ng-click="chooseBook(book.volumeInfo, 'google')" data-toggle="modal" data-target="#bookConfirmModal">
 					<div class="book-info">
-
 						<div>
 							<img class="bookPic" ng-show="book.volumeInfo.imageLinks.smallThumbnail === undefined" src="http://webmaster.ypsa.org/wp-content/uploads/2012/08/no_thumb.jpg">
 							<img class="bookPic" ng-hide="book.volumeInfo.imageLinks.smallThumbnail === undefined" src="{{book.volumeInfo.imageLinks.smallThumbnail}}">
@@ -39,8 +38,10 @@
 							<b ng-hide="book.volumeInfo.title === undefined">{{book.volumeInfo.title}}</b>
 						</div>
 						<div style="overflow: hidden; max-height: 40px min-height: 20px;">
-							<em ng-show="book.volumeInfo.publisher === undefined">Not Available</em>
-							<em ng-hide="book.volumeInfo.publisher === undefined">{{book.volumeInfo.publisher}}</em>
+							<em ng-show="book.volumeInfo.authors.length === 0">Not Available</em>
+							<div ng-repeat="author in book.volumeInfo.authors">
+								<em>{{author}} </em>
+							</div>
 						</div>
 
 						<div style="overflow: hidden; max-height: 40px min-height: 20px;">
@@ -57,6 +58,7 @@
 		</div>
 		<br>
 		<hr>
+
 		<!--manual add stock-->
 		<div ng-show="totalBooks === 0 || wantAdd">
 			<div>
@@ -150,17 +152,17 @@
 					<br>
 					<div class="row">
 						<div class="col-xs-11 col-xs-offset-1">
-							<select id="date">
+							<select id="date" ng-model="day">
 								<option value="">Date</option>
 								<option ng-repeat="date in initDates" value="{{date}}">{{date}}</option>
 							</select>
 
-							<select id="month">
+							<select id="month" ng-model="month">
 								<option value="">Month</option>
 								<option ng-repeat="month in initMonths" value="{{month}}">{{month}}</option>
 							</select>
 
-							<select id="year">
+							<select id="year" ng-model="year">
 								<option value="">Year</option>
 								<option ng-repeat="year in initYears" value="{{year}}">{{year}}</option>
 							</select>
@@ -170,11 +172,93 @@
 			</div>
 			<br>
 			<div class="row">
-				<div class="col-xs-2 col-xs-offset-5">
-					<button type="button" id="submit-button" class="orange-colored-button">
+				<div class="col-xs-1 col-xs-offset-4">
+					<button type="button" id="submit-button" class="orange-colored-button" ng-click="chooseBook(book.volumeInfo, 'manual')" data-toggle="modal" data-target="#bookConfirmModal">
 						Submit</button>
+				</div>
+				<div class="col-xs-1 col-xs-offset-1">
+					<button type="button" id="cancel-button" class="orange-colored-button" ng-click="cancelManual()">
+						Cancel</button>
 				</div>
 			</div>
 		</div>
 		<br>
+
+		<!-- confirm add stock modal -->
+		<div class="modal fade" id="bookConfirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">Book Confirmation</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-sm-3 col-sm-offset-1">
+								<img ng-show="specBook.cover_image_url !== undefined" src="{{specBook.cover_image_url}}">
+								<img class="bookPic" ng-show="specBook.cover_image_url === undefined" src="http://webmaster.ypsa.org/wp-content/uploads/2012/08/no_thumb.jpg">
+							</div>
+							<div class="col-sm-8">
+								<div class="row">
+									<div class="col-sm-4 text-info">Title:</div>
+									<div class="col-sm-8">
+										<div>{{specBook.title}}</div>
+										<div ng-show="specBook.title === null">undefined</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-4 text-info">ISBN 13:</div>
+									<div class="col-sm-8">
+										<div>{{specBook.ISBN13}}</div>
+										<div ng-show="specBook.ISBN13 === null">undefined</div>
+									</div>
+								</div>
+								<div class="row" ng-repeat="author in specBook.authors">
+									<div class="col-sm-4 text-info">
+										<div ng-show="specBook.authors.indexOf(author) === 0">Author:</div>
+									</div>
+									<div class="col-sm-8">
+										<div>{{author}}</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-4 text-info">Language:</div>
+									<div class="col-sm-8">
+										<div>{{specBook.language}}</div>
+										<div ng-show="specBook.language === null">undefined</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-4 text-info">Pages:</div>
+									<div class="col-sm-8">
+										<div>{{specBook.pages}}</div>
+										<div ng-show="specBook.pages === null">undefined</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-4 text-info">Publisher:</div>
+									<div class="col-sm-8">
+										<div>{{specBook.publisher}}</div>
+										<div ng-show="specBook.publisher === null">undefined</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-4 text-info">Published Date:</div>
+									<div class="col-sm-8">
+										<div>{{specBook.publish_date}}</div>
+										<div ng-show="specBook.publish_date === null">undefined</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary" ng-click="addToCart(tempLineStock)" data-dismiss="modal">Add To Cart</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
