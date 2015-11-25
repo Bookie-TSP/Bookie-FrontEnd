@@ -659,12 +659,13 @@ app.controller('registerCtrl', ['$scope', '$http', 'mapFactory', '$state', 'auth
         $scope.initial();
 }]);
 
-app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'dateFactory', '$timeout',
-    function ($scope, $http, $state, $rootScope, $date, $timeout) {
+app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'dateFactory', '$timeout', 'authFactory',
+    function ($scope, $http, $state, $rootScope, $date, $timeout, authFactory) {
 		// amount of books from api
 		$scope.totalBooks = -1;
 		$scope.hadSearch = false;
 		$scope.wantAdd = false;
+
 		// language selections
 		$scope.langs = ['English', 'Thai', 'Japanese', 'Chinese'];
 
@@ -673,9 +674,10 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 		$scope.initMonths = $date.months;
 		$scope.initYears = $date.years;
 
-		//books
+		// search books
 		$scope.results = [];
 
+        // specific book chosen
 		$scope.specBook = {};
 
 		var maxResults = 10;
@@ -773,15 +775,29 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 			console.log($scope.specBook);
 		};
 
-		$scope.nextStep = function () {
-			$rootScope.newBookStock = $scope.specBook;
-			$timeout(function () {
-                $rootScope.steps[2] = true;
-                $rootScope.steps[0] = null;
-				$state.go('newStock.third');
-			}, 1000);
+        $scope.addBook = function(){
+            var config = {
+    			headers: {
+    				'Authorization': authFactory.getAuth()
+    			}
+    		};
 
-		};
+            $http.post('https://bookieservice.herokuapp.com/api/books',{
+                book: $scope.specBook
+            }, config)
+            .success(function(data){
+                $rootScope.newBookStock = data;
+                console.log(data);
+                $timeout(function () {
+                    $rootScope.steps[2] = true;
+                    $rootScope.steps[0] = null;
+    				$state.go('newStock.third');
+    			}, 1000);
+            })
+            .error(function(data){
+                console.log(data);
+            });
+        };
 }]);
 
 app.controller('profileCtrl', ['$scope', '$http', '$state', 'authFactory',
