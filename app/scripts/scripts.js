@@ -55,6 +55,16 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			url: '/1',
 			templateUrl: 'views/searchStock.html',
 			data : { pageTitle: 'Search Stock' }
+		})
+		.state('newStock.second', {
+			url: '/2',
+			templateUrl: 'views/photoStock.html',
+			data : { pageTitle: 'Add Photo' }
+		})
+		.state('newStock.third', {
+			url: '/3',
+			templateUrl: 'views/infoStock.html',
+			data : { pageTitle: 'Add Information' }
 		});
 	$urlRouterProvider.otherwise('/');
 
@@ -437,6 +447,11 @@ app.controller('homeCtrl',['$scope','$http', '$state', '$rootScope',
     	}
 }]);
 
+app.controller('infoStockCtrl', ['$scope', '$http', '$state', '$rootScope',
+    function ($scope, $http, $state, $rootScope) {
+        console.log($rootScope.newBookStock);
+}]);
+
 app.controller('loginCtrl', ['$scope', '$http', '$state', 'authFactory',
 	function ($scope, $http, $state, authFactory) {
 		if (authFactory.getAuth() !== undefined) {
@@ -537,9 +552,66 @@ app.controller('newStockCtrl', ['$scope', '$http', '$state', 'authFactory', '$ro
 		if (authFactory.getAuth() === undefined) {
 			$state.go('login');
 		}
-        $state.go("newStock.first");
-	}
-]);
+
+		// New book add to stock
+		$rootScope.newBookStock = {};
+
+		// steps
+		$rootScope.firstStep = true;
+		$rootScope.secondStep = false;
+		$rootScope.thirdStep = false;
+		$rootScope.fourthStep = false;
+
+		// go to first step
+		$state.go("newStock.first");
+
+		//Initialize tooltips
+		$('.nav-tabs > li a[title]')
+			.tooltip();
+
+		//Wizard
+		$('a[data-toggle="tab"]')
+			.on('show.bs.tab', function (e) {
+
+				var $target = $(e.target);
+
+				if ($target.parent()
+					.hasClass('disabled')) {
+					return false;
+				}
+			});
+
+		// $(".next-step")
+		// 	.click(function (e) {
+		//
+		// 		var $active = $('.wizard .nav-tabs li.active');
+		// 		$active.next()
+		// 			.removeClass('disabled');
+		// 		$scope.nextTab($active);
+		//
+		// 	});
+		// $(".prev-step")
+		// 	.click(function (e) {
+		//
+		// 		var $active = $('.wizard .nav-tabs li.active');
+		// 		$scope.prevTab($active);
+		//
+		// 	});
+
+		$scope.nextTab = function (elem) {
+			$(elem)
+				.next()
+				.find('a[data-toggle="tab"]')
+				.click();
+		};
+		$scope.prevTab = function (elem) {
+			$(elem)
+				.prev()
+				.find('a[data-toggle="tab"]')
+				.click();
+		};
+
+}]);
 
 app.controller('registerCtrl', ['$scope', '$http', 'mapFactory', '$state', 'authFactory', 'dateFactory',
         function ($scope, $http, $map, $state, authFactory, $date) {
@@ -617,121 +689,129 @@ app.controller('registerCtrl', ['$scope', '$http', 'mapFactory', '$state', 'auth
         $scope.initial();
 }]);
 
-app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'dateFactory',
-    function ($scope, $http, $state, $rootScope, $date) {
-        // amount of books from api
-        $scope.totalBooks = -1;
-        $scope.hadSearch = false;
-        $scope.wantAdd = false;
-        // language selections
-        $scope.langs = ['English', 'Thai', 'Japanese', 'Chinese'];
+app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'dateFactory', '$timeout',
+    function ($scope, $http, $state, $rootScope, $date, $timeout) {
+		// amount of books from api
+		$scope.totalBooks = -1;
+		$scope.hadSearch = false;
+		$scope.wantAdd = false;
+		// language selections
+		$scope.langs = ['English', 'Thai', 'Japanese', 'Chinese'];
 
-        // date
-        $scope.initDates = $date.days;
-        $scope.initMonths = $date.months;
-        $scope.initYears = $date.years;
+		// date
+		$scope.initDates = $date.days;
+		$scope.initMonths = $date.months;
+		$scope.initYears = $date.years;
 
-        //books
-        $scope.results = [];
+		//books
+		$scope.results = [];
 
-        $scope.specBook = {};
+		$scope.specBook = {};
 
-        var maxResults = 10;
+		var maxResults = 10;
 		var startIndex = 0;
 		var apiKey = "AIzaSyAY-BLl9HgepqEFBxR5YJbC_qdE4PZF_6g";
 
-        $scope.hasNext = function(){
-            return (startIndex + maxResults <= $scope.totalBooks);
-        };
+		$scope.hasNext = function () {
+			return (startIndex + maxResults <= $scope.totalBooks);
+		};
 
-        $scope.hasPrevious = function(){
-            return startIndex !== 0;
-        };
+		$scope.hasPrevious = function () {
+			return startIndex !== 0;
+		};
 
-        $scope.manualAdd = function() {
-            $scope.wantAdd = true;
-        };
+		$scope.manualAdd = function () {
+			$scope.wantAdd = true;
+		};
 
-        $scope.cancelManual = function() {
-            $scope.wantAdd = false;
-        };
+		$scope.cancelManual = function () {
+			$scope.wantAdd = false;
+		};
 
 		$scope.getBooks = function (searchKey, operation, startIndex, maxResults, apiKey) {
 			$http.get("https://www.googleapis.com/books/v1/volumes?q=" + operation + ":" + searchKey +
-				"&maxResults=" + maxResults + "&startIndex=" + startIndex +
-				"&key=" + apiKey)
-                .success(function (data) {
-                    console.log("https://www.googleapis.com/books/v1/volumes?q=" + operation + ":" + searchKey +
-        				"&maxResults=" + maxResults + "&startIndex=" + startIndex +
-        				"&key=" + apiKey);
+					"&maxResults=" + maxResults + "&startIndex=" + startIndex +
+					"&key=" + apiKey)
+				.success(function (data) {
+					console.log("https://www.googleapis.com/books/v1/volumes?q=" + operation + ":" + searchKey +
+						"&maxResults=" + maxResults + "&startIndex=" + startIndex +
+						"&key=" + apiKey);
 					//data is the matched items that returned from Google books API
-                    console.log(data);
-                    $scope.results = data.items;
-                    $scope.totalBooks = data.totalItems;
-                    if($scope.totalBooks !== 0){
-                        $scope.hadSearch = true;
-                        $scope.wantAdd = false;
-                    }
+					console.log(data);
+					$scope.results = data.items;
+					$scope.totalBooks = data.totalItems;
+					if ($scope.totalBooks !== 0) {
+						$scope.hadSearch = true;
+						$scope.wantAdd = false;
+					}
 				})
-                .error(function(data){
-                    console.log(data);
-                });
+				.error(function (data) {
+					console.log(data);
+				});
 		};
 
-        $scope.search = function(){
-    		startIndex = 0;
-            $scope.getBooks($scope.searchField, $scope.searchCat, startIndex, maxResults, apiKey);
-        };
+		$scope.search = function () {
+			startIndex = 0;
+			$scope.getBooks($scope.searchField, $scope.searchCat, startIndex, maxResults, apiKey);
+		};
 
-        $scope.nextPage = function() {
-            startIndex += maxResults;
-            $scope.getBooks($scope.searchField, $scope.searchCat, startIndex, maxResults, apiKey);
-        };
+		$scope.nextPage = function () {
+			startIndex += maxResults;
+			$scope.getBooks($scope.searchField, $scope.searchCat, startIndex, maxResults, apiKey);
+		};
 
-        $scope.previousPage = function() {
-            startIndex -= maxResults;
-            $scope.getBooks($scope.searchField, $scope.searchCat, startIndex, maxResults, apiKey);
-        };
+		$scope.previousPage = function () {
+			startIndex -= maxResults;
+			$scope.getBooks($scope.searchField, $scope.searchCat, startIndex, maxResults, apiKey);
+		};
 
-        $scope.chooseBook = function(book, type) {
-            if (type === 'google'){
-                $scope.specBook = {
-                    title:  book.title,
-                    ISBN13: book.industryIdentifiers[0].identifier,
-                    ISBN10: book.industryIdentifiers[1].identifier,
-                    authors: book.authors,
-                    language: book.language,
-                    publisher: book.publisher,
-                    publish_date: book.publishedDate,
-                    pages: book.pageCount,
-                    description: book.description,
-                    cover_image_url: book.imageLinks.smallThumbnail
-                };
-            }
-            else if(type === 'manual'){
-                if( $scope.day !== undefined || $scope.initMonths.indexOf($scope.month)+1 > 0 ||
-                    $scope.year !== undefined){
-                        $scope.final_date = $scope.day + "/" + ($scope.initMonths.indexOf($scope.month)+1) +
-                                                "/" + $scope.year;
-                }
-                else{
-                    $scope.final_date = null;
-                }
-                $scope.specBook = {
-                    title:  $scope.title,
-                    ISBN13: $scope.ISBN13 || null,
-                    ISBN10: $scope.ISBN10 || null,
-                    authors: [$scope.author],
-                    language: $scope.language,
-                    publisher: $scope.publisher || null,
-                    publish_date: $scope.final_date,
-                    pages: $scope.pageCount || null,
-                    description: $scope.description,
-                    cover_image_url: undefined
-                };
-            }
-            console.log($scope.specBook);
-        };
+		$scope.chooseBook = function (book, type) {
+			if (type === 'google') {
+				$scope.specBook = {
+					title: book.title,
+					ISBN13: book.industryIdentifiers[0].identifier,
+					ISBN10: book.industryIdentifiers[1].identifier,
+					authors: book.authors,
+					language: book.language,
+					publisher: book.publisher,
+					publish_date: book.publishedDate,
+					pages: book.pageCount,
+					description: book.description,
+					cover_image_url: book.imageLinks.smallThumbnail
+				};
+			} else if (type === 'manual') {
+				if ($scope.day !== undefined || $scope.initMonths.indexOf($scope.month) + 1 > 0 ||
+					$scope.year !== undefined) {
+					$scope.final_date = $scope.day + "/" + ($scope.initMonths.indexOf($scope.month) + 1) +
+						"/" + $scope.year;
+				} else {
+					$scope.final_date = null;
+				}
+				$scope.specBook = {
+					title: $scope.title,
+					ISBN13: $scope.ISBN13 || null,
+					ISBN10: $scope.ISBN10 || null,
+					authors: [$scope.author],
+					language: $scope.language,
+					publisher: $scope.publisher || null,
+					publish_date: $scope.final_date,
+					pages: $scope.pageCount || null,
+					description: $scope.description,
+					cover_image_url: undefined
+				};
+			}
+			console.log($scope.specBook);
+		};
+
+		$scope.nextStep = function () {
+			$rootScope.thirdStep = true;
+			$rootScope.newBookStock = $scope.specBook;
+			$timeout(function () {
+                $rootScope.firstStep = false;
+				$state.go('newStock.third');
+			}, 1000);
+
+		};
 }]);
 
 app.controller('profileCtrl', ['$scope', '$http', '$state', 'authFactory',
