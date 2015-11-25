@@ -4,20 +4,23 @@
 
         <uib-tab heading="Pending" ng-click="moveToBottom()">
             <br>
-            <div ng-repeat="order in ...orders">
+            <div ng-repeat="order in orderInfo.orders">
                 <div ng-repeat="stock in order.stocks">
                     <div class="row">
                         <uib-accordion close-others="oneAtATime">
                             <uib-accordion-group heading="" is-open="status.isFirstOpen">
-                                <div class="col-sm-2 col-sm-offset-1">${{content.price}}</div>
-                                <div class="col-sm-5">{{content.name}}</div>
-                                <div class="col-sm-2">{{content.orderDate}}</div>
-                                <div class="col-sm-2"><span class="label label-success">{{content.status}}</span></div>
+                                <div ng-show="stock.status === 'pending'">
+                                    <div class="col-sm-2 col-sm-offset-1">${{stock.price}}</div>
+                                    <div class="col-sm-5">Book Title</div>
+                                    <div class="col-sm-2">{{stock.created_at}}</div>
+                                    <div class="col-sm-2"><span class="label label-success">{{stock.status}}</span></div>
+                                </div>
                             </uib-accordion-group>
                         </uib-accordion>
                     </div>
                 </div>
             </div>
+        </uib-tab>
 
         <!-- Buy New Books tab heading and its items -->
         <uib-tab heading="Pending" ng-click="moveToBottom()">
