@@ -16,6 +16,10 @@
 #googleMap {
   border: 2px solid black;
 }
+
+#loginRequiredText {
+  color: black;
+}
 #noBook {
   color: #D3D3D3;
 }

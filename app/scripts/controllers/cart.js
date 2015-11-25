@@ -1,5 +1,5 @@
-app.controller('cartCtrl',['$scope','$http', '$state', 'authFactory',
-    function ($scope, $http, $state, authFactory){
+app.controller('cartCtrl',['$scope','$http', '$state', 'authFactory', '$rootScope',
+    function ($scope, $http, $state, authFactory, $rootScope){
         var config = {
             headers: {
                 'Authorization': authFactory.getAuth()
@@ -50,6 +50,7 @@ app.controller('cartCtrl',['$scope','$http', '$state', 'authFactory',
                 }
             },config)
             .success(function(data){
+                $rootScope.$broadcast('cart');
                 $scope.cart = data;
                 $scope.stocks = $scope.cart.stocks;
                 $scope.getTotal();
