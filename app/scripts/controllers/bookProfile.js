@@ -99,14 +99,19 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
                 console.log(data);
                 $scope.auth = data.auth_token;
                 $rootScope.$broadcast('cart');
-                $scope.errorMessage = 'no error';
+                $scope.errorMessage = 'Sucessfully add to cart';
             })
             .error(function(data){
                 console.log(JSON.stringify(data));
-                $scope.errorMessage = JSON.stringify(data.errors);
+                $scope.errorMessage = data.errors;
                 console.log($scope.errorMessage);
             });
             console.log("The book that costs $" + line_stock.price + " has been added to the cart.");
+        };
+
+        //
+        $scope.setTempLineStock = function(line_stock){
+            $scope.tempLineStock = line_stock;
         };
 
         // Use for scrolling the page to bottom
