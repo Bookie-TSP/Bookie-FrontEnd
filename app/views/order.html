@@ -1,11 +1,29 @@
 <div ng-controller="orderCtrl" class="container">
 	<!-- Lists of shops in the nearby location that have the book to sell or for rent -->
     <uib-tabset justified="true">
+
+        <uib-tab heading="Pending" ng-click="moveToBottom()">
+            <br>
+            <div ng-repeat="order in ...orders">
+                <div ng-repeat="stock in order.stocks">
+                    <div class="row">
+                        <uib-accordion close-others="oneAtATime">
+                            <uib-accordion-group heading="" is-open="status.isFirstOpen">
+                                <div class="col-sm-2 col-sm-offset-1">${{content.price}}</div>
+                                <div class="col-sm-5">{{content.name}}</div>
+                                <div class="col-sm-2">{{content.orderDate}}</div>
+                                <div class="col-sm-2"><span class="label label-success">{{content.status}}</span></div>
+                            </uib-accordion-group>
+                        </uib-accordion>
+                    </div>
+                </div>
+            </div>
+
         <!-- Buy New Books tab heading and its items -->
         <uib-tab heading="Pending" ng-click="moveToBottom()">
             <br>
             <div ng-repeat="content in pendingContents">
-                <div class = "row">
+                <div class="row">
                     <uib-accordion close-others="oneAtATime">
                         <uib-accordion-group heading="{{content.name}}" is-open="status.isFirstOpen">
                             <div class="col-sm-2 col-sm-offset-1">${{content.price}}</div>
@@ -18,14 +36,12 @@
                 <hr>
             </div>
         </uib-tab>
-
-
 
         <!-- Buy Used Books tab heading and its items -->
         <uib-tab heading="Active" ng-click="moveToBottom()">
             <br>
             <div ng-repeat="content in activeContents">
-                <div class = "row">
+                <div class="row">
                     <uib-accordion close-others="oneAtATime">
                         <uib-accordion-group heading="{{content.name}}" is-open="status.isFirstOpen">
                             <div class="col-sm-2 col-sm-offset-1">${{content.price}}</div>
@@ -38,11 +54,12 @@
                 <hr>
             </div>
         </uib-tab>
+
         <!-- Rent Books tab heading and its items -->
         <uib-tab heading="Ended" ng-click="moveToBottom()">
             <br>
             <div ng-repeat="content in endedContents">
-                <div class = "row">
+                <div class="row">
                     <uib-accordion close-others="oneAtATime">
                         <uib-accordion-group heading="{{content.name}}" is-open="status.isFirstOpen">
                             <div class="col-sm-2 col-sm-offset-1">${{content.price}}</div>
@@ -57,7 +74,7 @@
         </uib-tab>
     </uib-tabset>
 
-
+    <!-- Accordion Template -->
     <script type="text/ng-template" id="group-template.html">
         <div class="panel {{panelClass || 'panel-default'}}">
             <div class="panel-heading">
@@ -71,8 +88,4 @@
             </div>
         </div>
     </script>
-
-
-
-
 </div>
