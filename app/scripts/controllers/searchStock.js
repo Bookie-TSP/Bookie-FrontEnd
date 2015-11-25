@@ -113,10 +113,10 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 		};
 
 		$scope.nextStep = function () {
-			$rootScope.thirdStep = true;
 			$rootScope.newBookStock = $scope.specBook;
 			$timeout(function () {
-                $rootScope.firstStep = false;
+                $rootScope.steps[2] = true;
+                $rootScope.steps[0] = null;
 				$state.go('newStock.third');
 			}, 1000);
 

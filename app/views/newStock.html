@@ -7,31 +7,31 @@
             <div class="wizard-inner">
                 <div class="connecting-line"></div>
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" ng-class="{active: firstStep, disabled: !firstStep}">
-                        <a ui-sref="newStock.first" data-toggle="tab" aria-controls="step1" role="tab" title="Step 1">
+                    <li role="presentation" ng-class="{'active': steps[0], 'disabled': steps[0] === false, '': steps[0] === null}">
+                        <a title="Step 1" ng-click="changeStep(1)">
                             <span class="round-tab">
                                 <i class="glyphicon glyphicon-folder-open"></i>
                             </span>
                         </a>
                     </li>
 
-                    <li role="presentation" ng-class="{active: secondStep, disabled: !secondStep}">
-                        <a href="newStock.second" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2">
+                    <li role="presentation" ng-class="{'active': steps[1], 'disabled': steps[1] === false, '': steps[1] === null}">
+                        <a title="Step 2" ng-click="changeStep(2)">
                             <span class="round-tab">
                                 <i class="glyphicon glyphicon-pencil"></i>
                             </span>
                         </a>
                     </li>
-                    <li role="presentation" ng-class="{active: thirdStep, disabled: !thirdStep}">
-                        <a href="newStock.third" data-toggle="tab" aria-controls="step3" role="tab" title="Step 3">
+                    <li role="presentation" ng-class="{'active': steps[2], 'disabled': steps[2] === false, '': steps[2] === null}">
+                        <a title="Step 3" ng-click="changeStep(3)">
                             <span class="round-tab">
                                 <i class="glyphicon glyphicon-picture"></i>
                             </span>
                         </a>
                     </li>
 
-                    <li role="presentation" class="disabled">
-                        <a href="newStock.fourth" data-toggle="tab" aria-controls="complete" role="tab" title="Complete">
+                    <li role="presentation" ng-class="{'active': steps[3], 'disabled': steps[3] === false, '': steps[3] === null}">
+                        <a title="Complete" ng-click="changeStep(4)">
                             <span class="round-tab">
                                 <i class="glyphicon glyphicon-ok"></i>
                             </span>

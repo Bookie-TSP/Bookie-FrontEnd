@@ -8,58 +8,28 @@ app.controller('newStockCtrl', ['$scope', '$http', '$state', 'authFactory', '$ro
 		$rootScope.newBookStock = {};
 
 		// steps
-		$rootScope.firstStep = true;
-		$rootScope.secondStep = false;
-		$rootScope.thirdStep = false;
-		$rootScope.fourthStep = false;
+		$rootScope.steps = [true, false, false, false];
 
 		// go to first step
 		$state.go("newStock.first");
 
-		//Initialize tooltips
-		$('.nav-tabs > li a[title]')
-			.tooltip();
-
-		//Wizard
-		$('a[data-toggle="tab"]')
-			.on('show.bs.tab', function (e) {
-
-				var $target = $(e.target);
-
-				if ($target.parent()
-					.hasClass('disabled')) {
-					return false;
+		$scope.changeStep = function (step) {
+			$scope.stepsName = ['first', 'second', 'third', 'fourth'];
+			if ($rootScope.steps[step - 1] !== false) {
+				for (var i = 0; i < 4; i++) {
+					if (i === step - 1) {
+						$rootScope.steps[i] = true;
+					} else {
+						if ($rootScope.steps[i] === true || $rootScope.steps[i] === null) {
+							$rootScope.steps[i] = null;
+						} else {
+							$rootScope.steps[i] = false;
+						}
+					}
 				}
-			});
-
-		// $(".next-step")
-		// 	.click(function (e) {
-		//
-		// 		var $active = $('.wizard .nav-tabs li.active');
-		// 		$active.next()
-		// 			.removeClass('disabled');
-		// 		$scope.nextTab($active);
-		//
-		// 	});
-		// $(".prev-step")
-		// 	.click(function (e) {
-		//
-		// 		var $active = $('.wizard .nav-tabs li.active');
-		// 		$scope.prevTab($active);
-		//
-		// 	});
-
-		$scope.nextTab = function (elem) {
-			$(elem)
-				.next()
-				.find('a[data-toggle="tab"]')
-				.click();
-		};
-		$scope.prevTab = function (elem) {
-			$(elem)
-				.prev()
-				.find('a[data-toggle="tab"]')
-				.click();
+				$state.go('newStock.' + $scope.stepsName[step - 1]);
+			}
+			console.log($rootScope.steps);
 		};
 
 }]);
