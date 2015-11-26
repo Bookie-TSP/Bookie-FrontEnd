@@ -125,7 +125,7 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
                 book: $scope.specBook
             }, config)
             .success(function(data){
-                $rootScope.newBookStock = data;
+                $rootScope.newBook = data;
                 console.log(data);
                 $timeout(function () {
                     $rootScope.steps[2] = true;

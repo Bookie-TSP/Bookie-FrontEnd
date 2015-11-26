@@ -4,14 +4,15 @@ app.controller('newStockCtrl', ['$scope', '$http', '$state', 'authFactory', '$ro
 			$state.go('login');
 		}
 
-		// New book add to stock
-		$rootScope.newBookStock = {};
+		// New book and stock
+		$rootScope.newBook = {};
+		$rootScope.newStock = {};
 
 		// steps
-		$rootScope.steps = [true, false, false, false];
+		$rootScope.steps = [null, false, true, false];
 
 		// go to first step
-		$state.go("newStock.first");
+		$state.go("newStock.third");
 
 		$scope.changeStep = function (step) {
 			$scope.stepsName = ['first', 'second', 'third', 'fourth'];
