@@ -65,6 +65,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			url: '/3',
 			templateUrl: 'views/infoStock.html',
 			data : { pageTitle: 'Add Information' }
+		})
+		.state('newStock.fourth', {
+			url: '/4',
+			templateUrl: 'views/completeStock.html',
+			data : { pageTitle: 'Confirm Stock' }
 		});
 	$urlRouterProvider.otherwise('/');
 
@@ -286,6 +291,27 @@ app.controller('cartCtrl',['$scope','$http', '$state', 'authFactory', '$rootScop
         $scope.getCart();
 }]);
 
+app.controller('completeStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'authFactory',
+    function ($scope, $http, $state, $rootScope, authFactory) {
+        $scope.confirmStock = function(){
+            var config = {
+    			headers: {
+    				'Authorization': authFactory.getAuth()
+    			}
+    		};
+            $http.post('https://bookieservice.herokuapp.com/api/members/stocks',{
+                stock: $rootScope.newStock
+            }, config)
+            .success(function(data){
+                console.log(data);
+                $state.go("home");
+            })
+            .error(function(data){
+                console.log(data);
+            });
+        };
+}]);
+
 app.controller('addressCtrl',['$scope','$http', '$state', 'authFactory', '$rootScope', 'mapFactory',
     function($scope, $http, $state, authFactory, $rootScope, $map){
         if (authFactory.getAuth() === undefined) {
@@ -449,24 +475,6 @@ app.controller('homeCtrl',['$scope','$http', '$state', '$rootScope',
 
 app.controller('infoStockCtrl', ['$scope', '$http', '$state', '$rootScope',
     function ($scope, $http, $state, $rootScope) {
-		// mock books
-		$rootScope.newBook = {
-				"id": 8,
-				"title": "A Universe of Star Wars Collectibles",
-				"ISBN10": "0873494156",
-				"ISBN13": "9780873494151",
-				"authors": [
-"Stuart W. Wells"
-],
-				"language": "en",
-				"pages": 287,
-				"publisher": "Krause Publications",
-				"publish_date": null,
-				"description": "Features more than 8,500 listings, with prices and descriptions for more than 40 collectible categories from 1976-2002.",
-				"cover_image_url": "http://books.google.co.th/books/content?id=uW3pNt5wKtYC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
-				"created_at": "2015-11-25T08:41:07.503Z",
-				"updated_at": "2015-11-25T08:41:07.503Z"
-			};
 			//console.log($rootScope.newBook);
 
 		$scope.type = '';
@@ -486,6 +494,8 @@ app.controller('infoStockCtrl', ['$scope', '$http', '$state', '$rootScope',
 				$rootScope.newStock.duration = $scope.duration;
 			}
 			console.log($rootScope.newStock);
+            $rootScope.steps[2] = null;
+            $rootScope.steps[3] = true;
 			$state.go('newStock.fourth');
 		};
 }]);
@@ -590,16 +600,17 @@ app.controller('newStockCtrl', ['$scope', '$http', '$state', 'authFactory', '$ro
 		if (authFactory.getAuth() === undefined) {
 			$state.go('login');
 		}
+		else{
+			// go to first step
+			$state.go("newStock.first");
+		}
 
 		// New book and stock
 		$rootScope.newBook = {};
 		$rootScope.newStock = {};
 
 		// steps
-		$rootScope.steps = [null, false, true, false];
-
-		// go to first step
-		$state.go("newStock.third");
+		$rootScope.steps = [true, false, false, false];
 
 		$scope.changeStep = function (step) {
 			$scope.stepsName = ['first', 'second', 'third', 'fourth'];
@@ -780,8 +791,6 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 			if (type === 'google') {
 				$scope.specBook = {
 					title: book.title,
-					ISBN13: book.industryIdentifiers[0].identifier,
-					ISBN10: book.industryIdentifiers[1].identifier,
 					authors: book.authors,
 					language: book.language,
 					publisher: book.publisher,
@@ -790,6 +799,10 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 					description: book.description,
 					cover_image_url: book.imageLinks.smallThumbnail
 				};
+                if( book.industryIdentifiers !== undefined ){
+                    $scope.specBook.ISBN13 = book.industryIdentifiers[0].identifier;
+					$scope.specBook.ISBN10 = book.industryIdentifiers[1].identifier;
+                }
 			} else if (type === 'manual') {
 				if ($scope.day !== undefined || $scope.initMonths.indexOf($scope.month) + 1 > 0 ||
 					$scope.year !== undefined) {

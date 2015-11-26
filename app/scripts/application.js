@@ -65,6 +65,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			url: '/3',
 			templateUrl: 'views/infoStock.html',
 			data : { pageTitle: 'Add Information' }
+		})
+		.state('newStock.fourth', {
+			url: '/4',
+			templateUrl: 'views/completeStock.html',
+			data : { pageTitle: 'Confirm Stock' }
 		});
 	$urlRouterProvider.otherwise('/');
 

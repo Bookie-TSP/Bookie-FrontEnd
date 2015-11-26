@@ -80,8 +80,6 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 			if (type === 'google') {
 				$scope.specBook = {
 					title: book.title,
-					ISBN13: book.industryIdentifiers[0].identifier,
-					ISBN10: book.industryIdentifiers[1].identifier,
 					authors: book.authors,
 					language: book.language,
 					publisher: book.publisher,
@@ -90,6 +88,10 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 					description: book.description,
 					cover_image_url: book.imageLinks.smallThumbnail
 				};
+                if( book.industryIdentifiers !== undefined ){
+                    $scope.specBook.ISBN13 = book.industryIdentifiers[0].identifier;
+					$scope.specBook.ISBN10 = book.industryIdentifiers[1].identifier;
+                }
 			} else if (type === 'manual') {
 				if ($scope.day !== undefined || $scope.initMonths.indexOf($scope.month) + 1 > 0 ||
 					$scope.year !== undefined) {
