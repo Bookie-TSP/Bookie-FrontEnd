@@ -51,22 +51,34 @@
 				<form>
 					<div class="row">
 						<div class="col-md-6">
-		                    <input type="text" placeholder="Name" ng-model="billing_name"></input>
+		                    <input type="text" class="form-control" placeholder="Firstname" ng-model="billing_name">
 	                	</div>
 	                	<div class="col-md-6">
-		                    <input type="text" placeholder="Last name" ng-model="billing_name"></input>
+		                    <input type="text" class="form-control" placeholder="Lastname" ng-model="billing_name">
 	                	</div>
-	                	<div class="col-md-6">
-		                    <input type="text" placeholder="Number" ng-model="billing_card_number"></input>
+	                </div>
+	                <br>
+	                <div class="row">
+	                	<div class="col-xs-6">
+		                    <input type="text" class="form-control" placeholder="Number" ng-model="billing_card_number">
+		                    <div ng-show="billing_card_number.length !== 16">
+                        		<h5 id="validate">Must be 16 number</h5>
+                    		</div>
 	                    </div>
-	                    <div class="col-md-6">
-		                    <input type="text" placeholder="CVV" ng-model="billing_card_security_number"></input>
+	                    <div class="col-xs-4">
+		                    <input type="text" class="form-control" placeholder="CVV" ng-model="billing_card_security_number">
+		                    <div ng-show="billing_card_security_number.length !== 3">
+                        		<h5 id="validate">Must be 3 number</h5>
+                    		</div>
 	               		</div>
+	               	</div>
+	               	<br>
+	               	<div class="row">
 	               		<div class="col-md-6">
-	                    	<input type="text" placeholder="MM/YY" ng-model="billing_card_expire_date"></input>
+	                    	<input type="text" class="form-control" placeholder="MM/YY" ng-model="billing_card_expire_date">
 	                    </div>
 	                    <div class="col-md-6">
-		                    <select name="Type" ng-model="billing_type">
+		                    <select name="Type" class="form-control" ng-model="billing_type">
 		                    	<option ng-selected="true" selected disabled>Credit Cart Type</option>
 		  						<option value="Visa">Visa</option>
 		  						<option value="MasterCard">MasterCard</option>
