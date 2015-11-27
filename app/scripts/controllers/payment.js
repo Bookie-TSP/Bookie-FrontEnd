@@ -20,12 +20,36 @@ app.controller('paymentCtrl',['$scope','$http', '$state', 'authFactory',
                 $scope.cart = data;
                 $scope.stocks = $scope.cart.stocks;
                 $scope.getTotal();
-                $scope.countStocks();
                 console.log($scope.total);
             })
             .error(function (data) {
                 console.log(data);
             });
+        };
+
+        $scope.paid = function() {
+            $scope.emptyCart = false;
+            var billing_name = $scope.billing_firstname + " " + $scope.billing_lastname;
+            var payment = {
+                billing_name: billing_name,
+                billing_type: $scope.billing_type,
+                billing_card_number: $scope.billing_card_number,
+                billing_card_expire_date: $scope.billing_card_expire_date,
+                billing_card_security_number: $scope.billing_card_security_number
+            };
+            $http.post('https://bookieservice.herokuapp.com/api/members/cart/checkout', {
+                    payment: payment
+                }, config)
+                .success(function (data) {
+                    console.log(data);
+                    $state.go("home");
+                })
+                .error(function (data) {
+                    if( data.errors === 'Your cart is empty'){
+                        $scope.emptyCart = true;
+                    }
+                    console.log(data);
+                });
         };
 
         //initialize

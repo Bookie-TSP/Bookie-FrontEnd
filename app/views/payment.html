@@ -51,10 +51,10 @@
 				<form>
 					<div class="row">
 						<div class="col-md-6">
-		                    <input type="text" class="form-control" placeholder="Firstname" ng-model="billing_name">
+		                    <input type="text" class="form-control" placeholder="Firstname" ng-model="billing_firstname">
 	                	</div>
 	                	<div class="col-md-6">
-		                    <input type="text" class="form-control" placeholder="Lastname" ng-model="billing_name">
+		                    <input type="text" class="form-control" placeholder="Lastname" ng-model="billing_lastname">
 	                	</div>
 	                </div>
 	                <br>
@@ -97,7 +97,7 @@
 			</div>
 		</div>
 
-		<button id="paid" class="btn btn-block btn-warning" style="margin-top: 10px;">
+		<button id="paid" class="btn btn-block btn-warning" style="margin-top: 10px;" ng-click="paid()">
 			Paid
 		</button>
 	</div>
