@@ -4,3 +4,5 @@ node_modules/
 .iml
 test/protractor/login/test_results/
 test/protractor/register/test_results/
+app/scripts/cloudScripts.js
+app/scripts/scripts.js
