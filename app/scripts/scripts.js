@@ -521,8 +521,8 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
 		});
 }]);
 
-app.controller('paymentCtrl',['$scope','$http', '$state', 'authFactory',
-    function ($scope, $http, $state, authFactory){
+app.controller('paymentCtrl',['$scope','$http', '$state', 'authFactory', '$rootScope',
+    function ($scope, $http, $state, authFactory, $rootScope){
         var config = {
             headers: {
                 'Authorization': authFactory.getAuth()
@@ -565,6 +565,7 @@ app.controller('paymentCtrl',['$scope','$http', '$state', 'authFactory',
                 }, config)
                 .success(function (data) {
                     console.log(data);
+                    $rootScope.$broadcast('cart');
                     $state.go("home");
                 })
                 .error(function (data) {
