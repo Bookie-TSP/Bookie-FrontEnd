@@ -12,7 +12,7 @@
             <input type="radio" value="lend" ng-model="type"> Lend
             <br>
             <br>
-            <div ng-show="type !== ''">
+            <div ng-if="type !== ''">
                 <div class="row">
                     <div class="col-xs-5">
                         Price
@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <br>
-                <div class="row" ng-show="type === 'lend'">
+                <div class="row" ng-if="type === 'lend'">
                     <div class="col-xs-5">
                         Duration
                     </div>
@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 <br>
-                <div class="row" ng-show="type === 'lend'">
+                <div class="row" ng-if="type === 'lend'">
                     <div class="col-xs-5">
                         Terms of Conditions
                     </div>
@@ -79,7 +79,7 @@
                 <br>
             </div>
             <center>
-                <button class="btn btn-warning" ng-click="nextStep()" ng-show="type !== ''">Next</button>
+                <button class="btn btn-warning" ng-click="nextStep()" ng-if="type !== ''">Next</button>
             </center>
         </div>
     </div>

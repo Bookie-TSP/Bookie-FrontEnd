@@ -8,7 +8,6 @@ app.controller('photoStockCtrl', ['$scope', '$rootScope', '$stateParams', '$loca
 
 		var d = new Date();
 		$scope.title = "Image (" + d.getDate() + " - " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + ")";
-		//$scope.$watch('files', function() {
 
         $scope.selectFiles = function(files){
             console.log("selet");
@@ -88,5 +87,11 @@ app.controller('photoStockCtrl', ['$scope', '$rootScope', '$stateParams', '$loca
             .error(function(data){
                 console.log(data);
             });
+        };
+
+        $scope.backToFirst = function(){
+            $scope.files = [];
+            $rootScope.changeStep(1);
+            $state.go('newStock.first');
         };
   }]);

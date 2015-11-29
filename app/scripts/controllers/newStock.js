@@ -15,7 +15,7 @@ app.controller('newStockCtrl', ['$scope', '$http', '$state', 'authFactory', '$ro
 		// steps
 		$rootScope.steps = [true, false, false, false];
 
-		$scope.changeStep = function (step) {
+		$rootScope.changeStep = function (step) {
 			$scope.stepsName = ['first', 'second', 'third', 'fourth'];
 			if ($rootScope.steps[step - 1] !== false) {
 				for (var i = 0; i < 4; i++) {

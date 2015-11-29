@@ -9,27 +9,27 @@
                 <div class="col-sm-4 text-">Title:</div>
                 <div class="col-sm-8">
                     <div class="row">{{newBook.title}}</div>
-                    <div class="row" ng-show="newBook.title === null">undefined</div>
+                    <div class="row" ng-if="newBook.title === null">undefined</div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-4 text-">ISBN 10:</div>
                 <div class="col-sm-8">
                     <div class="row">{{newBook.ISBN10}}</div>
-                    <div class="row" ng-show="newBook.ISBN10 === null">undefined</div>
+                    <div class="row" ng-if="newBook.ISBN10 === null">undefined</div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-4 text-">ISBN 13:</div>
                 <div class="col-sm-8">
                     <div class="row">{{newBook.ISBN13}}</div>
-                    <div class="row" ng-show="newBook.ISBN13 === null">undefined</div>
+                    <div class="row" ng-if="newBook.ISBN13 === null">undefined</div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-4 text-">Author:</div>
                 <div ng-repeat="author in newBook.authors">
-                    <div class="row" ng-show="newBook.authors.indexOf(author) != 0">&nbsp;</div>
+                    <div class="row" ng-if="newBook.authors.indexOf(author) != 0">&nbsp;</div>
                 </div>
                 <div class="col-sm-8">
                     <div ng-repeat="author in newBook.authors">
@@ -41,28 +41,28 @@
                 <div class="col-sm-4 text-">Language:</div>
                 <div class="col-sm-8">
                     <div class="row">{{newBook.language}}</div>
-                    <div class="row" ng-show="newBook.language === null">undefined</div>
+                    <div class="row" ng-if="newBook.language === null">undefined</div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-4 text-">Pages:</div>
                 <div class="col-sm-8">
                     <div class="row">{{newBook.pages}}</div>
-                    <div class="row" ng-show="newBook.pages === null">undefined</div>
+                    <div class="row" ng-if="newBook.pages === null">undefined</div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-4 text-">Publisher:</div>
                 <div class="col-sm-8">
                     <div class="row">{{newBook.publisher}}</div>
-                    <div class="row" ng-show="newBook.publisher === null">undefined</div>
+                    <div class="row" ng-if="newBook.publisher === null">undefined</div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-4 text-">Published Date:</div>
                 <div class="col-sm-8">
                     <div class="row">{{newBook.publish_date}}</div>
-                    <div class="row" ng-show="newBook.publish_date === null">undefined</div>
+                    <div class="row" ng-if="newBook.publish_date === null">undefined</div>
                 </div>
             </div>
             <div class="row">
@@ -71,7 +71,7 @@
             <div class="row">
                 <div class="col-sm-10 col-sm-offset-1">
                     <div class="row">{{newBook.description}}</div>
-                    <div class="row" ng-show="newBook.description === null">undefined</div>
+                    <div class="row" ng-if="newBook.description === null">undefined</div>
                 </div>
             </div>
         </div>
@@ -91,7 +91,7 @@
                     Baht
                 </div>
             </div>
-            <div class="row" ng-show="newStock.type === 'lend'">
+            <div class="row" ng-if="newStock.type === 'lend'">
                 <div class="col-xs-5">
                     Duration
                 </div>
@@ -118,7 +118,7 @@
                     {{newStock.description}}
                 </div>
             </div>
-            <div class="row" ng-show="bewStock.type === 'lend'">
+            <div class="row" ng-if="bewStock.type === 'lend'">
                 <div class="col-xs-5">
                     Terms of Conditions
                 </div>

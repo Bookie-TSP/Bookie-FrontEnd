@@ -11,7 +11,7 @@
 			<button type="button" id="search-button" class="orange-colored-button" ng-click="search()">
 				Search</button>
 		</div>
-		<div class="col-xs-4 col-xs-offset-4" ng-show="hadSearch && !wantAdd">
+		<div class="col-xs-4 col-xs-offset-4" ng-if="hadSearch && !wantAdd">
 			<p>If no book matched, please click .. </p>
 			<button class="orange-colored-button" ng-click="manualAdd()">
 				Insert new book</button>
@@ -19,48 +19,48 @@
 	</div>
 	<br>
 	<div class="row">
-		<div class="col-xs-4" ng-show="totalBooks === 0">
+		<div class="col-xs-4" ng-if="totalBooks === 0">
 			No book found in database
 		</div>
 	</div>
 	<div class="container">
-		<div class="border row" ng-hide="totalBooks === 0 || wantAdd">
+		<div class="border row" ng-if="totalBooks !== 0 && !wantAdd">
 			<div id="result" ng-repeat="book in results">
 				<div id="indiBook" class="col-lg-2 col-md-3 col-xs-4" ng-click="chooseBook(book.volumeInfo, 'google')" data-toggle="modal" data-target="#bookConfirmModal">
 					<div class="book-info">
 						<div>
-							<img class="bookPic" ng-show="book.volumeInfo.imageLinks.smallThumbnail === undefined" src="http://webmaster.ypsa.org/wp-content/uploads/2012/08/no_thumb.jpg">
-							<img class="bookPic" ng-hide="book.volumeInfo.imageLinks.smallThumbnail === undefined" src="{{book.volumeInfo.imageLinks.smallThumbnail}}">
+							<img class="bookPic" ng-if="book.volumeInfo.imageLinks.smallThumbnail === undefined" src="http://webmaster.ypsa.org/wp-content/uploads/2012/08/no_thumb.jpg">
+							<img class="bookPic" ng-if="book.volumeInfo.imageLinks.smallThumbnail !== undefined" src="{{book.volumeInfo.imageLinks.smallThumbnail}}">
 						</div>
 						<br>
 						<div class="bookTitle">
-							<b ng-show="book.volumeInfo.title === undefined">Not Available</b>
-							<b ng-hide="book.volumeInfo.title === undefined">{{book.volumeInfo.title}}</b>
+							<b ng-if="book.volumeInfo.title === undefined">Not Available</b>
+							<b ng-if="book.volumeInfo.title !== undefined">{{book.volumeInfo.title}}</b>
 						</div>
 						<div style="overflow: hidden; max-height: 40px min-height: 20px;">
-							<em ng-show="book.volumeInfo.authors.length === 0">Not Available</em>
+							<em ng-if="book.volumeInfo.authors.length === 0">Not Available</em>
 							<div ng-repeat="author in book.volumeInfo.authors">
 								<em>{{author}} </em>
 							</div>
 						</div>
 
 						<div style="overflow: hidden; max-height: 40px min-height: 20px;">
-							<em ng-show="book.volumeInfo.industryIdentifiers[0].identifier === undefined">ISBN: Not Available</em>
-							<em ng-hide="book.volumeInfo.industryIdentifiers[0].identifier === undefined">ISBN: {{book.volumeInfo.industryIdentifiers[0].identifier}}</em>
+							<em ng-if="book.volumeInfo.industryIdentifiers[0].identifier === undefined">ISBN: Not Available</em>
+							<em ng-if="book.volumeInfo.industryIdentifiers[0].identifier !== undefined">ISBN: {{book.volumeInfo.industryIdentifiers[0].identifier}}</em>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div ng-hide="results.length === 0 || totalBooks === 0 || wantAdd">
-			<button class="pagination orange-colored-button" id="previous-page" ng-show="hasPrevious()" ng-click="previousPage()">Previous page</button>
-			<button class="pagination orange-colored-button" id="next-page" ng-click="nextPage()" ng-show="hasNext()">Next page</button>
+		<div ng-if="results.length !== 0 && totalBooks !== 0 && !wantAdd">
+			<button class="pagination orange-colored-button" id="previous-page" ng-if="hasPrevious()" ng-click="previousPage()">Previous page</button>
+			<button class="pagination orange-colored-button" id="next-page" ng-click="nextPage()" ng-if="hasNext()">Next page</button>
 		</div>
 		<br>
 		<hr>
 
 		<!--manual add stock-->
-		<div ng-show="totalBooks === 0 || wantAdd">
+		<div ng-if="totalBooks === 0 || wantAdd">
 			<div>
 				<h4>Please enter new book information</h4>
 				<h6>(* required)</h6>
@@ -197,27 +197,27 @@
 					<div class="modal-body">
 						<div class="row">
 							<div class="col-sm-3 col-sm-offset-1">
-								<img ng-show="specBook.cover_image_url !== undefined" src="{{specBook.cover_image_url}}">
-								<img class="bookPic" ng-show="specBook.cover_image_url === undefined" src="http://webmaster.ypsa.org/wp-content/uploads/2012/08/no_thumb.jpg">
+								<img ng-if="specBook.cover_image_url !== undefined" src="{{specBook.cover_image_url}}">
+								<img class="bookPic" ng-if="specBook.cover_image_url === undefined" src="http://webmaster.ypsa.org/wp-content/uploads/2012/08/no_thumb.jpg">
 							</div>
 							<div class="col-sm-8">
 								<div class="row">
 									<div class="col-sm-4 text-info">Title:</div>
 									<div class="col-sm-8">
 										<div>{{specBook.title}}</div>
-										<div ng-show="specBook.title === null">undefined</div>
+										<div ng-if="specBook.title === null">undefined</div>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-sm-4 text-info">ISBN 13:</div>
 									<div class="col-sm-8">
 										<div>{{specBook.ISBN13}}</div>
-										<div ng-show="specBook.ISBN13 === null">undefined</div>
+										<div ng-if="specBook.ISBN13 === null">undefined</div>
 									</div>
 								</div>
 								<div class="row" ng-repeat="author in specBook.authors">
 									<div class="col-sm-4 text-info">
-										<div ng-show="specBook.authors.indexOf(author) === 0">Author:</div>
+										<div ng-if="specBook.authors.indexOf(author) === 0">Author:</div>
 									</div>
 									<div class="col-sm-8">
 										<div>{{author}}</div>
@@ -227,28 +227,28 @@
 									<div class="col-sm-4 text-info">Language:</div>
 									<div class="col-sm-8">
 										<div>{{specBook.language}}</div>
-										<div ng-show="specBook.language === null">undefined</div>
+										<div ng-if="specBook.language === null">undefined</div>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-sm-4 text-info">Pages:</div>
 									<div class="col-sm-8">
 										<div>{{specBook.pages}}</div>
-										<div ng-show="specBook.pages === null">undefined</div>
+										<div ng-if="specBook.pages === null">undefined</div>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-sm-4 text-info">Publisher:</div>
 									<div class="col-sm-8">
 										<div>{{specBook.publisher}}</div>
-										<div ng-show="specBook.publisher === null">undefined</div>
+										<div ng-if="specBook.publisher === null">undefined</div>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-sm-4 text-info">Published Date:</div>
 									<div class="col-sm-8">
 										<div>{{specBook.publish_date}}</div>
-										<div ng-show="specBook.publish_date === null">undefined</div>
+										<div ng-if="specBook.publish_date === null">undefined</div>
 									</div>
 								</div>
 							</div>
