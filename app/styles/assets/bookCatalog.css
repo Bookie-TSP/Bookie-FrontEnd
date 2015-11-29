@@ -1,3 +1,24 @@
 .cover-image {
 	width: 128px;
+	height: 196px;
+}
+.book-name {
+	/*overflow: hidden;*/
+	/*text-overflow: ellipsis;*/
+	margin-top: 5px;
+	line-height: 1.5em;
+    height: 3em;
+    width: 128px;
+}
+.book {
+	margin-top: 20px;
+}
+.hover-book-name a {
+	position: relative;
+}
+.hover-book-name a span { 
+	position:absolute; display:none; z-index:99; 
+}
+.hover-book-name a:hover span { 
+	display:block; 
 }
