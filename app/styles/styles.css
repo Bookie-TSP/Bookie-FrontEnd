@@ -16,6 +16,18 @@
 #googleMap {
   border: 2px solid black;
 }
+
+#loginRequiredText {
+  color: black;
+}
+#noBook {
+  color: #D3D3D3;
+}
+
+#countinue {
+  background-color: #696969;
+  color: white;
+}
 .validation {
   color: #ff0000;
 }
