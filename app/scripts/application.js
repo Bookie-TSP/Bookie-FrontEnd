@@ -45,7 +45,12 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			url: '/viewStock',
 			templateUrl: 'views/viewStock.html',
 			data : { pageTitle: 'My Stock' }
-		});
+		})
+        .state('stockBookProfile', {
+            url: '/stockBookProfile/:lineStockId/:bookId',
+            templateUrl: 'views/stockBookProfile.html',
+            data : { pageTitle: 'Stock Book Profile' }
+        });
 	$urlRouterProvider.otherwise('/');
 
 });
