@@ -29,28 +29,45 @@ app.controller('paymentCtrl',['$scope','$http', '$state', 'authFactory', '$rootS
 
         $scope.paid = function() {
             $scope.emptyCart = false;
-            var billing_name = $scope.billing_firstname + " " + $scope.billing_lastname;
-            var payment = {
-                billing_name: billing_name,
-                billing_type: $scope.billing_type,
-                billing_card_number: $scope.billing_card_number,
-                billing_card_expire_date: $scope.billing_card_expire_date,
-                billing_card_security_number: $scope.billing_card_security_number
-            };
-            $http.post('https://bookieservice.herokuapp.com/api/members/cart/checkout', {
-                    payment: payment
-                }, config)
-                .success(function (data) {
-                    console.log(data);
-                    $rootScope.$broadcast('cart');
-                    $state.go("home");
-                })
-                .error(function (data) {
-                    if( data.errors === 'Your cart is empty'){
-                        $scope.emptyCart = true;
-                    }
-                    console.log(data);
-                });
+            if ($scope.billing_firstname == null || $scope.billing_lastname == null) {
+                alert("Please input your name");
+            } else if ($scope.billing_card_number == undefined) {
+                alert("Please input card number");
+            } else if ($scope.billing_card_security_number == undefined) {
+                alert("Please input CVV");
+            } else if ($scope.billing_card_number.length !== 16) {
+                alert("Wrong card number");
+            } else if ($scope.billing_card_security_number.length !== 3) {
+                alert("Wrong CVV");
+            } else if ($scope.expireMM == undefined || $scope.expireYY == undefined) {
+                alert("Please input expirtion date");
+            } else if ($scope.billing_type == undefined) {
+                alert("Please input credit card type");
+            } else {
+                var billing_name = $scope.billing_firstname + " " + $scope.billing_lastname;
+                var billing_card_expire_date = $scope.expireMM + "/" + $scope.expireYY;
+                var payment = {
+                    billing_name: billing_name,
+                    billing_type: $scope.billing_type,
+                    billing_card_number: $scope.billing_card_number,
+                    billing_card_expire_date: billing_card_expire_date,
+                    billing_card_security_number: $scope.billing_card_security_number
+                };
+                $http.post('https://bookieservice.herokuapp.com/api/members/cart/checkout', {
+                        payment: payment
+                    }, config)
+                    .success(function (data) {
+                        console.log(data);
+                        $rootScope.$broadcast('cart');
+                        $state.go("home");
+                    })
+                    .error(function (data) {
+                        if( data.errors === 'Your cart is empty'){
+                            $scope.emptyCart = true;
+                        }
+                        console.log(data);
+                    });
+            }
         };
 
         //initialize
