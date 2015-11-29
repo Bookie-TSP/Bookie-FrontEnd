@@ -5,4 +5,5 @@ node_modules/
 test/protractor/login/test_results/
 test/protractor/register/test_results/
 app/scripts/cloudScripts.js
+app/scripts/uploadScripts.js
 app/scripts/scripts.js

@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ui.router', 'ngStorage', 'ui.bootstrap', 'uiGmapgoogle-maps']);
+var app = angular.module('app', ['ui.router', 'ngStorage', 'ui.bootstrap', 'uiGmapgoogle-maps', 'ngFileUpload', 'cloudinary', 'ngAnimate']);
 app.config(function ($stateProvider, $urlRouterProvider) {
 	$stateProvider
 		.state('home', {
@@ -79,6 +79,57 @@ function ($rootScope, $state, $stateParams) {
   $rootScope.$state = $state;
   $rootScope.$stateParams = $stateParams;
 }]);
+
+app.animation('.photo', function() {
+
+  var animateUp = function(element, className, done) {
+    if(className != 'active') {
+      return;
+    }
+    element.css({
+      position: 'absolute',
+      top: 500,
+      left: 0,
+      display: 'block'
+    });
+
+    jQuery(element).animate({
+      top: 0
+    }, done);
+
+    return function(cancel) {
+      if(cancel) {
+        element.stop();
+      }
+    };
+  };
+
+  var animateDown = function(element, className, done) {
+    if(className != 'active') {
+      return;
+    }
+    element.css({
+      position: 'absolute',
+      left: 0,
+      top: 0
+    });
+
+    jQuery(element).animate({
+      top: -500
+    }, done);
+
+    return function(cancel) {
+      if(cancel) {
+        element.stop();
+      }
+    };
+  };
+
+  return {
+    addClass: animateUp,
+    removeClass: animateDown
+  };
+});
 
 app.controller('bookCatalogCtrl', ['$scope', '$http', '$state', 'authFactory',
 function ($scope, $http, $state, authFactory) {
@@ -633,6 +684,99 @@ app.controller('newStockCtrl', ['$scope', '$http', '$state', 'authFactory', '$ro
 
 }]);
 
+app.controller('photoStockCtrl', ['$scope', '$rootScope', '$stateParams', '$location', 'Upload', 'authFactory', '$http', '$state',
+  /* Uploading with Angular File Upload */
+  function ($scope, $rootScope, $stateParams, $location, $upload, authFactory, $http, $state) {
+		$.cloudinary.config()
+			.cloud_name = 'tbookie';
+		$.cloudinary.config()
+			.upload_preset = 'jukcxy4z';
+
+		var d = new Date();
+		$scope.title = "Image (" + d.getDate() + " - " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + ")";
+		//$scope.$watch('files', function() {
+
+        $scope.selectFiles = function(files){
+            console.log("selet");
+            $scope.files = files;
+            console.log($scope.files[0].progress);
+        };
+
+		$scope.uploadFiles = function () {
+			angular.forEach($scope.files, function (file) {
+				if (file && !file.$error) {
+					file.upload = $upload.upload({
+							url: "https://api.cloudinary.com/v1_1/" + $.cloudinary.config()
+								.cloud_name + "/upload",
+							fields: {
+								upload_preset: $.cloudinary.config()
+									.upload_preset,
+								tags: 'myphotoalbum',
+								context: 'photo=' + $scope.title
+							},
+							file: file
+						})
+						.progress(function (e) {
+							file.progress = Math.round((e.loaded * 100.0) / e.total);
+							file.status = "Uploading... " + file.progress + "%";
+						})
+						.success(function (data, status, headers, config) {
+							data.context = {
+								custom: {
+									photo: $scope.title
+								}
+							};
+							file.result = data;
+                            $rootScope.newBook.cover_image_url = file.result.url;
+						})
+						.error(function (data, status, headers, config) {
+							file.result = data;
+						});
+				}
+			});
+		};
+		//});
+
+		/* Modify the look and fill of the dropzone when files are being dragged over it */
+		$scope.dragOverClass = function ($event) {
+			var items = $event.dataTransfer.items;
+			var hasFile = false;
+			if (items !== null) {
+				for (var i = 0; i < items.length; i++) {
+					if (items[i].kind == 'file') {
+						hasFile = true;
+						break;
+					}
+				}
+			} else {
+				hasFile = true;
+			}
+			return hasFile ? "dragover" : "dragover-err";
+		};
+
+        $scope.addBook = function(){
+            var config = {
+    			headers: {
+    				'Authorization': authFactory.getAuth()
+    			}
+    		};
+
+            $http.post('https://bookieservice.herokuapp.com/api/books',{
+                book: $rootScope.newBook
+            }, config)
+            .success(function(data){
+                $rootScope.newBook = data;
+                console.log(data);
+                    $rootScope.steps[2] = true;
+                    $rootScope.steps[1] = null;
+    				$state.go('newStock.third');
+            })
+            .error(function(data){
+                console.log(data);
+            });
+        };
+  }]);
+
 app.controller('registerCtrl', ['$scope', '$http', 'mapFactory', '$state', 'authFactory', 'dateFactory',
         function ($scope, $http, $map, $state, authFactory, $date) {
 		if (authFactory.getAuth() !== undefined) {
@@ -727,7 +871,7 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 		// search books
 		$scope.results = [];
 
-        // specific book chosen
+		// specific book chosen
 		$scope.specBook = {};
 
 		var maxResults = 10;
@@ -788,6 +932,7 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 		};
 
 		$scope.chooseBook = function (book, type) {
+			$scope.type = type;
 			if (type === 'google') {
 				$scope.specBook = {
 					title: book.title,
@@ -799,10 +944,10 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 					description: book.description,
 					cover_image_url: book.imageLinks.smallThumbnail
 				};
-                if( book.industryIdentifiers !== undefined ){
-                    $scope.specBook.ISBN13 = book.industryIdentifiers[0].identifier;
+				if (book.industryIdentifiers !== undefined) {
+					$scope.specBook.ISBN13 = book.industryIdentifiers[0].identifier;
 					$scope.specBook.ISBN10 = book.industryIdentifiers[1].identifier;
-                }
+				}
 			} else if (type === 'manual') {
 				if ($scope.day !== undefined || $scope.initMonths.indexOf($scope.month) + 1 > 0 ||
 					$scope.year !== undefined) {
@@ -827,29 +972,38 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 			console.log($scope.specBook);
 		};
 
-        $scope.addBook = function(){
-            var config = {
-    			headers: {
-    				'Authorization': authFactory.getAuth()
-    			}
-    		};
+		$scope.addBook = function () {
+			var config = {
+				headers: {
+					'Authorization': authFactory.getAuth()
+				}
+			};
 
-            $http.post('https://bookieservice.herokuapp.com/api/books',{
-                book: $scope.specBook
-            }, config)
-            .success(function(data){
-                $rootScope.newBook = data;
-                console.log(data);
-                $timeout(function () {
-                    $rootScope.steps[2] = true;
-                    $rootScope.steps[0] = null;
-    				$state.go('newStock.third');
-    			}, 1000);
-            })
-            .error(function(data){
-                console.log(data);
-            });
-        };
+			$http.post('https://bookieservice.herokuapp.com/api/books', {
+					book: $scope.specBook
+				}, config)
+				.success(function (data) {
+					$rootScope.newBook = data;
+					console.log(data);
+					$timeout(function () {
+						$rootScope.steps[2] = true;
+						$rootScope.steps[0] = null;
+						$state.go('newStock.third');
+					}, 1000);
+				})
+				.error(function (data) {
+					console.log(data);
+				});
+		};
+
+		$scope.goToPhoto = function () {
+			$timeout(function () {
+                $rootScope.newBook = $scope.specBook;
+				$rootScope.steps[1] = true;
+				$rootScope.steps[0] = null;
+				$state.go('newStock.second');
+			}, 500);
+		};
 }]);
 
 app.controller('profileCtrl', ['$scope', '$http', '$state', 'authFactory',

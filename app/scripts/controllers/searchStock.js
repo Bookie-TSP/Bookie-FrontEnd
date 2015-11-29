@@ -16,7 +16,7 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 		// search books
 		$scope.results = [];
 
-        // specific book chosen
+		// specific book chosen
 		$scope.specBook = {};
 
 		var maxResults = 10;
@@ -77,6 +77,7 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 		};
 
 		$scope.chooseBook = function (book, type) {
+			$scope.type = type;
 			if (type === 'google') {
 				$scope.specBook = {
 					title: book.title,
@@ -88,10 +89,10 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 					description: book.description,
 					cover_image_url: book.imageLinks.smallThumbnail
 				};
-                if( book.industryIdentifiers !== undefined ){
-                    $scope.specBook.ISBN13 = book.industryIdentifiers[0].identifier;
+				if (book.industryIdentifiers !== undefined) {
+					$scope.specBook.ISBN13 = book.industryIdentifiers[0].identifier;
 					$scope.specBook.ISBN10 = book.industryIdentifiers[1].identifier;
-                }
+				}
 			} else if (type === 'manual') {
 				if ($scope.day !== undefined || $scope.initMonths.indexOf($scope.month) + 1 > 0 ||
 					$scope.year !== undefined) {
@@ -116,27 +117,36 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 			console.log($scope.specBook);
 		};
 
-        $scope.addBook = function(){
-            var config = {
-    			headers: {
-    				'Authorization': authFactory.getAuth()
-    			}
-    		};
+		$scope.addBook = function () {
+			var config = {
+				headers: {
+					'Authorization': authFactory.getAuth()
+				}
+			};
 
-            $http.post('https://bookieservice.herokuapp.com/api/books',{
-                book: $scope.specBook
-            }, config)
-            .success(function(data){
-                $rootScope.newBook = data;
-                console.log(data);
-                $timeout(function () {
-                    $rootScope.steps[2] = true;
-                    $rootScope.steps[0] = null;
-    				$state.go('newStock.third');
-    			}, 1000);
-            })
-            .error(function(data){
-                console.log(data);
-            });
-        };
+			$http.post('https://bookieservice.herokuapp.com/api/books', {
+					book: $scope.specBook
+				}, config)
+				.success(function (data) {
+					$rootScope.newBook = data;
+					console.log(data);
+					$timeout(function () {
+						$rootScope.steps[2] = true;
+						$rootScope.steps[0] = null;
+						$state.go('newStock.third');
+					}, 1000);
+				})
+				.error(function (data) {
+					console.log(data);
+				});
+		};
+
+		$scope.goToPhoto = function () {
+			$timeout(function () {
+                $rootScope.newBook = $scope.specBook;
+				$rootScope.steps[1] = true;
+				$rootScope.steps[0] = null;
+				$state.go('newStock.second');
+			}, 500);
+		};
 }]);

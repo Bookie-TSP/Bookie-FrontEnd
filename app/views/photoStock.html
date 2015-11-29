@@ -1,2 +1,48 @@
-<div>
+<div class="container" ng-controller="photoStockCtrl">
+    <h4>Upload photo</h4>
+    <div class="row">
+        <div class="col-xs-6">
+            <div id="direct_upload" ngf-drop="selectFiles($files)" ngf-drag-over-class="dragOverClass($event)" ng-model="files" ng-multiple="true" class="container">
+                <h4>Upload :</h4>
+                <div class="form_line">
+                    <label>Photo:</label>
+                    <button class="btn btn-warning" ngf-select="selectFiles($files)" multiple title="upload" resetOnClick="true" style="margin: 10px;">
+                        Select Photo</button>
+                </div>
+                <p>You can also drag and drop an image file into the dashed area.</p>
+                <br>
+                <div class="file" ng-repeat="file in files">
+                    <div class="form_line">
+                        <div class="form_controls">
+                            <div class="preview">
+                                <img ngf-src="file.result.url || file">
+                            </div>
+                        </div>
+                    </div>
+                    <p>{{file.name}} {{f.$error}} {{f.$errorParam}}</p>
+                    <br>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: {{file.progress}}%" ng-init="progress=0"></div>
+                    </div>
+                    <div class="status">{{file.status}}</div>
+                    <br>
+                </div>
+                <div ng-if="files.length > 0">
+                    <center>
+                        <br>
+                        <button class="btn btn-warning" ng-click="uploadFiles()">
+                            Upload</button>
+                    </center>
+                </div>
+                <br>
+            </div>
+        </div>
+        <div class="col-xs-2 col-xs-offset-1">
+            <br>
+            <center>
+                <button class="btn btn-warning" ng-click="addBook()" style="margin-top: 40px;">
+                Next Step</button>
+            </center>
+        </div>
+    </div>
 </div>

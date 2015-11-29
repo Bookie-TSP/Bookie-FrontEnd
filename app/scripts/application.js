@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ui.router', 'ngStorage', 'ui.bootstrap', 'uiGmapgoogle-maps']);
+var app = angular.module('app', ['ui.router', 'ngStorage', 'ui.bootstrap', 'uiGmapgoogle-maps', 'ngFileUpload', 'cloudinary', 'ngAnimate']);
 app.config(function ($stateProvider, $urlRouterProvider) {
 	$stateProvider
 		.state('home', {
@@ -79,3 +79,54 @@ function ($rootScope, $state, $stateParams) {
   $rootScope.$state = $state;
   $rootScope.$stateParams = $stateParams;
 }]);
+
+app.animation('.photo', function() {
+
+  var animateUp = function(element, className, done) {
+    if(className != 'active') {
+      return;
+    }
+    element.css({
+      position: 'absolute',
+      top: 500,
+      left: 0,
+      display: 'block'
+    });
+
+    jQuery(element).animate({
+      top: 0
+    }, done);
+
+    return function(cancel) {
+      if(cancel) {
+        element.stop();
+      }
+    };
+  };
+
+  var animateDown = function(element, className, done) {
+    if(className != 'active') {
+      return;
+    }
+    element.css({
+      position: 'absolute',
+      left: 0,
+      top: 0
+    });
+
+    jQuery(element).animate({
+      top: -500
+    }, done);
+
+    return function(cancel) {
+      if(cancel) {
+        element.stop();
+      }
+    };
+  };
+
+  return {
+    addClass: animateUp,
+    removeClass: animateDown
+  };
+});

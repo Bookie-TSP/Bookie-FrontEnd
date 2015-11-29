@@ -16,19 +16,28 @@ gulp.task('styles', function () {
 		.pipe(gulp.dest('app/styles/'));
 });
 
-gulp.task('cloudScripts', function(){
+gulp.task('cloudScripts', function () {
 	return gulp.src(['./node_modules/cloudinary-core/cloudinary-core.js',
 				'./node_modules/cloudinary-jquery/cloudinary-jquery.js', './node_modules/cloudinary-jquery-file-upload/cloudinary-jquery-file-upload.js'])
-			.pipe(concat('cloudScripts.js'))
-			.pipe(gulp.dest('app/scripts'));
+		.pipe(concat('cloudScripts.js'))
+		.pipe(gulp.dest('app/scripts'));
 });
 
-gulp.task('default', ['scripts', 'styles', 'cloudScripts'], function () {
+gulp.task('uploadScripts', function () {
+	return gulp.src(['./node_modules/ng-file-upload/dist/ng-file-upload.js',
+						'./node_modules/ng-file-upload/dist/ng-file-upload-shim.js'])
+		.pipe(concat('uploadScripts.js'))
+		.pipe(gulp.dest('app/scripts'));
+});
+
+gulp.task('default', ['scripts', 'styles', 'cloudScripts', 'uploadScripts'], function () {
 	gulp.watch(['app/scripts/application.js', 'app/scripts/controllers/*.js', 'app/scripts/factories/*.js'], ['scripts']);
 	gulp.watch(['app/styles/assets/*.css'], ['styles']);
 	gulp.watch(['./node_modules/cloudinary-core/cloudinary-core.js',
 				'./node_modules/cloudinary-jquery/cloudinary-jquery.js',
 				'./node_modules/cloudinary-jquery-file-upload/cloudinary-jquery-file-upload.js'], ['cloudScripts']);
+	gulp.watch(['./node_modules/ng-file-upload/dist/ng-file-upload.js',
+						'./node_modules/ng-file-upload/dist/ng-file-upload-shim.js'],['uploadScripts']);
 	browserSync.init({
 		port: 8000,
 		server: {
