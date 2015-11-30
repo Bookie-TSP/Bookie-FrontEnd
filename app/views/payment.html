@@ -1,5 +1,5 @@
 <div class="container" ng-controller="paymentCtrl">
-	<div class = "row">
+	<div class="row">
 		<div class="col-sm-12">
 			<h1 style="text-transform: uppercase; text-align: center;">Payment</h1>
 		</div>
@@ -18,20 +18,20 @@
 						</div>
 						<div class="col-md-8">
 							<div class="row">
-									<h4>
-										<span class="label label-success" style="text-transform: uppercase; " ng-show="stock.type === 'sell'">{{stock.type}}</span>
-									</h4>
-									<h4>
-										<span class="label label-primary" style="text-transform: uppercase; " ng-show="stock.type === 'lend'">{{stock.type}}</span>
-									</h4>
+								<h4>
+									<span class="label label-success" style="text-transform: uppercase; " ng-show="stock.type === 'sell'">{{stock.type}}</span>
+								</h4>
+								<h4>
+									<span class="label label-primary" style="text-transform: uppercase; " ng-show="stock.type === 'lend'">{{stock.type}}</span>
+								</h4>
 							</div>
 
 							<div class="row">
-									<h3>{{stock.book.title}}</h3>
+								<h3>{{stock.book.title}}</h3>
 							</div>
 
 							<div class="row">
-									<h4 style="text-align: right; padding-right:3em;">{{stock.price| number:2}} ฿</h4>
+								<h4 style="text-align: right; padding-right:3em;">{{stock.price| number:2}} ฿</h4>
 							</div>
 						</div>
 					</div>
@@ -74,8 +74,10 @@
 					</div>
 					<br>
 					<div class="row">
-						<div class="form-inline col-md-8">
+						<div class="col-md-3">
 							<label>Expiration Date</label>
+						</div>
+						<div class="form-inline col-md-3">
 							<select name="expireMM" class="form-control" ng-model="expireMM">
 								<option ng-selected="true" selected disabled>Month</option>
 								<option value='01'>01-Janaury</option>
@@ -92,7 +94,7 @@
 								<option value='12'>12-December</option>
 							</select>
 						</div>
-						<div class="form-inline col-md-4">
+						<div class="form-inline col-md-3">
 							<label>/</label>
 							<select name="expireYY" class="form-control" ng-model="expireYY">
 								<option ng-selected="true" selected disabled>Year</option>
@@ -116,7 +118,7 @@
 					</div>
 					<br>
 					<div class="row">
-					<div class="col-md-6">
+						<div class="col-md-6">
 							<select name="Type" class="form-control" ng-model="billing_type">
 								<option ng-selected="true" selected disabled>Credit Cart Type</option>
 								<option value="Visa">Visa</option>
@@ -124,7 +126,7 @@
 								<option value="American Express">American Express</option>
 								<option value="Discover">Discover</option>
 							</select>
-					</div>
+						</div>
 					</div>
 				</form>
 			</div>
