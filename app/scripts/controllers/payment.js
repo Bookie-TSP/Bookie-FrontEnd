@@ -14,12 +14,12 @@ app.controller('paymentCtrl',['$scope','$http', '$state', 'authFactory', '$rootS
         };
 
         $scope.getCart = function() {
+            $scope.error = '';
             $http.get('https://bookieservice.herokuapp.com/api/members/cart/show',config)
             .success(function (data) {
                 console.log(data);
                 $scope.cart = data;
                 $scope.stocks = $scope.cart.stocks;
-                $scope.error = '';
                 $scope.getTotal();
                 console.log($scope.total);
             })
