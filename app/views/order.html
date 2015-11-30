@@ -1,8 +1,10 @@
 <div ng-controller="orderCtrl" class="container">
-	<!-- Lists of shops in the nearby location that have the book to sell or for rent -->
+    <h1>My Order</h1><br>
+
+	<!-- My order tabs -->
     <uib-tabset justified="true">
 
-        <!-- Buy New Books tab heading and its items -->
+        <!-- Order of pending status books -->
         <uib-tab heading="Pending" ng-click="moveToBottom()">
             <br>
             <div ng-repeat="order in orderInfo.orders">
@@ -11,8 +13,8 @@
                         <uib-accordion close-others="oneAtATime">
                             <div ng-show="stock.status === 'pending'">
                                 <uib-accordion-group heading="{{stock.book.title}}" is-open="true">
-                                    <div class="col-sm-2 col-sm-offset-1">${{stock.price}}</div>
-                                    <div class="col-sm-4">{{stock.book.title}}</div>
+                                    <div class="col-sm-1 col-sm-offset-1">${{stock.price}}</div>
+                                    <div class="col-sm-5">{{stock.book.title}}</div>
                                     <div class="col-sm-3">{{stock.created_at}}</div>
                                     <div class="col-sm-2"><span class="label label-success">{{stock.status}}</span></div>
                                 </uib-accordion-group>
@@ -23,7 +25,7 @@
             </div>
         </uib-tab>
 
-        <!-- Buy Used Books tab heading and its items -->
+        <!-- Order of active status books -->
         <uib-tab heading="Active" ng-click="moveToBottom()">
             <br>
             <div ng-repeat="order in orderInfo.orders">
@@ -32,8 +34,8 @@
                         <uib-accordion close-others="oneAtATime">
                             <div ng-show="stock.status === 'active'">
                                 <uib-accordion-group heading="{{stock.book.title}}" is-open="true">
-                                    <div class="col-sm-2 col-sm-offset-1">${{stock.price}}</div>
-                                    <div class="col-sm-4">{{stock.book.title}}</div>
+                                    <div class="col-sm-1 col-sm-offset-1">${{stock.price}}</div>
+                                    <div class="col-sm-5">{{stock.book.title}}</div>
                                     <div class="col-sm-3">{{stock.created_at}}</div>
                                     <div class="col-sm-2"><span class="label label-success">{{stock.status}}</span></div>
                                 </uib-accordion-group>
@@ -44,7 +46,7 @@
             </div>
         </uib-tab>
 
-        <!-- Rent Books tab heading and its items -->
+        <!-- Orders o -->
         <uib-tab heading="Ended" ng-click="moveToBottom()">
             <br>
             <div ng-repeat="order in orderInfo.orders">
@@ -53,8 +55,8 @@
                         <uib-accordion close-others="oneAtATime">
                             <div ng-show="stock.status === 'ended'">
                                 <uib-accordion-group heading="{{stock.book.title}}" is-open="true">
-                                    <div class="col-sm-2 col-sm-offset-1">${{stock.price}}</div>
-                                    <div class="col-sm-4">{{stock.book.title}}</div>
+                                    <div class="col-sm-1 col-sm-offset-1">${{stock.price}}</div>
+                                    <div class="col-sm-5">{{stock.book.title}}</div>
                                     <div class="col-sm-3">{{stock.created_at}}</div>
                                     <div class="col-sm-2"><span class="label label-success">{{stock.status}}</span></div>
                                 </uib-accordion-group>
@@ -66,7 +68,7 @@
         </uib-tab>
     </uib-tabset>
 
-    <!-- Accordion Template -->
+    <!-- Order of ended status books -->
     <script type="text/ng-template" id="group-template.html">
         <div class="panel {{panelClass || 'panel-default'}}">
             <div class="panel-heading">
