@@ -2,20 +2,22 @@ describe('View Individual Book', function() {
     
     var books = [];
     var titleHeader = element(by.id('title-header'));
-
+    var request = require('request');
+    var book = element.all(by.repeater('book in books'));
+    var home = element(by.id('home'));
 
     beforeEach(function() {
         browser.get('/#/');
     });
 
     beforeAll(function() {
-        $http.get('https://bookieservice.herokuapp.com/api/books')
-            .success(function(data) {
-                books = data.books;
-            })
-            .error(function(data) {
-                console.log(data);
-            });
+        request('https://bookieservice.herokuapp.com/api/books', function (error, response, body) {
+            if (!error) {
+                books = JSON.parse(body).books;
+                console.log(books.length);
+                console.log(books[0]);
+            }
+        });
     });
 
     var urlChanged = function(url) {
@@ -31,39 +33,15 @@ describe('View Individual Book', function() {
             expect(browser.getTitle()).toEqual('Home');
         });
 
-        it('info', function() {
-            expect(titleHeader).toEqual(books[0].title);
+        it('click to view individual book', function(){
+            var j = 1;
+            for(var i=0 ; i<books.length ; i++, j++){
+                book.get(i).click();
+                expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/book/' + j);
+                home.click();
+            }
         });
-
     });
-
-    function httpGet(https://bookieservice.herokuapp.com/api/books) {
-        var http = require('http');
-        var defer = protractor.promise.defer();
-
-        http.get("https://bookieservice.herokuapp.com/api/books", function(data) {
-
-            var bodyString = '';
-
-            data.setEncoding('utf8');
-
-            data.on("data", function(chunk) {
-                bodyString += chunk;
-            });
-
-            data.on('end', function() {
-                defer.fulfill({
-                    statusCode: data.statusCode,
-                    bodyString: bodyString
-                });
-            });
-
-        }).on('error', function(e) {
-                defer.reject("Got http.get error: " + e.message);
-        });
-
-        return defer.promise;
-    };
 
 
     afterAll(function(done) {
