@@ -2,16 +2,17 @@
 	<!-- Lists of shops in the nearby location that have the book to sell or for rent -->
     <uib-tabset justified="true">
 
+        <!-- Buy New Books tab heading and its items -->
         <uib-tab heading="Pending" ng-click="moveToBottom()">
             <br>
             <div ng-repeat="order in orderInfo.orders">
                 <div ng-repeat="stock in order.stocks">
                     <div class="row">
                         <uib-accordion close-others="oneAtATime">
-                            <uib-accordion-group heading="" is-open="status.isFirstOpen">
+                            <uib-accordion-group heading="{{stock.book.title}}" is-open="status.isFirstOpen">
                                 <div ng-show="stock.status === 'pending'">
                                     <div class="col-sm-2 col-sm-offset-1">${{stock.price}}</div>
-                                    <div class="col-sm-5">Book Title</div>
+                                    <div class="col-sm-5">{{stock.book.title}}</div>
                                     <div class="col-sm-2">{{stock.created_at}}</div>
                                     <div class="col-sm-2"><span class="label label-success">{{stock.status}}</span></div>
                                 </div>
@@ -22,57 +23,45 @@
             </div>
         </uib-tab>
 
-        <!-- Buy New Books tab heading and its items -->
-        <uib-tab heading="Pending" ng-click="moveToBottom()">
-            <br>
-            <div ng-repeat="content in pendingContents">
-                <div class="row">
-                    <uib-accordion close-others="oneAtATime">
-                        <uib-accordion-group heading="{{content.name}}" is-open="status.isFirstOpen">
-                            <div class="col-sm-2 col-sm-offset-1">${{content.price}}</div>
-                            <div class="col-sm-5">{{content.name}}</div>
-                            <div class="col-sm-2">{{content.orderDate}}</div>
-                            <div class="col-sm-2"><span class="label label-success">{{content.status}}</span></div>
-                        </uib-accordion-group>
-                    </uib-accordion>
-                </div>
-                <hr>
-            </div>
-        </uib-tab>
-
         <!-- Buy Used Books tab heading and its items -->
         <uib-tab heading="Active" ng-click="moveToBottom()">
             <br>
-            <div ng-repeat="content in activeContents">
-                <div class="row">
-                    <uib-accordion close-others="oneAtATime">
-                        <uib-accordion-group heading="{{content.name}}" is-open="status.isFirstOpen">
-                            <div class="col-sm-2 col-sm-offset-1">${{content.price}}</div>
-                            <div class="col-sm-5">{{content.name}}</div>
-                            <div class="col-sm-2">{{content.orderDate}}</div>
-                            <div class="col-sm-2"><span class="label label-success">{{content.status}}</span></div>
-                        </uib-accordion-group>
-                    </uib-accordion>
+            <div ng-repeat="order in orderInfo.orders">
+                <div ng-repeat="stock in order.stocks">
+                    <div class="row">
+                        <uib-accordion close-others="oneAtATime">
+                            <uib-accordion-group heading="{{stock.book.title}}" is-open="status.isFirstOpen">
+                                <div ng-show="stock.status === 'pending'">
+                                    <div class="col-sm-2 col-sm-offset-1">${{stock.price}}</div>
+                                    <div class="col-sm-5">{{stock.book.title}}</div>
+                                    <div class="col-sm-2">{{stock.created_at}}</div>
+                                    <div class="col-sm-2"><span class="label label-success">{{stock.status}}</span></div>
+                                </div>
+                            </uib-accordion-group>
+                        </uib-accordion>
+                    </div>
                 </div>
-                <hr>
             </div>
         </uib-tab>
 
         <!-- Rent Books tab heading and its items -->
         <uib-tab heading="Ended" ng-click="moveToBottom()">
             <br>
-            <div ng-repeat="content in endedContents">
-                <div class="row">
-                    <uib-accordion close-others="oneAtATime">
-                        <uib-accordion-group heading="{{content.name}}" is-open="status.isFirstOpen">
-                            <div class="col-sm-2 col-sm-offset-1">${{content.price}}</div>
-                            <div class="col-sm-5">{{content.name}}</div>
-                            <div class="col-sm-2">{{content.orderDate}}</div>
-                            <div class="col-sm-2"><span class="label label-success">{{content.status}}</span></div>
-                        </uib-accordion-group>
-                    </uib-accordion>
+            <div ng-repeat="order in orderInfo.orders">
+                <div ng-repeat="stock in order.stocks">
+                    <div class="row">
+                        <uib-accordion close-others="oneAtATime">
+                            <uib-accordion-group heading="{{stock.book.title}}" is-open="status.isFirstOpen">
+                                <div ng-show="stock.status === 'pending'">
+                                    <div class="col-sm-2 col-sm-offset-1">${{stock.price}}</div>
+                                    <div class="col-sm-5">{{stock.book.title}}</div>
+                                    <div class="col-sm-2">{{stock.created_at}}</div>
+                                    <div class="col-sm-2"><span class="label label-success">{{stock.status}}</span></div>
+                                </div>
+                            </uib-accordion-group>
+                        </uib-accordion>
+                    </div>
                 </div>
-                <hr>
             </div>
         </uib-tab>
     </uib-tabset>
