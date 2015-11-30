@@ -615,19 +615,6 @@ app.controller('stockBookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$lo
             }
         };
 
-        /*
-        // Add and decrease button
-        $scope.addLineStockQuantity = function(){
-            if($scope.current_lineStock_quantity != null){
-                $scope.current_lineStock_quantity += 1;
-            }
-        };
-        $scope.decLineStockQuantity = function(){
-            if($scope.current_lineStock_quantity > 0){
-                $scope.current_lineStock_quantity -= 1;
-            }
-        };
-        */
         // Get Line Stock attribute()
         $scope.getLineStockQuantity = function(lineStockId) {
             $http.get('https://bookieservice.herokuapp.com/api/mystocks', config)
@@ -643,15 +630,6 @@ app.controller('stockBookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$lo
                             keepGoing = false;
                         }
                     });
-                    /*
-                    for(i = 0; i < 44; i++){
-                        if(data.line_stocks[i].id == lineStockId) {
-                            //Initialize current_lineStock_quantity
-                            $scope.current_lineStock_quantity = data.line_stocks[i].quantity;
-                            break;
-                        }
-                    }
-                    */
                 })
                 .error(function (data) {
                     console.log(data);

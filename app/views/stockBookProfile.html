@@ -89,16 +89,16 @@
             <!--Type and price-->
             <div class = "col-sm-3 col-sm-offset-3">
                 <div class = "row">
-                    <div class="col-sm-3 col-sm-offset-1">
-                        type
+                    <div class="col-sm-3 col-sm-offset-1 text-info">
+                        type:
                     </div>
                     <div class="col-sm-8">
                         {{lineStock_type}}
                     </div>
                 </div><br>
                 <div class = "row">
-                    <div class="col-sm-3 col-sm-offset-1">
-                        price
+                    <div class="col-sm-3 col-sm-offset-1 text-info">
+                        price:
                     </div>
                     <div class="col-sm-8">
                         {{lineStock_price}}
@@ -108,16 +108,16 @@
             <!--Current and new quantity-->
             <div class = "col-sm-6">
                 <div class = "row">
-                    <div class="col-sm-3 col-sm-offset-1">
-                        Current quantity
+                    <div class="col-sm-3 col-sm-offset-1 text-info">
+                        Current quantity:
                     </div>
                     <div class="col-sm-8">
                         {{current_lineStock_quantity}}
                     </div>
                 </div><br>
                 <div class = "row">
-                    <div class="col-sm-3 col-sm-offset-1">
-                        New quantity
+                    <div class="col-sm-3 col-sm-offset-1 text-info">
+                        New quantity:
                     </div>
                     <div class="col-sm-8">
                         <input ng-model = "new_quantity" type="number" name="quantity" min="0" max="999">
@@ -125,22 +125,12 @@
                 </div><br>
                 <div class = "row">
                     <div class = "col-sm-4 col-sm-offset-4">
-                        <button class="btn btn-primary btn-lg" ng-click="submitQuantity()">Submit</button>
+                        <button class="btn btn-warning" ng-click="submitQuantity()">Submit</button>
                     </div>
                 </div>
             </div>
         </div>
         <br>
-        <!--
-        <div class = "row">
-            <div class="col-sm-3 col-sm-offset-1">
-                Decrease quantity
-            </div>
-            <div class="col-sm-8">
-                <button ng-click="decLineStockQuantity()">Decrease</button>
-            </div>
-        </div>
-        -->
         <hr>
     </div>
 </div>
