@@ -32,7 +32,7 @@
                 <div ng-repeat="stock in order.stocks">
                     <div class="row">
                         <uib-accordion close-others="oneAtATime">
-                            <div ng-show="stock.status === 'active'">
+                            <div ng-hide="stock.status === 'pending' || stock.status === 'returned'">
                                 <uib-accordion-group heading="{{stock.book.title}}" is-open="true">
                                     <div class="col-sm-1 col-sm-offset-1">${{stock.price}}</div>
                                     <div class="col-sm-5">{{stock.book.title}}</div>
@@ -53,7 +53,7 @@
                 <div ng-repeat="stock in order.stocks">
                     <div class="row">
                         <uib-accordion close-others="oneAtATime">
-                            <div ng-show="stock.status === 'ended'">
+                            <div ng-show="stock.status === 'returned'">
                                 <uib-accordion-group heading="{{stock.book.title}}" is-open="true">
                                     <div class="col-sm-1 col-sm-offset-1">${{stock.price}}</div>
                                     <div class="col-sm-5">{{stock.book.title}}</div>
