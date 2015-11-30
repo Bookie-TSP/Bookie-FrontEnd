@@ -40,6 +40,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			url: '/cart',
 			templateUrl: 'views/cart.html',
 			data : { pageTitle: 'My Cart' }
+		})
+		.state('payment', {
+			url: '/payment',
+			templateUrl: 'views/payment.html',
+			data : { pageTitle: 'Payment' }
 		});
 	$urlRouterProvider.otherwise('/');
 
