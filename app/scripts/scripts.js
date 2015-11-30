@@ -615,6 +615,7 @@ app.controller('stockBookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$lo
             }
         };
 
+        /*
         // Add and decrease button
         $scope.addLineStockQuantity = function(){
             if($scope.current_lineStock_quantity != null){
@@ -626,8 +627,8 @@ app.controller('stockBookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$lo
                 $scope.current_lineStock_quantity -= 1;
             }
         };
-
-        // Get Line Stock quantity()
+        */
+        // Get Line Stock attribute()
         $scope.getLineStockQuantity = function(lineStockId) {
             $http.get('https://bookieservice.herokuapp.com/api/mystocks', config)
                 .success(function (data) {
@@ -637,6 +638,8 @@ app.controller('stockBookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$lo
                         if(lineStock.id == lineStockId && keepGoing) {
                             //Initialize current_lineStock_quantity
                             $scope.current_lineStock_quantity = lineStock.quantity;
+                            $scope.lineStock_type = lineStock.type;
+                            $scope.lineStock_price = lineStock.price;
                             keepGoing = false;
                         }
                     });
@@ -671,17 +674,15 @@ app.controller('stockBookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$lo
         };
 
         $scope.submitQuantity = function () {
-            var lineStockId = $stateParams.lineStockId;
-            console.log(lineStockId);
             $http.post('https://bookieservice.herokuapp.com/api/members/line_stocks/quantity', {
                 "line_stock" : {
-                    "line_stock_id" : lineStockId,
-                    "quantity" : $scope.current_lineStock_quantity
+                    "line_stock_id" : $stateParams.lineStockId,
+                    "quantity" : $scope.new_quantity
                 }
             },config)
                 .success(function (data) {
                     console.log(data);
-                    alert("Your current lineStock quantity is " + $scope.current_lineStock_quantity);
+                    alert("Your current lineStock quantity is " + $scope.new_quantity);
                 })
                 .error(function (data) {
                     console.log(data);
