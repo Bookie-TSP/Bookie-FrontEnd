@@ -683,6 +683,7 @@ app.controller('stockBookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$lo
                 .success(function (data) {
                     console.log(data);
                     alert("Your current lineStock quantity is " + $scope.new_quantity);
+                    $state.go('viewStock');
                 })
                 .error(function (data) {
                     console.log(data);
