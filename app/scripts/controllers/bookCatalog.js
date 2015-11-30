@@ -24,4 +24,23 @@ function ($scope, $http, $state, authFactory, $timeout) {
 	        	});
 			}, 1000);
     	};
+
+    	$scope.listOfSortOptions = ['Name', 'Price (low to high)', 'Price (high to low)'];
+
+    	$scope.sortOptionChanged = function() {
+    		var selected = $scope.selectedSort;
+
+    		//select by Name
+    		if (selected == $scope.listOfSortOptions[0]) {
+    			$scope.books.sort(function(a, b) {
+    				var x = a.title.toLowerCase();
+				    var y = b.title.toLowerCase();
+				    return x < y ? -1 : x > y ? 1 : 0;
+    			});
+    		} else if (selected == $scope.listOfSortOptions[1]) {
+    			console.log("select low to high");
+    		} else if (selected == $scope.listOfSortOptions[2]) {
+    			console.log("select high to low");
+    		}
+    	}
 }]);
