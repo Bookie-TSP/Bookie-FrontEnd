@@ -653,7 +653,7 @@ app.controller('newStockCtrl', ['$scope', '$http', '$state', 'authFactory', '$ro
 		}
 		else{
 			// go to first step
-			$state.go("newStock.first");
+			$state.go("newStock.third");
 		}
 
 		// New book and stock
@@ -696,9 +696,7 @@ app.controller('photoStockCtrl', ['$scope', '$rootScope', '$stateParams', '$loca
 		$scope.title = "Image (" + d.getDate() + " - " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + ")";
 
         $scope.selectFiles = function(files){
-            console.log("selet");
             $scope.files = files;
-            console.log($scope.files[0].progress);
         };
 
 		$scope.uploadFiles = function () {

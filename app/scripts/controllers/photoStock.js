@@ -10,9 +10,7 @@ app.controller('photoStockCtrl', ['$scope', '$rootScope', '$stateParams', '$loca
 		$scope.title = "Image (" + d.getDate() + " - " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + ")";
 
         $scope.selectFiles = function(files){
-            console.log("selet");
             $scope.files = files;
-            console.log($scope.files[0].progress);
         };
 
 		$scope.uploadFiles = function () {

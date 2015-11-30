@@ -454,12 +454,12 @@ form .error {
 .progress-bar {
   width: 100px;
   position: relative;
-  height: 4px;
+  height: 5px;
 }
 
 .progress-bar .progress {
-  height: 4px;
-  background-color: #ff0000;
+  height: 5px;
+  background-color: green;
   width: 0;
 }
 

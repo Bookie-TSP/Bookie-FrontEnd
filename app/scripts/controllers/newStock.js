@@ -5,7 +5,7 @@ app.controller('newStockCtrl', ['$scope', '$http', '$state', 'authFactory', '$ro
 		}
 		else{
 			// go to first step
-			$state.go("newStock.first");
+			$state.go("newStock.third");
 		}
 
 		// New book and stock
