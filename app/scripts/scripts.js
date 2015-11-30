@@ -653,7 +653,7 @@ app.controller('newStockCtrl', ['$scope', '$http', '$state', 'authFactory', '$ro
 		}
 		else{
 			// go to first step
-			$state.go("newStock.third");
+			$state.go("newStock.first");
 		}
 
 		// New book and stock
@@ -872,7 +872,8 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 		$scope.initYears = $date.years;
 
 		// search books
-		$scope.results = [];
+		$scope.resultsGG = [];
+        $scope.resultsDB = [];
 
 		// specific book chosen
 		$scope.specBook = {};
@@ -897,7 +898,20 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 			$scope.wantAdd = false;
 		};
 
-		$scope.getBooks = function (searchKey, operation, startIndex, maxResults, apiKey) {
+		$scope.getBooksDB = function () {
+            $http.post('https://bookieservice.herokuapp.com/api/books/search',{
+                search: $scope.searchField
+            })
+            .success(function(data){
+                console.log(data);
+                $scope.resultsDB = data.books;
+            })
+            .error(function(data){
+                console.log(data);
+            });
+		};
+
+		$scope.getBooksGoogle = function (searchKey, operation, startIndex, maxResults, apiKey) {
 			$http.get("https://www.googleapis.com/books/v1/volumes?q=" + operation + ":" + searchKey +
 					"&maxResults=" + maxResults + "&startIndex=" + startIndex +
 					"&key=" + apiKey)
@@ -907,7 +921,7 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 						"&key=" + apiKey);
 					//data is the matched items that returned from Google books API
 					console.log(data);
-					$scope.results = data.items;
+					$scope.resultsGG = data.items;
 					$scope.totalBooks = data.totalItems;
 					if ($scope.totalBooks !== 0) {
 						$scope.hadSearch = true;
@@ -921,17 +935,18 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 
 		$scope.search = function () {
 			startIndex = 0;
-			$scope.getBooks($scope.searchField, $scope.searchCat, startIndex, maxResults, apiKey);
+            $scope.getBooksDB();
+			$scope.getBooksGoogle($scope.searchField, $scope.searchCat, startIndex, maxResults, apiKey);
 		};
 
 		$scope.nextPage = function () {
 			startIndex += maxResults;
-			$scope.getBooks($scope.searchField, $scope.searchCat, startIndex, maxResults, apiKey);
+			$scope.getBooksGoogle($scope.searchField, $scope.searchCat, startIndex, maxResults, apiKey);
 		};
 
 		$scope.previousPage = function () {
 			startIndex -= maxResults;
-			$scope.getBooks($scope.searchField, $scope.searchCat, startIndex, maxResults, apiKey);
+			$scope.getBooksGoogle($scope.searchField, $scope.searchCat, startIndex, maxResults, apiKey);
 		};
 
 		$scope.chooseBook = function (book, type) {
@@ -971,7 +986,9 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 					description: $scope.description,
 					cover_image_url: undefined
 				};
-			}
+			} else if (type === 'db'){
+                $scope.specBook = book;
+            }
 			console.log($scope.specBook);
 		};
 
@@ -992,7 +1009,7 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 						$rootScope.steps[2] = true;
 						$rootScope.steps[0] = null;
 						$state.go('newStock.third');
-					}, 1000);
+					}, 500);
 				})
 				.error(function (data) {
 					console.log(data);
@@ -1001,12 +1018,21 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 
 		$scope.goToPhoto = function () {
 			$timeout(function () {
-                $rootScope.newBook = $scope.specBook;
+				$rootScope.newBook = $scope.specBook;
 				$rootScope.steps[1] = true;
 				$rootScope.steps[0] = null;
 				$state.go('newStock.second');
 			}, 500);
 		};
+
+        $scope.addCurrent = function(){
+            $rootScope.newBook = $scope.specBook;
+            $timeout(function () {
+                $rootScope.steps[2] = true;
+                $rootScope.steps[0] = null;
+                $state.go('newStock.third');
+            }, 500);
+        };
 }]);
 
 app.controller('profileCtrl', ['$scope', '$http', '$state', 'authFactory',

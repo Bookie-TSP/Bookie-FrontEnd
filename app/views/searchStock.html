@@ -19,6 +19,45 @@
 		</div>
 	</div>
 	<br>
+
+	<!-- from database -->
+	<div class="container">
+		<div class="border row" ng-if="resultsDB.length > 0 && !wantAdd">
+			<h3>Already in store</h3>
+			<br>
+			<div id="result" ng-repeat="book in resultsDB">
+				<div id="indiBook" class="col-lg-2 col-md-3 col-xs-4" ng-click="chooseBook(book, 'db')" data-toggle="modal" data-target="#bookConfirmModal">
+					<div class="book-info">
+						<div>
+							<img class="bookPic" ng-if="book.cover_image_url === undefined" src="http://webmaster.ypsa.org/wp-content/uploads/2012/08/no_thumb.jpg">
+							<img class="bookPic" ng-if="book.cover_image_url !== undefined" src="{{book.cover_image_url}}">
+						</div>
+						<br>
+						<div class="bookTitle">
+							<b ng-if="book.title === undefined">Not Available</b>
+							<b ng-if="book.title !== undefined">{{book.title}}</b>
+						</div>
+						<div style="overflow: hidden; max-height: 40px min-height: 20px;">
+							<em ng-if="book.authors.length === 0">Not Available</em>
+							<div ng-repeat="author in book.authors">
+								<em>{{author}} </em>
+							</div>
+						</div>
+
+						<div style="overflow: hidden; max-height: 40px min-height: 20px;">
+							<em ng-if="book.ISBN13 === undefined">ISBN: Not Available</em>
+							<em ng-if="book.ISBN13 !== undefined">ISBN: {{book.ISBN13}}</em>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br>
+		<hr>
+		<br>
+	</div>
+
+	<!-- from google -->
 	<div class="row">
 		<div class="col-xs-4" ng-if="totalBooks === 0">
 			No book found in database
@@ -26,7 +65,7 @@
 	</div>
 	<div class="container">
 		<div class="border row" ng-if="totalBooks !== 0 && !wantAdd">
-			<div id="result" ng-repeat="book in results">
+			<div id="result" ng-repeat="book in resultsGG">
 				<div id="indiBook" class="col-lg-2 col-md-3 col-xs-4" ng-click="chooseBook(book.volumeInfo, 'google')" data-toggle="modal" data-target="#bookConfirmModal">
 					<div class="book-info">
 						<div>
@@ -53,7 +92,7 @@
 				</div>
 			</div>
 		</div>
-		<div ng-if="results.length !== 0 && totalBooks !== 0 && !wantAdd">
+		<div ng-if="resultsGG.length !== 0 && totalBooks !== 0 && !wantAdd">
 			<button class="pagination orange-colored-button" id="previous-page" ng-if="hasPrevious()" ng-click="previousPage()">Previous page</button>
 			<button class="pagination orange-colored-button" id="next-page" ng-click="nextPage()" ng-if="hasNext()">Next page</button>
 		</div>
@@ -259,6 +298,7 @@
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 						<button type="button" class="btn btn-primary" ng-if="type === 'google'" ng-click="addBook()" data-dismiss="modal">Next Step</button>
 						<button type="button" class="btn btn-primary" ng-if="type === 'manual'" ng-click="goToPhoto()" data-dismiss="modal">Next Step</button>
+						<button type="button" class="btn btn-primary" ng-if="type === 'db'" ng-click="addCurrent()" data-dismiss="modal">Next Step</button>
 					</div>
 				</div>
 			</div>
