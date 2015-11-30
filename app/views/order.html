@@ -9,7 +9,7 @@
                 <div ng-repeat="stock in order.stocks">
                     <div class="row">
                         <uib-accordion close-others="oneAtATime">
-                            <uib-accordion-group heading="{{stock.book.title}}" is-open="status.isFirstOpen">
+                            <uib-accordion-group heading="{{stock.book.title}}" is-open="dataReady">
                                 <div ng-show="stock.status === 'pending'">
                                     <div class="col-sm-2 col-sm-offset-1">${{stock.price}}</div>
                                     <div class="col-sm-5">{{stock.book.title}}</div>
