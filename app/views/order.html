@@ -9,14 +9,14 @@
                 <div ng-repeat="stock in order.stocks">
                     <div class="row">
                         <uib-accordion close-others="oneAtATime">
-                            <uib-accordion-group heading="{{stock.book.title}}" is-open="dataReady">
-                                <div ng-show="stock.status === 'pending'">
+                            <div ng-show="stock.status === 'pending'">
+                                <uib-accordion-group heading="{{stock.book.title}}" is-open="true">
                                     <div class="col-sm-2 col-sm-offset-1">${{stock.price}}</div>
-                                    <div class="col-sm-5">{{stock.book.title}}</div>
-                                    <div class="col-sm-2">{{stock.created_at}}</div>
+                                    <div class="col-sm-4">{{stock.book.title}}</div>
+                                    <div class="col-sm-3">{{stock.created_at}}</div>
                                     <div class="col-sm-2"><span class="label label-success">{{stock.status}}</span></div>
-                                </div>
-                            </uib-accordion-group>
+                                </uib-accordion-group>
+                            </div>
                         </uib-accordion>
                     </div>
                 </div>
@@ -30,14 +30,14 @@
                 <div ng-repeat="stock in order.stocks">
                     <div class="row">
                         <uib-accordion close-others="oneAtATime">
-                            <uib-accordion-group heading="{{stock.book.title}}" is-open="status.isFirstOpen">
-                                <div ng-show="stock.status === 'pending'">
+                            <div ng-show="stock.status === 'active'">
+                                <uib-accordion-group heading="{{stock.book.title}}" is-open="true">
                                     <div class="col-sm-2 col-sm-offset-1">${{stock.price}}</div>
-                                    <div class="col-sm-5">{{stock.book.title}}</div>
-                                    <div class="col-sm-2">{{stock.created_at}}</div>
+                                    <div class="col-sm-4">{{stock.book.title}}</div>
+                                    <div class="col-sm-3">{{stock.created_at}}</div>
                                     <div class="col-sm-2"><span class="label label-success">{{stock.status}}</span></div>
-                                </div>
-                            </uib-accordion-group>
+                                </uib-accordion-group>
+                            </div>
                         </uib-accordion>
                     </div>
                 </div>
@@ -51,14 +51,14 @@
                 <div ng-repeat="stock in order.stocks">
                     <div class="row">
                         <uib-accordion close-others="oneAtATime">
-                            <uib-accordion-group heading="{{stock.book.title}}" is-open="status.isFirstOpen">
-                                <div ng-show="stock.status === 'pending'">
+                            <div ng-show="stock.status === 'ended'">
+                                <uib-accordion-group heading="{{stock.book.title}}" is-open="true">
                                     <div class="col-sm-2 col-sm-offset-1">${{stock.price}}</div>
-                                    <div class="col-sm-5">{{stock.book.title}}</div>
-                                    <div class="col-sm-2">{{stock.created_at}}</div>
+                                    <div class="col-sm-4">{{stock.book.title}}</div>
+                                    <div class="col-sm-3">{{stock.created_at}}</div>
                                     <div class="col-sm-2"><span class="label label-success">{{stock.status}}</span></div>
-                                </div>
-                            </uib-accordion-group>
+                                </uib-accordion-group>
+                            </div>
                         </uib-accordion>
                     </div>
                 </div>
