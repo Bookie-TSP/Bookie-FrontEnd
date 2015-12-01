@@ -30,6 +30,8 @@ app.controller('paymentCtrl',['$scope','$http', '$state', 'authFactory', '$rootS
 
         $scope.paid = function() {
             $scope.emptyCart = false;
+            var isnumCard = /^\d+$/.test($scope.billing_card_number);
+            var isnumCVV = /^\d+$/.test($scope.billing_card_security_number);
             if ($scope.billing_firstname == null || $scope.billing_lastname == null ||
                 $scope.billing_firstname == '' || $scope.billing_lastname == '') {
                 $scope.error = 'Please input your name';
@@ -37,9 +39,9 @@ app.controller('paymentCtrl',['$scope','$http', '$state', 'authFactory', '$rootS
                 $scope.error = 'Please input card number';
             } else if ($scope.billing_card_security_number == undefined) {
                 $scope.error = 'Please input CVV';
-            } else if ($scope.billing_card_number.length !== 16) {
+            } else if ($scope.billing_card_number.length !== 16 || isnumCard == false) {
                 $scope.error = 'Wrong card number';
-            } else if ($scope.billing_card_security_number.length !== 3) {
+            } else if ($scope.billing_card_security_number.length !== 3 || isnumCVV == false) {
                 $scope.error = 'Wrong CVV';
             } else if ($scope.expireMM == undefined || $scope.expireYY == undefined) {
                 $scope.error = 'Please input expirtion date';
