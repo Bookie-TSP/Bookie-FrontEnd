@@ -1,0 +1,87 @@
+<div class="container" ng-controller="infoStockCtrl">
+    <h4>Add Information</h4>
+    <div class="row">
+        <br>
+        <div class="col-xs-5 col-xs-offset-1">
+            <img src="{{newBook.cover_image_url}}" style="width: 50%; height: auto;">
+        </div>
+        <div class="col-xs-4">
+            <h5>Select Type</h5>
+            <input type="radio" value="sell" ng-model="type"> Sell
+            <br>
+            <input type="radio" value="lend" ng-model="type"> Lend
+            <br>
+            <br>
+            <div ng-show="type !== ''">
+                <div class="row">
+                    <div class="col-xs-5">
+                        Price
+                    </div>
+                    <div class="col-xs-5">
+                        <input type="number" ng-model="price">
+                    </div>
+                    <div class="col-xs-2">
+                        Baht
+                    </div>
+                </div>
+                <br>
+                <div class="row" ng-show="type === 'lend'">
+                    <div class="col-xs-5">
+                        Duration
+                    </div>
+                    <div class="col-xs-5">
+                        <input type="number" ng-model="duration">
+                    </div>
+                    <div class="col-xs-2">
+                        Days
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-xs-5">
+                        Condition
+                    </div>
+                    <div class="col-xs-5">
+                        <select ng-model="condition">
+                            <option value="">Select Condition</option>
+                            <option value="new">New</option>
+                            <option value="used">Used</option>
+                        </select>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-xs-5">
+                        Description
+                    </div>
+                    <div class="col-xs-5">
+                        <textarea rows="5" cols="30" ng-model="description"></textarea>
+                    </div>
+                </div>
+                <br>
+                <div class="row" ng-show="type === 'lend'">
+                    <div class="col-xs-5">
+                        Terms of Conditions
+                    </div>
+                    <div class="col-xs-5">
+                        <textarea rows="5" cols="30" ng-model="terms"></textarea>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-xs-5">
+                        Quantity
+                    </div>
+                    <div class="col-xs-5">
+                        <input type="number" ng-model="quantity">
+                    </div>
+                </div>
+                <br>
+            </div>
+            <center>
+                <button class="btn btn-warning" ng-click="nextStep()" ng-if="type !== ''">Next</button>
+            </center>
+        </div>
+    </div>
+    <br>
+</div>

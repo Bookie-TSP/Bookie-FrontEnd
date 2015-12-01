@@ -1,14 +1,14 @@
 <div ng-controller="bookCatalogCtrl" class="container">
-	<div ng-repeat="book in books" class="col-lg-2 col-md-3 col-xs-4">
-		<div class="row">
-			<img src="{{book.cover_image_url}}" ui-sref="bookProfile({bookId : book.id})" class="cover-image" width="128" height="196">
-		</div>
-		<div class="row">
-			{{book.title}}
-		</div>
+	<div ng-repeat="book in books" ng-init="$last ? dotdotdot() : null" class="book col-lg-2 col-md-3 col-xs-4">
 		<div class="row">
 			<!-- has to be checked whether it's instock or not -->
 			<span class="label label-success">In-stock</span>
+		</div>
+		<div class="row">	
+			<img src="{{book.cover_image_url}}" ui-sref="bookProfile({bookId : book.id})" class="cover-image">
+		</div>
+		<div class="row book-name">
+			{{book.title}}
 		</div>
 	</div>
 </div>
