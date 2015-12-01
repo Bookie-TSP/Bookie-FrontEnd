@@ -137,7 +137,9 @@
                             <div class="col-sm-2">{{line_stock.description}}</div>
                             <div class="col-sm-4">{{line_stock.stocks[0].member.addresses[0].information}}</div>
                             <div class="col-sm-2">In stock: {{line_stock.quantity}}</div>
-                            <div class="col-sm-2" ng-if="line_stock.quantity >= 1"><button class="btn btn-warning" ng-click="setTempLineStock(line_stock)" data-toggle="modal" data-target="#confirmationModal">Add To Cart</button></div>
+                            <div class="col-sm-2" ng-if="line_stock.quantity >= 1">
+                                <button class="btn btn-warning" ng-click="setTempLineStock(line_stock)" data-toggle="modal" data-target="#confirmationModal">Add To Cart</button>
+                            </div>
                             <div ng-if="line_stock.quantity === 0"></div>
                         </div>
                         <hr>

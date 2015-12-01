@@ -1,3 +1,13 @@
 .cover-image {
 	width: 128px;
+	height: 196px;
+}
+.book-name {
+	margin-top: 5px;
+	line-height: 1.5em;
+    height: 3em;
+    width: 128px;
+}
+.book {
+	margin-top: 20px;
 }

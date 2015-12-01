@@ -1,5 +1,5 @@
-app.controller('bookCatalogCtrl', ['$scope', '$http', '$state', 'authFactory',
-function ($scope, $http, $state, authFactory) {
+app.controller('bookCatalogCtrl', ['$scope', '$http', '$state', 'authFactory', '$timeout',
+function ($scope, $http, $state, authFactory, $timeout) {
 		//no need for auth factory
 		// if (authFactory.getAuth() === undefined) {
 		// 	$state.go("home");
@@ -7,13 +7,21 @@ function ($scope, $http, $state, authFactory) {
 
 		//getting books from api
 		$http.get('https://bookieservice.herokuapp.com/api/books')
-			.success(function(data) {
+			.success(function (data) {
 				$scope.books = data.books;
 				console.log("success");
 				console.log($scope.books);
 			})
-			.error(function(data) {
+			.error(function (data) {
 				console.log(data);
 			});
 
+		$scope.dotdotdot = function(){
+			//wait for 1 sec then do dotdotdot
+			setTimeout(function() {
+				$('.book-name').each(function() {
+	        		$(this).dotdotdot();
+	        	});
+			}, 1000);
+    	};
 }]);
