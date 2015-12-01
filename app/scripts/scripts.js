@@ -95,9 +95,18 @@ function ($scope, $http, $state, authFactory, $timeout) {
 				    return x < y ? -1 : x > y ? 1 : 0;
     			});
     		} else if (selected == $scope.listOfSortOptions[1]) {
-    			console.log("select low to high");
+    			$scope.books.sort(function(a, b) {
+    				var x = a.lowestPrice;
+				    var y = b.lowestPrice;
+				    return x < y ? -1 : x > y ? 1 : 0;
+    			});
+
     		} else if (selected == $scope.listOfSortOptions[2]) {
-    			console.log("select high to low");
+    			$scope.books.sort(function(a, b) {
+    				var x = a.lowestPrice;
+				    var y = b.lowestPrice;
+				    return x < y ? 1 : x > y ? -1 : 0;
+    			});
     		}
     	}
 }]);
