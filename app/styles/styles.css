@@ -118,6 +118,9 @@ body {
   font-family: 'Roboto', sans-serif;
   padding-top: 70px;
 }
+.missing-input {
+  color: red;
+}
 /*#form {
     display: block;
     margin-bottom: 185px;
@@ -476,6 +479,10 @@ form .error {
   overflow: hidden;
 }
 
+form {
+  border: none;
+}
+
 .register-form h2,
 .signup-form h2 {
   color: #696763;
@@ -633,4 +640,10 @@ form .error {
   text-overflow: ellipsis;
   max-height: 60px;
   min-height: 20px;
+}
+
+.database-block {
+  border-bottom: 1px solid grey;
+  width: 96%;
+  padding-bottom: 30px;
 }

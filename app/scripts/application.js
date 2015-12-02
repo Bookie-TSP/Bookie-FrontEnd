@@ -53,22 +53,22 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 		})
 		.state('newStock.first', {
 			url: '/1',
-			templateUrl: 'views/searchStock.html',
+			templateUrl: 'views/newStocks/searchStock.html',
 			data : { pageTitle: 'Search Stock' }
 		})
 		.state('newStock.second', {
 			url: '/2',
-			templateUrl: 'views/photoStock.html',
+			templateUrl: 'views/newStocks/photoStock.html',
 			data : { pageTitle: 'Add Photo' }
 		})
 		.state('newStock.third', {
 			url: '/3',
-			templateUrl: 'views/infoStock.html',
+			templateUrl: 'views/newStocks/infoStock.html',
 			data : { pageTitle: 'Add Information' }
 		})
 		.state('newStock.fourth', {
 			url: '/4',
-			templateUrl: 'views/completeStock.html',
+			templateUrl: 'views/newStocks/completeStock.html',
 			data : { pageTitle: 'Confirm Stock' }
 		});
 	$urlRouterProvider.otherwise('/');

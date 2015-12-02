@@ -53,22 +53,22 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 		})
 		.state('newStock.first', {
 			url: '/1',
-			templateUrl: 'views/searchStock.html',
+			templateUrl: 'views/newStocks/searchStock.html',
 			data : { pageTitle: 'Search Stock' }
 		})
 		.state('newStock.second', {
 			url: '/2',
-			templateUrl: 'views/photoStock.html',
+			templateUrl: 'views/newStocks/photoStock.html',
 			data : { pageTitle: 'Add Photo' }
 		})
 		.state('newStock.third', {
 			url: '/3',
-			templateUrl: 'views/infoStock.html',
+			templateUrl: 'views/newStocks/infoStock.html',
 			data : { pageTitle: 'Add Information' }
 		})
 		.state('newStock.fourth', {
 			url: '/4',
-			templateUrl: 'views/completeStock.html',
+			templateUrl: 'views/newStocks/completeStock.html',
 			data : { pageTitle: 'Confirm Stock' }
 		});
 	$urlRouterProvider.otherwise('/');
@@ -526,28 +526,53 @@ app.controller('homeCtrl',['$scope','$http', '$state', '$rootScope',
 
 app.controller('infoStockCtrl', ['$scope', '$http', '$state', '$rootScope',
     function ($scope, $http, $state, $rootScope) {
-			//console.log($rootScope.newBook);
+		//console.log($rootScope.newBook);
 
 		$scope.type = '';
+		$scope.errors = {};
 
 		$scope.nextStep = function () {
-			$rootScope.newStock = {
-				book_id: $rootScope.newBook.id,
-				status: 'stock',
-				price: $scope.price,
-				type: $scope.type,
-				condition: $scope.condition,
-				description: $scope.description,
-				quantity: $scope.quantity
-			};
-			if ($scope.type === 'lend') {
-				$rootScope.newStock.terms = $scope.terms;
-				$rootScope.newStock.duration = $scope.duration;
+			$scope.errors = {};
+            $scope.checkError = false;
+			if ($scope.price === undefined) {
+				$scope.errors.price = 'Please insert price';
+                $scope.checkError = true;
 			}
-			console.log($rootScope.newStock);
-            $rootScope.steps[2] = null;
-            $rootScope.steps[3] = true;
-			$state.go('newStock.fourth');
+            if ($scope.condition === undefined) {
+				$scope.errors.condition = 'Please select condition';
+                $scope.checkError = true;
+			}
+            if ($scope.description === undefined) {
+				$scope.errors.description = 'Please insert description';
+                $scope.checkError = true;
+			}
+            if ($scope.quantity === undefined) {
+				$scope.errors.quantity = 'Please insert quantity';
+                $scope.checkError = true;
+			}
+            if ($scope.duration === undefined && $scope.type === 'lend') {
+				$scope.errors.duration = 'Please insert duration';
+                $scope.checkError = true;
+			}
+            if( !$scope.checkError){
+				$rootScope.newStock = {
+					book_id: $rootScope.newBook.id,
+					status: 'stock',
+					price: $scope.price,
+					type: $scope.type,
+					condition: $scope.condition,
+					description: $scope.description,
+					quantity: $scope.quantity
+				};
+				if ($scope.type === 'lend') {
+					$rootScope.newStock.terms = $scope.terms;
+					$rootScope.newStock.duration = $scope.duration;
+				}
+				console.log($rootScope.newStock);
+				$rootScope.steps[2] = null;
+				$rootScope.steps[3] = true;
+				$state.go('newStock.fourth');
+			}
 		};
 }]);
 
@@ -873,7 +898,7 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 
 		// search books
 		$scope.resultsGG = [];
-        $scope.resultsDB = [];
+		$scope.resultsDB = [];
 
 		// specific book chosen
 		$scope.specBook = {};
@@ -899,16 +924,26 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 		};
 
 		$scope.getBooksDB = function () {
-            $http.post('https://bookieservice.herokuapp.com/api/books/search',{
-                search: $scope.searchField
-            })
-            .success(function(data){
-                console.log(data);
-                $scope.resultsDB = data.books;
-            })
-            .error(function(data){
-                console.log(data);
-            });
+			$scope.searchObj = {};
+			if ($scope.searchCat === 'isbn') {
+				$scope.searchObj.ISBN = $scope.searchField;
+			} else if ($scope.searchCat === 'inauthor') {
+				$scope.searchObj.author = $scope.searchField;
+			} else if ($scope.searchCat === 'inpublisher') {
+				$scope.searchObj.publisher = $scope.searchField;
+			} else {
+				$scope.searchObj.title = $scope.searchField;
+			}
+			$http.post('https://bookieservice.herokuapp.com/api/books/search', {
+					book: $scope.searchObj
+				})
+				.success(function (data) {
+					console.log(data);
+					$scope.resultsDB = data.books;
+				})
+				.error(function (data) {
+					console.log(data);
+				});
 		};
 
 		$scope.getBooksGoogle = function (searchKey, operation, startIndex, maxResults, apiKey) {
@@ -935,7 +970,7 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 
 		$scope.search = function () {
 			startIndex = 0;
-            $scope.getBooksDB();
+			$scope.getBooksDB();
 			$scope.getBooksGoogle($scope.searchField, $scope.searchCat, startIndex, maxResults, apiKey);
 		};
 
@@ -986,9 +1021,9 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 					description: $scope.description,
 					cover_image_url: undefined
 				};
-			} else if (type === 'db'){
-                $scope.specBook = book;
-            }
+			} else if (type === 'db') {
+				$scope.specBook = book;
+			}
 			console.log($scope.specBook);
 		};
 
@@ -1025,14 +1060,14 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 			}, 500);
 		};
 
-        $scope.addCurrent = function(){
-            $rootScope.newBook = $scope.specBook;
-            $timeout(function () {
-                $rootScope.steps[2] = true;
-                $rootScope.steps[0] = null;
-                $state.go('newStock.third');
-            }, 500);
-        };
+		$scope.addCurrent = function () {
+			$rootScope.newBook = $scope.specBook;
+			$timeout(function () {
+				$rootScope.steps[2] = true;
+				$rootScope.steps[0] = null;
+				$state.go('newStock.third');
+			}, 500);
+		};
 }]);
 
 app.controller('profileCtrl', ['$scope', '$http', '$state', 'authFactory',
