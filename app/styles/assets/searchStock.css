@@ -54,3 +54,7 @@
     cursor: hand;
   cursor: pointer;
 }
+
+.require-text{
+    text-color: red;
+}

@@ -135,6 +135,10 @@ body {
 .missing-input {
   color: red;
 }
+
+.require-text {
+  color: red;
+}
 /*#form {
     display: block;
     margin-bottom: 185px;
@@ -691,6 +695,10 @@ form {
   color: white;
   cursor: hand;
   cursor: pointer;
+}
+
+.require-text {
+  text-color: red;
 }
 #addNewStockButton {
   margin-top: 20px;

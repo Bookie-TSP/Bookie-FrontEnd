@@ -56,7 +56,6 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
 		$rootScope.member = $scope.getMember();
 		$scope.getCart();
 		$scope.$on('authenticate', function () {
-			console.log('Change');
 			$rootScope.member = $scope.getMember();
 		});
 

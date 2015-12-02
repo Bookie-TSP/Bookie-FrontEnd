@@ -513,8 +513,8 @@ app.controller('infoStockCtrl', ['$scope', '$http', '$state', '$rootScope',
 		$scope.nextStep = function () {
 			$scope.errors = {};
             $scope.checkError = false;
-			if ($scope.price === undefined) {
-				$scope.errors.price = 'Please insert price';
+			if ($scope.price === undefined || $scope.price <= 0) {
+				$scope.errors.price = 'Please insert price correctly';
                 $scope.checkError = true;
 			}
             if ($scope.condition === undefined) {
@@ -525,12 +525,12 @@ app.controller('infoStockCtrl', ['$scope', '$http', '$state', '$rootScope',
 				$scope.errors.description = 'Please insert description';
                 $scope.checkError = true;
 			}
-            if ($scope.quantity === undefined) {
-				$scope.errors.quantity = 'Please insert quantity';
+            if ($scope.quantity === undefined || $scope.quantity <= 0) {
+				$scope.errors.quantity = 'Please insert quantity correctly';
                 $scope.checkError = true;
 			}
-            if ($scope.duration === undefined && $scope.type === 'lend') {
-				$scope.errors.duration = 'Please insert duration';
+            if (($scope.duration === undefined || $scope.duration <= 0 ) && $scope.type === 'lend') {
+				$scope.errors.duration = 'Please insert duration correctly';
                 $scope.checkError = true;
 			}
             if( !$scope.checkError){
@@ -553,6 +553,15 @@ app.controller('infoStockCtrl', ['$scope', '$http', '$state', '$rootScope',
 				$state.go('newStock.fourth');
 			}
 		};
+
+        $scope.$watch('condition', function(){
+            if($scope.condition === 'new'){
+                $scope.description = 'Brands new book';
+            }
+            else{
+                $scope.description = '';
+            }
+        });
 }]);
 
 app.controller('loginCtrl', ['$scope', '$http', '$state', 'authFactory',
@@ -641,7 +650,6 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
 		$rootScope.member = $scope.getMember();
 		$scope.getCart();
 		$scope.$on('authenticate', function () {
-			console.log('Change');
 			$rootScope.member = $scope.getMember();
 		});
 
