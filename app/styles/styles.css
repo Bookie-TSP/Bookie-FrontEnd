@@ -27,12 +27,12 @@
   box-shadow: 10px 10px 5px #888888;
 }
 
-#googleMap {
-  border: 2px solid black;
-}
-
 #loginRequiredText {
   color: black;
+}
+
+.no-stock-message {
+  text-align: center;
 }
 #noBook {
   color: #D3D3D3;
