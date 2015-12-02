@@ -1,5 +1,5 @@
 <div ng-controller="searchStockCtrl" class="container">
-	<h4>Search Book</h4>
+	<h3>Search Book</h3>
 	<div class="row">
 		<div class="col-xs-4">
 			<form ng-submit="search()" style="border: none;">
@@ -20,9 +20,10 @@
 	</div>
 	<br>
 
-	<!-- from database -->
 	<div class="container">
-		<div class="border row" ng-if="resultsDB.length > 0 && !wantAdd">
+
+		<!-- from database -->
+		<div class="border row database-block" ng-if="resultsDB.length > 0 && !wantAdd">
 			<h3>Already in store</h3>
 			<br>
 			<div id="result" ng-repeat="book in resultsDB">
@@ -52,18 +53,15 @@
 				</div>
 			</div>
 		</div>
-		<br>
-		<hr>
-		<br>
-	</div>
 
-	<!-- from google -->
-	<div class="row">
-		<div class="col-xs-4" ng-if="totalBooks === 0">
-			No book found in database
+		<br>
+
+		<!-- from google -->
+		<div class="row">
+			<div class="col-xs-4" ng-if="totalBooks === 0">
+				No book found in database
+			</div>
 		</div>
-	</div>
-	<div class="container">
 		<div class="border row" ng-if="totalBooks !== 0 && !wantAdd">
 			<div id="result" ng-repeat="book in resultsGG">
 				<div id="indiBook" class="col-lg-2 col-md-3 col-xs-4" ng-click="chooseBook(book.volumeInfo, 'google')" data-toggle="modal" data-target="#bookConfirmModal">
@@ -92,12 +90,12 @@
 				</div>
 			</div>
 		</div>
+
 		<div ng-if="resultsGG.length !== 0 && totalBooks !== 0 && !wantAdd">
 			<button class="pagination orange-colored-button" id="previous-page" ng-if="hasPrevious()" ng-click="previousPage()">Previous page</button>
 			<button class="pagination orange-colored-button" id="next-page" ng-click="nextPage()" ng-if="hasNext()">Next page</button>
 		</div>
 		<br>
-		<hr>
 
 		<!--manual add stock-->
 		<div ng-if="totalBooks === 0 || wantAdd">

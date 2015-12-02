@@ -130,6 +130,9 @@ body {
   font-family: 'Roboto', sans-serif;
   padding-top: 70px;
 }
+.missing-input {
+  color: red;
+}
 /*#form {
     display: block;
     margin-bottom: 185px;
@@ -649,6 +652,12 @@ form {
   text-overflow: ellipsis;
   max-height: 60px;
   min-height: 20px;
+}
+
+.database-block {
+  border-bottom: 1px solid grey;
+  width: 96%;
+  padding-bottom: 30px;
 }
 #addNewStockButton {
   margin-top: 20px;
