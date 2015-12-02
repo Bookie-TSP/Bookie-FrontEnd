@@ -662,3 +662,17 @@ form {
 #addNewStockButton {
   margin-top: 20px;
 }
+
+.stock-book-name {
+  margin-top: 5px;
+  line-height: 1.5em;
+  height: 1.5em;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 128px;
+}
+
+.stock {
+  margin-top: 20px;
+}
