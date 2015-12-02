@@ -39,16 +39,27 @@ function ($scope, $http, $state, authFactory, $timeout) {
     			});
     		} else if (selected == $scope.listOfSortOptions[1]) {
     			$scope.books.sort(function(a, b) {
-    				var x = a.lowestPrice;
-				    var y = b.lowestPrice;
-				    return x < y ? -1 : x > y ? 1 : 0;
+    				var x = a.lowest_price;
+				    var y = b.lowest_price;
+				    if (x == "null") {
+				    	return -1;
+				    }
+				    if (y == "null") {
+				    	return 1;
+				    }
+				    return x-y;
     			});
-
     		} else if (selected == $scope.listOfSortOptions[2]) {
     			$scope.books.sort(function(a, b) {
-    				var x = a.lowestPrice;
-				    var y = b.lowestPrice;
-				    return x < y ? 1 : x > y ? -1 : 0;
+    				var x = a.lowest_price;
+				    var y = b.lowest_price;
+				    if (x == "null") {
+				    	return 1;
+				    }
+				    if (y == "null") {
+				    	return -1;
+				    }
+				    return y-x;
     			});
     		}
     	}
