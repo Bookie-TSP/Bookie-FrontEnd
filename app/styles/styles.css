@@ -7,6 +7,8 @@
 .cover-image {
   width: 128px;
   height: 196px;
+  cursor: hand;
+  cursor: pointer;
 }
 
 .book-name {
@@ -214,6 +216,30 @@ body {
 
 #validate {
   color: #ff0000;
+}
+#dropdownProfile {
+  cursor: hand;
+  cursor: pointer;
+}
+
+.modal {
+  text-align: center;
+  padding: 0!important;
+}
+
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px;
+  /* Adjusts for spacing */
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
 }
 #newStockBlog {
   border-style: solid;
@@ -658,6 +684,13 @@ form {
   border-bottom: 1px solid grey;
   width: 96%;
   padding-bottom: 30px;
+}
+
+#indiBook:hover {
+  background-color: #ffc966;
+  color: white;
+  cursor: hand;
+  cursor: pointer;
 }
 #addNewStockButton {
   margin-top: 20px;

@@ -1,6 +1,8 @@
 .cover-image {
 	width: 128px;
 	height: 196px;
+	cursor: hand;
+  cursor: pointer;
 }
 .book-name {
 	margin-top: 5px;

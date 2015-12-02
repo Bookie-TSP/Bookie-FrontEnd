@@ -47,3 +47,10 @@
     width: 96%;
     padding-bottom: 30px;
 }
+
+#indiBook:hover {
+    background-color: #ffc966;
+    color: white;
+    cursor: hand;
+  cursor: pointer;
+}
