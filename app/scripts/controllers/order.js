@@ -4,8 +4,7 @@ app.controller('orderCtrl', ['$scope', '$http', '$state', 'authFactory',
 			$state.go('login');
 		}
 
-		$scope.dataReady = false;
-
+		// Load data
 		$scope.getOrderInfo = function() {
 			var config = {
 					headers: {
@@ -16,7 +15,6 @@ app.controller('orderCtrl', ['$scope', '$http', '$state', 'authFactory',
 				.success(function (data) {
 					$scope.orderInfo = data;
 					console.log(data);
-					$scope.dataReady = true;
 				})
 				.error(function (data) {
 					console.log(data);
