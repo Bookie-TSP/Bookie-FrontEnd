@@ -22,6 +22,10 @@
 			<div class="row book-name">
 				{{book.title}}
 			</div>
+			<div class="row book-lowest-price">
+				<div ng-show="book.lowest_price == null"></div>
+				<div ng-show="book.lowest_price != null"></div>
+			</div>
 		</div>
 	</div>	
 </div>
