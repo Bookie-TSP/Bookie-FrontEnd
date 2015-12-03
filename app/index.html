@@ -12,42 +12,13 @@
 	<body>
 		<div class="script">
 			<script src="http://maps.googleapis.com/maps/api/js"></script>
-			<!-- <script src="scripts/vendor/jquery.js"></script>
-			<script src="scripts/vendor/jquery.dotdotdot-1.2.1.js"></script>
-			<script src="scripts/vendor/angular.min.js"></script>
-			<script src="scripts/vendor/bootstrap.min.js"></script>
-			<script src="scripts/vendor/loadash.js"></script>
-			<script src="scripts/vendor/angular-simple-logger.js"></script>
-			<script src="scripts/vendor/angular-ui-router.js"></script>
-			<script src="scripts/vendor/angular-google-map.js"></script>
-			<script src="scripts/vendor/angular-google-map.js"></script>
-			<script src="scripts/vendor/ui-bootstrap.min.js"></script>
-			<script src="scripts/vendor/ngstorage.min.js"></script>
-			<script src="scripts/vendor/angular-cloudinary.js"></script>
-			<script src="scripts/cloudScripts.js"></script>
-			<script src="scripts/uploadScripts.js"></script> -->
 			<script src="scripts/libary.js"></script>
+			<script src="scripts/vendor/ui-bootstrap.min.js"></script>
 			<script src="scripts/scripts.js"></script>
 		</div>
 		<div ng-controller="navCtrl">
 			<navbar-view></navbar-view>
-
-			<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	            <div class="modal-dialog" role="document">
-	                <div class="modal-content">
-	                    <div class="modal-header">
-	                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	                        <h4 class="modal-title" id="myModalLabel">Logout</h4>
-	                    </div>
-	                    <div class="modal-body">Are you sure you want logout</div>
-	                    <div class="modal-footer">
-	                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-	                        <button type="button" class="btn btn-warning" ng-click="logout()" ui-sref="home" data-dismiss="modal">Logout</button>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-
+			
 			<div ui-view></div>
 		</div>
 	</body>
