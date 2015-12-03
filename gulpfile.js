@@ -16,28 +16,32 @@ gulp.task('styles', function () {
 		.pipe(gulp.dest('app/styles/'));
 });
 
-gulp.task('cloudScripts', function () {
-	return gulp.src(['./node_modules/cloudinary-core/cloudinary-core.js',
-				'./node_modules/cloudinary-jquery/cloudinary-jquery.js', './node_modules/cloudinary-jquery-file-upload/cloudinary-jquery-file-upload.js'])
-		.pipe(concat('cloudScripts.js'))
+gulp.task('libaryScripts', function () {
+	return gulp.src(['./bower_components/angular/angular.js',
+						'./bower_components/jquery/dist/jquery.min.js',
+						'./bower_components/jquery-ui/jquery-ui.min.js',
+						'./bower_components/jQuery.dotdotdot/src/js/jquery.dotdotdot.min.js',
+						'./bower_components/angular-bootstrap/ui-bootstrap.min.js',
+						'./bower_components/angular-google-maps/dist/angular-google-maps.min.js',
+						'./bower_components/angular-simple-logger/dist/angular-simple-logger.min.js',
+						'./bower_components/loadash/loadash.min.js',
+						'./bower_components/bootstrap/dist/js/bootstrap.min.js',
+						'./bower_components/angular-ui-router/release/angular-ui-router.min.js',
+						'./bower_components/ngstorage/ngStorage.min.js',
+						'./bower_components/ng-file-upload/ng-file-upload-shim.js',
+						'./bower_components/ng-file-upload/ng-file-upload.js',
+						'./bower_components/cloudinary_ng/js/angular.cloudinary.js',
+						'./bower_components/cloudinary-core/cloudinary-core.js',
+						'./bower_components/cloudinary-jquery/cloudinary-jquery.js',
+						'./bower_components/cloudinary-jquery-file-upload/cloudinary-jquery-file-upload.js'
+					])
+		.pipe(concat('libary.js'))
 		.pipe(gulp.dest('app/scripts'));
 });
 
-gulp.task('uploadScripts', function () {
-	return gulp.src(['./node_modules/ng-file-upload/dist/ng-file-upload.js',
-						'./node_modules/ng-file-upload/dist/ng-file-upload-shim.js'])
-		.pipe(concat('uploadScripts.js'))
-		.pipe(gulp.dest('app/scripts'));
-});
-
-gulp.task('default', ['scripts', 'styles', 'cloudScripts', 'uploadScripts'], function () {
+gulp.task('default', ['scripts', 'styles', 'libaryScripts'], function () {
 	gulp.watch(['app/scripts/application.js', 'app/scripts/controllers/*.js', 'app/scripts/factories/*.js'], ['scripts']);
 	gulp.watch(['app/styles/assets/*.css'], ['styles']);
-	gulp.watch(['./node_modules/cloudinary-core/cloudinary-core.js',
-				'./node_modules/cloudinary-jquery/cloudinary-jquery.js',
-				'./node_modules/cloudinary-jquery-file-upload/cloudinary-jquery-file-upload.js'], ['cloudScripts']);
-	gulp.watch(['./node_modules/ng-file-upload/dist/ng-file-upload.js',
-						'./node_modules/ng-file-upload/dist/ng-file-upload-shim.js'],['uploadScripts']);
 	browserSync.init({
 		port: 8000,
 		server: {

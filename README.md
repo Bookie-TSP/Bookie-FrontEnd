@@ -5,11 +5,13 @@
 
 1. git clone https://github.com/Bookie-TSP/Bookie-FrontEnd.git
 2. Run 'npm install'
-3. Run 'gulp'
+3. Run 'bower install'
+4. Run 'gulp'
 
-####For Production 
+####For Production
 - Install node.js and gulp
 
 1. git clone https://github.com/Bookie-TSP/Bookie-FrontEnd.git
 2. Run 'npm install'
+3. Run 'bower install'
 3. Run 'node node-server.js'
