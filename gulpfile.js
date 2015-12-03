@@ -21,6 +21,8 @@ gulp.task('libaryScripts', function () {
 						'./bower_components/jquery/dist/jquery.min.js',
 						'./bower_components/jquery-ui/jquery-ui.min.js',
 						'./bower_components/jQuery.dotdotdot/src/js/jquery.dotdotdot.min.js',
+  						'./bower_components/blueimp-file-upload/js/jquery.fileupload.js',
+						'./bower_components/cloudinary_js/js/jquery.cloudinary.js',
 						'./bower_components/angular-google-maps/dist/angular-google-maps.min.js',
 						'./bower_components/angular-simple-logger/dist/angular-simple-logger.min.js',
 						'./bower_components/loadash/loadash.min.js',
@@ -29,8 +31,7 @@ gulp.task('libaryScripts', function () {
 						'./bower_components/ngstorage/ngStorage.min.js',
 						'./bower_components/ng-file-upload/ng-file-upload-shim.js',
 						'./bower_components/ng-file-upload/ng-file-upload.js',
-						'./bower_components/cloudinary_ng/js/angular.cloudinary.js',
-						'./bower_components/cloudinary_js/js/jquery.cloudinary.js'
+						'./bower_components/cloudinary_ng/js/angular.cloudinary.js'
 					])
 		.pipe(concat('libary.js'))
 		.pipe(gulp.dest('app/scripts'));
