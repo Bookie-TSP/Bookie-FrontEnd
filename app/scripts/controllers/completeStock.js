@@ -1,5 +1,7 @@
 app.controller('completeStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'authFactory',
     function ($scope, $http, $state, $rootScope, authFactory) {
+        $rootScope.changeStep(4);
+
         $scope.confirmStock = function(){
             var config = {
     			headers: {

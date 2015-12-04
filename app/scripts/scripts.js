@@ -323,6 +323,8 @@ app.controller('cartCtrl',['$scope','$http', '$state', 'authFactory', '$rootScop
 
 app.controller('completeStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'authFactory',
     function ($scope, $http, $state, $rootScope, authFactory) {
+        $rootScope.changeStep(4);
+
         $scope.confirmStock = function(){
             var config = {
     			headers: {
@@ -507,7 +509,9 @@ app.controller('infoStockCtrl', ['$scope', '$http', '$state', '$rootScope',
     function ($scope, $http, $state, $rootScope) {
 		//console.log($rootScope.newBook);
 
-		$scope.type = '';
+        $rootScope.changeStep(3);
+
+        $scope.type = '';
 		$scope.errors = {};
 
 		$scope.nextStep = function () {
@@ -802,7 +806,9 @@ app.controller('paymentCtrl',['$scope','$http', '$state', 'authFactory', '$rootS
 app.controller('photoStockCtrl', ['$scope', '$rootScope', '$stateParams', '$location', 'Upload', 'authFactory', '$http', '$state',
   /* Uploading with Angular File Upload */
   function ($scope, $rootScope, $stateParams, $location, $upload, authFactory, $http, $state) {
-		$.cloudinary.config()
+      $rootScope.changeStep(2);
+
+        $.cloudinary.config()
 			.cloud_name = 'tbookie';
 		$.cloudinary.config()
 			.upload_preset = 'jukcxy4z';
@@ -973,7 +979,9 @@ app.controller('registerCtrl', ['$scope', '$http', 'mapFactory', '$state', 'auth
 
 app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'dateFactory', '$timeout', 'authFactory',
     function ($scope, $http, $state, $rootScope, $date, $timeout, authFactory) {
-		// amount of books from api
+        $rootScope.changeStep(1);
+
+        // amount of books from api
 		$scope.totalBooks = -1;
 		$scope.hadSearch = false;
 		$scope.wantAdd = false;

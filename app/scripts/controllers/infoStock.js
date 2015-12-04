@@ -2,7 +2,9 @@ app.controller('infoStockCtrl', ['$scope', '$http', '$state', '$rootScope',
     function ($scope, $http, $state, $rootScope) {
 		//console.log($rootScope.newBook);
 
-		$scope.type = '';
+        $rootScope.changeStep(3);
+
+        $scope.type = '';
 		$scope.errors = {};
 
 		$scope.nextStep = function () {
