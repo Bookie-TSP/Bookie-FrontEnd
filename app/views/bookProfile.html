@@ -17,21 +17,21 @@
 
                 <div class="row">
                     <div class="col-sm-4 text-info">Title:</div>
-                    <div class="col-sm-8">
+                    <div id="individualBookTitle" class="col-sm-8">
                         <div class="row">{{bookInfo.title}}</div>
                         <div class="row" ng-show="bookInfo.title === null">undefined</div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-4 text-info">ISBN 10:</div>
-                    <div class="col-sm-8">
+                    <div id="individualBookISBNTen" class="col-sm-8">
                         <div class="row">{{bookInfo.ISBN10}}</div>
                         <div class="row" ng-show="bookInfo.ISBN10 === null">undefined</div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-4 text-info">ISBN 13:</div>
-                    <div class="col-sm-8">
+                    <div id="individualBookISBNThirteen" class="col-sm-8">
                         <div class="row">{{bookInfo.ISBN13}}</div>
                         <div class="row" ng-show="bookInfo.ISBN13 === null">undefined</div>
                     </div>
@@ -49,28 +49,28 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-4 text-info">Language:</div>
-                    <div class="col-sm-8">
+                    <div id="individualBookLanguage" class="col-sm-8">
                         <div class="row">{{bookInfo.language}}</div>
                         <div class="row" ng-show="bookInfo.language === null">undefined</div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-4 text-info">Pages:</div>
-                    <div class="col-sm-8">
+                    <div id="individualBookPages" class="col-sm-8">
                         <div class="row">{{bookInfo.pages}}</div>
                         <div class="row" ng-show="bookInfo.pages === null">undefined</div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-4 text-info">Publisher:</div>
-                    <div class="col-sm-8">
+                    <div id="individualBookPublisher" class="col-sm-8">
                         <div class="row">{{bookInfo.publisher}}</div>
                         <div class="row" ng-show="bookInfo.publisher === null">undefined</div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-4 text-info">Published Date:</div>
-                    <div class="col-sm-8">
+                    <div id="individualBookPublishDate" class="col-sm-8">
                         <div class="row">{{bookInfo.publish_date}}</div>
                         <div class="row" ng-show="bookInfo.publish_date === null">undefined</div>
                     </div>
@@ -79,7 +79,7 @@
                     <div class="col-sm-4 text-info">Book Description:</div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-11 col-sm-offset-1">
+                    <div id="individualBookDescription" class="col-sm-11 col-sm-offset-1">
                         <div class="row">{{bookInfo.description}}</div>
                         <div class="row" ng-show="bookInfo.description === null">undefined</div>
                     </div>
