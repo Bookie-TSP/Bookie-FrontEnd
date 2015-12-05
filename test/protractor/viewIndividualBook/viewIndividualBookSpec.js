@@ -39,7 +39,7 @@ describe('View Individual Book', function() {
         };
     };
 
-    it('should match tab title', function() {
+    it('should match title tab', function() {
         expect(browser.getTitle()).toEqual('Home');
     });
 
@@ -136,21 +136,24 @@ describe('View Individual Book', function() {
 
     });
 
-    it('should match author', function() {
-        book.get(last - 1).click();
-        // expect(author.getText()).toEqual(books[0].author);
-        console.log(books[last - 1].authors[0]);
-        // author.get(1).getText().then(function(a) {
-        //     console.log('author : ' + a);
-        // });
+    // it('should match author', function() {
+    //     book.get(last - 2).click();
+    //     browser.waitForAngular();
+    //     console.log(authors.get(0));
+    //     // console.log(books[last - 2].authors);
+    //     // browser.waitForAngular();
+        
+    //     // author.get(1).getText().then(function(a) {
+    //     //     console.log('author : ' + a);
+    //     // });
 
-        browser.wait(authors.get(0).isPresent()).then( function() {
-            // expect(allProduct.count()).toEqual(furnitureAll.length)
-            authors.get(0).getText().then(function(text) {
-                console.log(text);
-            });
-        });
-    });
+    //     // browser.wait(authors.get(0).isPresent()).then( function() {
+    //     //     // expect(allProduct.count()).toEqual(furnitureAll.length)
+    //     //     authors.get(0).getText().then(function(text) {
+    //     //         console.log(text);
+    //     //     });
+    //     // });
+    // });
 
 
     it('should match language', function() {
