@@ -17,6 +17,13 @@ describe('View Individual Book', function() {
     var publisher = element(by.id('individualBookPublisher'));
     var publishDate = element(by.id('individualBookPublishDate'));
     var description = element(by.id('individualBookDescription'));
+    var cover = element(by.id('book-cover'));
+    var loginRequired = element(by.id('loginRequiredText'));
+    var email = element(by.model('email'));
+    var password = element(by.model('password'));
+    var submit = element(by.id('submitB'));
+    var login = element(by.id('loginNav'));
+    // var loggedIn = element(by.id('loggedIn'));
 
 
     beforeEach(function() {
@@ -41,6 +48,8 @@ describe('View Individual Book', function() {
 
     it('should match title tab', function() {
         expect(browser.getTitle()).toEqual('Home');
+        book.get(first).click();
+        expect(browser.getTitle()).toEqual('Book Profile');
     });
 
     it('should match with url', function(){
@@ -283,6 +292,65 @@ describe('View Individual Book', function() {
         }
         home.click();
     });
+
+    it('should match description', function() {
+        //check the first book
+        book.get(first).click();
+        if(books[first].description == null){
+            expect(description.getText()).toEqual('undefined');
+        }
+        else{
+            expect(description.getText()).toEqual(books[first].description);
+        }
+        home.click();
+
+        //check the middle book
+        book.get(middle).click();
+        if(books[middle].description == null){
+            expect(description.getText()).toEqual('undefined');
+        }
+        else{
+            expect(description.getText()).toEqual(books[middle].description);
+        }
+        home.click();
+
+        //check the last book
+        book.get(last).click();
+        if(books[last].description == null){
+            expect(description.getText()).toEqual('undefined');
+        }
+        else{
+            expect(description.getText()).toEqual(books[last].description);
+        }
+        home.click();
+    });
+
+    // it('should match book cover', function() {
+    //     book.get(first).click();
+        
+    //     browser.wait(cover.isPresent);
+    //     console.log(cover.isPresent());
+
+    //     // console.log(cover.getAttribute('src'));
+    //     // console.log(books[first].cover_image_url);
+    // });
+
+    it('should show login required message if not login', function() {
+        book.get(first).click();
+        expect(loginRequired.isDisplayed()).toBe(true);
+    });
+
+    // it('shold not show login required message if already login', function() {
+    //     login.click();
+    //     email.sendKeys('mint@test.com');
+    //     password.sendKeys('11111111');
+    //     submit.click();
+    //     book.get(first).click();
+    //     // expect(loggedIn.isDisplayed()).toBe(true);
+    // });
+
+
+    
 
     afterAll(function(done) {
         process.nextTick(done);

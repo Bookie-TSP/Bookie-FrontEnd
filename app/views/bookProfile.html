@@ -2,7 +2,7 @@
     <div class="container">
         <div class = "row">
             <div class="col-sm-12">
-                <h1 id="titile-header" style="text-transform: uppercase;">{{bookInfo.title}}</h1>
+                <h1 id="title-header" style="text-transform: uppercase;">{{bookInfo.title}}</h1>
             </div>
         </div>
         <hr>
@@ -87,7 +87,7 @@
             </div>
         </div>
         <hr><br><br>
-        <div ng-if="loggedIn">
+        <div id="loggedIn" ng-if="loggedIn">
             <!-- Lists of shops in the nearby location that have the book to sell or for rent -->
             <uib-tabset justified="true">
                 <!-- Buy New Books tab heading and its items -->
