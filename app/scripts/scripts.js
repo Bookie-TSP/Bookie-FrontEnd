@@ -41,6 +41,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			templateUrl: 'views/order.html',
 			data : { pageTitle: 'Order' }
 		})
+		.state('requestedOrder', {
+			url: '/requestedOrder',
+			templateUrl: 'views/requestedOrder.html',
+			data : { pageTitle: 'Requested Order' }
+		})
 		.state('cart', {
 			url: '/cart',
 			templateUrl: 'views/cart.html',
@@ -1007,6 +1012,74 @@ app.controller('registerCtrl', ['$scope', '$http', 'mapFactory', '$state', 'auth
         $scope.initial();
 }]);
 
+app.controller('requestedOrderCtrl', ['$scope', '$http', '$state', 'authFactory',
+	function ($scope, $http, $state, authFactory) {
+		if (authFactory.getAuth() === undefined) {
+			$state.go('login');
+		}
+
+		$scope.dataReady = false;
+
+		$scope.getOrderInfo = function() {
+			var config = {
+				headers: {
+					'Authorization': authFactory.getAuth()
+				}
+			};
+			$http.get('https://bookieservice.herokuapp.com/api/mysupplyorders', config)
+				.success(function (data) {
+					$scope.orderInfo = data;
+					console.log(data);
+					$scope.dataReady = true;
+				})
+				.error(function (data) {
+					console.log(data);
+				});
+		}
+
+		$scope.acceptOrder = function() {
+            var config = {
+				headers: {
+					'Authorization': authFactory.getAuth()
+				}
+			};
+            $http.post('https://bookieservice.herokuapp.com/api/members/orders/accept',{
+                order: {
+                	order_id: 4,
+                	stock_id: 3
+                }
+            },config)
+            .success(function(data){
+                console.log(data);
+            })
+            .error(function(data){
+                console.log(data);
+            });
+		}
+
+		$scope.declineOrder = function() {
+            var config = {
+				headers: {
+					'Authorization': authFactory.getAuth()
+				}
+			};
+            $http.post('https://bookieservice.herokuapp.com/api/members/orders/decline',{
+                order: {
+                	order_id: 4,
+                	stock_id: 3
+                }
+            },config)
+            .success(function(data){
+                console.log(data);
+            })
+            .error(function(data){
+                console.log(data);
+            });
+		}
+		
+		$scope.getOrderInfo();
+	}
+]);
 app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'dateFactory', '$timeout', 'authFactory',
     function ($scope, $http, $state, $rootScope, $date, $timeout, authFactory) {
 		// amount of books from api

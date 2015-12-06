@@ -1,0 +1,86 @@
+<div ng-controller="requestedOrderCtrl" class="container">
+    <h1>Requested Order</h1><br>
+
+	<!-- My order tabs -->
+    <uib-tabset justified="true">
+
+        <!-- Order of pending status books -->
+        <uib-tab heading="Pending" ng-click="moveToBottom()">
+            <br>
+            <div ng-repeat="order in orderInfo.orders">
+                <div ng-repeat="stock in order.stocks">
+                    <div class="row">
+                        <uib-accordion close-others="oneAtATime">
+                            <div ng-show="stock.status === 'pending'">
+                                <uib-accordion-group heading="{{stock.book.title}}" is-open="true">
+                                    <div class="col-sm-1 col-sm-offset-1">${{stock.price}}</div>
+                                    <div class="col-sm-3">{{stock.book.title}}</div>
+                                    <div class="col-sm-3">{{stock.created_at}}</div>
+                                    <div class="col-sm-2"><span class="label label-success">{{stock.status}}</span></div>
+                                    <div class="col-sm-2"><button class="btn btn-success">{{stock.status}}</button></div>
+                                </uib-accordion-group>
+                            </div>
+                        </uib-accordion>
+                    </div>
+                </div>
+            </div>
+        </uib-tab>
+
+        <!-- Order of active status books -->
+        <uib-tab heading="Active" ng-click="moveToBottom()">
+            <br>
+            <div ng-repeat="order in orderInfo.orders">
+                <div ng-repeat="stock in order.stocks">
+                    <div class="row">
+                        <uib-accordion close-others="oneAtATime">
+                            <div ng-hide="stock.status === 'pending' || stock.status === 'returned'">
+                                <uib-accordion-group heading="{{stock.book.title}}" is-open="true">
+                                    <div class="col-sm-1 col-sm-offset-1">${{stock.price}}</div>
+                                    <div class="col-sm-5">{{stock.book.title}}</div>
+                                    <div class="col-sm-3">{{stock.created_at}}</div>
+                                    <div class="col-sm-2"><span class="label label-success">{{stock.status}}</span></div>
+                                </uib-accordion-group>
+                            </div>
+                        </uib-accordion>
+                    </div>
+                </div>
+            </div>
+        </uib-tab>
+
+        <!-- Orders o -->
+        <uib-tab heading="Ended" ng-click="moveToBottom()">
+            <br>
+            <div ng-repeat="order in orderInfo.orders">
+                <div ng-repeat="stock in order.stocks">
+                    <div class="row">
+                        <uib-accordion close-others="oneAtATime">
+                            <div ng-show="stock.status === 'returned'">
+                                <uib-accordion-group heading="{{stock.book.title}}" is-open="true">
+                                    <div class="col-sm-1 col-sm-offset-1">${{stock.price}}</div>
+                                    <div class="col-sm-5">{{stock.book.title}}</div>
+                                    <div class="col-sm-3">{{stock.created_at}}</div>
+                                    <div class="col-sm-2"><span class="label label-success">{{stock.status}}</span></div>
+                                </uib-accordion-group>
+                            </div>
+                        </uib-accordion>
+                    </div>
+                </div>
+            </div>
+        </uib-tab>
+    </uib-tabset>
+
+    <!-- Order of ended status books -->
+    <script type="text/ng-template" id="group-template.html">
+        <div class="panel {{panelClass || 'panel-default'}}">
+            <div class="panel-heading">
+                <h4 class="panel-title" style="color:#fa39c3">
+                    <a href tabindex="0" class="accordion-toggle" ng-click="toggleOpen()" uib-accordion-transclude="heading">
+                    <span ng-class="{'text-muted': isDisabled}">{{heading}}</span></a>
+                </h4>
+            </div>
+            <div class="panel-collapse collapse" uib-collapse="!isOpen">
+                <div class="panel-body" style="text-align: right" ng-transclude></div>
+            </div>
+        </div>
+    </script>
+</div>

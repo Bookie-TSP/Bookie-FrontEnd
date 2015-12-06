@@ -41,6 +41,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			templateUrl: 'views/order.html',
 			data : { pageTitle: 'Order' }
 		})
+		.state('requestedOrder', {
+			url: '/requestedOrder',
+			templateUrl: 'views/requestedOrder.html',
+			data : { pageTitle: 'Requested Order' }
+		})
 		.state('cart', {
 			url: '/cart',
 			templateUrl: 'views/cart.html',
