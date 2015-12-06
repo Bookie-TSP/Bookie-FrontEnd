@@ -1,3 +1,7 @@
 .missing-input{
     color: red;
 }
+
+.require-text{
+    color: red;
+}

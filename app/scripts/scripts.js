@@ -100,55 +100,11 @@ function ($rootScope, $state, $stateParams) {
   $rootScope.$stateParams = $stateParams;
 }]);
 
-app.animation('.photo', function() {
-
-  var animateUp = function(element, className, done) {
-    if(className != 'active') {
-      return;
-    }
-    element.css({
-      position: 'absolute',
-      top: 500,
-      left: 0,
-      display: 'block'
-    });
-
-    jQuery(element).animate({
-      top: 0
-    }, done);
-
-    return function(cancel) {
-      if(cancel) {
-        element.stop();
-      }
-    };
-  };
-
-  var animateDown = function(element, className, done) {
-    if(className != 'active') {
-      return;
-    }
-    element.css({
-      position: 'absolute',
-      left: 0,
-      top: 0
-    });
-
-    jQuery(element).animate({
-      top: -500
-    }, done);
-
-    return function(cancel) {
-      if(cancel) {
-        element.stop();
-      }
-    };
-  };
-
-  return {
-    addClass: animateUp,
-    removeClass: animateDown
-  };
+app.directive('navbarView', function(){
+    return {
+        restrict: 'E',
+        templateUrl: 'views/navbar.html'
+      };
 });
 
 app.controller('bookCatalogCtrl', ['$scope', '$http', '$state', 'authFactory', '$timeout',
@@ -181,125 +137,125 @@ function ($scope, $http, $state, authFactory, $timeout) {
 
 app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$location', '$state', '$stateParams', '$uibModal', 'mapFactory', 'authFactory', '$rootScope',
     function ($scope, $http, $anchorScroll, $location, $state, $stateParams, $uibModal, $map, authFactory, $rootScope) {
-        $scope.loggedIn = false;
+		$scope.loggedIn = false;
 
-        console.log("Start");
-        // Check whether the Member has logged in or not
-        if (authFactory.getAuth() !== undefined) {
-            $scope.loggedIn = true;
-        }
+		console.log("Start");
+		// Check whether the Member has logged in or not
+		if (authFactory.getAuth() !== undefined) {
+			$scope.loggedIn = true;
+		}
 
-        // Tab array of stocks
-        $scope.buyNewBook = [];
-        $scope.buyUsedBook = [];
-        $scope.rentBook = [];
+		// Tab array of stocks
+		$scope.buyNewBook = [];
+		$scope.buyUsedBook = [];
+		$scope.rentBook = [];
 
-        // Max showing page for Pagers
-        $scope.maxSize = 4;
+		// Max showing page for Pagers
+		$scope.maxSize = 4;
 
-        // Number of items in each page of the tab
-        $scope.itemPerPage = 4;
+		// Number of items in each page of the tab
+		$scope.itemPerPage = 4;
 
-        // Initialize pager variables for total items in each tab
-        $scope.buyNewBookTotalItems = 0;
-        $scope.buyUsedBookTotalItems = 0;
-        $scope.rentBookTotalItems = 0;
+		// Initialize pager variables for total items in each tab
+		$scope.buyNewBookTotalItems = 0;
+		$scope.buyUsedBookTotalItems = 0;
+		$scope.rentBookTotalItems = 0;
 
-        // Initialize pager variables for the current page of each tab
-        $scope.buyNewBookCurrentPage = 1;
-        $scope.buyUsedBookCurrentPage = 1;
-        $scope.rentBookCurrentPage = 1;
+		// Initialize pager variables for the current page of each tab
+		$scope.buyNewBookCurrentPage = 1;
+		$scope.buyUsedBookCurrentPage = 1;
+		$scope.rentBookCurrentPage = 1;
 
-        // Initialize temporary variable for adding line stock from the modal to the cart
-        $scope.tempLineStock = {};
+		// Initialize temporary variable for adding line stock from the modal to the cart
+		$scope.tempLineStock = {};
 
-        // Initialize Google Map from the mapFactory.js
-        // googleMap.initialize();
+		// Initialize Google Map from the mapFactory.js
+		// googleMap.initialize();
 
-        // Define bookInfo
-        $scope.bookInfo = {};
+		// Define bookInfo
+		$scope.bookInfo = {};
 
-        // Get information of the book from the API
-        $scope.getBookProfile = function(id) {
-            $http.get('https://bookieservice.herokuapp.com/api/books/'+id)
-            .success(function (data) {
-                console.log(data);
-                $scope.bookInfo = data;
-                $scope.seperate();
-                $scope.setPagerTotalItems();
-            })
-            .error(function (data) {
-                console.log(data);
-            });
-        };
+		// Get information of the book from the API
+		$scope.getBookProfile = function (id) {
+			$http.get('https://bookieservice.herokuapp.com/api/books/' + id)
+				.success(function (data) {
+					console.log(data);
+					$scope.bookInfo = data;
+					$scope.seperate();
+					$scope.setPagerTotalItems();
+				})
+				.error(function (data) {
+					console.log(data);
+				});
+		};
 
-        // Seperate books into categories
-        $scope.seperate = function() {
-            for (var i = 0; i < $scope.bookInfo.line_stocks.length; i++) {
-                if ($scope.bookInfo.line_stocks[i].type === 'sell') {
-                    if ($scope.bookInfo.line_stocks[i].condition === 'new') {
-                        $scope.buyNewBook.push($scope.bookInfo.line_stocks[i]);
-                    }
-                    else if ($scope.bookInfo.line_stocks[i].condition === 'used') {
-                        $scope.buyUsedBook.push($scope.bookInfo.line_stocks[i]);
-                    }
-                }
-                else if ($scope.bookInfo.line_stocks[i].type === 'lend') {
-                    $scope.rentBook.push($scope.bookInfo.line_stocks[i]);
-                }
-            }
-            console.log($scope.buyNewBook);
-            console.log($scope.rentBook);
-        };
+		// Seperate books into categories
+		$scope.seperate = function () {
+			for (var i = 0; i < $scope.bookInfo.line_stocks.length; i++) {
+				if ($scope.bookInfo.line_stocks[i].member_id !== authFactory.getMember().id) {
+					if ($scope.bookInfo.line_stocks[i].type === 'sell') {
+						if ($scope.bookInfo.line_stocks[i].condition === 'new') {
+							$scope.buyNewBook.push($scope.bookInfo.line_stocks[i]);
+						} else if ($scope.bookInfo.line_stocks[i].condition === 'used') {
+							$scope.buyUsedBook.push($scope.bookInfo.line_stocks[i]);
+						}
+					} else if ($scope.bookInfo.line_stocks[i].type === 'lend') {
+						$scope.rentBook.push($scope.bookInfo.line_stocks[i]);
+					}
+				}
+			}
+			console.log($scope.buyNewBook);
+			console.log($scope.rentBook);
+		};
 
-        // Set the amount of total items used for showing items in pages of each of the tabs
-        $scope.setPagerTotalItems = function() {
-            $scope.buyNewBookTotalItems = $scope.buyNewBook.length * (10 / $scope.itemPerPage);
-            $scope.buyUsedBookTotalItems = $scope.buyUsedBook.length * (10 / $scope.itemPerPage);
-            $scope.rentBookTotalItems = $scope.rentBook.length * (10 / $scope.itemPerPage);
-        };
+		// Set the amount of total items used for showing items in pages of each of the tabs
+		$scope.setPagerTotalItems = function () {
+			$scope.buyNewBookTotalItems = $scope.buyNewBook.length * (10 / $scope.itemPerPage);
+			$scope.buyUsedBookTotalItems = $scope.buyUsedBook.length * (10 / $scope.itemPerPage);
+			$scope.rentBookTotalItems = $scope.rentBook.length * (10 / $scope.itemPerPage);
+		};
 
-        // Call getBookProfile()
-        $scope.getBookProfile($stateParams.bookId);
+		// Call getBookProfile()
+		$scope.getBookProfile($stateParams.bookId);
 
-        // Use for adding the book to the cart with its details
-        $scope.addToCart = function(line_stock) {
-            console.log(line_stock);
-            var config = {
-                headers: {
-                    'Authorization': authFactory.getAuth()
-                }
-            };
-            $http.post('https://bookieservice.herokuapp.com/api/members/cart/add', {
-                line_stock: {
-                    line_stock_id: line_stock.id
-                }
-            }, config)
-            .success(function(data){
-                console.log(JSON.stringify(data));
-                console.log(data);
-                $scope.auth = data.auth_token;
-                $rootScope.$broadcast('cart');
-                $scope.errorMessage = 'no error';
-            })
-            .error(function(data){
-                console.log(JSON.stringify(data));
-                $scope.errorMessage = JSON.stringify(data.errors);
-                console.log($scope.errorMessage);
-            });
-            console.log("The book that costs $" + line_stock.price + " has been added to the cart.");
-        };
+		// Use for adding the book to the cart with its details
+		$scope.addToCart = function (line_stock) {
+			console.log(line_stock);
+			var config = {
+				headers: {
+					'Authorization': authFactory.getAuth()
+				}
+			};
+			$http.post('https://bookieservice.herokuapp.com/api/members/cart/add', {
+					line_stock: {
+						line_stock_id: line_stock.id
+					}
+				}, config)
+				.success(function (data) {
+					console.log(JSON.stringify(data));
+					console.log(data);
+					$scope.auth = data.auth_token;
+					$rootScope.$broadcast('cart');
+					$scope.errorMessage = 'no error';
+				})
+				.error(function (data) {
+					console.log(JSON.stringify(data));
+					$scope.errorMessage = JSON.stringify(data.errors);
+					console.log($scope.errorMessage);
+				});
+			console.log("The book that costs $" + line_stock.price + " has been added to the cart.");
+		};
 
-        //
-        $scope.setTempLineStock = function(line_stock){
-            $scope.tempLineStock = line_stock;
-        };
+		//
+		$scope.setTempLineStock = function (line_stock) {
+			$scope.tempLineStock = line_stock;
+		};
 
-        // Use for scrolling the page to bottom
-        $scope.moveToBottom = function() {
-            $location.hash('bottom');
-            $anchorScroll();
-        };
+		// Use for scrolling the page to bottom
+		$scope.moveToBottom = function () {
+			$location.hash('bottom');
+			$anchorScroll();
+		};
     }
 ]);
 
@@ -372,6 +328,8 @@ app.controller('cartCtrl',['$scope','$http', '$state', 'authFactory', '$rootScop
 
 app.controller('completeStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'authFactory',
     function ($scope, $http, $state, $rootScope, authFactory) {
+        $rootScope.changeStep(4);
+
         $scope.confirmStock = function(){
             var config = {
     			headers: {
@@ -556,14 +514,16 @@ app.controller('infoStockCtrl', ['$scope', '$http', '$state', '$rootScope',
     function ($scope, $http, $state, $rootScope) {
 		//console.log($rootScope.newBook);
 
-		$scope.type = '';
+        $rootScope.changeStep(3);
+
+        $scope.type = '';
 		$scope.errors = {};
 
 		$scope.nextStep = function () {
 			$scope.errors = {};
             $scope.checkError = false;
-			if ($scope.price === undefined) {
-				$scope.errors.price = 'Please insert price';
+			if ($scope.price === undefined || $scope.price <= 0) {
+				$scope.errors.price = 'Please insert price correctly';
                 $scope.checkError = true;
 			}
             if ($scope.condition === undefined) {
@@ -574,12 +534,12 @@ app.controller('infoStockCtrl', ['$scope', '$http', '$state', '$rootScope',
 				$scope.errors.description = 'Please insert description';
                 $scope.checkError = true;
 			}
-            if ($scope.quantity === undefined) {
-				$scope.errors.quantity = 'Please insert quantity';
+            if ($scope.quantity === undefined || $scope.quantity <= 0) {
+				$scope.errors.quantity = 'Please insert quantity correctly';
                 $scope.checkError = true;
 			}
-            if ($scope.duration === undefined && $scope.type === 'lend') {
-				$scope.errors.duration = 'Please insert duration';
+            if (($scope.duration === undefined || $scope.duration <= 0 ) && $scope.type === 'lend') {
+				$scope.errors.duration = 'Please insert duration correctly';
                 $scope.checkError = true;
 			}
             if( !$scope.checkError){
@@ -602,6 +562,15 @@ app.controller('infoStockCtrl', ['$scope', '$http', '$state', '$rootScope',
 				$state.go('newStock.fourth');
 			}
 		};
+
+        $scope.$watch('condition', function(){
+            if($scope.condition === 'new'){
+                $scope.description = 'Brands new book';
+            }
+            else{
+                $scope.description = '';
+            }
+        });
 }]);
 
 app.controller('loginCtrl', ['$scope', '$http', '$state', 'authFactory',
@@ -690,7 +659,6 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
 		$rootScope.member = $scope.getMember();
 		$scope.getCart();
 		$scope.$on('authenticate', function () {
-			console.log('Change');
 			$rootScope.member = $scope.getMember();
 		});
 
@@ -843,7 +811,9 @@ app.controller('paymentCtrl',['$scope','$http', '$state', 'authFactory', '$rootS
 app.controller('photoStockCtrl', ['$scope', '$rootScope', '$stateParams', '$location', 'Upload', 'authFactory', '$http', '$state',
   /* Uploading with Angular File Upload */
   function ($scope, $rootScope, $stateParams, $location, $upload, authFactory, $http, $state) {
-		$.cloudinary.config()
+      $rootScope.changeStep(2);
+
+        $.cloudinary.config()
 			.cloud_name = 'tbookie';
 		$.cloudinary.config()
 			.upload_preset = 'jukcxy4z';
@@ -1082,7 +1052,9 @@ app.controller('requestedOrderCtrl', ['$scope', '$http', '$state', 'authFactory'
 ]);
 app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'dateFactory', '$timeout', 'authFactory',
     function ($scope, $http, $state, $rootScope, $date, $timeout, authFactory) {
-		// amount of books from api
+        $rootScope.changeStep(1);
+
+        // amount of books from api
 		$scope.totalBooks = -1;
 		$scope.hadSearch = false;
 		$scope.wantAdd = false;
