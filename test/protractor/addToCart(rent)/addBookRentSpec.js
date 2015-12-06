@@ -11,8 +11,8 @@ describe('Add book to cart (buying)', function() {
     beforeEach(function() {
         browser.get('/#');
         getRequest('https://bookieservice.herokuapp.com/api/books/', 'indiBook');
-        getRequest('https://bookieservice.herokuapp.com/api/books/3', 'selectBook');
-        getRequest('https://bookieservice.herokuapp.com/api/members/cart/show', 'cart')
+        getRequest('https://bookieservice.herokuapp.com/api/books/6', 'selectBook');
+        // getRequest('https://bookieservice.herokuapp.com/api/members/cart/show', 'cart')
     });
 
     function getRequest(link, vari){
@@ -24,7 +24,7 @@ describe('Add book to cart (buying)', function() {
             }
             else if(!error && vari=='selectBook') {
                 bookStocks = JSON.parse(body).line_stocks;
-                // console.log(bookStocks);
+                console.log(bookStocks);
             }
             else if(!error && vari=='cart') {
                 carts = JSON.parse(body);
@@ -46,26 +46,13 @@ describe('Add book to cart (buying)', function() {
     };
 
     describe('if login', function() {
-        it('should be able to add NEW book to cart', function() {
+        it('should be able to add RENTABLE book to cart', function() {
             login();
-            // select book id3
-            element.all(by.repeater('book in books')).get(2).click();
-            expect(bookTitle.getText()).toEqual(books[2].title);
-            // // pick the first book order
-            element.all(by.repeater('line_stock in buyNewBook')).then(function(buyNewBook) {
-                selectedBook = buyNewBook[0];
-                selectedBook.element(by.className('ng-scope')).click();
-            });
-        
-            $('.modal-dialog').element(by.buttonText('Add To Cart')).click();
-        });
-
-        it('should be able to add USED book to cart', function() {
             // select book
-            element.all(by.repeater('book in books')).get(4).click();
-            selectedBook =  element(by.linkText('Buy Used Books')).click();
+            element.all(by.repeater('book in books')).get(5).click();
+            selectedBook =  element(by.linkText('Rent Books')).click();
             // pick the first order
-            element.all(by.repeater('line_stock in buyUsedBook')).then(function(buyUsedBook) {
+            element.all(by.repeater('line_stock in rentBook')).then(function(buyUsedBook) {
                 selectedBook = buyUsedBook[0];
                 selectedBook.element(by.className('ng-scope')).click();
             });
