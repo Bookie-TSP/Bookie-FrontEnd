@@ -23,16 +23,26 @@
 }
 
 .search-bar {
-    width: 10%;
     color: white;
 }
 
 .search-bar-icon {
+    border-style: solid;
+    border-color: #999;
     background-color: #222;
     color: #999;
 }
 
 .search-bar-textfield {
     background-color: #222;
+    border-color: #999;
     color: white:
+}
+
+.input-group-btn {
+    width: inherit;
+}
+
+.navbar-form {
+    margin-top: 10px;
 }

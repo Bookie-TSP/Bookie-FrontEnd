@@ -9,10 +9,17 @@
             </button>
             <a class="navbar-brand" ui-sref="home">Bookie</a>
         </div>
-        <div class="navbar-form navbar-left input-group input-group-sm search-bar">
-            <span class="input-group-addon search-bar-icon">
-                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-            </span>
+        <div class="navbar-form navbar-left input-group input-group-sm search-bar" ng-show="$state.current.name=='home'">
+            <div class="input-group-btn">
+                <button ng-click="test()" id="dropdown-search" class="btn dropdown-toggle search-bar-icon" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdown-search">
+                  <li><a href="#">Any</a></li>
+                  <li><a href="#">Name</a></li>
+                  <li><a href="#">Author</a></li>
+                </ul>
+            </div>
             <input type="text" class="form-control search-bar-textfield" aria-describedby="basic-addon1" ng-model="searchText">
         </div>
         <div class="collapse navbar-collapse" id="navbar-collapse-1">

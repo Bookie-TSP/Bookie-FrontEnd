@@ -690,6 +690,10 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
 			}
 		};
 
+        $scope.test = function() {
+            console.log($state.current.name);
+        }
+
 		$rootScope.member = $scope.getMember();
 		$scope.getCart();
 		$scope.$on('authenticate', function () {
