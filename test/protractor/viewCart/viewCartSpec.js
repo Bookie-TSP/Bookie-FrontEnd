@@ -8,16 +8,16 @@ describe('View cart' ,function() {
     var homeNav = element(by.id('home'));
     var cartNav = element(by.id('item-cart'));
 
+    var bookIndex;
+
     var title;
-    var ISBN13;
+    var isbn13;
     var author;
     var language;
     var pages;
     var publisher;
     var price;
     var condition;
-
-    var checkTotal;
 
     beforeEach(function() {
         browser.get('/#');
@@ -27,13 +27,14 @@ describe('View cart' ,function() {
         homeNav.click();
         element.all(by.repeater('book in books')).get(index).click();
         title = element(by.id('individualBookTitle')).getText();
-        ISBN13 = element(by.id('individualBookISBNThirteen')).getText();
-        // author = element.all(by.repeater('author in bookInfo.authors'));
-        // language = element(by.id('individualBookLanguage')).getText();
-        // pages = element(by.id('individualBookPages')).getText();
-        // publisher = element(by.id('individualBookPublisher')).getText();
-        // price = element(by.repeater('line_stock in buyNewBook')).getText();
-        // condition = element(by.id('')).getText();
+        isbn13 = element(by.id('individualBookISBNThirteen')).getText();
+        author = element.all(by.repeater('author in bookInfo.authors'));
+        language = element(by.id('individualBookLanguage')).getText();
+        pages = element(by.id('individualBookPages')).getText();
+        publisher = element(by.id('individualBookPublisher')).getText();
+
+        price = element(by.repeater('line_stock in buyNewBook')).element(by.id('individualPrice')).getText();
+        condition = element(by.repeater('line_stock in buyNewBook')).element(by.id('individualCondition')).getText();
     }
 
     describe('login first' ,function() {
@@ -96,7 +97,7 @@ describe('View cart' ,function() {
     describe('correctly detail in cart' ,function() {
         it('should have correct detail' ,function() {
             homeNav.click();
-            var bookIndex = 0;
+            bookIndex = 0;
             element.all(by.repeater('book in books')).get(bookIndex).click();
             element(by.repeater('line_stock in buyNewBook')).element(by.css('.btn.btn-warning')).click();
             element(by.css('.btn.btn-primary')).click();
@@ -105,35 +106,85 @@ describe('View cart' ,function() {
 
             cartNav.click();
 
-            // Have to add element id in 'cart' b4 run this function like 'title'.
+            // Have to add element id in 'cart' b4 run this function like 'individualBookTitle'.
+            // 'title ,isbn13 ,language ,pages ,publisher ,price ,condition'
+
+            // Have to add element id in 'bookProfile' b4 run this function like 'individualBookTitle'.
+            // 'individualPrice ,individualCondition'
+
 
             expect(title).toEqual(element(by.id('buy')).element(by.id('title')).getText());
             
             // pin
-            // expect(ISBN13).toEqual(element(by.id('buy')).element(by.id('ISBN13')).getText());
+            // expect(isbn13).toEqual(element(by.id('buy')).element(by.id('isbn13')).getText());
             // expect(author).toEqual(element.all(by.repeater('author in bookInfo.authors')));
             // expect(language).toEqual(element(by.id('individualBookLanguage')).getText());
             // expect(pages).toEqual(element(by.id('individualBookPages')).getText());
             // expect(publisher).toEqual(element(by.id('individualBookPublisher')).getText());
-            // expect(price).toEqual(element(by.repeater('line_stock in buyNewBook')).getText(););
-            // expect(condition).toEqual('');
 
+            // element(by.css('.btn.btn-danger')).click();
+            // browser.pause();
+        });
+
+        it('should have correct isbn13' ,function() {
+            cartNav.click();
+            expect(isbn13).toEqual(element(by.id('buy')).element(by.id('isbn13')).getText());
+        });
+
+        it('should have correct author' ,function() {
+            cartNav.click();
+            expect(author).toEqual(element.all(by.repeater('author in bookInfo.authors')));
+        });
+
+        it('should have correct language' ,function() {
+            cartNav.click();
+            expect(language).toEqual(element(by.id('buy')).element(by.id('language')).getText());
+        });
+
+        it('should have correct pages' ,function() {
+            cartNav.click();
+            expect(pages).toEqual(element(by.id('buy')).element(by.id('pages')).getText());
+        });
+
+        it('should have correct publisher' ,function() {
+            cartNav.click();
+            expect(publisher).toEqual(element(by.id('buy')).element(by.id('publisher')).getText());
+        });
+
+        it('should have correct price' ,function() {
+            cartNav.click();
+            expect(price).toEqual(element(by.id('buy')).element(by.id('price')).getText());
+        });
+
+        it('should have correct condition' ,function() {
+            cartNav.click();
+            expect(condition).toEqual(element(by.id('buy')).element(by.id('condition')).getText());
             element(by.css('.btn.btn-danger')).click();
             browser.pause();
         });
-
     });
 
     describe('correctly price details' ,function() {
         it('should calculate subtotal correctly' ,function() {
-            checkTotal = 0;
-            element.all(by.repeater('book in books')).get(0).click();
+            homeNav.click();
+            bookIndex = 0;
+            element.all(by.repeater('book in books')).get(bookIndex).click();
             element(by.repeater('line_stock in buyNewBook')).element(by.css('.btn.btn-warning')).click();
             element(by.css('.btn.btn-primary')).click();
+
+            getDetail(bookIndex);
+
             cartNav.click();
-            expect(element(by.id('subTotal')).getText()).toBe(500.00);
-            browser.pause();
+
+            // Have to add element id in 'cart' b4 run this function like 'individualBookTitle'.
+            // 'subTotal ,total'
+
+            expect(price).toEqual(element(by.id('subTotal')).getText());
         });
+
+        it('should calculate total correctly' ,function() {
+            
+        })
     });
 
      afterAll(function(done) {
