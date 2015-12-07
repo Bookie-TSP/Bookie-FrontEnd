@@ -3,6 +3,18 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
 		$scope.totalPrice = 0;
 		$scope.totalCount = 0;
         $scope.searchType = 'Any';
+
+        //getting books from api (being here because of sorting)
+        $http.get('https://bookieservice.herokuapp.com/api/books')
+            .success(function (data) {
+                $scope.books = data.books;
+                console.log("success");
+                console.log($scope.books);
+            })
+            .error(function (data) {
+                console.log(data);
+            });
+
 		$scope.logout = function () {
 			authFactory.setAuth(undefined);
 		};
@@ -54,13 +66,37 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
 			}
 		};
 
-        $scope.searchBy = function(criteria) {
-            if (criteria == 'Any') {
-
-            } else if (criteria == 'Title') {
-                $scope.searchText = $scope.searchText.title;
-            } else if (criteria == 'Author') {
-
+        $scope.sortBy = function(criteria) {
+            if (criteria == 'Name') {
+                $scope.books.sort(function(a, b) {
+    				var x = a.title.toLowerCase();
+				    var y = b.title.toLowerCase();
+				    return x < y ? -1 : x > y ? 1 : 0;
+    			});
+            } else if (criteria == 'plh') {
+                $scope.books.sort(function(a, b) {
+    				var x = a.lowest_price;
+				    var y = b.lowest_price;
+				    if (x == "null") {
+				    	return -1;
+				    }
+				    if (y == "null") {
+				    	return 1;
+				    }
+				    return x-y;
+    			});
+            } else if (criteria == 'phl') {
+                $scope.books.sort(function(a, b) {
+    				var x = a.lowest_price;
+				    var y = b.lowest_price;
+				    if (x == "null") {
+				    	return 1;
+				    }
+				    if (y == "null") {
+				    	return -1;
+				    }
+				    return y-x;
+    			});
             }
         }
 

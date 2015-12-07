@@ -47,3 +47,9 @@
 .navbar-form {
     margin-top: 10px;
 }
+
+.sort-by-button {
+    margin-top: 10px;
+    background-color: #222;
+    color: #999;
+}
