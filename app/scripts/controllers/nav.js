@@ -2,6 +2,7 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
   function ($scope, $http, $state, authFactory, $rootScope) {
 		$scope.totalPrice = 0;
 		$scope.totalCount = 0;
+        $scope.searchType = 'Any';
 		$scope.logout = function () {
 			authFactory.setAuth(undefined);
 		};
@@ -53,8 +54,14 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
 			}
 		};
 
-        $scope.test = function() {
-            console.log($state.current.name);
+        $scope.searchBy = function(criteria) {
+            if (criteria == 'Any') {
+
+            } else if (criteria == 'Title') {
+                $scope.searchText = $scope.searchText.title;
+            } else if (criteria == 'Author') {
+
+            }
         }
 
 		$rootScope.member = $scope.getMember();

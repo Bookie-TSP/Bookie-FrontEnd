@@ -264,7 +264,8 @@ body {
 .search-bar-textfield {
   background-color: #222;
   border-color: #999;
-  color: white:;
+  color: white:
+    width: inherit;
 }
 
 .input-group-btn {
