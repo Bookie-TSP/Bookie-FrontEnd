@@ -667,10 +667,10 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
     				var x = a.lowest_price;
 				    var y = b.lowest_price;
 				    if (x == "null") {
-				    	return -1;
+				    	return 1;
 				    }
 				    if (y == "null") {
-				    	return 1;
+				    	return -1;
 				    }
 				    return x-y;
     			});
