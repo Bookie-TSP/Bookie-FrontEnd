@@ -1,0 +1,60 @@
+.orange-colored-button {
+    -moz-box-shadow: inset 0px 39px 0px -24px #f0ad4e;
+    -webkit-box-shadow: inset 0px 39px 0px -24px #f0ad4e;
+    box-shadow: inset 0px 39px 0px -24px #f0ad4e;
+    background-color: #fe960f;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    border: 1px solid #ffffff;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 15px;
+    padding: 6px 15px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #fe9000;
+}
+#indiBook {
+    margin-top: 12px;
+    margin-bottom: 0px;
+    margin-right: 0px;
+    margin-left: 12px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+    height: 348px;
+}
+.bookPic {
+    height: 200px;
+    width: 90%;
+}
+.bookTitle {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 60px;
+    min-height: 20px;
+}
+.database-block {
+    border-bottom: 1px solid grey;
+    width: 96%;
+    padding-bottom: 30px;
+}
+
+#indiBook:hover {
+    background-color: #ffc966;
+    color: white;
+    cursor: hand;
+  cursor: pointer;
+}
+
+.require-text{
+    text-color: red;
+}

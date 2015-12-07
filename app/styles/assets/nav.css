@@ -1,0 +1,38 @@
+#dropdownProfile{
+    cursor: hand;
+    cursor: pointer;
+}
+
+.modal {
+    text-align: center;
+    padding: 0!important;
+}
+
+.modal:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -4px; /* Adjusts for spacing */
+}
+
+.modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.search-bar {
+    width: 10%;
+    color: white;
+}
+
+.search-bar-icon {
+    background-color: #222;
+    color: #999;
+}
+
+.search-bar-textfield {
+    background-color: #222;
+    color: white:
+}
