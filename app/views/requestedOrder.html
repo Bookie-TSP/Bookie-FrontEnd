@@ -15,9 +15,10 @@
                                 <uib-accordion-group heading="{{stock.book.title}}" is-open="true">
                                     <div class="col-sm-1 col-sm-offset-1">${{stock.price}}</div>
                                     <div class="col-sm-3">{{stock.book.title}}</div>
-                                    <div class="col-sm-3">{{stock.created_at}}</div>
+                                    <div class="col-sm-2">{{stock.created_at}}</div>
                                     <div class="col-sm-2"><span class="label label-success">{{stock.status}}</span></div>
-                                    <div class="col-sm-2"><button class="btn btn-success">{{stock.status}}</button></div>
+                                    <div class="col-sm-1"><button class="btn btn-success" ng-click="acceptOrder(order, stock)">Accept</button></div>
+                                    <div class="col-sm-1"><button class="btn btn-danger">Decline</button></div>
                                 </uib-accordion-group>
                             </div>
                         </uib-accordion>
@@ -57,9 +58,10 @@
                             <div ng-show="stock.status === 'returned'">
                                 <uib-accordion-group heading="{{stock.book.title}}" is-open="true">
                                     <div class="col-sm-1 col-sm-offset-1">${{stock.price}}</div>
-                                    <div class="col-sm-5">{{stock.book.title}}</div>
+                                    <div class="col-sm-4">{{stock.book.title}}</div>
                                     <div class="col-sm-3">{{stock.created_at}}</div>
                                     <div class="col-sm-2"><span class="label label-success">{{stock.status}}</span></div>
+                                    <div class="col-sm-1"><button class="btn btn-success" ng-click="returned(order, stock)">Returned</button></div>
                                 </uib-accordion-group>
                             </div>
                         </uib-accordion>

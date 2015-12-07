@@ -988,8 +988,6 @@ app.controller('requestedOrderCtrl', ['$scope', '$http', '$state', 'authFactory'
 			$state.go('login');
 		}
 
-		$scope.dataReady = false;
-
 		$scope.getOrderInfo = function() {
 			var config = {
 				headers: {
@@ -997,17 +995,16 @@ app.controller('requestedOrderCtrl', ['$scope', '$http', '$state', 'authFactory'
 				}
 			};
 			$http.get('https://bookieservice.herokuapp.com/api/mysupplyorders', config)
-				.success(function (data) {
-					$scope.orderInfo = data;
-					console.log(data);
-					$scope.dataReady = true;
-				})
-				.error(function (data) {
-					console.log(data);
-				});
+			.success(function (data) {
+				$scope.orderInfo = data;
+				console.log(data);
+			})
+			.error(function (data) {
+				console.log(data);
+			});
 		}
 
-		$scope.acceptOrder = function() {
+		$scope.acceptOrder = function(acceptedOrder, acceptedStock) {
             var config = {
 				headers: {
 					'Authorization': authFactory.getAuth()
@@ -1015,8 +1012,8 @@ app.controller('requestedOrderCtrl', ['$scope', '$http', '$state', 'authFactory'
 			};
             $http.post('https://bookieservice.herokuapp.com/api/members/orders/accept',{
                 order: {
-                	order_id: 4,
-                	stock_id: 3
+                	order_id: acceptedOrder.id,
+                	stock_id: acceptedStock.id
                 }
             },config)
             .success(function(data){
@@ -1027,7 +1024,7 @@ app.controller('requestedOrderCtrl', ['$scope', '$http', '$state', 'authFactory'
             });
 		}
 
-		$scope.declineOrder = function() {
+		$scope.declineOrder = function(declinedOrder, declinedStock) {
             var config = {
 				headers: {
 					'Authorization': authFactory.getAuth()
@@ -1035,8 +1032,28 @@ app.controller('requestedOrderCtrl', ['$scope', '$http', '$state', 'authFactory'
 			};
             $http.post('https://bookieservice.herokuapp.com/api/members/orders/decline',{
                 order: {
-                	order_id: 4,
-                	stock_id: 3
+                	order_id: declinedOrder.id,
+                	stock_id: declinedStock.id
+                }
+            },config)
+            .success(function(data){
+                console.log(data);
+            })
+            .error(function(data){
+                console.log(data);
+            });
+		}
+
+		$scope.returned = function(returnedOrder, returnedStock) {
+            var config = {
+				headers: {
+					'Authorization': authFactory.getAuth()
+				}
+			};
+            $http.post('https://bookieservice.herokuapp.com/api/members/orders/returned',{
+                order: {
+                	order_id: returnedOrder.id,
+                	stock_id: returnedStock.id
                 }
             },config)
             .success(function(data){
