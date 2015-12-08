@@ -31,7 +31,8 @@ gulp.task('libaryScripts', function () {
 						'./bower_components/ngstorage/ngStorage.min.js',
 						'./bower_components/ng-file-upload/ng-file-upload-shim.js',
 						'./bower_components/ng-file-upload/ng-file-upload.js',
-						'./bower_components/cloudinary_ng/js/angular.cloudinary.js'
+						'./bower_components/cloudinary_ng/js/angular.cloudinary.js',
+						'./bower_components/angoolar-cookies/js/vendor/002_angular-cookies.tail.js'
 					])
 		.pipe(concat('libary.js'))
 		.pipe(gulp.dest('app/scripts'));
