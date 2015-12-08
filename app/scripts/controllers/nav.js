@@ -1,8 +1,11 @@
-app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootScope',
-  function ($scope, $http, $state, authFactory, $rootScope) {
+app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootScope', '$timeout',
+  function ($scope, $http, $state, authFactory, $rootScope, $timeout) {
 		$scope.totalPrice = 0;
 		$scope.totalCount = 0;
 		$scope.logout = function () {
+            $timeout(function () {
+                $state.go("home");
+            }, 100);
 			authFactory.setAuth(undefined);
 		};
 		$scope.getMember = function () {
