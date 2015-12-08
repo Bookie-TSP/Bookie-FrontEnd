@@ -295,7 +295,6 @@ app.controller('cartCtrl',['$scope','$http', '$state', 'authFactory', '$rootScop
 
         // remove stock
         $scope.removeStock = function(id) {
-            console.log(id);
             $http.post('https://bookieservice.herokuapp.com/api/members/cart/remove',{
                 stock: {
                     stock_id: id
@@ -1206,19 +1205,20 @@ app.controller('stockCtrl', ['$scope', '$http', '$state', 'authFactory',
             $state.go("login");
         }
 
-        $scope.getStock = function(){
+        $scope.getStocks = function(){
             $http.get('https://bookieservice.herokuapp.com/api/mystocks', authFactory.getConfigHead())
                 .success(function(data){
+                    console.log(data);
                     $scope.data = data;
-                    $scope.stocks = data.line_stocks;
-                    console.log($scope.stocks);
+                    $scope.line_stocks = data.line_stocks;
+                    console.log($scope.line_stocks);
                 })
                 .error(function(data){
-
+                    console.log(data);
                 });
         };
 
-        $scope.getStock();
+        $scope.getStocks();
     }]);
 
 app.factory('authFactory', function ($http, $rootScope, $localStorage, $cookies) {

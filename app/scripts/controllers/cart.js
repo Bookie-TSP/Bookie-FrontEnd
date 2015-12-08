@@ -48,7 +48,6 @@ app.controller('cartCtrl',['$scope','$http', '$state', 'authFactory', '$rootScop
 
         // remove stock
         $scope.removeStock = function(id) {
-            console.log(id);
             $http.post('https://bookieservice.herokuapp.com/api/members/cart/remove',{
                 stock: {
                     stock_id: id
