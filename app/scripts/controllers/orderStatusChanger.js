@@ -4,12 +4,12 @@ app.controller('orderStatusChangerCtrl', ['$scope', '$http', '$state', 'authFact
             $state.go("login");
         }
         $scope.transporterForm = function(){
-            $state.go("order");
+            $state.go("transporterForm");
         };
         $scope.sevenElevenForm = function(){
-            $state.go("order");
+            $state.go("sevenElevenForm");
         };
         $scope.bookSellerForm = function(){
-            $state.go("register");
+            $state.go("bookOwnerForm");
         };
     }]);

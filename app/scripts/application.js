@@ -90,6 +90,21 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             url: '/orderStatusChanger',
             templateUrl: 'views/orderStatusChanger.html',
             data : { pageTitle: 'Order Status Changer' }
+        })
+        .state('transporterForm', {
+            url: '/transporterForm',
+            templateUrl: 'views/changeStatusForms/transporterForm.html',
+            data : { pageTitle: 'Transporter Form' }
+        })
+        .state('sevenElevenForm', {
+            url: '/sevenElevenForm',
+            templateUrl: 'views/changeStatusForms/sevenElevenForm.html',
+            data : { pageTitle: 'Seven Eleven Form' }
+        })
+        .state('bookOwnerForm', {
+            url: '/bookOwnerForm',
+            templateUrl: 'views/changeStatusForms/bookOwnerForm.html',
+            data : { pageTitle: 'Book Owner Form' }
         });
 	$urlRouterProvider.otherwise('/');
 
