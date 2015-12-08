@@ -34,13 +34,22 @@
 .no-stock-message {
   text-align: center;
 }
-#noBook {
+.noBook {
   color: #D3D3D3;
 }
 
-#countinue {
+#countinueBtn {
   background-color: #696969;
   color: white;
+}
+
+#checkoutBtn {
+  margin-top: 10px;
+}
+
+.img-responsive {
+  width: 150px;
+  height: 225px;
 }
 .validation {
   color: #ff0000;
