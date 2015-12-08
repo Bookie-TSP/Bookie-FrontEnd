@@ -704,6 +704,22 @@ app.controller('orderCtrl', ['$scope', '$http', '$state', 'authFactory',
 	}
 ]);
 
+app.controller('orderStatusChangerCtrl', ['$scope', '$http', '$state', 'authFactory',
+    function ($scope, $http, $state, authFactory) {
+        if (authFactory.getAuth() === undefined) {
+            $state.go("login");
+        }
+        $scope.transporterForm = function(){
+            $state.go("order");
+        };
+        $scope.sevenElevenForm = function(){
+            $state.go("order");
+        };
+        $scope.bookSellerForm = function(){
+            $state.go("register");
+        };
+    }]);
+
 app.controller('paymentCtrl',['$scope','$http', '$state', 'authFactory', '$rootScope',
     function ($scope, $http, $state, authFactory, $rootScope){
         $scope.getTotal = function() {

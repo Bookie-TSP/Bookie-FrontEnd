@@ -1,11 +1,13 @@
-<div ng-controller="loginCtrl">
+<div ng-controller="orderStatusChangerCtrl">
     <section id="form">
         <div class="container">
             <div class="row">
-                <div class="col-sm-6 col-sm-offset-3">
-                    <button>Transporter</button>
-                    <br>
-                    <button>SevenEleven client</button>
+                <div class="col-sm-6 col-sm-offset-2">
+                        <button class = "btn btn-warning" ng-click = "transporterForm()">Transporter</button>
+                        <br><br>
+                        <button class = "btn btn-warning" ng-click = "sevenElevenForm()">SevenEleven client</button>
+                        <br><br>
+                        <button class = "btn btn-warning" ng-click = "bookSellerForm()">BookSeller</button>
                 </div>
             </div>
         </div>
