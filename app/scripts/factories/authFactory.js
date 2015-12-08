@@ -1,18 +1,43 @@
-app.factory('authFactory', function ($http, $rootScope, $localStorage) {
+app.factory('authFactory', function ($http, $rootScope, $localStorage, $cookies) {
 	return {
+		setKeep: function(value) {
+			$localStorage.keepLogin = value;
+		},
 		getAuth: function () {
-			return $localStorage.authToken;
+			if($localStorage.keepLogin === false) {
+				return $cookies.get('authToken');
+			}
+			else {
+				return $localStorage.authToken;
+			}
 		},
 		setAuth: function (token) {
-			$localStorage.authToken = token;
+			if($localStorage.keepLogin === false){
+				$localStorage.authToken = undefined;
+				$cookies.put('authToken', token);
+			}
+			else{
+				$localStorage.authToken = token;
+			}
 			$rootScope.$broadcast('authenticate');
 			$rootScope.$broadcast('cart');
 		},
-		setMember: function (member) {
-			$localStorage.member = member;
+		setMember: function (mem) {
+			if($localStorage.keepLogin === false){
+				$localStorage.member = undefined;
+				$cookies.putObject('member', mem);
+			}
+			else{
+				$localStorage.member = member;
+			}
 		},
 		getMember: function () {
-			return $localStorage.member;
+			if($localStorage.keepLogin === false) {
+				return $cookies.get('member');
+			}
+			else {
+				return $localStorage.member;
+			}
 		}
 	};
 });

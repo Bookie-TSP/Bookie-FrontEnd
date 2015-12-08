@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ui.router', 'ngStorage', 'ui.bootstrap', 'uiGmapgoogle-maps', 'ngFileUpload', 'cloudinary']);
+var app = angular.module('app', ['ui.router', 'ngStorage', 'ui.bootstrap', 'ngCookies', 'uiGmapgoogle-maps', 'ngFileUpload', 'cloudinary']);
 app.config(function ($stateProvider, $urlRouterProvider) {
 	$stateProvider
 		.state('home', {

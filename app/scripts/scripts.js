@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ui.router', 'ngStorage', 'ui.bootstrap', 'uiGmapgoogle-maps', 'ngFileUpload', 'cloudinary']);
+var app = angular.module('app', ['ui.router', 'ngStorage', 'ui.bootstrap', 'ngCookies', 'uiGmapgoogle-maps', 'ngFileUpload', 'cloudinary']);
 app.config(function ($stateProvider, $urlRouterProvider) {
 	$stateProvider
 		.state('home', {
@@ -574,6 +574,7 @@ app.controller('loginCtrl', ['$scope', '$http', '$state', 'authFactory',
 			$state.go('home');
 		}
 		$scope.validation = '';
+		$scope.keepLogin = false;
 		setValidation = function (s) {
 			$scope.validation = s;
 		};
@@ -585,6 +586,7 @@ app.controller('loginCtrl', ['$scope', '$http', '$state', 'authFactory',
 				})
 				.success(function (data) {
 					$scope.auth = data.auth_token;
+					authFactory.setKeep($scope.keepLogin);
 					authFactory.setAuth($scope.auth);
 					$state.go('home');
 				})
@@ -1276,21 +1278,46 @@ app.controller('stockCtrl', ['$scope', '$http', '$state', 'authFactory',
         $scope.getStock();
     }]);
 
-app.factory('authFactory', function ($http, $rootScope, $localStorage) {
+app.factory('authFactory', function ($http, $rootScope, $localStorage, $cookies) {
 	return {
+		setKeep: function(value) {
+			$localStorage.keepLogin = value;
+		},
 		getAuth: function () {
-			return $localStorage.authToken;
+			if($localStorage.keepLogin === false) {
+				return $cookies.get('authToken');
+			}
+			else {
+				return $localStorage.authToken;
+			}
 		},
 		setAuth: function (token) {
-			$localStorage.authToken = token;
+			if($localStorage.keepLogin === false){
+				$localStorage.authToken = undefined;
+				$cookies.put('authToken', token);
+			}
+			else{
+				$localStorage.authToken = token;
+			}
 			$rootScope.$broadcast('authenticate');
 			$rootScope.$broadcast('cart');
 		},
-		setMember: function (member) {
-			$localStorage.member = member;
+		setMember: function (mem) {
+			if($localStorage.keepLogin === false){
+				$localStorage.member = undefined;
+				$cookies.putObject('member', mem);
+			}
+			else{
+				$localStorage.member = member;
+			}
 		},
 		getMember: function () {
-			return $localStorage.member;
+			if($localStorage.keepLogin === false) {
+				return $cookies.get('member');
+			}
+			else {
+				return $localStorage.member;
+			}
 		}
 	};
 });
