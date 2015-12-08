@@ -7,21 +7,21 @@
     margin-top: 185px;
     overflow: hidden;
 }
+form {
+    border: none;
+}
 .register-form h2, .signup-form h2 {
     color: #696763;
     font-family: 'Roboto', sans-serif;
     margin-bottom: 30px;
 }
-
-.register-form h4, .register-form h5{
+.register-form h4, .register-form h5 {
     color: #696763;
     font-family: 'Roboto', sans-serif;
 }
-
 #validate {
     color: #ff0000;
 }
-
 #pass {
     color: #007500
 }
@@ -99,7 +99,6 @@
     color: white;
     font-weight: bold;
 }
-
 #date, #month, #year {
     width: 120px;
     margin-left: 10px;

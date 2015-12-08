@@ -1,6 +1,9 @@
 node_modules/
+bower_components/
 .DS_Store
 .idea/
 .iml
 test/protractor/login/test_results/
 test/protractor/register/test_results/
+app/scripts/libary.js
+app/scripts/scripts.js

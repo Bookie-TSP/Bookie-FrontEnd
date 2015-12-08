@@ -1,0 +1,152 @@
+<div class="container" ng-controller="completeStockCtrl">
+    <h3>Book Informations</h3>
+    <div class="row">
+        <div class="col-sm-3 col-sm-offset-1">
+            <image id="book-cover" src="{{newBook.cover_image_url}}"></image>
+        </div>
+        <div class="col-sm-8">
+            <div class="row">
+                <div class="col-sm-4 text-info">Title:</div>
+                <div class="col-sm-8">
+                    <div class="row">{{newBook.title}}</div>
+                    <div class="row" ng-if="newBook.title === null">undefined</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 text-info">ISBN 10:</div>
+                <div class="col-sm-8">
+                    <div class="row">{{newBook.ISBN10}}</div>
+                    <div class="row" ng-if="newBook.ISBN10 === null">undefined</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 text-info">ISBN 13:</div>
+                <div class="col-sm-8">
+                    <div class="row">{{newBook.ISBN13}}</div>
+                    <div class="row" ng-if="newBook.ISBN13 === null">undefined</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 text-info">Author:</div>
+                <div ng-repeat="author in newBook.authors">
+                    <div class="row" ng-if="newBook.authors.indexOf(author) != 0">&nbsp;</div>
+                </div>
+                <div class="col-sm-8">
+                    <div ng-repeat="author in newBook.authors">
+                        <div class="row">{{author}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 text-info">Language:</div>
+                <div class="col-sm-8">
+                    <div class="row">{{newBook.language}}</div>
+                    <div class="row" ng-if="newBook.language === null">undefined</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 text-info">Pages:</div>
+                <div class="col-sm-8">
+                    <div class="row">{{newBook.pages}}</div>
+                    <div class="row" ng-if="newBook.pages === null">undefined</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 text-info">Publisher:</div>
+                <div class="col-sm-8">
+                    <div class="row">{{newBook.publisher}}</div>
+                    <div class="row" ng-if="newBook.publisher === null">undefined</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 text-info">Published Date:</div>
+                <div class="col-sm-8">
+                    <div class="row">{{newBook.publish_date}}</div>
+                    <div class="row" ng-if="newBook.publish_date === null">undefined</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 text-info">Book Description:</div>
+            </div>
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <div class="row">{{newBook.description}}</div>
+                    <div class="row" ng-if="newBook.description === null">undefined</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+
+    <!-- price info -->
+    <h3>Stock Information</h3>
+    <div class="row">
+        <div class="col-xs-3 col-xs-offset-1">
+            <div class="row">
+                <div class="col-xs-5 text-info">
+                    Price:
+                </div>
+                <div class="col-xs-5">
+                    {{newStock.price}}
+                </div>
+                <div class="col-xs-2">
+                    Baht
+                </div>
+            </div>
+            <div class="row" ng-if="newStock.type === 'lend'">
+                <div class="col-xs-5 text-info">
+                    Duration:
+                </div>
+                <div class="col-xs-5">
+                    {{newStock.duration}}
+                </div>
+                <div class="col-xs-2">
+                    Days
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-5 text-info">
+                    Condition:
+                </div>
+                <div class="col-xs-5">
+                    {{newStock.condition}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-7 text-info">
+                    Description:
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-7 col-xs-offset-1">
+                    {{newStock.description}}
+                </div>
+            </div>
+            <div class="row" ng-if="newStock.type === 'lend'">
+                <div class="col-xs-7 text-info">
+                    Terms of Conditions:
+                </div>
+            </div>
+            <div class="row" ng-if="newStock.type === 'lend'">
+                <div class="col-xs-7 col-xs-offset-1" ng-if="newStock.terms !== undefined">
+                    {{newStock.terms}}
+                </div>
+                <div class="col-xs-7 col-xs-offset-2" ng-if="newStock.terms === undefined">
+                    -
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-5 text-info">
+                    Quantity:
+                </div>
+                <div class="col-xs-5">
+                    {{newStock.quantity}}
+                </div>
+            </div>
+            <br>
+        </div>
+        <div class="col-xs-2 col-xs-offset-3">
+            <button class="btn btn-warning" ng-click="confirmStock()">Confirm</button>
+        </div>
+    </div>
+</div>
