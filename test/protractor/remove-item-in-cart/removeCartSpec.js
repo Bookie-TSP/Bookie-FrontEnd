@@ -37,21 +37,12 @@ describe('View a Cart', function() {
         expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/');
     };
 
-    describe('if not login', function() {
-        it('cart button should be invisible', function(){
-            expect(cartButton.isDisplayed()).toBeFalsy();
-        });
-    });
-
     describe('if login', function() {
         it ('cart button should be visible', function(){
             login();
             expect(cartButton.isDisplayed()).toBeTruthy();
-        });
-
-        it('should be able to press cart button on nav bar', function() {  
             cartButton.click();
-            browser.pause();
+            // browser.pause();
             expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/cart', 5000);
         });
     });
