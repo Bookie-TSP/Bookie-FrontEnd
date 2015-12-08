@@ -10,7 +10,7 @@ exports.config = {
         jasmine.getEnv().addReporter(
             new HtmlScreenshotReporter({
                 dest: 'test_results',
-                filename: 'addBook-buy-report.html'
+                filename: 'addBook-rent-report.html'
             })
         );
     }
