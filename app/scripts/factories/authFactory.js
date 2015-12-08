@@ -25,7 +25,7 @@ app.factory('authFactory', function ($http, $rootScope, $localStorage, $cookies)
 				$localStorage.member = undefined;
 				$cookies.putObject('member', mem);
 			} else {
-				$localStorage.member = member;
+				$localStorage.member = mem;
 			}
 		},
 		getMember: function () {
