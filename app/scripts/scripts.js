@@ -85,7 +85,12 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			url: '/4',
 			templateUrl: 'views/newStocks/completeStock.html',
 			data : { pageTitle: 'Confirm Stock' }
-		});
+		})
+        .state('orderStatusChanger', {
+            url: '/orderStatusChanger',
+            templateUrl: 'views/orderStatusChanger.html',
+            data : { pageTitle: 'Order Status Changer' }
+        });
 	$urlRouterProvider.otherwise('/');
 
 });
