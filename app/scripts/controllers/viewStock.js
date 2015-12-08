@@ -5,13 +5,7 @@ app.controller('stockCtrl', ['$scope', '$http', '$state', 'authFactory',
         }
 
         $scope.getStock = function(){
-            var config = {
-                headers: {
-                    'Authorization': authFactory.getAuth()
-                }
-            };
-            console.log(authFactory.getAuth());
-            $http.get('https://bookieservice.herokuapp.com/api/mystocks', config)
+            $http.get('https://bookieservice.herokuapp.com/api/mystocks', authFactory.getConfigHead())
                 .success(function(data){
                     $scope.data = data;
                     $scope.stocks = data.line_stocks;

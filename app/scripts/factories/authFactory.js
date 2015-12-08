@@ -13,6 +13,13 @@ app.factory('authFactory', function ($http, $rootScope, $localStorage) {
 		},
 		getMember: function () {
 			return $localStorage.member;
+		},
+		getConfigHead: function(){
+			return {
+				headers: {
+					'Authorization': $localStorage.authToken
+				}
+			};
 		}
 	};
 });

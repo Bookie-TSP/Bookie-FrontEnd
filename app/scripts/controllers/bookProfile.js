@@ -84,16 +84,11 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
 		// Use for adding the book to the cart with its details
 		$scope.addToCart = function (line_stock) {
 			console.log(line_stock);
-			var config = {
-				headers: {
-					'Authorization': authFactory.getAuth()
-				}
-			};
 			$http.post('https://bookieservice.herokuapp.com/api/members/cart/add', {
 					line_stock: {
 						line_stock_id: line_stock.id
 					}
-				}, config)
+				}, authFactory.getConfigHead())
 				.success(function (data) {
 					console.log(JSON.stringify(data));
 					console.log(data);

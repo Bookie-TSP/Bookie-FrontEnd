@@ -1,11 +1,5 @@
 app.controller('paymentCtrl',['$scope','$http', '$state', 'authFactory', '$rootScope',
     function ($scope, $http, $state, authFactory, $rootScope){
-        var config = {
-            headers: {
-                'Authorization': authFactory.getAuth()
-            }
-        };
-
         $scope.getTotal = function() {
             $scope.total = 0;
             for(var i = 0, len = $scope.stocks.length; i < len; i++) {
@@ -14,7 +8,7 @@ app.controller('paymentCtrl',['$scope','$http', '$state', 'authFactory', '$rootS
         };
 
         $scope.getCart = function() {
-            $http.get('https://bookieservice.herokuapp.com/api/members/cart/show',config)
+            $http.get('https://bookieservice.herokuapp.com/api/members/cart/show', authFactory.getConfigHead())
             .success(function (data) {
                 console.log(data);
                 $scope.cart = data;
@@ -55,7 +49,7 @@ app.controller('paymentCtrl',['$scope','$http', '$state', 'authFactory', '$rootS
                 };
                 $http.post('https://bookieservice.herokuapp.com/api/members/cart/checkout', {
                         payment: payment
-                    }, config)
+                    }, authFactory.getConfigHead())
                     .success(function (data) {
                         console.log(data);
                         $rootScope.$broadcast('cart');
