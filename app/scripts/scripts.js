@@ -254,13 +254,9 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
     }
 ]);
 
-app.controller('cartCtrl',['$scope','$http', '$state', 'authFactory', '$rootScope',
-    function ($scope, $http, $state, authFactory, $rootScope){
-        var config = {
-            headers: {
-                'Authorization': authFactory.getAuth()
-            }
-        };
+app.controller('cartCtrl',['$scope','$http', '$state', 'authFactory', '$rootScope', 'configFactory',
+    function ($scope, $http, $state, authFactory, $rootScope, $config){
+
         $scope.getTotal = function() {
             $scope.total = 0;
             for(var i = 0, len = $scope.stocks.length; i < len; i++) {
@@ -285,7 +281,7 @@ app.controller('cartCtrl',['$scope','$http', '$state', 'authFactory', '$rootScop
         };
 
         $scope.getCart = function() {
-            $http.get('https://bookieservice.herokuapp.com/api/members/cart/show',config)
+            $http.get('https://bookieservice.herokuapp.com/api/members/cart/show', $config.getConfigHead)
             .success(function (data) {
                 console.log(data);
                 $scope.cart = data;
@@ -304,7 +300,7 @@ app.controller('cartCtrl',['$scope','$http', '$state', 'authFactory', '$rootScop
                 stock: {
                     stock_id: id
                 }
-            },config)
+            },$config.getConfigHead)
             .success(function(data){
                 $rootScope.$broadcast('cart');
                 $scope.cart = data;
@@ -1291,6 +1287,18 @@ app.factory('authFactory', function ($http, $rootScope, $localStorage) {
 		},
 		getMember: function () {
 			return $localStorage.member;
+		}
+	};
+});
+
+app.factory('configFactory', function ($rootScope, $localStorage) {
+	return {
+		getConfigHead: function () {
+			return {
+                headers: {
+                    'Authorization': authFactory.getAuth()
+                }
+            };
 		}
 	};
 });
