@@ -1018,6 +1018,7 @@ app.controller('requestedOrderCtrl', ['$scope', '$http', '$state', 'authFactory'
             },config)
             .success(function(data){
                 console.log(data);
+                $scope.getOrderInfo();
             })
             .error(function(data){
                 console.log(data);
@@ -1038,6 +1039,7 @@ app.controller('requestedOrderCtrl', ['$scope', '$http', '$state', 'authFactory'
             },config)
             .success(function(data){
                 console.log(data);
+                $scope.getOrderInfo();
             })
             .error(function(data){
                 console.log(data);
@@ -1058,6 +1060,7 @@ app.controller('requestedOrderCtrl', ['$scope', '$http', '$state', 'authFactory'
             },config)
             .success(function(data){
                 console.log(data);
+                $scope.getOrderInfo();
             })
             .error(function(data){
                 console.log(data);
