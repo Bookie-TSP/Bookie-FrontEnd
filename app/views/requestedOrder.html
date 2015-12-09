@@ -1,7 +1,7 @@
 <div ng-controller="requestedOrderCtrl" class="container">
     <h1>Requested Order</h1><br>
 
-	<!-- My order tabs -->
+    <!-- My order tabs -->
     <uib-tabset justified="true">
 
         <!-- Order of pending status books -->
@@ -9,20 +9,25 @@
             <br>
             <div ng-repeat="order in orderInfo.orders">
                 <div ng-repeat="stock in order.stocks">
-                    <div class="row">
-                        <uib-accordion close-others="oneAtATime">
-                            <div ng-show="stock.status === 'pending'">
-                                <uib-accordion-group heading="{{stock.book.title}}" is-open="true">
-                                    <div class="col-sm-1 col-sm-offset-1">${{stock.price}}</div>
-                                    <div class="col-sm-3">{{stock.book.title}}</div>
-                                    <div class="col-sm-2">{{stock.created_at}}</div>
-                                    <div class="col-sm-2"><span class="label label-success">{{stock.status}}</span></div>
-                                    <div class="col-sm-1"><button class="btn btn-success" ng-click="acceptOrder(order, stock)">Accept</button></div>
-                                    <div class="col-sm-1"><button class="btn btn-danger">Decline</button></div>
-                                </uib-accordion-group>
-                            </div>
-                        </uib-accordion>
-                    </div>
+                    <uib-accordion close-others="oneAtATime">
+                        <div ng-show="stock.status === 'pending'">
+                            <uib-accordion-group is-open="false">
+                                <uib-accordion-heading>
+                                    <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>&nbsp&nbsp{{stock.book.title}}
+                                </uib-accordion-heading>
+                                <div class="col-sm-1">${{stock.price}}</div>
+                                <div class="col-sm-2">{{order.created_at}}</div>
+                                <div class="col-sm-5">
+                                    {{order.address.first_name}} {{order.address.last_name}}
+                                    <span class="label label-info">Order ID: {{order.id}}</span> <span class="label label-primary">Stock ID: {{stock.id}}</span>
+                                    <br><b>Info: </b>{{order.address.information}}
+                                </div>
+                                <div class="col-sm-2"><h4><span class="label label-success">{{stock.status}}</span></h4></div>
+                                <div class="col-sm-1"><button class="btn btn-success" ng-click="acceptOrder(order, stock)">Accept</button></div>
+                                <div class="col-sm-1"><button class="btn btn-danger">Decline</button></div>
+                            </uib-accordion-group>
+                        </div>
+                    </uib-accordion>
                 </div>
             </div>
         </uib-tab>
@@ -32,18 +37,23 @@
             <br>
             <div ng-repeat="order in orderInfo.orders">
                 <div ng-repeat="stock in order.stocks">
-                    <div class="row">
-                        <uib-accordion close-others="oneAtATime">
-                            <div ng-hide="stock.status === 'pending' || stock.status === 'returned'">
-                                <uib-accordion-group heading="{{stock.book.title}}" is-open="true">
-                                    <div class="col-sm-1 col-sm-offset-1">${{stock.price}}</div>
-                                    <div class="col-sm-5">{{stock.book.title}}</div>
-                                    <div class="col-sm-3">{{stock.created_at}}</div>
-                                    <div class="col-sm-2"><span class="label label-success">{{stock.status}}</span></div>
-                                </uib-accordion-group>
-                            </div>
-                        </uib-accordion>
-                    </div>
+                    <uib-accordion close-others="oneAtATime">
+                        <div ng-hide="stock.status === 'pending' || stock.status === 'returned'">
+                            <uib-accordion-group is-open="false">
+                                <uib-accordion-heading>
+                                    <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>&nbsp&nbsp{{stock.book.title}}
+                                </uib-accordion-heading>
+                                <div class="col-sm-1">${{stock.price}}</div>
+                                <div class="col-sm-2">{{order.created_at}}</div>
+                                <div class="col-sm-5">
+                                    {{order.address.first_name}} {{order.address.last_name}}
+                                    <span class="label label-info">Order ID: {{order.id}}</span> <span class="label label-primary">Stock ID: {{stock.id}}</span>
+                                    <br><b>Info: </b>{{order.address.information}}
+                                </div>
+                                <div class="col-sm-2"><h4><span class="label label-success">{{stock.status}}</span></h4></div>
+                            </uib-accordion-group>
+                        </div>
+                    </uib-accordion>
                 </div>
             </div>
         </uib-tab>
@@ -53,19 +63,23 @@
             <br>
             <div ng-repeat="order in orderInfo.orders">
                 <div ng-repeat="stock in order.stocks">
-                    <div class="row">
-                        <uib-accordion close-others="oneAtATime">
-                            <div ng-show="stock.status === 'returned'">
-                                <uib-accordion-group heading="{{stock.book.title}}" is-open="true">
-                                    <div class="col-sm-1 col-sm-offset-1">${{stock.price}}</div>
-                                    <div class="col-sm-4">{{stock.book.title}}</div>
-                                    <div class="col-sm-3">{{stock.created_at}}</div>
-                                    <div class="col-sm-2"><span class="label label-success">{{stock.status}}</span></div>
-                                    <div class="col-sm-1"><button class="btn btn-success" ng-click="returned(order, stock)">Returned</button></div>
-                                </uib-accordion-group>
-                            </div>
-                        </uib-accordion>
-                    </div>
+                    <uib-accordion close-others="oneAtATime">
+                        <div ng-show="stock.status === 'returned'">
+                            <uib-accordion-group is-open="false">
+                                <uib-accordion-heading>
+                                    <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>&nbsp&nbsp{{stock.book.title}}
+                                </uib-accordion-heading>
+                                <div class="col-sm-1">${{stock.price}}</div>
+                                <div class="col-sm-2">{{order.created_at}}</div>
+                                <div class="col-sm-5">
+                                    {{order.address.first_name}} {{order.address.last_name}}
+                                    <span class="label label-info">Order ID: {{order.id}}</span> <span class="label label-primary">Stock ID: {{stock.id}}</span>
+                                    <br><b>Info: </b>{{order.address.information}}
+                                </div>
+                                <div class="col-sm-2"><h4><span class="label label-success">{{stock.status}}</span></h4></div>
+                            </uib-accordion-group>
+                        </div>
+                    </uib-accordion>
                 </div>
             </div>
         </uib-tab>
@@ -73,16 +87,16 @@
 
     <!-- Order of ended status books -->
     <script type="text/ng-template" id="group-template.html">
-        <div class="panel {{panelClass || 'panel-default'}}">
-            <div class="panel-heading">
-                <h4 class="panel-title" style="color:#fa39c3">
-                    <a href tabindex="0" class="accordion-toggle" ng-click="toggleOpen()" uib-accordion-transclude="heading">
-                    <span ng-class="{'text-muted': isDisabled}">{{heading}}</span></a>
-                </h4>
-            </div>
-            <div class="panel-collapse collapse" uib-collapse="!isOpen">
-                <div class="panel-body" style="text-align: right" ng-transclude></div>
-            </div>
-        </div>
+    <div class="panel {{panelClass || 'panel-default'}}">
+    <div class="panel-heading">
+    <h4 class="panel-title" style="color:#fa39c3">
+    <a href tabindex="0" class="accordion-toggle" ng-click="toggleOpen()" uib-accordion-transclude="heading">
+    <span ng-class="{'text-muted': isDisabled}">{{heading}}</span></a>
+    </h4>
+    </div>
+    <div class="panel-collapse collapse" uib-collapse="!isOpen">
+    <div class="panel-body" style="text-align: right" ng-transclude></div>
+    </div>
+    </div>
     </script>
 </div>
