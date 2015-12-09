@@ -28,12 +28,13 @@
                 <input style="color: #FFBF00;" type="text" class="form-control search-bar-textfield" aria-describedby="basic-addon1" ng-model="searchText.title" ng-show="searchType=='Title'" ng-focus="searchType=='Title'">
                 <input style="color: #FFBF00;" type="text" class="form-control search-bar-textfield" aria-describedby="basic-addon1" ng-model="searchText.authors" ng-show="searchType=='Author'" ng-focus="searchType=='Title'">
             </div>
-            <div class="navbar-left btn-group">
+            <div class="navbar-left btn-group" ng-show="$state.current.name=='home'">
                 <button type="button" class="btn btn-sm btn-default dropdown-toggle sort-by-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Sort By <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a href="#" ng-click="sortBy('Name')">Name</a></li>
+                    <li><a href="#" ng-click="sortBy('naz')">Name ('A' to 'Z')</a></li>
+                    <li><a href="#" ng-click="sortBy('nza')">Name ('Z' to 'A')</a></li>
                     <li><a href="#" ng-click="sortBy('plh')">Price (low to high)</a></li>
                     <li><a href="#" ng-click="sortBy('phl')">Price (high to low)</a></li>
                 </ul>

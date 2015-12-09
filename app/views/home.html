@@ -3,7 +3,7 @@
 		<div ng-repeat="book in books | filter:searchText" ng-init="$last ? dotdotdot() : null" class="book col-lg-2 col-md-3 col-xs-4">
 		    <div class="row book-label">
 				<span class="col-xs-5 label label-success book-label-font" ng-show="book.lowest_price != 'null'">In-stock</span>
-				<span class="col-xs-7 label label-info book-label-font" ng-show="book.lowest_price != 'null'">From <b>{{book.lowest_price}} ฿</b></span>
+				<span class="col-xs-7 label label-info book-label-font" ng-show="book.lowest_price != 'null'">From <b>{{book.lowest_price | number:2}} ฿</b></span>
 				<span class="col-xs-7 label label-danger book-label-font" ng-show="book.lowest_price == 'null'">Out of Stock</span>
 			</div>
 			<div class="row">

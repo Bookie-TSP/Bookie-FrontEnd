@@ -656,11 +656,17 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
 		};
 
         $scope.sortBy = function(criteria) {
-            if (criteria == 'Name') {
+            if (criteria == 'naz') {
                 $scope.books.sort(function(a, b) {
     				var x = a.title.toLowerCase();
 				    var y = b.title.toLowerCase();
 				    return x < y ? -1 : x > y ? 1 : 0;
+    			});
+            } else if (criteria == 'nza') {
+                $scope.books.sort(function(a, b) {
+    				var x = a.title.toLowerCase();
+				    var y = b.title.toLowerCase();
+				    return x < y ? 1 : x > y ? -1 : 0;
     			});
             } else if (criteria == 'plh') {
                 $scope.books.sort(function(a, b) {
