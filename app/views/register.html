@@ -1,25 +1,27 @@
 <div class="container" ng-controller="registerCtrl">
     <div class="register-form">
-        <!--form-->
         <div class="row">
             <div class="col-sm-7 col-sm-offset-3">
                 <h2><b>Register</b></h2>
                 <br>
                 <!--register form-->
-                <form style="border: none">
+                <form>
                     <input type="text" placeholder="Email" ng-model="email">
                     <br>
                     <input type="password" placeholder="Password *more than or equal 8 characters" ng-model="password">
                     <div ng-show="password.length < 8">
-                        <h5 id="validate">Not enough characters</h5>
+                        <h5 class="validate">Not enough characters</h5>
+                    </div>
+                    <div ng-show="password.length > 72">
+                        <h5 class="validate">Too many characters</h5>
                     </div>
                     <br>
                     <input type="password" placeholder="Password comfirmation" ng-model="password_confirmation">
-                    <div ng-show="password == password_confirmation && password != null">
-                        <h5 id="pass">Password match!</h5>
+                    <div ng-if="password == password_confirmation && password != null">
+                        <h5 class="pass">Password match!</h5>
                     </div>
-                    <div ng-show="password !== password_confirmation && password_confirmation != null">
-                        <h5 id="validate">Password not match!</h5>
+                    <div ng-if="password !== password_confirmation && password_confirmation != null">
+                        <h5 class="validate">Password not match!</h5>
                     </div>
                     <br>
                     <input type="text" placeholder="Firstname" ng-model="first_name">
@@ -27,8 +29,8 @@
                     <input type="text" placeholder="Lastname" ng-model="last_name">
                     <br>
                     <input type="text" placeholder="Identification number" ng-model="identification_number">
-                    <div ng-show="identification_number.length !== 13 && identification_number.length !== undefined">
-                        <h5 id="validate">Must be 13 character</h5>
+                    <div ng-if="identification_number.length !== 13 && identification_number.length !== undefined">
+                        <h5 class="validate">Must be 13 character</h5>
                     </div>
                     <br>
                 </form>
@@ -98,7 +100,7 @@
                 <br>
                 <br>
                 <div class="register-form">
-                    <form style="border: none">
+                    <form>
                         <input type="text" placeholder="More Info" ng-model="more_info">
                         <br>
                         <input type="text" placeholder="Phone number" ng-model="phone_number">

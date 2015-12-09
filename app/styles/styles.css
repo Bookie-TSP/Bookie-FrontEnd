@@ -34,13 +34,22 @@
 .no-stock-message {
   text-align: center;
 }
-#noBook {
+.noBook {
   color: #D3D3D3;
 }
 
-#countinue {
+#countinueBtn {
   background-color: #696969;
   color: white;
+}
+
+#checkoutBtn {
+  margin-top: 10px;
+}
+
+.img-responsive {
+  width: 150px;
+  height: 225px;
 }
 .validation {
   color: #ff0000;
@@ -139,20 +148,17 @@ body {
 .require-text {
   color: red;
 }
-/*#form {
-    display: block;
-    margin-bottom: 185px;
-    margin-top: 180px;
-    overflow: hidden;
-}*/
+#form {
+  display: block;
+  margin-bottom: 185px;
+  margin-top: 180px;
+  overflow: hidden;
+}
 
 .login-form h2,
 .signup-form h2 {
   color: #696763;
   font-family: 'Roboto', sans-serif;
-  /*font-size: 20px;
-    font-weight: 300;*/
-  /*margin-bottom: 30px;*/
 }
 
 .login-form form input {
@@ -222,6 +228,11 @@ body {
   color: #ff0000;
 }
 #dropdownProfile {
+  cursor: hand;
+  cursor: pointer;
+}
+
+#logout {
   cursor: hand;
   cursor: pointer;
 }
@@ -514,13 +525,6 @@ form .error {
   max-width: 300px;
   max-height: 150px;
 }
-#form {
-  display: block;
-  margin-bottom: 185px;
-  margin-top: 185px;
-  overflow: hidden;
-}
-
 form {
   border: none;
 }
@@ -538,11 +542,11 @@ form {
   font-family: 'Roboto', sans-serif;
 }
 
-#validate {
+.validate {
   color: #ff0000;
 }
 
-#pass {
+.pass {
   color: #007500;
 }
 
@@ -594,40 +598,6 @@ form {
   margin-bottom: 0;
   outline: medium none;
   padding-left: 0;
-}
-
-.or {
-  background: #FE980F;
-  border-radius: 40px;
-  color: #FFFFFF;
-  font-family: 'Roboto', sans-serif;
-  font-size: 16px;
-  height: 50px;
-  line-height: 50px;
-  margin-top: 75px;
-  text-align: center;
-  width: 50px;
-}
-
-.datefield {
-  display: inline;
-  padding: 0.3em;
-  border: inset 1px #CCC;
-  background: #FFF;
-  border-radius: 4px;
-  color: #666;
-}
-
-.submitButton {
-  display: block;
-  width: 115px;
-  height: 35px;
-  background: #4E9CAF;
-  padding: 10px;
-  text-align: center;
-  border-radius: 5px;
-  color: white;
-  font-weight: bold;
 }
 
 #date,

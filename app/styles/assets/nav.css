@@ -1,5 +1,10 @@
 #dropdownProfile{
     cursor: hand;
+     cursor: pointer;
+}
+
+#logout{
+    cursor: hand;
   cursor: pointer;
 }
 

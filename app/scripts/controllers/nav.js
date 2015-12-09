@@ -1,18 +1,16 @@
-app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootScope',
-  function ($scope, $http, $state, authFactory, $rootScope) {
+app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootScope', '$timeout',
+  function ($scope, $http, $state, authFactory, $rootScope, $timeout) {
 		$scope.totalPrice = 0;
 		$scope.totalCount = 0;
 		$scope.logout = function () {
+            $timeout(function () {
+                $state.go("home");
+            }, 100);
 			authFactory.setAuth(undefined);
 		};
 		$scope.getMember = function () {
 			if (authFactory.getAuth() !== undefined) {
-				var config = {
-					headers: {
-						'Authorization': authFactory.getAuth()
-					}
-				};
-				$http.get('https://bookieservice.herokuapp.com/api/myprofile', config)
+				$http.get('https://bookieservice.herokuapp.com/api/myprofile', authFactory.getConfigHead())
 					.success(function (data) {
 						$rootScope.member = data;
 						authFactory.setMember(data);
@@ -28,12 +26,7 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
 
 		$scope.getCart = function () {
 			if (authFactory.getAuth() !== undefined) {
-				var config = {
-					headers: {
-						'Authorization': authFactory.getAuth()
-					}
-				};
-				$http.get('https://bookieservice.herokuapp.com/api/members/cart/show', config)
+				$http.get('https://bookieservice.herokuapp.com/api/members/cart/show', authFactory.getConfigHead())
 					.success(function (data) {
 						$scope.totalPrice = 0;
 						$scope.totalCount = 0;

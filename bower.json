@@ -26,7 +26,8 @@
     "bootstrap": "~3.3.6",
     "angular-bootstrap": "~0.14.2",
     "cloudinary_ng": "~0.1.4",
-    "cloudinary-jquery": "~2.0.3"
+    "cloudinary-jquery": "~2.0.3",
+    "angoolar-cookies": "~0.10.0"
   },
   "resolutions": {
     "angular": "~1.4.8"

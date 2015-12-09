@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ui.router', 'ngStorage', 'ui.bootstrap', 'uiGmapgoogle-maps', 'ngFileUpload', 'cloudinary']);
+var app = angular.module('app', ['ui.router', 'ngStorage', 'ui.bootstrap', 'ngCookies', 'uiGmapgoogle-maps', 'ngFileUpload', 'cloudinary']);
 app.config(function ($stateProvider, $urlRouterProvider) {
 	$stateProvider
 		.state('home', {
@@ -109,10 +109,6 @@ app.directive('navbarView', function(){
 
 app.controller('bookCatalogCtrl', ['$scope', '$http', '$state', 'authFactory', '$timeout',
 function ($scope, $http, $state, authFactory, $timeout) {
-		//no need for auth factory
-		// if (authFactory.getAuth() === undefined) {
-		// 	$state.go("home");
-		// }
 
 		//getting books from api
 		$http.get('https://bookieservice.herokuapp.com/api/books')
@@ -221,16 +217,11 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
 		// Use for adding the book to the cart with its details
 		$scope.addToCart = function (line_stock) {
 			console.log(line_stock);
-			var config = {
-				headers: {
-					'Authorization': authFactory.getAuth()
-				}
-			};
 			$http.post('https://bookieservice.herokuapp.com/api/members/cart/add', {
 					line_stock: {
 						line_stock_id: line_stock.id
 					}
-				}, config)
+				}, authFactory.getConfigHead())
 				.success(function (data) {
 					console.log(JSON.stringify(data));
 					console.log(data);
@@ -261,11 +252,12 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
 
 app.controller('cartCtrl',['$scope','$http', '$state', 'authFactory', '$rootScope',
     function ($scope, $http, $state, authFactory, $rootScope){
-        var config = {
-            headers: {
-                'Authorization': authFactory.getAuth()
-            }
-        };
+        // check authentication
+        if (authFactory.getAuth() === undefined) {
+			$state.go('login');
+		}
+
+        // get total price
         $scope.getTotal = function() {
             $scope.total = 0;
             for(var i = 0, len = $scope.stocks.length; i < len; i++) {
@@ -273,6 +265,7 @@ app.controller('cartCtrl',['$scope','$http', '$state', 'authFactory', '$rootScop
             }
         };
 
+        // count num stock in each type
         $scope.countStocks = function() {
             $scope.buyLength = 0;
             for(var i = 0; i < $scope.stocks.length; i++){
@@ -289,8 +282,9 @@ app.controller('cartCtrl',['$scope','$http', '$state', 'authFactory', '$rootScop
             }
         };
 
+        // get cart
         $scope.getCart = function() {
-            $http.get('https://bookieservice.herokuapp.com/api/members/cart/show',config)
+            $http.get('https://bookieservice.herokuapp.com/api/members/cart/show', authFactory.getConfigHead())
             .success(function (data) {
                 console.log(data);
                 $scope.cart = data;
@@ -303,13 +297,14 @@ app.controller('cartCtrl',['$scope','$http', '$state', 'authFactory', '$rootScop
                 console.log(data);
             });
         };
+
+        // remove stock
         $scope.removeStock = function(id) {
-            console.log(id);
             $http.post('https://bookieservice.herokuapp.com/api/members/cart/remove',{
                 stock: {
                     stock_id: id
                 }
-            },config)
+            }, authFactory.getConfigHead())
             .success(function(data){
                 $rootScope.$broadcast('cart');
                 $scope.cart = data;
@@ -331,14 +326,9 @@ app.controller('completeStockCtrl', ['$scope', '$http', '$state', '$rootScope', 
         $rootScope.changeStep(4);
 
         $scope.confirmStock = function(){
-            var config = {
-    			headers: {
-    				'Authorization': authFactory.getAuth()
-    			}
-    		};
             $http.post('https://bookieservice.herokuapp.com/api/members/stocks',{
                 stock: $rootScope.newStock
-            }, config)
+            }, authFactory.getConfigHead())
             .success(function(data){
                 console.log(data);
                 $state.go("home");
@@ -373,14 +363,10 @@ app.controller('addressCtrl',['$scope','$http', '$state', 'authFactory', '$rootS
 
         $scope.editAddress = function() {
             $scope.address.information = $scope.info + $scope.address.information;
-            var config = {
-				headers: {
-					'Authorization': authFactory.getAuth()
-				}
-			};
+
             $http.post('https://bookieservice.herokuapp.com/api/members/edit_address',{
                 address: $scope.address
-            },config)
+            }, authFactory.getConfigHead())
             .success(function(data){
                 console.log(data);
                 authFactory.setMember(data);
@@ -411,12 +397,6 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'authFactory', '$q', '$sta
 			$state.go('login');
 		}
 
-		var config = {
-			headers: {
-				'Authorization': authFactory.getAuth()
-			}
-		};
-
 		$scope.initDate = function() {
 			$scope.initDates = $date.days;
             $scope.initMonths = $date.months;
@@ -436,7 +416,7 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'authFactory', '$q', '$sta
 			console.log('Getting the profile');
 			var birth = '';
 			$q.all([
-					$http.get('https://bookieservice.herokuapp.com/api/myprofile', config)
+					$http.get('https://bookieservice.herokuapp.com/api/myprofile', authFactory.getConfigHead())
 					.success(function (data) {
 						$scope.profileData = data;
 						authFactory.setMember(data);
@@ -471,7 +451,7 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'authFactory', '$q', '$sta
 						gender: $scope.profileData.gender,
 						birth_date: birth_date
 					}
-				}, config)
+				}, authFactory.getConfigHead())
 				.success(function (data) {
 					$scope.getProfile();
 					console.log(data);
@@ -507,7 +487,7 @@ app.controller('homeCtrl',['$scope','$http', '$state', '$rootScope',
     function($scope, $http, $state, $rootScope){
     	$scope.bookProfile = function() {
     		$state.go("bookProfile");
-    	}
+    	};
 }]);
 
 app.controller('infoStockCtrl', ['$scope', '$http', '$state', '$rootScope',
@@ -579,6 +559,7 @@ app.controller('loginCtrl', ['$scope', '$http', '$state', 'authFactory',
 			$state.go('home');
 		}
 		$scope.validation = '';
+		$scope.keepLogin = false;
 		setValidation = function (s) {
 			$scope.validation = s;
 		};
@@ -590,6 +571,7 @@ app.controller('loginCtrl', ['$scope', '$http', '$state', 'authFactory',
 				})
 				.success(function (data) {
 					$scope.auth = data.auth_token;
+					authFactory.setKeep($scope.keepLogin);
 					authFactory.setAuth($scope.auth);
 					$state.go('home');
 				})
@@ -601,21 +583,19 @@ app.controller('loginCtrl', ['$scope', '$http', '$state', 'authFactory',
 	}
 ]);
 
-app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootScope',
-  function ($scope, $http, $state, authFactory, $rootScope) {
+app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootScope', '$timeout',
+  function ($scope, $http, $state, authFactory, $rootScope, $timeout) {
 		$scope.totalPrice = 0;
 		$scope.totalCount = 0;
 		$scope.logout = function () {
+            $timeout(function () {
+                $state.go("home");
+            }, 100);
 			authFactory.setAuth(undefined);
 		};
 		$scope.getMember = function () {
 			if (authFactory.getAuth() !== undefined) {
-				var config = {
-					headers: {
-						'Authorization': authFactory.getAuth()
-					}
-				};
-				$http.get('https://bookieservice.herokuapp.com/api/myprofile', config)
+				$http.get('https://bookieservice.herokuapp.com/api/myprofile', authFactory.getConfigHead())
 					.success(function (data) {
 						$rootScope.member = data;
 						authFactory.setMember(data);
@@ -631,12 +611,7 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
 
 		$scope.getCart = function () {
 			if (authFactory.getAuth() !== undefined) {
-				var config = {
-					headers: {
-						'Authorization': authFactory.getAuth()
-					}
-				};
-				$http.get('https://bookieservice.herokuapp.com/api/members/cart/show', config)
+				$http.get('https://bookieservice.herokuapp.com/api/members/cart/show', authFactory.getConfigHead())
 					.success(function (data) {
 						$scope.totalPrice = 0;
 						$scope.totalCount = 0;
@@ -714,12 +689,7 @@ app.controller('orderCtrl', ['$scope', '$http', '$state', 'authFactory',
 		$scope.dataReady = false;
 
 		$scope.getOrderInfo = function() {
-			var config = {
-					headers: {
-						'Authorization': authFactory.getAuth()
-					}
-				};
-			$http.get('https://bookieservice.herokuapp.com/api/myorders', config)
+			$http.get('https://bookieservice.herokuapp.com/api/myorders', authFactory.getConfigHead())
 				.success(function (data) {
 					$scope.orderInfo = data;
 					console.log(data);
@@ -728,19 +698,14 @@ app.controller('orderCtrl', ['$scope', '$http', '$state', 'authFactory',
 				.error(function (data) {
 					console.log(data);
 				});
-		}
-		
+		};
+
 		$scope.getOrderInfo();
 	}
 ]);
+
 app.controller('paymentCtrl',['$scope','$http', '$state', 'authFactory', '$rootScope',
     function ($scope, $http, $state, authFactory, $rootScope){
-        var config = {
-            headers: {
-                'Authorization': authFactory.getAuth()
-            }
-        };
-
         $scope.getTotal = function() {
             $scope.total = 0;
             for(var i = 0, len = $scope.stocks.length; i < len; i++) {
@@ -749,7 +714,7 @@ app.controller('paymentCtrl',['$scope','$http', '$state', 'authFactory', '$rootS
         };
 
         $scope.getCart = function() {
-            $http.get('https://bookieservice.herokuapp.com/api/members/cart/show',config)
+            $http.get('https://bookieservice.herokuapp.com/api/members/cart/show', authFactory.getConfigHead())
             .success(function (data) {
                 console.log(data);
                 $scope.cart = data;
@@ -790,7 +755,7 @@ app.controller('paymentCtrl',['$scope','$http', '$state', 'authFactory', '$rootS
                 };
                 $http.post('https://bookieservice.herokuapp.com/api/members/cart/checkout', {
                         payment: payment
-                    }, config)
+                    }, authFactory.getConfigHead())
                     .success(function (data) {
                         console.log(data);
                         $rootScope.$broadcast('cart');
@@ -808,6 +773,7 @@ app.controller('paymentCtrl',['$scope','$http', '$state', 'authFactory', '$rootS
         //initialize
         $scope.getCart();
 }]);
+
 app.controller('photoStockCtrl', ['$scope', '$rootScope', '$stateParams', '$location', 'Upload', 'authFactory', '$http', '$state',
   /* Uploading with Angular File Upload */
   function ($scope, $rootScope, $stateParams, $location, $upload, authFactory, $http, $state) {
@@ -1216,15 +1182,9 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 		};
 
 		$scope.addBook = function () {
-			var config = {
-				headers: {
-					'Authorization': authFactory.getAuth()
-				}
-			};
-
 			$http.post('https://bookieservice.herokuapp.com/api/books', {
 					book: $scope.specBook
-				}, config)
+				}, authFactory.getConfigHead())
 				.success(function (data) {
 					$rootScope.newBook = data;
 					console.log(data);
@@ -1264,16 +1224,9 @@ app.controller('stockBookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$lo
         // Define bookInfo
         $scope.bookInfo = {};
 
-        // Authenticate
-        var config = {
-            headers: {
-                'Authorization': authFactory.getAuth()
-            }
-        };
-
         // Get Line Stock attribute()
         $scope.getLineStockQuantity = function(lineStockId) {
-            $http.get('https://bookieservice.herokuapp.com/api/mystocks', config)
+            $http.get('https://bookieservice.herokuapp.com/api/mystocks', authFactory.getConfigHead())
                 .success(function (data) {
                     console.log(data.line_stocks);
                     var keepGoing = true;
@@ -1313,7 +1266,7 @@ app.controller('stockBookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$lo
                     "line_stock_id" : $stateParams.lineStockId,
                     "quantity" : $scope.new_quantity
                 }
-            },config)
+            }, authFactory.getConfigHead())
                 .success(function (data) {
                     console.log(data);
                     alert("Your current lineStock quantity is " + $scope.new_quantity);
@@ -1345,42 +1298,73 @@ app.controller('stockCtrl', ['$scope', '$http', '$state', 'authFactory',
             $state.go("login");
         }
 
-        $scope.getStock = function(){
-            var config = {
-                headers: {
-                    'Authorization': authFactory.getAuth()
-                }
-            };
-            console.log(authFactory.getAuth());
-            $http.get('https://bookieservice.herokuapp.com/api/mystocks', config)
+        $scope.getStocks = function(){
+            $http.get('https://bookieservice.herokuapp.com/api/mystocks', authFactory.getConfigHead())
                 .success(function(data){
+                    console.log(data);
                     $scope.data = data;
-                    $scope.stocks = data.line_stocks;
-                    console.log($scope.stocks);
+                    $scope.line_stocks = data.line_stocks;
+                    console.log($scope.line_stocks);
                 })
                 .error(function(data){
-
+                    console.log(data);
                 });
         };
 
-        $scope.getStock();
+        $scope.getStocks();
     }]);
 
-app.factory('authFactory', function ($http, $rootScope, $localStorage) {
+app.factory('authFactory', function ($http, $rootScope, $localStorage, $cookies) {
 	return {
+		setKeep: function (value) {
+			$localStorage.keepLogin = value;
+		},
 		getAuth: function () {
-			return $localStorage.authToken;
+			if ($localStorage.keepLogin === false) {
+				return $cookies.get('authToken');
+			} else {
+				return $localStorage.authToken;
+			}
 		},
 		setAuth: function (token) {
-			$localStorage.authToken = token;
+			if ($localStorage.keepLogin === false) {
+				$localStorage.authToken = undefined;
+				$cookies.put('authToken', token);
+			} else {
+				$localStorage.authToken = token;
+			}
 			$rootScope.$broadcast('authenticate');
 			$rootScope.$broadcast('cart');
 		},
-		setMember: function (member) {
-			$localStorage.member = member;
+		setMember: function (mem) {
+			if ($localStorage.keepLogin === false) {
+				$localStorage.member = undefined;
+				$cookies.putObject('member', mem);
+			} else {
+				$localStorage.member = mem;
+			}
 		},
 		getMember: function () {
-			return $localStorage.member;
+			if ($localStorage.keepLogin === false) {
+				return $cookies.get('member');
+			} else {
+				return $localStorage.member;
+			}
+		},
+		getConfigHead: function () {
+			if ($localStorage.keepLogin === false) {
+				return {
+					headers: {
+						'Authorization': $cookies.get('authToken')
+					}
+				};
+			} else {
+				return {
+					headers: {
+						'Authorization': $localStorage.authToken
+					}
+				};
+			}
 		}
 	};
 });
