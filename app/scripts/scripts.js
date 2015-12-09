@@ -673,7 +673,7 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
 				    return y-x;
     			});
             }
-        }
+        };
 
 		$rootScope.member = $scope.getMember();
 		$scope.getCart();

@@ -30,19 +30,19 @@
             </div>
             <div class="navbar-left btn-group" ng-show="$state.current.name=='home'">
                 <button type="button" class="btn btn-sm btn-default dropdown-toggle sort-by-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <div ng-show="$scope.sortType = '-'">
+                    <div ng-show="sortType === ''">
                         Sort By <span class="caret"></span>
                     </div>
-                    <div ng-show="$scope.sortType = 'naz'">
+                    <div ng-show="sortType === 'naz'">
                         Name ('A' to 'Z') <span class="caret"></span>
                     </div>
-                    <div ng-show="$scope.sortType = 'nza'">
+                    <div ng-show="sortType === 'nza'">
                         Name ('Z' to 'A') <span class="caret"></span>
                     </div>
-                    <div ng-show="$scope.sortType = 'plh'">
+                    <div ng-show="sortType === 'plh'">
                         Price (low to high) <span class="caret"></span>
                     </div>
-                    <div ng-show="$scope.sortType = 'phl'">
+                    <div ng-show="sortType === 'phl'">
                         Price (high to low) <span class="caret"></span>
                     </div>
                 </button>
