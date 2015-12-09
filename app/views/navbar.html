@@ -24,9 +24,9 @@
                         <li><a href="#" ng-click="searchType='Author'">Author</a></li>
                     </ul>
                 </div>
-                <input type="text" class="form-control search-bar-textfield" aria-describedby="basic-addon1" ng-model="searchText" ng-show="searchType=='Any'" ng-focus="searchType=='Any'">
-                <input type="text" class="form-control search-bar-textfield" aria-describedby="basic-addon1" ng-model="searchText.title" ng-show="searchType=='Title'" ng-focus="searchType=='Title'">
-                <input type="text" class="form-control search-bar-textfield" aria-describedby="basic-addon1" ng-model="searchText.authors" ng-show="searchType=='Author'" ng-focus="searchType=='Title'">
+                <input style="color: #FFBF00;" type="text" class="form-control search-bar-textfield" aria-describedby="basic-addon1" ng-model="searchText" ng-show="searchType=='Any'" ng-focus="searchType=='Any'">
+                <input style="color: #FFBF00;" type="text" class="form-control search-bar-textfield" aria-describedby="basic-addon1" ng-model="searchText.title" ng-show="searchType=='Title'" ng-focus="searchType=='Title'">
+                <input style="color: #FFBF00;" type="text" class="form-control search-bar-textfield" aria-describedby="basic-addon1" ng-model="searchText.authors" ng-show="searchType=='Author'" ng-focus="searchType=='Title'">
             </div>
             <div class="navbar-left btn-group" ng-show="$state.current.name=='home'">
                 <button type="button" class="btn btn-sm btn-default dropdown-toggle sort-by-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
