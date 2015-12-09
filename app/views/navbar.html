@@ -30,7 +30,21 @@
             </div>
             <div class="navbar-left btn-group" ng-show="$state.current.name=='home'">
                 <button type="button" class="btn btn-sm btn-default dropdown-toggle sort-by-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Sort By <span class="caret"></span>
+                    <div ng-show="$scope.sortType = '-'">
+                        Sort By <span class="caret"></span>
+                    </div>
+                    <div ng-show="$scope.sortType = 'naz'">
+                        Name ('A' to 'Z') <span class="caret"></span>
+                    </div>
+                    <div ng-show="$scope.sortType = 'nza'">
+                        Name ('Z' to 'A') <span class="caret"></span>
+                    </div>
+                    <div ng-show="$scope.sortType = 'plh'">
+                        Price (low to high) <span class="caret"></span>
+                    </div>
+                    <div ng-show="$scope.sortType = 'phl'">
+                        Price (high to low) <span class="caret"></span>
+                    </div>
                 </button>
                 <ul class="dropdown-menu">
                     <li><a href="#" ng-click="sortBy('naz')">Name ('A' to 'Z')</a></li>
@@ -61,7 +75,7 @@
                         <li><a ui-sref="viewStock">My Stocks</a></li>
                         <li><a href="#">Request Order</a></li>
                         <hr>
-                        <li><a data-toggle="modal" data-target="#logoutModal">Logout</a></li>
+                        <li><a id="logout" data-toggle="modal" data-target="#logoutModal">Logout</a></li>
                     </ul>
                 </li>
                 <li>
@@ -88,7 +102,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">Logout</h4>
             </div>
-            <div class="modal-body">Are you sure you want logout</div>
+            <div class="modal-body">Are you sure you want to logout?</div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-warning" ng-click="logout()" ui-sref="home" data-dismiss="modal">Logout</button>

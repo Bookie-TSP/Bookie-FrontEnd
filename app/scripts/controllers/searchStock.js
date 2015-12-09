@@ -147,15 +147,9 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 		};
 
 		$scope.addBook = function () {
-			var config = {
-				headers: {
-					'Authorization': authFactory.getAuth()
-				}
-			};
-
 			$http.post('https://bookieservice.herokuapp.com/api/books', {
 					book: $scope.specBook
-				}, config)
+				}, authFactory.getConfigHead())
 				.success(function (data) {
 					$rootScope.newBook = data;
 					console.log(data);

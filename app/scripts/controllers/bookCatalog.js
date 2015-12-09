@@ -1,9 +1,5 @@
 app.controller('bookCatalogCtrl', ['$scope', '$http', '$state', 'authFactory', '$timeout',
 function ($scope, $http, $state, authFactory, $timeout) {
-		//no need for auth factory
-		// if (authFactory.getAuth() === undefined) {
-		// 	$state.go("home");
-		// }
 
 		//move getting books to navCtrl
 

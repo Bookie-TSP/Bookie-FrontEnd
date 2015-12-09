@@ -4,16 +4,9 @@ app.controller('stockBookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$lo
         // Define bookInfo
         $scope.bookInfo = {};
 
-        // Authenticate
-        var config = {
-            headers: {
-                'Authorization': authFactory.getAuth()
-            }
-        };
-
         // Get Line Stock attribute()
         $scope.getLineStockQuantity = function(lineStockId) {
-            $http.get('https://bookieservice.herokuapp.com/api/mystocks', config)
+            $http.get('https://bookieservice.herokuapp.com/api/mystocks', authFactory.getConfigHead())
                 .success(function (data) {
                     console.log(data.line_stocks);
                     var keepGoing = true;
@@ -53,7 +46,7 @@ app.controller('stockBookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$lo
                     "line_stock_id" : $stateParams.lineStockId,
                     "quantity" : $scope.new_quantity
                 }
-            },config)
+            }, authFactory.getConfigHead())
                 .success(function (data) {
                     console.log(data);
                     alert("Your current lineStock quantity is " + $scope.new_quantity);
