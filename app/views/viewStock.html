@@ -1,0 +1,31 @@
+<div ng-controller="stockCtrl" class="container">
+    <div class = "row">
+        <div class = "col-sm-10">
+            <h2>My Stocks</h2>
+        </div>
+        <div id="addNewStockButton" class = "col-sm-2">
+            <button class="btn btn-warning" ui-sref="newStock">Add New Stock</button>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div ng-repeat="stock in stocks" class="col-lg-2 col-md-3 col-xs-4">
+                <div class="row">
+                    <img src="{{stock.book.cover_image_url}}" ui-sref="stockBookProfile({lineStockId : stock.id, bookId : stock.book.id})" class="cover-image" width="128" height="196">
+                </div>
+                <div class="row">
+                    {{stock.book.title}}
+                </div>
+                <div class="row">
+                    type : {{stock.type}}
+                </div>
+                <div class="row">
+                    quantities : {{stock.quantity}}
+                </div>
+                <div class="row">
+                    price : {{stock.price}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
