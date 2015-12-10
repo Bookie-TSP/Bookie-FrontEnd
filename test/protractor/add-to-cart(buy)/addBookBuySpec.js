@@ -7,16 +7,30 @@ describe('Add book to cart (buying)', function() {
     var books;
     var bookStocks;
     var carts;
+    var postData;
 
     beforeEach(function() {
         browser.get('/#');
-        getRequest('https://bookieservice.herokuapp.com/api/books/', 'indiBook');
-        getRequest('https://bookieservice.herokuapp.com/api/books/3', 'selectBook');
-        getRequest('https://bookieservice.herokuapp.com/api/members/cart/show', 'cart')
+        postRequest('https://bookieservice.herokuapp.com/api/books/', 'indiBook');
+        postRequest('https://bookieservice.herokuapp.com/api/books/3', 'selectBook');
+        // postRequest('https://bookieservice.herokuapp.com/api/members/cart/show', 'cart')
+        postRequest('https://bookieservice.herokuapp.com/api/sessions', 'login');
     });
 
-    function getRequest(link, vari){
+    function postRequest(link, vari){
         browser.waitForAngular();
+
+        var options = {
+            method: 'post',
+            body: postData,
+            json: true,
+            url: url
+        }
+        request(options, function (err, res, body) {
+            console.log(body.token)
+        })
+
+        
         request(link, function (error, response, body) {
             if (!error && vari=='indiBook') {
                 books = JSON.parse(body).books;
@@ -26,9 +40,31 @@ describe('Add book to cart (buying)', function() {
                 bookStocks = JSON.parse(body).line_stocks;
                 // console.log(bookStocks);
             }
+            else if(!error && vari=='login'){
+                var loginAuth  = JSON.parse(body);
+                console.log(loginAuth);
+
+                
+            }
             else if(!error && vari=='cart') {
                 carts = JSON.parse(body);
                 console.log(carts);
+
+                // var postData = {
+                //   "email": "nara@gmail.com",
+                //   "password": "12345678"
+                // }
+
+                // var url = link;
+                // var options = {
+                //   method: 'post',
+                //   body: postData,
+                //   json: true,
+                //   url: url
+                // }
+                // request(options, function (err, res, body) {
+                //   console.log(body.token)
+                // })
             }
         });
     };
@@ -43,6 +79,11 @@ describe('Add book to cart (buying)', function() {
         password.sendKeys('11111111');
         submit.click();
         expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/');
+
+        postData = {
+            "email": "tester@ku.th",
+            "password": "11111111"
+        }
     };
 
     describe('if login', function() {
