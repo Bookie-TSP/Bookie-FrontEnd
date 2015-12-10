@@ -4,17 +4,18 @@ app.controller('stockCtrl', ['$scope', '$http', '$state', 'authFactory',
             $state.go("login");
         }
 
-        $scope.getStock = function(){
+        $scope.getStocks = function(){
             $http.get('https://bookieservice.herokuapp.com/api/mystocks', authFactory.getConfigHead())
                 .success(function(data){
+                    console.log(data);
                     $scope.data = data;
-                    $scope.stocks = data.line_stocks;
-                    console.log($scope.stocks);
+                    $scope.line_stocks = data.line_stocks;
+                    console.log($scope.line_stocks);
                 })
                 .error(function(data){
-
+                    console.log(data);
                 });
         };
 
-        $scope.getStock();
+        $scope.getStocks();
     }]);

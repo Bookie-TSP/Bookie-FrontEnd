@@ -1,6 +1,11 @@
 app.controller('cartCtrl',['$scope','$http', '$state', 'authFactory', '$rootScope',
     function ($scope, $http, $state, authFactory, $rootScope){
+        // check authentication
+        if (authFactory.getAuth() === undefined) {
+			$state.go('login');
+		}
 
+        // get total price
         $scope.getTotal = function() {
             $scope.total = 0;
             for(var i = 0, len = $scope.stocks.length; i < len; i++) {
@@ -8,6 +13,7 @@ app.controller('cartCtrl',['$scope','$http', '$state', 'authFactory', '$rootScop
             }
         };
 
+        // count num stock in each type
         $scope.countStocks = function() {
             $scope.buyLength = 0;
             for(var i = 0; i < $scope.stocks.length; i++){
@@ -24,6 +30,7 @@ app.controller('cartCtrl',['$scope','$http', '$state', 'authFactory', '$rootScop
             }
         };
 
+        // get cart
         $scope.getCart = function() {
             $http.get('https://bookieservice.herokuapp.com/api/members/cart/show', authFactory.getConfigHead())
             .success(function (data) {
@@ -38,8 +45,9 @@ app.controller('cartCtrl',['$scope','$http', '$state', 'authFactory', '$rootScop
                 console.log(data);
             });
         };
+
+        // remove stock
         $scope.removeStock = function(id) {
-            console.log(id);
             $http.post('https://bookieservice.herokuapp.com/api/members/cart/remove',{
                 stock: {
                     stock_id: id

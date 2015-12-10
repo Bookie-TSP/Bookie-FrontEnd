@@ -7,14 +7,14 @@
 			<div class="panel-body">
 				<div ng-show="buyLength === 0">
 					<center>
-						<h2 id="noBook">No book has been added</h2>
+						<h2 class="noBook">No book has been added</h2>
 					</center>
 				</div>
 				<div ng-repeat="stock in stocks" ng-show="stock.type === 'sell'">
 					<div class="row">
 						<div class="col-md-4">
 							<center>
-								<img src="{{stock.book.cover_image_url}}" class="img-responsive" style="width:150px;height:225px;">
+								<img class="img-responsive" src="{{stock.book.cover_image_url}}">
 							</center>
 						</div>
 						<div class="col-md-8">
@@ -95,14 +95,14 @@
 			<div class="panel-body">
 				<div ng-show="rentLength === 0">
 					<center>
-						<h2 id="noBook">No book has been added</h2>
+						<h2 class="noBook">No book has been added</h2>
 					</center>
 				</div>
 				<div ng-repeat="stock in stocks" ng-show="stock.type === 'lend'">
 					<div class="row">
 						<div class="col-md-4">
 							<center>
-								<img src="{{stock.book.cover_image_url}}" class="img-responsive" style="width:150px;height:225px;">
+								<img class="img-responsive" src="{{stock.book.cover_image_url}}">
 							</center>
 						</div>
 						<div class="col-md-8">
@@ -209,11 +209,11 @@
 				</div>
 			</div>
 		</div>
-		<button id="countinue" class="btn btn-default btn-block" ui-sref="home">
+		<button id="countinueBtn" class="btn btn-default btn-block" ui-sref="home">
 			Countinue Shopping
 		</button>
 
-		<button id="checkout" class="btn btn-block btn-warning" ui-sref="payment" ng-if="stocks.length > 0" style="margin-top: 10px;">
+		<button id="checkoutBtn" class="btn btn-block btn-warning" ui-sref="payment" ng-if="stocks.length > 0">
 			Checkout
 		</button>
 	</div>

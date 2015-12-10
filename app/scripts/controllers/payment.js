@@ -23,23 +23,29 @@ app.controller('paymentCtrl',['$scope','$http', '$state', 'authFactory', '$rootS
 
         $scope.paid = function() {
             $scope.emptyCart = false;
-            if ($scope.billing_firstname == null || $scope.billing_lastname == null) {
+            if ($scope.billing_firstname === null || $scope.billing_lastname === null) {
                 alert("Please input your name");
-            } else if ($scope.billing_card_number == undefined) {
+            } else if ($scope.billing_card_number === undefined) {
                 alert("Please input card number");
-            } else if ($scope.billing_card_security_number == undefined) {
+            } else if ($scope.billing_card_security_number === undefined) {
                 alert("Please input CVV");
             } else if ($scope.billing_card_number.length !== 16) {
                 alert("Wrong card number");
             } else if ($scope.billing_card_security_number.length !== 3) {
                 alert("Wrong CVV");
-            } else if ($scope.expireMM == undefined || $scope.expireYY == undefined) {
+            } else if ($scope.expireMM === undefined || $scope.expireYY === undefined) {
                 alert("Please input expirtion date");
-            } else if ($scope.billing_type == undefined) {
+            } else if ($scope.billing_type === undefined) {
                 alert("Please input credit card type");
             } else {
-                var billing_name = $scope.billing_firstname + " " + $scope.billing_lastname;
-                var billing_card_expire_date = $scope.expireMM + "/" + $scope.expireYY;
+                var billing_name = '';
+                var billing_card_expire_date = '';
+                if($scope.billing_firstname && $scope.billing_lastname){
+                    billing_name = $scope.billing_firstname + " " + $scope.billing_lastname;
+                }
+                if($scope.expireMM && $scope.expireYY){
+                    billing_card_expire_date = $scope.expireMM + "/" + $scope.expireYY;
+                }
                 var payment = {
                     billing_name: billing_name,
                     billing_type: $scope.billing_type,
@@ -47,6 +53,7 @@ app.controller('paymentCtrl',['$scope','$http', '$state', 'authFactory', '$rootS
                     billing_card_expire_date: billing_card_expire_date,
                     billing_card_security_number: $scope.billing_card_security_number
                 };
+                console.log(payment);
                 $http.post('https://bookieservice.herokuapp.com/api/members/cart/checkout', {
                         payment: payment
                     }, authFactory.getConfigHead())

@@ -1,34 +1,43 @@
 <div class="container" ng-controller="registerCtrl">
     <div class="register-form">
-        <!--form-->
         <div class="row">
             <div class="col-sm-7 col-sm-offset-3">
                 <h2><b>Register</b></h2>
                 <br>
                 <!--register form-->
-                <form style="border: none">
-                    <input type="text" placeholder="Email" ng-model="email">
-                    <br>
-                    <input type="password" placeholder="Password *more than or equal 8 characters" ng-model="password">
-                    <div ng-show="password.length < 8">
-                        <h5 id="validate">Not enough characters</h5>
+                <form name="registerForm">
+                    <input type="text" name="email" placeholder="Email*" ng-model="email"
+                        ng-pattern= "/^[_A-Za-z0-9]+(\.[_A-Za-z0-9]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*(\.[A-Za-z]{2,5})$/">
+                    <div class="validate" ng-show="registerForm.email.$error.pattern">
+                        Email is invalid format
                     </div>
                     <br>
-                    <input type="password" placeholder="Password comfirmation" ng-model="password_confirmation">
-                    <div ng-show="password == password_confirmation && password != null">
-                        <h5 id="pass">Password match!</h5>
+                    <input type="password" placeholder="Password* (more than or equal 8 characters)" ng-model="password">
+                    <div class="validate" ng-if="password.length < 8">
+                        Not enough characters
                     </div>
-                    <div ng-show="password !== password_confirmation && password_confirmation != null">
-                        <h5 id="validate">Password not match!</h5>
+                    <div class="validate" ng-if="password.length > 72">
+                        Too many characters
+                    </div>
+                    <div class="validate" ng-if="errors.password">
+                        {{errors.password}}
                     </div>
                     <br>
-                    <input type="text" placeholder="Firstname" ng-model="first_name">
+                    <input type="password" placeholder="Password Comfirmation*" ng-model="password_confirmation">
+                    <div class="pass" ng-if="password == password_confirmation && password != null">
+                        Password match!
+                    </div>
+                    <div class="validate" ng-if="password !== password_confirmation && password_confirmation != null">
+                        Password not match!
+                    </div>
                     <br>
-                    <input type="text" placeholder="Lastname" ng-model="last_name">
+                    <input type="text" placeholder="Firstname*" ng-model="first_name">
                     <br>
-                    <input type="text" placeholder="Identification number" ng-model="identification_number">
-                    <div ng-show="identification_number.length !== 13 && identification_number.length !== undefined">
-                        <h5 id="validate">Must be 13 character</h5>
+                    <input type="text" placeholder="Lastname*" ng-model="last_name">
+                    <br>
+                    <input type="text" placeholder="Identification number*" ng-model="identification_number">
+                    <div class="validate" ng-if="identification_number.length !== 13 && identification_number.length !== undefined">
+                        Must be 13 character
                     </div>
                     <br>
                 </form>
@@ -61,7 +70,7 @@
                     <input type="radio" name="sex" value="Female" ng-model="gender"> Female
                 </div>
                 <br>
-                <h4>Address</h4>
+                <h4>Address*</h4>
                 <br>
                 <!-- map -->
                 <div>
@@ -98,10 +107,10 @@
                 <br>
                 <br>
                 <div class="register-form">
-                    <form style="border: none">
-                        <input type="text" placeholder="More Info" ng-model="more_info">
+                    <form>
+                        <input type="text" placeholder="More Info (Add more specific for your address)" ng-model="more_info">
                         <br>
-                        <input type="text" placeholder="Phone number" ng-model="phone_number">
+                        <input type="text" placeholder="Phone number*" ng-model="phone_number">
                         <br>
                         <a href="">Terms of condition</a>
                         <br>
@@ -109,6 +118,7 @@
                         <span>
                             <input type="checkbox" ng-model="agreeTerm">I agree with term of condition
                         </span>
+                        <div class="validate" ng-if="errors.agree">{{errors.agree}}</div>
                     </form>
                 </div>
                 <br>
