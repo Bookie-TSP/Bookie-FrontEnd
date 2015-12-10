@@ -2,6 +2,9 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
   function ($scope, $http, $state, authFactory, $rootScope, $timeout) {
 		$scope.totalPrice = 0;
 		$scope.totalCount = 0;
+        $scope.searchType = 'Any';
+        $scope.sortType = '';
+
 		$scope.logout = function () {
             $timeout(function () {
                 $state.go("home");
@@ -45,6 +48,50 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
 				$scope.totalCount = 0;
 			}
 		};
+
+        $scope.sortBy = function(criteria) {
+            if (criteria == 'naz') {
+                $scope.sortType = 'naz';
+                $scope.books.sort(function(a, b) {
+    				var x = a.title.toLowerCase();
+				    var y = b.title.toLowerCase();
+				    return x < y ? -1 : x > y ? 1 : 0;
+    			});
+            } else if (criteria == 'nza') {
+                $scope.sortType = 'nza';
+                $scope.books.sort(function(a, b) {
+    				var x = a.title.toLowerCase();
+				    var y = b.title.toLowerCase();
+				    return x < y ? 1 : x > y ? -1 : 0;
+    			});
+            } else if (criteria == 'plh') {
+                $scope.sortType = 'plh';
+                $scope.books.sort(function(a, b) {
+    				var x = a.lowest_price;
+				    var y = b.lowest_price;
+				    if (x == "null") {
+				    	return 1;
+				    }
+				    if (y == "null") {
+				    	return -1;
+				    }
+				    return x-y;
+    			});
+            } else if (criteria == 'phl') {
+                $scope.sortType = 'phl';
+                $scope.books.sort(function(a, b) {
+    				var x = a.lowest_price;
+				    var y = b.lowest_price;
+				    if (x == "null") {
+				    	return 1;
+				    }
+				    if (y == "null") {
+				    	return -1;
+				    }
+				    return y-x;
+    			});
+            }
+        };
 
 		$rootScope.member = $scope.getMember();
 		$scope.getCart();

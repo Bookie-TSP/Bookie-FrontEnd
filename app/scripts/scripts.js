@@ -110,7 +110,17 @@ app.directive('navbarView', function(){
 app.controller('bookCatalogCtrl', ['$scope', '$http', '$state', 'authFactory', '$timeout',
 function ($scope, $http, $state, authFactory, $timeout) {
 
-		//getting books from api
+		//move getting books to navCtrl
+		$scope.dotdotdot = function(){
+			//wait for 1 sec then do dotdotdot
+			setTimeout(function() {
+				$('.book-name').each(function() {
+	        		$(this).dotdotdot();
+	        	});
+			}, 1000);
+    	};
+
+		//getting books from api (being here because of sorting)
 		$http.get('https://bookieservice.herokuapp.com/api/books')
 			.success(function (data) {
 				$scope.books = data.books;
@@ -120,15 +130,6 @@ function ($scope, $http, $state, authFactory, $timeout) {
 			.error(function (data) {
 				console.log(data);
 			});
-
-		$scope.dotdotdot = function(){
-			//wait for 1 sec then do dotdotdot
-			setTimeout(function() {
-				$('.book-name').each(function() {
-	        		$(this).dotdotdot();
-	        	});
-			}, 1000);
-    	};
 }]);
 
 app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$location', '$state', '$stateParams', '$uibModal', 'mapFactory', 'authFactory', '$rootScope',
@@ -587,6 +588,9 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
   function ($scope, $http, $state, authFactory, $rootScope, $timeout) {
 		$scope.totalPrice = 0;
 		$scope.totalCount = 0;
+        $scope.searchType = 'Any';
+        $scope.sortType = '';
+
 		$scope.logout = function () {
             $timeout(function () {
                 $state.go("home");
@@ -630,6 +634,50 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
 				$scope.totalCount = 0;
 			}
 		};
+
+        $scope.sortBy = function(criteria) {
+            if (criteria == 'naz') {
+                $scope.sortType = 'naz';
+                $scope.books.sort(function(a, b) {
+    				var x = a.title.toLowerCase();
+				    var y = b.title.toLowerCase();
+				    return x < y ? -1 : x > y ? 1 : 0;
+    			});
+            } else if (criteria == 'nza') {
+                $scope.sortType = 'nza';
+                $scope.books.sort(function(a, b) {
+    				var x = a.title.toLowerCase();
+				    var y = b.title.toLowerCase();
+				    return x < y ? 1 : x > y ? -1 : 0;
+    			});
+            } else if (criteria == 'plh') {
+                $scope.sortType = 'plh';
+                $scope.books.sort(function(a, b) {
+    				var x = a.lowest_price;
+				    var y = b.lowest_price;
+				    if (x == "null") {
+				    	return 1;
+				    }
+				    if (y == "null") {
+				    	return -1;
+				    }
+				    return x-y;
+    			});
+            } else if (criteria == 'phl') {
+                $scope.sortType = 'phl';
+                $scope.books.sort(function(a, b) {
+    				var x = a.lowest_price;
+				    var y = b.lowest_price;
+				    if (x == "null") {
+				    	return 1;
+				    }
+				    if (y == "null") {
+				    	return -1;
+				    }
+				    return y-x;
+    			});
+            }
+        };
 
 		$rootScope.member = $scope.getMember();
 		$scope.getCart();
@@ -729,23 +777,29 @@ app.controller('paymentCtrl',['$scope','$http', '$state', 'authFactory', '$rootS
 
         $scope.paid = function() {
             $scope.emptyCart = false;
-            if ($scope.billing_firstname == null || $scope.billing_lastname == null) {
+            if ($scope.billing_firstname === null || $scope.billing_lastname === null) {
                 alert("Please input your name");
-            } else if ($scope.billing_card_number == undefined) {
+            } else if ($scope.billing_card_number === undefined) {
                 alert("Please input card number");
-            } else if ($scope.billing_card_security_number == undefined) {
+            } else if ($scope.billing_card_security_number === undefined) {
                 alert("Please input CVV");
             } else if ($scope.billing_card_number.length !== 16) {
                 alert("Wrong card number");
             } else if ($scope.billing_card_security_number.length !== 3) {
                 alert("Wrong CVV");
-            } else if ($scope.expireMM == undefined || $scope.expireYY == undefined) {
+            } else if ($scope.expireMM === undefined || $scope.expireYY === undefined) {
                 alert("Please input expirtion date");
-            } else if ($scope.billing_type == undefined) {
+            } else if ($scope.billing_type === undefined) {
                 alert("Please input credit card type");
             } else {
-                var billing_name = $scope.billing_firstname + " " + $scope.billing_lastname;
-                var billing_card_expire_date = $scope.expireMM + "/" + $scope.expireYY;
+                var billing_name = '';
+                var billing_card_expire_date = '';
+                if($scope.billing_firstname && $scope.billing_lastname){
+                    billing_name = $scope.billing_firstname + " " + $scope.billing_lastname;
+                }
+                if($$scope.expireMM && $scope.expireYY){
+                    billing_card_expire_date = $scope.expireMM + "/" + $scope.expireYY;
+                }
                 var payment = {
                     billing_name: billing_name,
                     billing_type: $scope.billing_type,
