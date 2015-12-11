@@ -20,6 +20,15 @@ app.controller('requestedOrderCtrl', ['$scope', '$http', '$state', 'authFactory'
 			});
 		}
 
+        // $scope.orderInfo = {
+        //     orders: [{
+        //         stocks: [{
+
+        //         }],
+        //         created_at: "2015"
+        //     }]
+        // }
+
 		$scope.acceptOrder = function(acceptedOrder, acceptedStock) {
             var config = {
 				headers: {
@@ -82,6 +91,11 @@ app.controller('requestedOrderCtrl', ['$scope', '$http', '$state', 'authFactory'
                 console.log(data);
             });
 		}
+
+        $scope.sortOrder = function(order) {
+            var date = new Date(order.created_at.substring(0, 10) + " " + order.created_at.substring(11, 19));
+            return date;
+        }
 		
 		$scope.getOrderInfo();
 	}

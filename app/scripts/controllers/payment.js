@@ -43,7 +43,7 @@ app.controller('paymentCtrl',['$scope','$http', '$state', 'authFactory', '$rootS
                 if($scope.billing_firstname && $scope.billing_lastname){
                     billing_name = $scope.billing_firstname + " " + $scope.billing_lastname;
                 }
-                if($$scope.expireMM && $scope.expireYY){
+                if($scope.expireMM && $scope.expireYY){
                     billing_card_expire_date = $scope.expireMM + "/" + $scope.expireYY;
                 }
                 var payment = {
