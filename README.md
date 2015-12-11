@@ -15,6 +15,6 @@
 3. Run 'node node-server.js'
 
 ####For Tester
-install protractor & selenium (see protractor document)
-run 'npm install request'
-run 'npm install protractor-linkuisref-locator'
+- install protractor & selenium (see protractor document)
+- run 'npm install request'
+- run 'npm install protractor-linkuisref-locator'
