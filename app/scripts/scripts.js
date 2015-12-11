@@ -807,6 +807,7 @@ app.controller('paymentCtrl',['$scope','$http', '$state', 'authFactory', '$rootS
                     billing_card_expire_date: billing_card_expire_date,
                     billing_card_security_number: $scope.billing_card_security_number
                 };
+                console.log(payment);
                 $http.post('https://bookieservice.herokuapp.com/api/members/cart/checkout', {
                         payment: payment
                     }, authFactory.getConfigHead())
@@ -929,27 +930,37 @@ app.controller('photoStockCtrl', ['$scope', '$rootScope', '$stateParams', '$loca
 app.controller('registerCtrl', ['$scope', '$http', 'mapFactory', '$state', 'authFactory', 'dateFactory',
         function ($scope, $http, $map, $state, authFactory, $date) {
 		if (authFactory.getAuth() !== undefined) {
-			$state.go("home");
+			$state.go('home');
 		}
-        $scope.latitude = "";
-        $scope.longitude = "";
-        $scope.address = "";
-        
+
+        // initialize data
+        $scope.latitude = '';
+        $scope.longitude = '';
+        $scope.address = '';
+        $scope.more_info = '';
+
+        // errors
+        $scope.errors = {};
+
+        // create date date for select
         $scope.initDate = function() {
             $scope.initDates = $date.days;
             $scope.initMonths = $date.months;
             $scope.initYears = $date.years;
 		};
 
+        // register
 		$scope.submit = function () {
-			var birth_date = $scope.day_birth + "/" + ($scope.initMonths.indexOf($scope.month_birth)+1) + "/" + $scope.year_birth;
+            $scope.errors = {};
+			var birth_date = $scope.day_birth + '/' + ($scope.initMonths.indexOf($scope.month_birth)+1) + "/" + $scope.year_birth;
             var address_info = $scope.address;
             if( $scope.more_info !== undefined){
-                address_info = $scope.more_info + " " + address_info;
+                address_info = $scope.more_info + ' ' + address_info;
             }
 
+
 			if (!$scope.agreeTerm) {
-				alert("Please agree the term of condition");
+				$scope.errors.agree = 'Please agree term of conditions';
 			} else {
 				var member = {
 					email: $scope.email,
@@ -981,17 +992,19 @@ app.controller('registerCtrl', ['$scope', '$http', 'mapFactory', '$state', 'auth
 					})
 					.error(function (data) {
 						console.log(data);
-						alert("error : " + data.errors);
 					});
 			}
 		};
 
+        // initialize function
         $scope.initial = function() {
             $scope.initDate();
             $scope.map = $map.map;
             $scope.marker = $map.marker;
             $scope.options = $map.options;
         };
+
+        // watch marker in map
         $scope.$on('marker', function () {
 			console.log("marker");
             $scope.latitude = $map.getLat().toFixed(5);
@@ -999,6 +1012,7 @@ app.controller('registerCtrl', ['$scope', '$http', 'mapFactory', '$state', 'auth
             $scope.address = $map.getAddress();
             $scope.$digest();
 		});
+
         $scope.initial();
 }]);
 
@@ -1023,15 +1037,6 @@ app.controller('requestedOrderCtrl', ['$scope', '$http', '$state', 'authFactory'
 				console.log(data);
 			});
 		}
-
-        // $scope.orderInfo = {
-        //     orders: [{
-        //         stocks: [{
-
-        //         }],
-        //         created_at: "2015"
-        //     }]
-        // }
 
 		$scope.acceptOrder = function(acceptedOrder, acceptedStock) {
             var config = {
@@ -1417,7 +1422,7 @@ app.factory('authFactory', function ($http, $rootScope, $localStorage, $cookies)
 		},
 		getMember: function () {
 			if ($localStorage.keepLogin === false) {
-				return $cookies.get('member');
+				return $cookies.getObject('member');
 			} else {
 				return $localStorage.member;
 			}

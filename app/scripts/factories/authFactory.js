@@ -30,7 +30,7 @@ app.factory('authFactory', function ($http, $rootScope, $localStorage, $cookies)
 		},
 		getMember: function () {
 			if ($localStorage.keepLogin === false) {
-				return $cookies.get('member');
+				return $cookies.getObject('member');
 			} else {
 				return $localStorage.member;
 			}

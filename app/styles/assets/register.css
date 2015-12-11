@@ -14,12 +14,15 @@ form {
     color: #696763;
     font-family: 'Roboto', sans-serif;
 }
-.validate {
-    color: #ff0000;
+
+.validate{
+    color: red;
 }
+
 .pass {
-    color: #007500
+    color: #007500;
 }
+
 .register-form form input {
     background: #F0F0E9;
     border: medium none;

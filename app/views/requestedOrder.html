@@ -7,7 +7,7 @@
         <!-- Order of pending status books -->
         <uib-tab heading="Pending" ng-click="moveToBottom()">
             <br>
-            <div ng-repeat="order in orderInfo.orders">
+            <div ng-repeat="order in orderInfo.orders | orderBy: 'sortOrder': true">
                 <div ng-repeat="stock in order.stocks">
                     <uib-accordion close-others="oneAtATime">
                         <div ng-show="stock.status === 'pending'">
@@ -16,7 +16,10 @@
                                     <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>&nbsp&nbsp{{stock.book.title}}
                                 </uib-accordion-heading>
                                 <div class="col-sm-1">${{stock.price}}</div>
-                                <div class="col-sm-2">{{order.created_at}}</div>
+                                <div class="col-sm-2">
+                                    {{order.created_at.substring(0, 10)}}<br>
+                                    {{order.created_at.substring(11, 19)}}
+                                </div>
                                 <div class="col-sm-5">
                                     {{order.address.first_name}} {{order.address.last_name}}
                                     <span class="label label-info">Order ID: {{order.id}}</span> <span class="label label-primary">Stock ID: {{stock.id}}</span>
@@ -64,7 +67,7 @@
         <!-- Orders o -->
         <uib-tab heading="Ended" ng-click="moveToBottom()">
             <br>
-            <div ng-repeat="order in orderInfo.orders">
+            <div ng-repeat="order in orderInfo.orders | orderBy: 'sortOrder': true">
                 <div ng-repeat="stock in order.stocks">
                     <uib-accordion close-others="oneAtATime">
                         <div ng-show="stock.status === 'returned'">
@@ -73,7 +76,10 @@
                                     <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>&nbsp&nbsp{{stock.book.title}}
                                 </uib-accordion-heading>
                                 <div class="col-sm-1">${{stock.price}}</div>
-                                <div class="col-sm-2">{{order.created_at}}</div>
+                                <div class="col-sm-2">
+                                    {{order.created_at.substring(0, 10)}}<br>
+                                    {{order.created_at.substring(11, 19)}}
+                                </div>
                                 <div class="col-sm-5">
                                     {{order.address.first_name}} {{order.address.last_name}}
                                     <span class="label label-info">Order ID: {{order.id}}</span> <span class="label label-primary">Stock ID: {{stock.id}}</span>

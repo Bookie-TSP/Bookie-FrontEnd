@@ -53,6 +53,7 @@ app.controller('paymentCtrl',['$scope','$http', '$state', 'authFactory', '$rootS
                     billing_card_expire_date: billing_card_expire_date,
                     billing_card_security_number: $scope.billing_card_security_number
                 };
+                console.log(payment);
                 $http.post('https://bookieservice.herokuapp.com/api/members/cart/checkout', {
                         payment: payment
                     }, authFactory.getConfigHead())

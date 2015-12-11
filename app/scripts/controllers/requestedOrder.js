@@ -20,15 +20,6 @@ app.controller('requestedOrderCtrl', ['$scope', '$http', '$state', 'authFactory'
 			});
 		}
 
-        // $scope.orderInfo = {
-        //     orders: [{
-        //         stocks: [{
-
-        //         }],
-        //         created_at: "2015"
-        //     }]
-        // }
-
 		$scope.acceptOrder = function(acceptedOrder, acceptedStock) {
             var config = {
 				headers: {
