@@ -7,7 +7,7 @@ describe('View Individual Book', function() {
     var titleHeader = element(by.id('title-header'));
     var request = require('request');
     var book = element.all(by.repeater('book in books'));
-    var home = element(by.id('home'));
+    var home = element(by.className('navbar-brand'));
     var title = element(by.id('individualBookTitle'));
     var isbnTen = element(by.id('individualBookISBNTen'));
     var isbnThirteen = element(by.id('individualBookISBNThirteen'));
@@ -84,7 +84,7 @@ describe('View Individual Book', function() {
          //check the first book
         book.get(first).click();
         if(books[first].ISBN10 == null){
-            expect(isbnTen.getText()).toEqual('undefined');
+            expect(isbnTen.getText()).toEqual('-');
         }
         else{
             expect(isbnTen.getText()).toEqual(books[first].ISBN10);
@@ -94,7 +94,7 @@ describe('View Individual Book', function() {
        //check the middle book
         book.get(middle).click();
         if(books[middle].ISBN10 == null){
-            expect(isbnTen.getText()).toEqual('undefined');
+            expect(isbnTen.getText()).toEqual('-');
         }
         else{
             expect(isbnTen.getText()).toEqual(books[middle].ISBN10);
@@ -104,7 +104,7 @@ describe('View Individual Book', function() {
         // check the last book
         book.get(last).click();
         if(books[last].ISBN10 == null){
-            expect(isbnTen.getText()).toEqual('undefined');
+            expect(isbnTen.getText()).toEqual('-');
         }
         else{
             expect(isbnTen.getText()).toEqual(books[last].ISBN10);
@@ -116,7 +116,7 @@ describe('View Individual Book', function() {
         //check the first book
         book.get(first).click();
         if(books[first].ISBN13 == null){
-            expect(isbnThirteen.getText()).toEqual('undefined');
+            expect(isbnThirteen.getText()).toEqual('-');
         }
         else{
             expect(isbnThirteen.getText()).toEqual(books[first].ISBN13);
@@ -126,7 +126,7 @@ describe('View Individual Book', function() {
        //check the middle book
         book.get(middle).click();
         if(books[middle].ISBN13 == null){
-            expect(isbnThirteen.getText()).toEqual('undefined');
+            expect(isbnThirteen.getText()).toEqual('-');
         }
         else{
             expect(isbnThirteen.getText()).toEqual(books[middle].ISBN13);
@@ -136,7 +136,7 @@ describe('View Individual Book', function() {
         // check the last book
         book.get(last).click();
         if(books[last].ISBN13 == null){
-            expect(isbnThirteen.getText()).toEqual('undefined');
+            expect(isbnThirteen.getText()).toEqual('-');
         }
         else{
             expect(isbnThirteen.getText()).toEqual(books[last].ISBN13);
@@ -169,7 +169,7 @@ describe('View Individual Book', function() {
         //check the first book
         book.get(first).click();
         if(books[first].language == null){
-            expect(language.getText()).toEqual('undefined');
+            expect(language.getText()).toEqual('-');
         }
         else{
             expect(language.getText()).toEqual(books[first].language);
@@ -179,7 +179,7 @@ describe('View Individual Book', function() {
         //check the middle book
         book.get(middle).click();
         if(books[middle].language == null){
-            expect(language.getText()).toEqual('undefined');
+            expect(language.getText()).toEqual('-');
         }
         else{
             expect(language.getText()).toEqual(books[middle].language);
@@ -189,7 +189,7 @@ describe('View Individual Book', function() {
         // check the last book
         book.get(last).click();
         if(books[last].language == null){
-            expect(language.getText()).toEqual('undefined');
+            expect(language.getText()).toEqual('-');
         }
         else{
             expect(language.getText()).toEqual(books[last].language);
@@ -201,7 +201,7 @@ describe('View Individual Book', function() {
         //check the first book
         book.get(first).click();
         if(books[first].pages == null){
-            expect(pages.getText()).toEqual('undefined');
+            expect(pages.getText()).toEqual('-');
         }
         else{
             expect(pages.getText()).toEqual(books[first].pages + '');
@@ -211,7 +211,7 @@ describe('View Individual Book', function() {
         //check the middle book
         book.get(middle).click();
         if(books[middle].pages == null){
-            expect(pages.getText()).toEqual('undefined');
+            expect(pages.getText()).toEqual('-');
         }
         else{
             expect(pages.getText()).toEqual(books[middle].pages + '');
@@ -221,7 +221,7 @@ describe('View Individual Book', function() {
         // check the last book
         book.get(last).click();
         if(books[last].pages == null){
-            expect(pages.getText()).toEqual('undefined');
+            expect(pages.getText()).toEqual('-');
         }
         else{
             expect(pages.getText()).toEqual(books[last].pages + '');
@@ -233,7 +233,7 @@ describe('View Individual Book', function() {
         //check the first book
         book.get(first).click();
         if(books[first].publisher == null){
-            expect(publisher.getText()).toEqual('undefined');
+            expect(publisher.getText()).toEqual('-');
         }
         else{
             expect(publisher.getText()).toEqual(books[first].publisher + '');
@@ -243,7 +243,7 @@ describe('View Individual Book', function() {
         //check the middle book
         book.get(middle).click();
         if(books[middle].publisher == null){
-            expect(publisher.getText()).toEqual('undefined');
+            expect(publisher.getText()).toEqual('-');
         }
         else{
             expect(publisher.getText()).toEqual(books[middle].publisher + '');
@@ -253,7 +253,7 @@ describe('View Individual Book', function() {
         // check the last book
         book.get(last).click();
         if(books[last].publisher == null){
-            expect(publisher.getText()).toEqual('undefined');
+            expect(publisher.getText()).toEqual('-');
         }
         else{
             expect(publisher.getText()).toEqual(books[last].publisher + '');
@@ -265,7 +265,7 @@ describe('View Individual Book', function() {
         //check the first book
         book.get(first).click();
         if(books[first].publish_date == null){
-            expect(publishDate.getText()).toEqual('undefined');
+            expect(publishDate.getText()).toEqual('-');
         }
         else{
             expect(publishDate.getText()).toEqual(books[first].publish_date);
@@ -275,7 +275,7 @@ describe('View Individual Book', function() {
         //check the middle book
         book.get(middle).click();
         if(books[middle].publish_date == null){
-            expect(publishDate.getText()).toEqual('undefined');
+            expect(publishDate.getText()).toEqual('-');
         }
         else{
             expect(publishDate.getText()).toEqual(books[middle].publish_date);
@@ -285,7 +285,7 @@ describe('View Individual Book', function() {
         //check the last book
         book.get(last).click();
         if(books[last].publish_date == null){
-            expect(publishDate.getText()).toEqual('undefined');
+            expect(publishDate.getText()).toEqual('-');
         }
         else{
             expect(publishDate.getText()).toEqual(books[last].publish_date);
@@ -297,7 +297,7 @@ describe('View Individual Book', function() {
         //check the first book
         book.get(first).click();
         if(books[first].description == null){
-            expect(description.getText()).toEqual('undefined');
+            expect(description.getText()).toEqual('-');
         }
         else{
             expect(description.getText()).toEqual(books[first].description);
@@ -307,7 +307,7 @@ describe('View Individual Book', function() {
         //check the middle book
         book.get(middle).click();
         if(books[middle].description == null){
-            expect(description.getText()).toEqual('undefined');
+            expect(description.getText()).toEqual('-');
         }
         else{
             expect(description.getText()).toEqual(books[middle].description);
@@ -317,7 +317,7 @@ describe('View Individual Book', function() {
         //check the last book
         book.get(last).click();
         if(books[last].description == null){
-            expect(description.getText()).toEqual('undefined');
+            expect(description.getText()).toEqual('-');
         }
         else{
             expect(description.getText()).toEqual(books[last].description);
