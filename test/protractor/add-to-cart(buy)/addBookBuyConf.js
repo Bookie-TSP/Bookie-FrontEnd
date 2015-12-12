@@ -7,6 +7,7 @@ exports.config = {
     baseUrl: 'http://localhost:8000',
 
     onPrepare: function() {
+        require('protractor-linkuisref-locator')(protractor);
         jasmine.getEnv().addReporter(
             new HtmlScreenshotReporter({
                 dest: 'test_results',
