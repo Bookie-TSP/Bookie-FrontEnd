@@ -58,7 +58,7 @@ describe('View cart' ,function() {
 
         it('should have a book' ,function() {
             homeNav.click();
-            element.all(by.repeater('book in books')).get(0).click();
+            element.all(by.repeater('book in books')).get(1).click();
             //element(by.css('.btn.btn-warning')).click();
             element(by.repeater('line_stock in buyNewBook')).element(by.css('.btn.btn-warning')).click();
             element(by.css('.btn.btn-primary')).click();
@@ -74,7 +74,7 @@ describe('View cart' ,function() {
         });
 
         it('should have more than one book' ,function() {
-            for(var i=0; i<3; i++){
+            for(var i=1; i<3; i++){
             homeNav.click();
             element.all(by.repeater('book in books')).get(i).click();
             //element(by.css('.btn.btn-warning')).click();
@@ -97,7 +97,7 @@ describe('View cart' ,function() {
     describe('correctly detail in cart' ,function() {
         it('should have correct detail' ,function() {
             homeNav.click();
-            bookIndex = 0;
+            bookIndex = 1;
             element.all(by.repeater('book in books')).get(bookIndex).click();
             element(by.repeater('line_stock in buyNewBook')).element(by.css('.btn.btn-warning')).click();
             element(by.css('.btn.btn-primary')).click();
@@ -167,7 +167,7 @@ describe('View cart' ,function() {
     describe('correctly price details' ,function() {
         it('should calculate subtotal correctly' ,function() {
             homeNav.click();
-            bookIndex = 0;
+            bookIndex = 1;
             element.all(by.repeater('book in books')).get(bookIndex).click();
             element(by.repeater('line_stock in buyNewBook')).element(by.css('.btn.btn-warning')).click();
             element(by.css('.btn.btn-primary')).click();
