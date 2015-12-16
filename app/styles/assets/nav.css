@@ -58,3 +58,9 @@
     background-color: #222;
     color: #999;
 }
+
+#logo{
+    margin-top: -20px;
+    height: 300%;
+    width: auto;
+}

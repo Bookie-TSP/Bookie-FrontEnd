@@ -1,0 +1,28 @@
+.errorPages{
+    position:fixed;
+    top: 20%;
+    left: 20%;
+}
+
+.errorPages h1 {
+    font-size: 150px;
+}
+
+.errorPages h2 {
+    color: orange;
+    font-size: 50px;
+}
+
+.errorPages h3 {
+    color: grey;
+}
+
+#errorLogo:hover {
+    background-color: grey;
+    cursor: hand;
+  cursor: pointer;
+}
+#errorLogo {
+    width: 70%;
+    height: auto;
+}

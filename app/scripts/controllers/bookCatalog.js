@@ -1,15 +1,17 @@
 app.controller('bookCatalogCtrl', ['$scope', '$http', '$state', 'authFactory', '$timeout',
 function ($scope, $http, $state, authFactory, $timeout) {
-
+		$scope.allDataLoaded = false;
 		//move getting books to navCtrl
-		$scope.dotdotdot = function(){
+		$scope.dotdotdot = function () {
 			//wait for 1 sec then do dotdotdot
-			setTimeout(function() {
-				$('.book-name').each(function() {
-	        		$(this).dotdotdot();
-	        	});
+			setTimeout(function () {
+				$('.book-name')
+					.each(function () {
+						$(this)
+							.dotdotdot();
+					});
 			}, 1000);
-    	};
+		};
 
 		//getting books from api (being here because of sorting)
 		$http.get('https://bookieservice.herokuapp.com/api/books')
@@ -17,6 +19,7 @@ function ($scope, $http, $state, authFactory, $timeout) {
 				$scope.books = data.books;
 				console.log("success");
 				console.log($scope.books);
+				$scope.allDataLoaded = true;
 			})
 			.error(function (data) {
 				console.log(data);

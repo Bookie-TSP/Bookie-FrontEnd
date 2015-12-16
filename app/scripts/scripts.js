@@ -29,7 +29,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 		.state('bookProfile', {
 			url: '/book/:bookId',
 			templateUrl: 'views/bookProfile.html',
-			data : { pageTitle: 'Book Profile' }
+			data: { pageTitle: 'Book Profile' }
 		})
 		.state('editAddress', {
 			url: '/editAddress',
@@ -85,8 +85,13 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			url: '/4',
 			templateUrl: 'views/newStocks/completeStock.html',
 			data : { pageTitle: 'Confirm Stock' }
+		})
+		.state('404', {
+			url: '/404',
+			templateUrl: 'views/errorPages/404.html',
+			data : { pageTitle: 'Page Not Found' }
 		});
-	$urlRouterProvider.otherwise('/');
+	$urlRouterProvider.otherwise('/404');
 
 });
 app.run([ '$rootScope', '$state', '$stateParams',
@@ -104,16 +109,18 @@ app.directive('navbarView', function(){
 
 app.controller('bookCatalogCtrl', ['$scope', '$http', '$state', 'authFactory', '$timeout',
 function ($scope, $http, $state, authFactory, $timeout) {
-
+		$scope.allDataLoaded = false;
 		//move getting books to navCtrl
-		$scope.dotdotdot = function(){
+		$scope.dotdotdot = function () {
 			//wait for 1 sec then do dotdotdot
-			setTimeout(function() {
-				$('.book-name').each(function() {
-	        		$(this).dotdotdot();
-	        	});
+			setTimeout(function () {
+				$('.book-name')
+					.each(function () {
+						$(this)
+							.dotdotdot();
+					});
 			}, 1000);
-    	};
+		};
 
 		//getting books from api (being here because of sorting)
 		$http.get('https://bookieservice.herokuapp.com/api/books')
@@ -121,6 +128,7 @@ function ($scope, $http, $state, authFactory, $timeout) {
 				$scope.books = data.books;
 				console.log("success");
 				console.log($scope.books);
+				$scope.allDataLoaded = true;
 			})
 			.error(function (data) {
 				console.log(data);
@@ -136,6 +144,7 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
 		if (authFactory.getAuth() !== undefined) {
 			$scope.loggedIn = true;
 		}
+        $scope.allDataLoaded = false;
 
 		// Tab array of stocks
 		$scope.buyNewBook = [];
@@ -175,11 +184,14 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
 					$scope.bookInfo = data;
 					$scope.seperate();
 					$scope.setPagerTotalItems();
+                    $scope.allDataLoaded = true;
 				})
 				.error(function (data) {
 					console.log(data);
+                    $state.go("404");
 				});
 		};
+
 
 		// Seperate books into categories
 		$scope.seperate = function () {
