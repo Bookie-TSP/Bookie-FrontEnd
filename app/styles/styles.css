@@ -336,8 +336,10 @@ body {
 
 #logo {
   margin-top: -20px;
-  height: 300%;
+  height: 280%;
   width: auto;
+  margin-right: -20px;
+  margin-left: -30px;
 }
 #newStockBlog {
   border-style: solid;
