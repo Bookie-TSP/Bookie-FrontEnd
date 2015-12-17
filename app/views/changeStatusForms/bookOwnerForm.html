@@ -1,0 +1,22 @@
+<div ng-controller="bookOwnerFormCtrl">
+    <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h1 style="text-transform: uppercase;">BookOwner</h1>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-2">
+                    <h2>order id</h2>
+                    <input type = "text" ng-model = "order_id"/>
+                    <br>
+                    <h2>stock id</h2>
+                    <input type = "text" ng-model = "stock_id"/>
+                    <br><br>
+                    <button class = "btn btn-warning" ng-click = "submit()">Submit</button>
+                    <button class = "btn btn-default" ui-sref="orderStatusChanger">Back</button>
+                </div>
+            </div>
+        </div>
+</div>

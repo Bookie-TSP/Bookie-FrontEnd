@@ -7,11 +7,11 @@
                 <!--register form-->
                 <form name="registerForm">
                     <input type="text" name="email" placeholder="Email*" ng-model="email"
-                        ng-pattern= "/^[_A-Za-z0-9]+(\.[_A-Za-z0-9]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*(\.[A-Za-z]{2,5})$/">
+                        ng-pattern= "/^[_A-Za-z0-9]+(\.[_A-Za-z0-9]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*(\.[A-Za-z]{2,5})$/" required>
                     <div class="error" ng-show="registerForm.email.$error.pattern">
                         Email is invalid format
                     </div>
-                    <div class="error" ng-show="errors.email">
+                    <div class="error" ng-show="!registerForm.email.$error.pattern && errors.email">
                         {{errors.email}}
                     </div>
                     <br>
@@ -28,20 +28,30 @@
                     </div>
                     <br>
                     <input type="password" name="passCon" placeholder="Password Confirmation*" ng-model="password_confirmation">
-                    <div class="pass" ng-if="password == password_confirmation && password != null">
+                    <div class="pass" ng-if="password == password_confirmation && password != ''">
                         Password match!
                     </div>
-                    <div class="error" ng-if="password !== password_confirmation && password_confirmation != null">
+                    <div class="error" ng-if="password !== password_confirmation && password_confirmation != ''">
                         Password not match!
                     </div>
                     <br>
                     <input type="text" name="first" placeholder="Firstname*" ng-model="first_name">
+                    <div class="error" ng-if="errors.first_name">
+                        {{errors.first_name}}
+                    </div>
                     <br>
                     <input type="text" name="last" placeholder="Lastname*" ng-model="last_name">
+                    <div class="error" ng-if="errors.last_name">
+                        {{errors.last_name}}
+                    </div>
                     <br>
-                    <input type="text" name="identification" placeholder="Identification number*" ng-model="identification_number" ng-minlength="13">
-                    <div class="error" ng-if="registerForm.identification.$error.minlength">
-                        Must be 13 character
+                    <input type="text" name="identification" placeholder="Identification number*" ng-model="identification_number"
+                        ng-pattern="/^[0-9]{13}$/">
+                    <div class="error" ng-if="registerForm.identification.$error.pattern">
+                        Must be number and 13 character
+                    </div>
+                    <div class="error" ng-if="errors.idnum">
+                        {{errors.idnum}}
                     </div>
                     <br>
                 </form>
@@ -111,10 +121,14 @@
                 <br>
                 <br>
                 <div class="register-form">
-                    <form>
+                    <form name="registerForm2">
                         <input type="text" placeholder="More Info (Add more specific for your address)" ng-model="more_info">
                         <br>
-                        <input type="text" placeholder="Phone number*" ng-model="phone_number">
+                        <input type="text" name="phone" placeholder="Phone number*" ng-model="phone_number"
+                            ng-pattern="/^[+0-9-]*$/">
+                            <div class="error" ng-if="registerForm2.phone.$error.pattern">
+                                Inecorrect phone number format
+                            </div>
                         <br>
                         <a href="">Terms of condition</a>
                         <br>
@@ -122,7 +136,7 @@
                         <span>
                             <input type="checkbox" ng-model="agreeTerm">I agree with term of condition
                         </span>
-                        <div class="validate" ng-if="errors.agree">{{errors.agree}}</div>
+                        <div class="error" ng-if="errors.agree">{{errors.agree}}</div>
                     </form>
                 </div>
                 <br>

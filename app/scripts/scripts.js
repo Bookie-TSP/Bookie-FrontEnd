@@ -95,8 +95,28 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			url: '/404',
 			templateUrl: 'views/errorPages/404.html',
 			data : { pageTitle: 'Page Not Found' }
-		});
-	$urlRouterProvider.otherwise('/404');
+		})
+		.state('orderStatusChanger', {
+            url: '/orderStatusChanger',
+            templateUrl: 'views/orderStatusChanger.html',
+            data : { pageTitle: 'Order Status Changer' }
+        })
+        .state('transporterForm', {
+            url: '/transporterForm',
+            templateUrl: 'views/changeStatusForms/transporterForm.html',
+            data : { pageTitle: 'Transporter Form' }
+        })
+        .state('sevenElevenForm', {
+            url: '/sevenElevenForm',
+            templateUrl: 'views/changeStatusForms/sevenElevenForm.html',
+            data : { pageTitle: 'Seven Eleven Form' }
+        })
+        .state('bookOwnerForm', {
+            url: '/bookOwnerForm',
+            templateUrl: 'views/changeStatusForms/bookOwnerForm.html',
+            data : { pageTitle: 'Book Owner Form' }
+        });
+	$urlRouterProvider.otherwise('/');
 
 });
 app.run([ '$rootScope', '$state', '$stateParams',
@@ -139,6 +159,29 @@ function ($scope, $http, $state, authFactory, $timeout) {
 				console.log(data);
 			});
 }]);
+
+app.controller('bookOwnerFormCtrl', ['$scope', '$http', '$state', 'authFactory',
+    function ($scope, $http, $state, authFactory) {
+        if (authFactory.getAuth() === undefined) {
+            $state.go("login");
+        }
+        $scope.submit = function () {
+            console.log($scope.order_id);
+            $http.post('https://bookieservice.herokuapp.com/api/members/orders/returned',{
+                "order" : {
+                    "order_id": $scope.order_id,
+                    "stock_id": $scope.stock_id
+                }
+            }, authFactory.getConfigHead())
+                .success(function (data) {
+                    console.log(data);
+                    $state.go('home');
+                })
+                .error(function (data) {
+                    console.log(data);
+                });
+        };
+    }]);
 
 app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$location', '$state', '$stateParams', '$uibModal', 'mapFactory', 'authFactory', '$rootScope',
     function ($scope, $http, $anchorScroll, $location, $state, $stateParams, $uibModal, $map, authFactory, $rootScope) {
@@ -764,6 +807,22 @@ app.controller('orderCtrl', ['$scope', '$http', '$state', 'authFactory',
 	}
 ]);
 
+app.controller('orderStatusChangerCtrl', ['$scope', '$http', '$state', 'authFactory',
+    function ($scope, $http, $state, authFactory) {
+        if (authFactory.getAuth() === undefined) {
+            $state.go("login");
+        }
+        $scope.transporterForm = function(){
+            $state.go("transporterForm");
+        };
+        $scope.sevenElevenForm = function(){
+            $state.go("sevenElevenForm");
+        };
+        $scope.bookSellerForm = function(){
+            $state.go("bookOwnerForm");
+        };
+    }]);
+
 app.controller('paymentCtrl',['$scope','$http', '$state', 'authFactory', '$rootScope',
     function ($scope, $http, $state, authFactory, $rootScope){
         $scope.getTotal = function() {
@@ -951,6 +1010,14 @@ app.controller('registerCtrl', ['$scope', '$http', 'mapFactory', '$state', 'auth
         $scope.address = '';
         $scope.more_info = '';
 
+        $scope.email = '';
+        $scope.password = '';
+        $scope.password_confirmation = '';
+        $scope.identification_number = '';
+        $scope.first_name = '';
+        $scope.last_name = '';
+        $scope.phone_number = '';
+
         // errors
         $scope.errors = {};
 
@@ -963,17 +1030,54 @@ app.controller('registerCtrl', ['$scope', '$http', 'mapFactory', '$state', 'auth
 
         // register
 		$scope.submit = function () {
+            var checkError = false;
             $scope.errors = {};
-			var birth_date = $scope.day_birth + '/' + ($scope.initMonths.indexOf($scope.month_birth)+1) + "/" + $scope.year_birth;
-            var address_info = $scope.address;
-            if( $scope.more_info !== undefined){
-                address_info = $scope.more_info + ' ' + address_info;
-            }
-
-
-			if (!$scope.agreeTerm) {
+            if (!$scope.agreeTerm) {
 				$scope.errors.agree = 'Please agree term of conditions';
-			} else {
+                checkError = true;
+			}
+            if($scope.email === ''){
+                $scope.errors.email = 'Please insert your email';
+                checkError = true;
+            }
+            if($scope.password === ''){
+                $scope.errors.password = 'Please insert your password';
+                checkError = true;
+            }
+            if($scope.first_name === ''){
+                $scope.errors.first_name = 'Please insert your firstname';
+                checkError = true;
+            }
+            if($scope.last_name === ''){
+                $scope.errors.last_name = 'Please insert your lastname';
+                checkError = true;
+            }
+            if($scope.identification_number === ''){
+                $scope.errors.idnum = 'Please insert your identification number';
+                checkError = true;
+            }
+            if($scope.phone_number === ''){
+                $scope.errors.phone_number = 'Please insert your phone number';
+                checkError = true;
+            }
+            if($scope.password_confirmation === ''){
+                $scope.errors.pass_con = 'Please insert password confirmation';
+                checkError = true;
+            }
+            if($scope.latitude === '' || $scope.longitude === ''){
+                $scope.errors.add = 'Please select your address location';
+                checkError = true;
+            }
+            console.log(!$scope.registerForm.$invalid);
+            console.log(!$scope.registerForm2.$invalid);
+            console.log(!checkError);
+
+            if(!$scope.registerForm.$invalid && !$scope.registerForm2.$invalid && !checkError){
+    			var birth_date = $scope.day_birth + '/' + ($scope.initMonths.indexOf($scope.month_birth)+1) + "/" + $scope.year_birth;
+                var address_info = $scope.address;
+                if( $scope.more_info !== undefined){
+                    address_info = $scope.more_info + ' ' + address_info;
+                }
 				var member = {
 					email: $scope.email,
 					password: $scope.password,
@@ -1004,6 +1108,7 @@ app.controller('registerCtrl', ['$scope', '$http', 'mapFactory', '$state', 'auth
 					})
 					.error(function (data) {
 						console.log(data);
+                        $scope.errors.email = 'Email' + data.errors.email[0];
 					});
 			}
 		};
@@ -1306,6 +1411,29 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 		};
 }]);
 
+app.controller('sevenElevenFormCtrl', ['$scope', '$http', '$state', 'authFactory',
+    function ($scope, $http, $state, authFactory) {
+        if (authFactory.getAuth() === undefined) {
+            $state.go("login");
+        }
+        $scope.submit = function () {
+            console.log($scope.order_id);
+            $http.post('https://bookieservice.herokuapp.com/api/members/orders/returning',{
+                "order" : {
+                    "order_id": $scope.order_id,
+                    "stock_id": $scope.stock_id
+                }
+            }, authFactory.getConfigHead())
+                .success(function (data) {
+                    console.log(data);
+                    $state.go('home');
+                })
+                .error(function (data) {
+                    console.log(data);
+                });
+        };
+    }]);
+
 app.controller('stockBookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$location', '$state', '$stateParams', '$uibModal', 'mapFactory', 'authFactory', '$rootScope',
     function ($scope, $http, $anchorScroll, $location, $state, $stateParams, $uibModal, $map, authFactory, $rootScope) {
 
@@ -1371,6 +1499,30 @@ app.controller('stockBookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$lo
         $scope.getBookProfile($stateParams.bookId);
     }
 ]);
+
+app.controller('transporterFormCtrl', ['$scope', '$http', '$state', 'authFactory',
+    function ($scope, $http, $state, authFactory) {
+        if (authFactory.getAuth() === undefined) {
+            $state.go("login");
+        }
+        $scope.submit = function () {
+            console.log($scope.order_id);
+            console.log($scope.stock_id);
+            $http.post('https://bookieservice.herokuapp.com/api/members/orders/delivered',{
+                "order" : {
+                    "order_id": $scope.order_id,
+                    "stock_id": $scope.stock_id
+                }
+            }, authFactory.getConfigHead())
+                .success(function (data) {
+                    console.log(data);
+                    $state.go('home');
+                })
+                .error(function (data) {
+                    console.log(data);
+                });
+        };
+    }]);
 
 app.controller('profileCtrl', ['$scope', '$http', '$state', 'authFactory',
 	function ($scope, $http, $state, authFactory) {
@@ -1544,7 +1696,7 @@ app.factory('mapFactory', function ($log, $rootScope) {
 		longitude = long;
 	};
 
-	var getLat = function () {   
+	var getLat = function () {
 		return latitude;
 	};
 
