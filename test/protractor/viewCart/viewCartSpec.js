@@ -8,6 +8,7 @@ describe('View cart' ,function() {
     var homeNav = element(by.id('home'));
     var cartNav = element(by.id('item-cart'));
 
+    var bookNumber;
     var bookIndex;
 
     var title;
@@ -32,9 +33,6 @@ describe('View cart' ,function() {
         language = element(by.id('individualBookLanguage')).getText();
         pages = element(by.id('individualBookPages')).getText();
         publisher = element(by.id('individualBookPublisher')).getText();
-
-        price = element(by.repeater('line_stock in buyNewBook')).element(by.id('individualPrice')).getText();
-        condition = element(by.repeater('line_stock in buyNewBook')).element(by.id('individualCondition')).getText();
     }
 
     describe('login first' ,function() {
@@ -74,18 +72,19 @@ describe('View cart' ,function() {
         });
 
         it('should have more than one book' ,function() {
-            for(var i=1; i<3; i++){
+            bookNumber = 2;
+            for(var i=0; i<bookNumber; i++){
             homeNav.click();
-            element.all(by.repeater('book in books')).get(i).click();
+            element.all(by.repeater('book in books')).get(2).click();
             //element(by.css('.btn.btn-warning')).click();
             element(by.repeater('line_stock in buyNewBook')).element(by.css('.btn.btn-warning')).click();
             element(by.css('.btn.btn-primary')).click();
             };
             cartNav.click();
             element.all(by.repeater('stock in stock')).then(function(cart) {
-                expect((cart.length)/2).toBe(3);
+                expect((cart.length)/2).toBe(bookNumber);
             });
-            for(var i=0; i<3; i++){
+            for(var i=0; i<bookNumber; i++){
                 element(by.css('.btn.btn-danger')).click();
             };
             element.all(by.repeater('stock in stock')).then(function(cart) {
@@ -94,15 +93,18 @@ describe('View cart' ,function() {
         });
     });
 
-    describe('correctly detail in cart' ,function() {
+    describe('correctly detail in cart when buy books' ,function() {
         it('should have correct detail' ,function() {
             homeNav.click();
-            bookIndex = 1;
+            bookIndex = 2;
             element.all(by.repeater('book in books')).get(bookIndex).click();
             element(by.repeater('line_stock in buyNewBook')).element(by.css('.btn.btn-warning')).click();
             element(by.css('.btn.btn-primary')).click();
 
             getDetail(bookIndex);
+            price = element(by.repeater('line_stock in buyNewBook')).element(by.id('individualPrice')).getText();
+            condition = element(by.repeater('line_stock in buyNewBook')).element(by.id('individualCondition')).getText();
+
 
             cartNav.click();
 
@@ -115,15 +117,6 @@ describe('View cart' ,function() {
 
             expect(title).toEqual(element(by.id('buy')).element(by.id('title')).getText());
             
-            // pin
-            // expect(isbn13).toEqual(element(by.id('buy')).element(by.id('isbn13')).getText());
-            // expect(author).toEqual(element.all(by.repeater('author in bookInfo.authors')));
-            // expect(language).toEqual(element(by.id('individualBookLanguage')).getText());
-            // expect(pages).toEqual(element(by.id('individualBookPages')).getText());
-            // expect(publisher).toEqual(element(by.id('individualBookPublisher')).getText());
-
-            // element(by.css('.btn.btn-danger')).click();
-            // browser.pause();
         });
 
         it('should have correct isbn13' ,function() {
@@ -164,10 +157,65 @@ describe('View cart' ,function() {
         });
     });
 
+    describe('correctly detail in cart when rent books' ,function() {
+        it('should have correct detail' ,function() {
+            homeNav.click();
+            bookIndex = 5;
+            element.all(by.repeater('book in books')).get(bookIndex).click();
+            element(by.linkText('Rent Books')).click();
+            element(by.repeater('line_stock in rentBook')).element(by.css('.btn.btn-warning')).click();
+            element(by.css('.btn.btn-primary')).click();
+            
+            getDetail(bookIndex);
+            element(by.linkText('Rent Books')).click();
+            price = element(by.repeater('line_stock in rentBook')).element(by.id('individualPrice')).getText();
+            // condition = element(by.repeater('line_stock in rentBook')).element(by.id('individualCondition')).getText();
+
+            cartNav.click();
+            
+            // Have to add element id in 'cart' b4 run this function like 'individualBookTitle'.
+            // 'title ,isbn13 ,language ,pages ,publisher ,price ,condition'
+
+            // Have to add element id in 'bookProfile' b4 run this function like 'individualBookTitle'.
+            // 'individualPrice ,individualCondition'
+
+
+            expect(title).toEqual(element(by.id('rent')).element(by.id('title')).getText());
+            
+        });
+
+        it('should have correct isbn13' ,function() {
+            cartNav.click();
+            expect(isbn13).toEqual(element(by.id('rent')).element(by.id('isbn13')).getText());
+        });
+
+        it('should have correct author' ,function() {
+            cartNav.click();
+            expect(author).toEqual(element.all(by.repeater('author in bookInfo.authors')));
+        });
+
+        it('should have correct publisher' ,function() {
+            cartNav.click();
+            expect(publisher).toEqual(element(by.id('rent')).element(by.id('publisher')).getText());
+        });
+
+        it('should have correct price' ,function() {
+            cartNav.click();
+            expect(price).toEqual(element(by.id('rent')).element(by.id('price')).getText());
+        });
+
+        // it('should have correct condition' ,function() {
+        //     cartNav.click();
+        //     expect(condition).toEqual(element(by.id('rent')).element(by.id('condition')).getText());
+        //     element(by.css('.btn.btn-danger')).click();
+        //     browser.pause();
+        // });
+    });
+
     describe('correctly price details' ,function() {
         it('should calculate subtotal correctly' ,function() {
             homeNav.click();
-            bookIndex = 1;
+            bookIndex = 2;
             element.all(by.repeater('book in books')).get(bookIndex).click();
             element(by.repeater('line_stock in buyNewBook')).element(by.css('.btn.btn-warning')).click();
             element(by.css('.btn.btn-primary')).click();
@@ -183,8 +231,12 @@ describe('View cart' ,function() {
         });
 
         it('should calculate total correctly' ,function() {
-            
-        })
+            cartNav.click();
+            var totalPrice = price;
+            expect(totalPrice).toEqual(element(by.id('total')).getText());
+            element(by.css('.btn.btn-danger')).click();
+            browser.pause();
+        });
     });
 
      afterAll(function(done) {
