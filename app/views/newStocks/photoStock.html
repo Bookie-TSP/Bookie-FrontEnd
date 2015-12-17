@@ -1,5 +1,5 @@
 <div class="container" ng-controller="photoStockCtrl">
-    <h4>Upload photo</h4>
+    <h3>Upload photo</h3>
     <div class="row">
         <div class="col-xs-6">
             <div id="direct_upload" ngf-drop="selectFiles($files)" ngf-drag-over-class="dragOverClass($event)" ng-model="files" ng-multiple="true" class="container">
@@ -45,7 +45,7 @@
                     Please upload photo first
                 </div>
                 <div class="col-xs-9 col-xs-offset-3" ng-if="newBook.cover_image_url !== undefined" style="color: green;">
-                    Upload photo done 
+                    Upload photo done
                 </div>
             </div>
             <br>

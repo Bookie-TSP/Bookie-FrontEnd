@@ -1,0 +1,123 @@
+<div class="container" ng-controller="infoStockCtrl">
+    <h3>Add Information</h3>
+    <div class="row">
+        <br>
+        <div class="col-xs-4 col-xs-offset-1">
+            <img id="book-cover" src="{{newBook.cover_image_url}}">
+        </div>
+        <div class="col-xs-6">
+            <div class="row">
+                <div class="col-xs-3 text-info">
+                    <b><h5>Select Type</h5></b>
+                </div>
+                <div class="col-xs-3 require-text">
+                    <h6>(* Required)</h6>
+                </div>
+            </div>
+            <input type="radio" value="sell" ng-model="type"> Sell
+            <br>
+            <input type="radio" value="lend" ng-model="type"> Lend
+            <br>
+            <br>
+            <div ng-show="type !== ''">
+
+                <div class="row">
+                    <div class="col-xs-4 text-info">
+                        Price*
+                    </div>
+                    <div class="col-xs-4">
+                        <input type="number" min="0" ng-model="price">
+                    </div>
+                    <div class="col-xs-1">
+                        Baht
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-5 col-xs-offset-4 missing-input" ng-if="errors.price !== undefined">
+                        {{errors.price}}
+                    </div>
+                </div>
+
+                <div class="row" ng-show="type === 'lend'">
+                    <br>
+                    <div class="col-xs-4 text-info">
+                        Duration*
+                    </div>
+                    <div class="col-xs-4">
+                        <input type="number" min="0" ng-model="duration">
+                    </div>
+                    <div class="col-xs-1">
+                        Days
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-5 col-xs-offset-4 missing-input" ng-if="errors.duration !== undefined">
+                        {{errors.duration}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <br>
+                    <div class="col-xs-4 text-info">
+                        Condition*
+                    </div>
+                    <div class="col-xs-4">
+                        <select ng-model="condition">
+                            <option value="">Select Condition</option>
+                            <option value="new">New</option>
+                            <option value="used">Used</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-5 col-xs-offset-4 missing-input" ng-if="errors.condition !== undefined">
+                        {{errors.condition}}
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-xs-4 text-info">
+                        Description*
+                    </div>
+                    <div class="col-xs-4">
+                        <textarea rows="5" cols="30" ng-model="description" ng-disabled="description === 'Brands new book'"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-5 col-xs-offset-4 missing-input" ng-if="errors.description !== undefined">
+                        {{errors.description}}
+                    </div>
+                </div>
+                <br>
+                <div class="row" ng-show="type === 'lend'">
+                    <div class="col-xs-4 text-info">
+                        Terms of Conditions
+                    </div>
+                    <div class="col-xs-4">
+                        <textarea rows="5" cols="30" ng-model="terms"></textarea>
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="col-xs-4 text-info">
+                        Quantity*
+                    </div>
+                    <div class="col-xs-4">
+                        <input type="number" ng-model="quantity" min="0">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-5 col-xs-offset-4 missing-input" ng-if="errors.quantity !== undefined">
+                        {{errors.quantity}}
+                    </div>
+                </div>
+                <br>
+            </div>
+            <center>
+                <button class="btn btn-warning" ng-click="nextStep()" ng-if="type !== ''">Next</button>
+            </center>
+        </div>
+    </div>
+    <br>
+</div>

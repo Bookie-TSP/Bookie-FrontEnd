@@ -1,34 +1,57 @@
 <div class="container" ng-controller="registerCtrl">
     <div class="register-form">
-        <!--form-->
         <div class="row">
             <div class="col-sm-7 col-sm-offset-3">
                 <h2><b>Register</b></h2>
                 <br>
                 <!--register form-->
-                <form style="border: none">
-                    <input type="text" placeholder="Email" ng-model="email">
-                    <br>
-                    <input type="password" placeholder="Password *more than or equal 8 characters" ng-model="password">
-                    <div ng-show="password.length < 8">
-                        <h5 id="validate">Not enough characters</h5>
+                <form name="registerForm">
+                    <input type="text" name="email" placeholder="Email*" ng-model="email"
+                        ng-pattern= "/^[_A-Za-z0-9]+(\.[_A-Za-z0-9]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*(\.[A-Za-z]{2,5})$/" required>
+                    <div class="error" ng-show="registerForm.email.$error.pattern">
+                        Email is invalid format
+                    </div>
+                    <div class="error" ng-show="!registerForm.email.$error.pattern && errors.email">
+                        {{errors.email}}
                     </div>
                     <br>
-                    <input type="password" placeholder="Password comfirmation" ng-model="password_confirmation">
-                    <div ng-show="password == password_confirmation && password != null">
-                        <h5 id="pass">Password match!</h5>
+                    <input type="password" name="password" placeholder="Password* (more than or equal 8 characters)" ng-model="password"
+                        ng-minlength="8" ng-maxlength="72">
+                    <div class="error" ng-if="registerForm.password.$error.minlength">
+                        Not enough characters
                     </div>
-                    <div ng-show="password !== password_confirmation && password_confirmation != null">
-                        <h5 id="validate">Password not match!</h5>
+                    <div class="error" ng-if="registerForm.password.$error.maxlength">
+                        Too many characters
+                    </div>
+                    <div class="error" ng-if="errors.password">
+                        {{errors.password}}
                     </div>
                     <br>
-                    <input type="text" placeholder="Firstname" ng-model="first_name">
+                    <input type="password" name="passCon" placeholder="Password Confirmation*" ng-model="password_confirmation">
+                    <div class="pass" ng-if="password == password_confirmation && password != ''">
+                        Password match!
+                    </div>
+                    <div class="error" ng-if="password !== password_confirmation && password_confirmation != ''">
+                        Password not match!
+                    </div>
                     <br>
-                    <input type="text" placeholder="Lastname" ng-model="last_name">
+                    <input type="text" name="first" placeholder="Firstname*" ng-model="first_name">
+                    <div class="error" ng-if="errors.first_name">
+                        {{errors.first_name}}
+                    </div>
                     <br>
-                    <input type="text" placeholder="Identification number" ng-model="identification_number">
-                    <div ng-show="identification_number.length !== 13 && identification_number.length !== undefined">
-                        <h5 id="validate">Must be 13 character</h5>
+                    <input type="text" name="last" placeholder="Lastname*" ng-model="last_name">
+                    <div class="error" ng-if="errors.last_name">
+                        {{errors.last_name}}
+                    </div>
+                    <br>
+                    <input type="text" name="identification" placeholder="Identification number*" ng-model="identification_number"
+                        ng-pattern="/^[0-9]{13}$/">
+                    <div class="error" ng-if="registerForm.identification.$error.pattern">
+                        Must be number and 13 character
+                    </div>
+                    <div class="error" ng-if="errors.idnum">
+                        {{errors.idnum}}
                     </div>
                     <br>
                 </form>
@@ -61,7 +84,7 @@
                     <input type="radio" name="sex" value="Female" ng-model="gender"> Female
                 </div>
                 <br>
-                <h4>Address</h4>
+                <h4>Address*</h4>
                 <br>
                 <!-- map -->
                 <div>
@@ -98,10 +121,14 @@
                 <br>
                 <br>
                 <div class="register-form">
-                    <form style="border: none">
-                        <input type="text" placeholder="More Info" ng-model="more_info">
+                    <form name="registerForm2">
+                        <input type="text" placeholder="More Info (Add more specific for your address)" ng-model="more_info">
                         <br>
-                        <input type="text" placeholder="Phone number" ng-model="phone_number">
+                        <input type="text" name="phone" placeholder="Phone number*" ng-model="phone_number"
+                            ng-pattern="/^[+0-9-]*$/">
+                            <div class="error" ng-if="registerForm2.phone.$error.pattern">
+                                Inecorrect phone number format
+                            </div>
                         <br>
                         <a href="">Terms of condition</a>
                         <br>
@@ -109,6 +136,7 @@
                         <span>
                             <input type="checkbox" ng-model="agreeTerm">I agree with term of condition
                         </span>
+                        <div class="error" ng-if="errors.agree">{{errors.agree}}</div>
                     </form>
                 </div>
                 <br>

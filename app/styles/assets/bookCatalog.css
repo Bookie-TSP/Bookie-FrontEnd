@@ -1,13 +1,30 @@
 .cover-image {
-	width: 128px;
-	height: 196px;
+	width: 158px;
+	height: 241px;
+	cursor: hand;
+  cursor: pointer;
 }
 .book-name {
 	margin-top: 5px;
 	line-height: 1.5em;
     height: 3em;
-    width: 128px;
+    width: 158px;
 }
 .book {
 	margin-top: 20px;
+	/*width: 128px;*/
+}
+.sort {
+	margin-left: 10px;
+}
+
+.book-label {
+	width: 158.5px;
+}
+
+.book-label-font {
+	border-radius: 0px;
+	height: 25px;
+	line-height: 23px;
+	font-size: 12px;
 }

@@ -22,14 +22,10 @@ app.controller('addressCtrl',['$scope','$http', '$state', 'authFactory', '$rootS
 
         $scope.editAddress = function() {
             $scope.address.information = $scope.info + $scope.address.information;
-            var config = {
-				headers: {
-					'Authorization': authFactory.getAuth()
-				}
-			};
+
             $http.post('https://bookieservice.herokuapp.com/api/members/edit_address',{
                 address: $scope.address
-            },config)
+            }, authFactory.getConfigHead())
             .success(function(data){
                 console.log(data);
                 authFactory.setMember(data);

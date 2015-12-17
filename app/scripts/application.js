@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ui.router', 'ngStorage', 'ui.bootstrap', 'uiGmapgoogle-maps', 'ngFileUpload', 'cloudinary']);
+var app = angular.module('app', ['ui.router', 'ngStorage', 'ui.bootstrap', 'ngCookies', 'uiGmapgoogle-maps', 'ngFileUpload', 'cloudinary']);
 app.config(function ($stateProvider, $urlRouterProvider) {
 	$stateProvider
 		.state('home', {
@@ -29,7 +29,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 		.state('bookProfile', {
 			url: '/book/:bookId',
 			templateUrl: 'views/bookProfile.html',
-			data : { pageTitle: 'Book Profile' }
+			data: { pageTitle: 'Book Profile' }
 		})
 		.state('editAddress', {
 			url: '/editAddress',
@@ -40,6 +40,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			url: '/order',
 			templateUrl: 'views/order.html',
 			data : { pageTitle: 'Order' }
+		})
+		.state('requestedOrder', {
+			url: '/requestedOrder',
+			templateUrl: 'views/requestedOrder.html',
+			data : { pageTitle: 'Requested Order' }
 		})
 		.state('cart', {
 			url: '/cart',
@@ -68,24 +73,49 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 		})
 		.state('newStock.first', {
 			url: '/1',
-			templateUrl: 'views/searchStock.html',
+			templateUrl: 'views/newStocks/searchStock.html',
 			data : { pageTitle: 'Search Stock' }
 		})
 		.state('newStock.second', {
 			url: '/2',
-			templateUrl: 'views/photoStock.html',
+			templateUrl: 'views/newStocks/photoStock.html',
 			data : { pageTitle: 'Add Photo' }
 		})
 		.state('newStock.third', {
 			url: '/3',
-			templateUrl: 'views/infoStock.html',
+			templateUrl: 'views/newStocks/infoStock.html',
 			data : { pageTitle: 'Add Information' }
 		})
 		.state('newStock.fourth', {
 			url: '/4',
-			templateUrl: 'views/completeStock.html',
+			templateUrl: 'views/newStocks/completeStock.html',
 			data : { pageTitle: 'Confirm Stock' }
-		});
+		})
+		.state('404', {
+			url: '/404',
+			templateUrl: 'views/errorPages/404.html',
+			data : { pageTitle: 'Page Not Found' }
+		})
+		.state('orderStatusChanger', {
+            url: '/orderStatusChanger',
+            templateUrl: 'views/orderStatusChanger.html',
+            data : { pageTitle: 'Order Status Changer' }
+        })
+        .state('transporterForm', {
+            url: '/transporterForm',
+            templateUrl: 'views/changeStatusForms/transporterForm.html',
+            data : { pageTitle: 'Transporter Form' }
+        })
+        .state('sevenElevenForm', {
+            url: '/sevenElevenForm',
+            templateUrl: 'views/changeStatusForms/sevenElevenForm.html',
+            data : { pageTitle: 'Seven Eleven Form' }
+        })
+        .state('bookOwnerForm', {
+            url: '/bookOwnerForm',
+            templateUrl: 'views/changeStatusForms/bookOwnerForm.html',
+            data : { pageTitle: 'Book Owner Form' }
+        });
 	$urlRouterProvider.otherwise('/');
 
 });
@@ -95,53 +125,9 @@ function ($rootScope, $state, $stateParams) {
   $rootScope.$stateParams = $stateParams;
 }]);
 
-app.animation('.photo', function() {
-
-  var animateUp = function(element, className, done) {
-    if(className != 'active') {
-      return;
-    }
-    element.css({
-      position: 'absolute',
-      top: 500,
-      left: 0,
-      display: 'block'
-    });
-
-    jQuery(element).animate({
-      top: 0
-    }, done);
-
-    return function(cancel) {
-      if(cancel) {
-        element.stop();
-      }
-    };
-  };
-
-  var animateDown = function(element, className, done) {
-    if(className != 'active') {
-      return;
-    }
-    element.css({
-      position: 'absolute',
-      left: 0,
-      top: 0
-    });
-
-    jQuery(element).animate({
-      top: -500
-    }, done);
-
-    return function(cancel) {
-      if(cancel) {
-        element.stop();
-      }
-    };
-  };
-
-  return {
-    addClass: animateUp,
-    removeClass: animateDown
-  };
+app.directive('navbarView', function(){
+    return {
+        restrict: 'E',
+        templateUrl: 'views/navbar.html'
+      };
 });

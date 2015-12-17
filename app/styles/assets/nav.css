@@ -1,0 +1,68 @@
+#dropdownProfile{
+    cursor: hand;
+    cursor: pointer;
+}
+
+#logout{
+    cursor: hand;
+    cursor: pointer;
+}
+
+.modal {
+    text-align: center;
+    padding: 0!important;
+}
+
+.modal:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -4px; /* Adjusts for spacing */
+}
+
+.modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.search-bar {
+    color: white;
+}
+
+.search-bar-icon {
+    border-style: solid;
+    border-color: #999;
+    background-color: #222;
+    color: #999;
+}
+
+.search-bar-textfield {
+    background-color: #222;
+    border-color: #999;
+    color: white:
+    width: inherit;
+}
+
+.input-group-btn {
+    width: inherit;
+}
+
+.navbar-form {
+    margin-top: 10px;
+}
+
+.sort-by-button {
+    margin-top: 10px;
+    background-color: #222;
+    color: #999;
+}
+
+#logo{
+    margin-top: -20px;
+    height: 58px;
+    width: auto;
+    margin-right: -50px;
+    margin-left: -30px;
+}

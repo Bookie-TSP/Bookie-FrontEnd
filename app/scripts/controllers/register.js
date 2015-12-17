@@ -1,28 +1,83 @@
 app.controller('registerCtrl', ['$scope', '$http', 'mapFactory', '$state', 'authFactory', 'dateFactory',
         function ($scope, $http, $map, $state, authFactory, $date) {
 		if (authFactory.getAuth() !== undefined) {
-			$state.go("home");
+			$state.go('home');
 		}
-        $scope.latitude = "";
-        $scope.longitude = "";
-        $scope.address = "";
-        
+
+        // initialize data
+        $scope.latitude = '';
+        $scope.longitude = '';
+        $scope.address = '';
+        $scope.more_info = '';
+
+        $scope.email = '';
+        $scope.password = '';
+        $scope.password_confirmation = '';
+        $scope.identification_number = '';
+        $scope.first_name = '';
+        $scope.last_name = '';
+        $scope.phone_number = '';
+
+        // errors
+        $scope.errors = {};
+
+        // create date date for select
         $scope.initDate = function() {
             $scope.initDates = $date.days;
             $scope.initMonths = $date.months;
             $scope.initYears = $date.years;
 		};
 
+        // register
 		$scope.submit = function () {
-			var birth_date = $scope.day_birth + "/" + ($scope.initMonths.indexOf($scope.month_birth)+1) + "/" + $scope.year_birth;
-            var address_info = $scope.address;
-            if( $scope.more_info !== undefined){
-                address_info = $scope.more_info + " " + address_info;
+            var checkError = false;
+            $scope.errors = {};
+            if (!$scope.agreeTerm) {
+				$scope.errors.agree = 'Please agree term of conditions';
+                checkError = true;
+			}
+            if($scope.email === ''){
+                $scope.errors.email = 'Please insert your email';
+                checkError = true;
             }
+            if($scope.password === ''){
+                $scope.errors.password = 'Please insert your password';
+                checkError = true;
+            }
+            if($scope.first_name === ''){
+                $scope.errors.first_name = 'Please insert your firstname';
+                checkError = true;
+            }
+            if($scope.last_name === ''){
+                $scope.errors.last_name = 'Please insert your lastname';
+                checkError = true;
+            }
+            if($scope.identification_number === ''){
+                $scope.errors.idnum = 'Please insert your identification number';
+                checkError = true;
+            }
+            if($scope.phone_number === ''){
+                $scope.errors.phone_number = 'Please insert your phone number';
+                checkError = true;
+            }
+            if($scope.password_confirmation === ''){
+                $scope.errors.pass_con = 'Please insert password confirmation';
+                checkError = true;
+            }
+            if($scope.latitude === '' || $scope.longitude === ''){
+                $scope.errors.add = 'Please select your address location';
+                checkError = true;
+            }
+            console.log(!$scope.registerForm.$invalid);
+            console.log(!$scope.registerForm2.$invalid);
+            console.log(!checkError);
 
-			if (!$scope.agreeTerm) {
-				alert("Please agree the term of condition");
-			} else {
+            if(!$scope.registerForm.$invalid && !$scope.registerForm2.$invalid && !checkError){
+    			var birth_date = $scope.day_birth + '/' + ($scope.initMonths.indexOf($scope.month_birth)+1) + "/" + $scope.year_birth;
+                var address_info = $scope.address;
+                if( $scope.more_info !== undefined){
+                    address_info = $scope.more_info + ' ' + address_info;
+                }
 				var member = {
 					email: $scope.email,
 					password: $scope.password,
@@ -53,17 +108,20 @@ app.controller('registerCtrl', ['$scope', '$http', 'mapFactory', '$state', 'auth
 					})
 					.error(function (data) {
 						console.log(data);
-						alert("error : " + data.errors);
+                        $scope.errors.email = 'Email' + data.errors.email[0];
 					});
 			}
 		};
 
+        // initialize function
         $scope.initial = function() {
             $scope.initDate();
             $scope.map = $map.map;
             $scope.marker = $map.marker;
             $scope.options = $map.options;
         };
+
+        // watch marker in map
         $scope.$on('marker', function () {
 			console.log("marker");
             $scope.latitude = $map.getLat().toFixed(5);
@@ -71,5 +129,6 @@ app.controller('registerCtrl', ['$scope', '$http', 'mapFactory', '$state', 'auth
             $scope.address = $map.getAddress();
             $scope.$digest();
 		});
+
         $scope.initial();
 }]);

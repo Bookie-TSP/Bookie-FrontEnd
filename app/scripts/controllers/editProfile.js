@@ -4,12 +4,6 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'authFactory', '$q', '$sta
 			$state.go('login');
 		}
 
-		var config = {
-			headers: {
-				'Authorization': authFactory.getAuth()
-			}
-		};
-
 		$scope.initDate = function() {
 			$scope.initDates = $date.days;
             $scope.initMonths = $date.months;
@@ -29,7 +23,7 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'authFactory', '$q', '$sta
 			console.log('Getting the profile');
 			var birth = '';
 			$q.all([
-					$http.get('https://bookieservice.herokuapp.com/api/myprofile', config)
+					$http.get('https://bookieservice.herokuapp.com/api/myprofile', authFactory.getConfigHead())
 					.success(function (data) {
 						$scope.profileData = data;
 						authFactory.setMember(data);
@@ -64,7 +58,7 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'authFactory', '$q', '$sta
 						gender: $scope.profileData.gender,
 						birth_date: birth_date
 					}
-				}, config)
+				}, authFactory.getConfigHead())
 				.success(function (data) {
 					$scope.getProfile();
 					console.log(data);
