@@ -146,18 +146,6 @@ function ($scope, $http, $state, authFactory, $timeout) {
 					});
 			}, 1000);
 		};
-
-		//getting books from api (being here because of sorting)
-		$http.get('https://bookieservice.herokuapp.com/api/books')
-			.success(function (data) {
-				$scope.books = data.books;
-				console.log("success");
-				console.log($scope.books);
-				$scope.allDataLoaded = true;
-			})
-			.error(function (data) {
-				console.log(data);
-			});
 }]);
 
 app.controller('bookOwnerFormCtrl', ['$scope', '$http', '$state', 'authFactory',
@@ -655,6 +643,20 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
             }, 100);
 			authFactory.setAuth(undefined);
 		};
+
+
+        //getting books from api (being here because of sorting)
+        $http.get('https://bookieservice.herokuapp.com/api/books')
+            .success(function (data) {
+                $scope.books = data.books;
+                console.log("success");
+                console.log($scope.books);
+            })
+            .error(function (data) {
+                console.log(data);
+            });
+
+            
 		$scope.getMember = function () {
 			if (authFactory.getAuth() !== undefined) {
 				$http.get('https://bookieservice.herokuapp.com/api/myprofile', authFactory.getConfigHead())
