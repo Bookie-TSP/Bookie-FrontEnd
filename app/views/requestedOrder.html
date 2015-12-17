@@ -10,7 +10,7 @@
             <div ng-repeat="order in orderInfo.orders | orderBy: 'sortOrder': true">
                 <div ng-repeat="stock in order.stocks">
                     <uib-accordion close-others="oneAtATime">
-                        <div ng-show="stock.status === 'pending'">
+                        <div ng-show="stock.status === 'pending' || stock.status === 'accepted'">
                             <uib-accordion-group is-open="false">
                                 <uib-accordion-heading>
                                     <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>&nbsp&nbsp{{stock.book.title}}
@@ -26,8 +26,10 @@
                                     <br><b>Info: </b>{{order.address.information}}
                                 </div>
                                 <div class="col-sm-2"><h4><span class="label label-success">{{stock.status}}</span></h4></div>
-                                <div class="col-sm-1"><button class="btn btn-success" ng-click="acceptOrder(order, stock)">Accept</button></div>
-                                <div class="col-sm-1"><button class="btn btn-danger">Decline</button></div>
+                                <div ng-show="stock.status === 'pending'">
+                                    <div class="col-sm-1"><button class="btn btn-success" ng-click="acceptOrder(order, stock)">Accept</button></div>
+                                    <div class="col-sm-1"><button class="btn btn-danger">Decline</button></div>
+                                </div>
                             </uib-accordion-group>
                         </div>
                     </uib-accordion>
@@ -41,7 +43,7 @@
             <div ng-repeat="order in orderInfo.orders | orderBy: 'sortOrder': true">
                 <div ng-repeat="stock in order.stocks">
                     <uib-accordion close-others="oneAtATime">
-                        <div ng-hide="stock.status === 'pending' || stock.status === 'returned'">
+                        <div ng-show="stock.status === 'delivering' || stock.status === 'delivered' || stock.status === 'returning'">
                             <uib-accordion-group is-open="false">
                                 <uib-accordion-heading>
                                     <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>&nbsp&nbsp{{stock.book.title}}
@@ -70,7 +72,7 @@
             <div ng-repeat="order in orderInfo.orders | orderBy: 'sortOrder': true">
                 <div ng-repeat="stock in order.stocks">
                     <uib-accordion close-others="oneAtATime">
-                        <div ng-show="stock.status === 'returned'">
+                        <div ng-show="stock.status === 'declined' || stock.status === 'done'">
                             <uib-accordion-group is-open="false">
                                 <uib-accordion-heading>
                                     <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>&nbsp&nbsp{{stock.book.title}}
