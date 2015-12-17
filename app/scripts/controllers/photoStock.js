@@ -1,7 +1,9 @@
 app.controller('photoStockCtrl', ['$scope', '$rootScope', '$stateParams', '$location', 'Upload', 'authFactory', '$http', '$state',
   /* Uploading with Angular File Upload */
   function ($scope, $rootScope, $stateParams, $location, $upload, authFactory, $http, $state) {
-		$.cloudinary.config()
+      $rootScope.changeStep(2);
+
+        $.cloudinary.config()
 			.cloud_name = 'tbookie';
 		$.cloudinary.config()
 			.upload_preset = 'jukcxy4z';

@@ -6,12 +6,7 @@ app.controller('orderCtrl', ['$scope', '$http', '$state', 'authFactory',
 
 		// Load data
 		$scope.getOrderInfo = function() {
-			var config = {
-					headers: {
-						'Authorization': authFactory.getAuth()
-					}
-				};
-			$http.get('https://bookieservice.herokuapp.com/api/myorders', config)
+			$http.get('https://bookieservice.herokuapp.com/api/myorders', authFactory.getConfigHead())
 				.success(function (data) {
 					$scope.orderInfo = data;
 					console.log(data);
@@ -19,8 +14,8 @@ app.controller('orderCtrl', ['$scope', '$http', '$state', 'authFactory',
 				.error(function (data) {
 					console.log(data);
 				});
-		}
-		
+		};
+
 		$scope.getOrderInfo();
 	}
 ]);

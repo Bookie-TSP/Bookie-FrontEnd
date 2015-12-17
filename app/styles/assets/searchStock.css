@@ -42,3 +42,19 @@
     max-height: 60px;
     min-height: 20px;
 }
+.database-block {
+    border-bottom: 1px solid grey;
+    width: 96%;
+    padding-bottom: 30px;
+}
+
+#indiBook:hover {
+    background-color: #ffc966;
+    color: white;
+    cursor: hand;
+  cursor: pointer;
+}
+
+.require-text{
+    text-color: red;
+}
