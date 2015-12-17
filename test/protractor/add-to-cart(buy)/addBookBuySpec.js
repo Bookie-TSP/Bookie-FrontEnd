@@ -72,6 +72,7 @@ describe('Add book to cart (buying)', function() {
 
     function login(){
         element(by.css('[ui-sref="login"]')).click();
+        browser.pause();
         expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/login', 5000);
         var email = element(by.model('email'));
         var password = element(by.model('password'));
@@ -82,22 +83,33 @@ describe('Add book to cart (buying)', function() {
         expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/');
     };
 
-    function logout(){
-        element(by.id('dropdownProfile')).click();
-        element(by.id('logout')).click();
-        $('.modal-dialog').element(by.buttonText('Logout')).click();
-    }
+    // function logout(){
+    //     element(by.id('dropdownProfile')).click();
+    //     element(by.id('logout')).click();
+    //     $('.modal-dialog').element(by.buttonText('Logout')).click();
+    // }
+
+    describe('if not login', function() {
+        it('should be prevented to add book to cart', function(){
+            expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/');
+            element.all(by.repeater('book in books | filter:searchText')).get(0).click();
+
+            var stocks =  element(by.linkText('Buy Used Books'));
+            expect(stocks.isPresent()).toBeFalsy();
+        });
+    });
 
     describe('if login', function() {
         it('should be able to add NEW book to cart', function() {
             login();
+            browser.pause();
             // select book id3
-            element.all(by.repeater('book in books | filter:searchText')).get(2).click();
-            // // pick the first book order
-            element.all(by.repeater('line_stock in buyNewBook')).then(function(buyNewBook) {
-                selectedBook = buyNewBook[0];
-                selectedBook.element(by.className('ng-scope')).click();
-            });
+            // element.all(by.repeater('book in books | filter:searchText')).get(2).click();
+            // // // pick the first book order
+            // element.all(by.repeater('line_stock in buyNewBook')).then(function(buyNewBook) {
+            //     selectedBook = buyNewBook[0];
+            //     selectedBook.element(by.className('ng-scope')).click();
+            // });
             // var modalText = 'AAAA';
             // modalText = $('.btn-primary').getText();
             // expect(modalText).toEqual('Add To Cart');
@@ -108,28 +120,17 @@ describe('Add book to cart (buying)', function() {
         it('should be able to add USED book to cart', function() {
             // select book
             element.all(by.repeater('book in books | filter:searchText')).get(4).click();
-            // expect(bookTitle.getText()).toEqual(books[4].title);
             selectedBook =  element(by.linkText('Buy Used Books')).click();
             // pick the first order
             element.all(by.repeater('line_stock in buyUsedBook')).then(function(buyUsedBook) {
                 selectedBook = buyUsedBook[0];
-                selectedBook.element(by.buttonText('Add To Cart')).click();
+                selectedBook.element(by.className('ng-scope')).click();
             });
 
             // $('.modal-dialog').element(by.buttonText('Add To Cart')).click();
             // browser.pause();
         });
     });
-    
-    // describe('if not login', function() {
-    //     it('should be prevented to add book to cart', function(){
-    //         logout();
-    //         element.all(by.repeater('book in books | filter:searchText')).get(0).click();
-
-    //         var stocks =  element(by.linkText('Buy Used Books'));
-    //         expect(stocks.isPresent()).toBeFalsy();
-    //     });
-    // });
 
     afterAll(function(done) {
         process.nextTick(done);
