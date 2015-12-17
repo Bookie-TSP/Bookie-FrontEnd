@@ -8,35 +8,39 @@
                 <form name="registerForm">
                     <input type="text" name="email" placeholder="Email*" ng-model="email"
                         ng-pattern= "/^[_A-Za-z0-9]+(\.[_A-Za-z0-9]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*(\.[A-Za-z]{2,5})$/">
-                    <div class="validate" ng-show="registerForm.email.$error.pattern">
+                    <div class="error" ng-show="registerForm.email.$error.pattern">
                         Email is invalid format
                     </div>
+                    <div class="error" ng-show="errors.email">
+                        {{errors.email}}
+                    </div>
                     <br>
-                    <input type="password" placeholder="Password* (more than or equal 8 characters)" ng-model="password">
-                    <div class="validate" ng-if="password.length < 8">
+                    <input type="password" name="password" placeholder="Password* (more than or equal 8 characters)" ng-model="password"
+                        ng-minlength="8" ng-maxlength="72">
+                    <div class="error" ng-if="registerForm.password.$error.minlength">
                         Not enough characters
                     </div>
-                    <div class="validate" ng-if="password.length > 72">
+                    <div class="error" ng-if="registerForm.password.$error.maxlength">
                         Too many characters
                     </div>
-                    <div class="validate" ng-if="errors.password">
+                    <div class="error" ng-if="errors.password">
                         {{errors.password}}
                     </div>
                     <br>
-                    <input type="password" placeholder="Password Comfirmation*" ng-model="password_confirmation">
+                    <input type="password" name="passCon" placeholder="Password Confirmation*" ng-model="password_confirmation">
                     <div class="pass" ng-if="password == password_confirmation && password != null">
                         Password match!
                     </div>
-                    <div class="validate" ng-if="password !== password_confirmation && password_confirmation != null">
+                    <div class="error" ng-if="password !== password_confirmation && password_confirmation != null">
                         Password not match!
                     </div>
                     <br>
-                    <input type="text" placeholder="Firstname*" ng-model="first_name">
+                    <input type="text" name="first" placeholder="Firstname*" ng-model="first_name">
                     <br>
-                    <input type="text" placeholder="Lastname*" ng-model="last_name">
+                    <input type="text" name="last" placeholder="Lastname*" ng-model="last_name">
                     <br>
-                    <input type="text" placeholder="Identification number*" ng-model="identification_number">
-                    <div class="validate" ng-if="identification_number.length !== 13 && identification_number.length !== undefined">
+                    <input type="text" name="identification" placeholder="Identification number*" ng-model="identification_number" ng-minlength="13">
+                    <div class="error" ng-if="registerForm.identification.$error.minlength">
                         Must be 13 character
                     </div>
                     <br>

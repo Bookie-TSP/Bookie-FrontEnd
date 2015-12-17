@@ -70,6 +70,35 @@
 .validation {
   color: #ff0000;
 }
+.errorPages {
+  position: fixed;
+  top: 20%;
+  left: 20%;
+}
+
+.errorPages h1 {
+  font-size: 150px;
+}
+
+.errorPages h2 {
+  color: orange;
+  font-size: 50px;
+}
+
+.errorPages h3 {
+  color: grey;
+}
+
+#errorLogo:hover {
+  background-color: #F5F5F5;
+  cursor: hand;
+  cursor: pointer;
+}
+
+#errorLogo {
+  width: 70%;
+  height: auto;
+}
 #googleMap {
   height: 350px;
   width: 500px;
@@ -303,6 +332,14 @@ body {
   margin-top: 10px;
   background-color: #222;
   color: #999;
+}
+
+#logo {
+  margin-top: -20px;
+  height: 280%;
+  width: auto;
+  margin-right: -20px;
+  margin-left: -30px;
 }
 #newStockBlog {
   border-style: solid;
