@@ -3,6 +3,9 @@ app.controller('transporterFormCtrl', ['$scope', '$http', '$state', 'authFactory
         if (authFactory.getAuth() === undefined) {
             $state.go("login");
         }
+
+        $scope.error = '';
+
         $scope.submit = function () {
             console.log($scope.order_id);
             console.log($scope.stock_id);
@@ -14,10 +17,11 @@ app.controller('transporterFormCtrl', ['$scope', '$http', '$state', 'authFactory
             }, authFactory.getConfigHead())
                 .success(function (data) {
                     console.log(data);
-                    $state.go('home');
+                    $state.go('orderStatusChanger');
                 })
                 .error(function (data) {
                     console.log(data);
+                    $scope.error = data.errors;
                 });
         };
     }]);

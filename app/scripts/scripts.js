@@ -165,6 +165,8 @@ app.controller('bookOwnerFormCtrl', ['$scope', '$http', '$state', 'authFactory',
         if (authFactory.getAuth() === undefined) {
             $state.go("login");
         }
+        $scope.error = '';
+
         $scope.submit = function () {
             console.log($scope.order_id);
             $http.post('https://bookieservice.herokuapp.com/api/members/orders/returned',{
@@ -175,10 +177,11 @@ app.controller('bookOwnerFormCtrl', ['$scope', '$http', '$state', 'authFactory',
             }, authFactory.getConfigHead())
                 .success(function (data) {
                     console.log(data);
-                    $state.go('home');
+                    $state.go('orderStatusChanger');
                 })
                 .error(function (data) {
                     console.log(data);
+                    $scope.error = data.errors;
                 });
         };
     }]);
@@ -1134,18 +1137,13 @@ app.controller('registerCtrl', ['$scope', '$http', 'mapFactory', '$state', 'auth
 }]);
 
 app.controller('requestedOrderCtrl', ['$scope', '$http', '$state', 'authFactory',
-	function ($scope, $http, $state, authFactory) {
-		if (authFactory.getAuth() === undefined) {
+	function ($scope, $http, $state, $auth) {
+		if ($auth.getAuth() === undefined) {
 			$state.go('login');
 		}
 
 		$scope.getOrderInfo = function() {
-			var config = {
-				headers: {
-					'Authorization': authFactory.getAuth()
-				}
-			};
-			$http.get('https://bookieservice.herokuapp.com/api/mysupplyorders', config)
+			$http.get('https://bookieservice.herokuapp.com/api/mysupplyorders', $auth.getConfigHead())
 			.success(function (data) {
 				$scope.orderInfo = data;
 				console.log(data);
@@ -1153,20 +1151,15 @@ app.controller('requestedOrderCtrl', ['$scope', '$http', '$state', 'authFactory'
 			.error(function (data) {
 				console.log(data);
 			});
-		}
+		};
 
 		$scope.acceptOrder = function(acceptedOrder, acceptedStock) {
-            var config = {
-				headers: {
-					'Authorization': authFactory.getAuth()
-				}
-			};
             $http.post('https://bookieservice.herokuapp.com/api/members/orders/accept',{
                 order: {
                 	order_id: acceptedOrder.id,
                 	stock_id: acceptedStock.id
                 }
-            },config)
+            }, $auth.getConfigHead())
             .success(function(data){
                 console.log(data);
                 $scope.getOrderInfo();
@@ -1174,20 +1167,15 @@ app.controller('requestedOrderCtrl', ['$scope', '$http', '$state', 'authFactory'
             .error(function(data){
                 console.log(data);
             });
-		}
+		};
 
 		$scope.declineOrder = function(declinedOrder, declinedStock) {
-            var config = {
-				headers: {
-					'Authorization': authFactory.getAuth()
-				}
-			};
             $http.post('https://bookieservice.herokuapp.com/api/members/orders/decline',{
                 order: {
                 	order_id: declinedOrder.id,
                 	stock_id: declinedStock.id
                 }
-            },config)
+            }, $auth.getConfigHead())
             .success(function(data){
                 console.log(data);
                 $scope.getOrderInfo();
@@ -1195,20 +1183,31 @@ app.controller('requestedOrderCtrl', ['$scope', '$http', '$state', 'authFactory'
             .error(function(data){
                 console.log(data);
             });
-		}
+		};
+
+		$scope.deliverOrder = function(order, stock) {
+            $http.post('https://bookieservice.herokuapp.com/api/members/orders/delivering',{
+                order: {
+                	order_id: order.id,
+                	stock_id: stock.id
+                }
+            }, $auth.getConfigHead())
+            .success(function(data){
+                console.log(data);
+                $scope.getOrderInfo();
+            })
+            .error(function(data){
+                console.log(data);
+            });
+		};
 
 		$scope.returned = function(returnedOrder, returnedStock) {
-            var config = {
-				headers: {
-					'Authorization': authFactory.getAuth()
-				}
-			};
             $http.post('https://bookieservice.herokuapp.com/api/members/orders/returned',{
                 order: {
                 	order_id: returnedOrder.id,
                 	stock_id: returnedStock.id
                 }
-            },config)
+            }, $auth.getConfigHead())
             .success(function(data){
                 console.log(data);
                 $scope.getOrderInfo();
@@ -1216,16 +1215,17 @@ app.controller('requestedOrderCtrl', ['$scope', '$http', '$state', 'authFactory'
             .error(function(data){
                 console.log(data);
             });
-		}
+		};
 
         $scope.sortOrder = function(order) {
             var date = new Date(order.created_at.substring(0, 10) + " " + order.created_at.substring(11, 19));
             return date;
-        }
-		
+        };
+
 		$scope.getOrderInfo();
 	}
 ]);
+
 app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'dateFactory', '$timeout', 'authFactory',
     function ($scope, $http, $state, $rootScope, $date, $timeout, authFactory) {
         $rootScope.changeStep(1);
@@ -1416,6 +1416,9 @@ app.controller('sevenElevenFormCtrl', ['$scope', '$http', '$state', 'authFactory
         if (authFactory.getAuth() === undefined) {
             $state.go("login");
         }
+
+        $scope.error = '';
+
         $scope.submit = function () {
             console.log($scope.order_id);
             $http.post('https://bookieservice.herokuapp.com/api/members/orders/returning',{
@@ -1426,10 +1429,11 @@ app.controller('sevenElevenFormCtrl', ['$scope', '$http', '$state', 'authFactory
             }, authFactory.getConfigHead())
                 .success(function (data) {
                     console.log(data);
-                    $state.go('home');
+                    $state.go('orderStatusChanger');
                 })
                 .error(function (data) {
                     console.log(data);
+                    $scope.error = data.errors;
                 });
         };
     }]);
@@ -1505,6 +1509,9 @@ app.controller('transporterFormCtrl', ['$scope', '$http', '$state', 'authFactory
         if (authFactory.getAuth() === undefined) {
             $state.go("login");
         }
+
+        $scope.error = '';
+
         $scope.submit = function () {
             console.log($scope.order_id);
             console.log($scope.stock_id);
@@ -1516,10 +1523,11 @@ app.controller('transporterFormCtrl', ['$scope', '$http', '$state', 'authFactory
             }, authFactory.getConfigHead())
                 .success(function (data) {
                     console.log(data);
-                    $state.go('home');
+                    $state.go('orderStatusChanger');
                 })
                 .error(function (data) {
                     console.log(data);
+                    $scope.error = data.errors;
                 });
         };
     }]);
@@ -1696,7 +1704,7 @@ app.factory('mapFactory', function ($log, $rootScope) {
 		longitude = long;
 	};
 
-	var getLat = function () {
+	var getLat = function () {   
 		return latitude;
 	};
 
