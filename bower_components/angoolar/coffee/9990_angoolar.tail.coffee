@@ -1,0 +1,1 @@
+angoolar.flushModulesToAngular()
