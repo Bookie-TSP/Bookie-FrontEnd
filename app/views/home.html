@@ -7,7 +7,7 @@
 				<span class="col-xs-7 label label-danger book-label-font" ng-show="book.lowest_price == 'null'">Out of Stock</span>
 			</div>
 			<div class="row">
-				<img src="{{book.cover_image_url}}" ui-sref="bookProfile({bookId : book.id})" class="cover-image">
+				<img ng-src="{{book.cover_image_url}}" ui-sref="bookProfile({bookId : book.id})" class="cover-image">
 			</div>
 			<div class="row book-name">
 				{{book.title}}

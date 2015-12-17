@@ -1,5 +1,5 @@
-<div ng-controller="orderCtrl" class="container">
-    <h1>My Order</h1>
+<div ng-controller="requestedOrderCtrl" class="container">
+    <h1>Requested Order</h1>
     <br>
 
     <!-- My order tabs -->
@@ -36,7 +36,18 @@
                                     <br> {{order.created_at | date:'medium'}}
                                 </div>
                                 <div class="col-sm-5">
-                                    <b>Address: </b>{{stock.member.addresses[0].information}}
+                                    {{order.address.first_name}} {{order.address.last_name}}
+                                    <span class="label label-info">Order ID: {{order.id}}</span>
+                                    <span class="label label-primary">Stock ID: {{stock.id}}</span>
+                                    <br><b>Address: </b>{{order.address.information}}
+                                </div>
+                                <div ng-show="stock.status === 'pending'">
+                                    <div class="col-sm-1">
+                                        <button class="btn btn-success" ng-click="acceptOrder(order, stock)">Accept</button>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <button class="btn btn-danger" ng-click="declineOrder(order, stock)">Decline</button>
+                                    </div>
                                 </div>
                                 <div ng-show="stock.status === 'accepted'">
                                     <div class="col-sm-1 col-sm-offset-1">
@@ -81,7 +92,10 @@
                                     <br> {{order.created_at | date:'medium'}}
                                 </div>
                                 <div class="col-sm-5">
-                                    <b>Address: </b>{{order.address.information}}
+                                    {{order.address.first_name}} {{order.address.last_name}}
+                                    <span class="label label-info">Order ID: {{order.id}}</span>
+                                    <span class="label label-primary">Stock ID: {{stock.id}}</span>
+                                    <br><b>Address: </b>{{order.address.information}}
                                 </div>
                             </uib-accordion-group>
                         </div>
@@ -121,7 +135,10 @@
                                     <br> {{order.created_at | date:'medium'}}
                                 </div>
                                 <div class="col-sm-5">
-                                    <b>Address: </b>{{order.address.information}}
+                                    {{order.address.first_name}} {{order.address.last_name}}
+                                    <span class="label label-info">Order ID: {{order.id}}</span>
+                                    <span class="label label-primary">Stock ID: {{stock.id}}</span>
+                                    <br><b>Address: </b>{{order.address.information}}
                                 </div>
                                 <div class="col-sm-3">
                                     Ended:<br>

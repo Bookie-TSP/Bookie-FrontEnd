@@ -29,7 +29,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 		.state('bookProfile', {
 			url: '/book/:bookId',
 			templateUrl: 'views/bookProfile.html',
-			data : { pageTitle: 'Book Profile' }
+			data: { pageTitle: 'Book Profile' }
 		})
 		.state('editAddress', {
 			url: '/editAddress',
@@ -40,6 +40,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			url: '/order',
 			templateUrl: 'views/order.html',
 			data : { pageTitle: 'Order' }
+		})
+		.state('requestedOrder', {
+			url: '/requestedOrder',
+			templateUrl: 'views/requestedOrder.html',
+			data : { pageTitle: 'Requested Order' }
 		})
 		.state('cart', {
 			url: '/cart',
@@ -85,7 +90,32 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			url: '/4',
 			templateUrl: 'views/newStocks/completeStock.html',
 			data : { pageTitle: 'Confirm Stock' }
-		});
+		})
+		.state('404', {
+			url: '/404',
+			templateUrl: 'views/errorPages/404.html',
+			data : { pageTitle: 'Page Not Found' }
+		})
+		.state('orderStatusChanger', {
+            url: '/orderStatusChanger',
+            templateUrl: 'views/orderStatusChanger.html',
+            data : { pageTitle: 'Order Status Changer' }
+        })
+        .state('transporterForm', {
+            url: '/transporterForm',
+            templateUrl: 'views/changeStatusForms/transporterForm.html',
+            data : { pageTitle: 'Transporter Form' }
+        })
+        .state('sevenElevenForm', {
+            url: '/sevenElevenForm',
+            templateUrl: 'views/changeStatusForms/sevenElevenForm.html',
+            data : { pageTitle: 'Seven Eleven Form' }
+        })
+        .state('bookOwnerForm', {
+            url: '/bookOwnerForm',
+            templateUrl: 'views/changeStatusForms/bookOwnerForm.html',
+            data : { pageTitle: 'Book Owner Form' }
+        });
 	$urlRouterProvider.otherwise('/');
 
 });
