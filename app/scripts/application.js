@@ -91,7 +91,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			templateUrl: 'views/errorPages/404.html',
 			data : { pageTitle: 'Page Not Found' }
 		});
-	$urlRouterProvider.otherwise('/404');
+	$urlRouterProvider.otherwise('/');
 
 });
 app.run([ '$rootScope', '$state', '$stateParams',
