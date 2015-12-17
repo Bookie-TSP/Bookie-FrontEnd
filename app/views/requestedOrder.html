@@ -63,7 +63,6 @@
 
         <!-- Order of active status books -->
         <uib-tab heading="Active" ng-click="moveToBottom()">
-            <br>
             <div ng-repeat="order in orderInfo.orders | orderBy: 'sortOrder': true">
                 <div ng-repeat="stock in order.stocks">
                     <uib-accordion close-others="oneAtATime">
@@ -107,7 +106,6 @@
 
         <!-- Orders o -->
         <uib-tab heading="Ended" ng-click="moveToBottom()">
-            <br>
             <div ng-repeat="order in orderInfo.orders | orderBy: 'sortOrder': true">
                 <div ng-repeat="stock in order.stocks">
                     <uib-accordion close-others="oneAtATime">
