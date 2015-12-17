@@ -7,6 +7,7 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
 		if (authFactory.getAuth() !== undefined) {
 			$scope.loggedIn = true;
 		}
+        $scope.allDataLoaded = false;
 
 		// Tab array of stocks
 		$scope.buyNewBook = [];
@@ -46,11 +47,14 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
 					$scope.bookInfo = data;
 					$scope.seperate();
 					$scope.setPagerTotalItems();
+                    $scope.allDataLoaded = true;
 				})
 				.error(function (data) {
 					console.log(data);
+                    $state.go("404");
 				});
 		};
+
 
 		// Seperate books into categories
 		$scope.seperate = function () {

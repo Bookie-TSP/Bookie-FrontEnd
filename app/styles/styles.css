@@ -5,8 +5,8 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,800,300,600,700);
 @import url(http://fonts.googleapis.com/css?family=Abel);
 .cover-image {
-  width: 128px;
-  height: 196px;
+  width: 158px;
+  height: 241px;
   cursor: hand;
   cursor: pointer;
 }
@@ -15,11 +15,27 @@
   margin-top: 5px;
   line-height: 1.5em;
   height: 3em;
-  width: 128px;
+  width: 158px;
 }
 
 .book {
   margin-top: 20px;
+  /*width: 128px;*/
+}
+
+.sort {
+  margin-left: 10px;
+}
+
+.book-label {
+  width: 158.5px;
+}
+
+.book-label-font {
+  border-radius: 0px;
+  height: 25px;
+  line-height: 23px;
+  font-size: 12px;
 }
 #book-cover {
   width: 50%;
@@ -53,6 +69,35 @@
 }
 .validation {
   color: #ff0000;
+}
+.errorPages {
+  position: fixed;
+  top: 20%;
+  left: 20%;
+}
+
+.errorPages h1 {
+  font-size: 150px;
+}
+
+.errorPages h2 {
+  color: orange;
+  font-size: 50px;
+}
+
+.errorPages h3 {
+  color: grey;
+}
+
+#errorLogo:hover {
+  background-color: #F5F5F5;
+  cursor: hand;
+  cursor: pointer;
+}
+
+#errorLogo {
+  width: 70%;
+  height: auto;
 }
 #googleMap {
   height: 350px;
@@ -255,6 +300,46 @@ body {
   display: inline-block;
   text-align: left;
   vertical-align: middle;
+}
+
+.search-bar {
+  color: white;
+}
+
+.search-bar-icon {
+  border-style: solid;
+  border-color: #999;
+  background-color: #222;
+  color: #999;
+}
+
+.search-bar-textfield {
+  background-color: #222;
+  border-color: #999;
+  color: white:
+    width: inherit;
+}
+
+.input-group-btn {
+  width: inherit;
+}
+
+.navbar-form {
+  margin-top: 10px;
+}
+
+.sort-by-button {
+  margin-top: 10px;
+  background-color: #222;
+  color: #999;
+}
+
+#logo {
+  margin-top: -20px;
+  height: 58px;
+  width: auto;
+  margin-right: -50px;
+  margin-left: -30px;
 }
 #newStockBlog {
   border-style: solid;
@@ -543,7 +628,7 @@ form {
 }
 
 .validate {
-  color: #ff0000;
+  color: red;
 }
 
 .pass {

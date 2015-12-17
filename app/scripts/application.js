@@ -29,7 +29,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 		.state('bookProfile', {
 			url: '/book/:bookId',
 			templateUrl: 'views/bookProfile.html',
-			data : { pageTitle: 'Book Profile' }
+			data: { pageTitle: 'Book Profile' }
 		})
 		.state('editAddress', {
 			url: '/editAddress',
@@ -86,7 +86,12 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			templateUrl: 'views/newStocks/completeStock.html',
 			data : { pageTitle: 'Confirm Stock' }
 		})
-        .state('orderStatusChanger', {
+		.state('404', {
+			url: '/404',
+			templateUrl: 'views/errorPages/404.html',
+			data : { pageTitle: 'Page Not Found' }
+		})
+		.state('orderStatusChanger', {
             url: '/orderStatusChanger',
             templateUrl: 'views/orderStatusChanger.html',
             data : { pageTitle: 'Order Status Changer' }
