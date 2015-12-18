@@ -21,16 +21,16 @@
                                         <div class="col-xs-1">
                                             <span class="label label-warning">{{stock.type | uppercase}}</span>
                                         </div>
-                                        <div class="col-xs-3">
+                                        <div class="col-xs-5">
                                             {{stock.book.title}}
                                         </div>
-                                        <div class="col-xs-2 col-xs-offset-4">
+                                        <div class="col-xs-2 col-xs-offset-3">
                                             <span class="label label-primary" ng-if="stock.status === 'pending'">{{stock.status | uppercase}}</span>
                                             <span class="label label-success" ng-if="stock.status === 'accepted'">{{stock.status | uppercase}}</span>
                                         </div>
                                     </div>
                                 </uib-accordion-heading>
-                                <div class="col-sm-1">{{stock.price | number:2}} ฿</div>
+                                <div class="col-sm-2">{{stock.price | number:2}} ฿</div>
                                 <div class="col-sm-3">
                                     Ordered Date:
                                     <br> {{order.created_at | date:'medium'}}
@@ -76,17 +76,17 @@
                                         <div class="col-xs-1">
                                             <span class="label label-warning">{{stock.type | uppercase}}</span>
                                         </div>
-                                        <div class="col-xs-3">
+                                        <div class="col-xs-5">
                                             {{stock.book.title}}
                                         </div>
-                                        <div class="col-xs-2 col-xs-offset-4">
+                                        <div class="col-xs-2 col-xs-offset-3">
                                             <span class="label label-warning" ng-if="stock.status === 'delivering'">{{stock.status | uppercase}}</span>
                                             <span class="label label-success" ng-if="stock.status === 'delivered'">{{stock.status | uppercase}}</span>
                                             <span class="label label-info" ng-if="stock.status === 'returning'">{{stock.status | uppercase}}</span>
                                         </div>
                                     </div>
                                 </uib-accordion-heading>
-                                <div class="col-sm-1">{{stock.price | number:2}} ฿</div>
+                                <div class="col-sm-2">{{stock.price | number:2}} ฿</div>
                                 <div class="col-sm-3">
                                     Ordered Date:
                                     <br> {{order.created_at | date:'medium'}}
@@ -119,10 +119,10 @@
                                         <div class="col-xs-1">
                                             <span class="label label-warning">{{stock.type | uppercase}}</span>
                                         </div>
-                                        <div class="col-xs-3">
+                                        <div class="col-xs-5">
                                             {{stock.book.title}}
                                         </div>
-                                        <div class="col-xs-2 col-xs-offset-4">
+                                        <div class="col-xs-2 col-xs-offset-3">
                                             <span class="label label-danger">{{stock.status | uppercase}}</span>
                                         </div>
                                     </div>
@@ -151,20 +151,4 @@
             </div>
         </uib-tab>
     </uib-tabset>
-
-    <!-- Order of ended status books -->
-    <script type="text/ng-template" id="group-template.html">
-        <div class="panel {{panelClass || 'panel-default'}}">
-            <div class="panel-heading">
-                <h4 class="panel-title" style="color:#fa39c3">
-                    <a href tabindex="0" class="accordion-toggle" ng-click="toggleOpen()" uib-accordion-transclude="heading">
-                        <span ng-class="{'text-muted': isDisabled}">{{heading}}</span>
-                    </a>
-                </h4>
-            </div>
-            <div class="panel-collapse collapse" uib-collapse="!isOpen">
-                <div class="panel-body" style="text-align: right" ng-transclude></div>
-            </div>
-        </div>
-    </script>
 </div>
