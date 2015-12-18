@@ -7,11 +7,11 @@
         </div>
         <div class="col-xs-6">
             <div class="row">
-                <div class="col-xs-3">
-                    <h5>Select Type</h5>
+                <div class="col-xs-3 text-info">
+                    <b><h5>Select Type</h5></b>
                 </div>
-                <div class="col-xs-3">
-                    <h6>(* required)</h6>
+                <div class="col-xs-3 require-text">
+                    <h6>(* Required)</h6>
                 </div>
             </div>
             <input type="radio" value="sell" ng-model="type"> Sell
@@ -22,43 +22,43 @@
             <div ng-show="type !== ''">
 
                 <div class="row">
-                    <div class="col-xs-4">
+                    <div class="col-xs-4 text-info">
                         Price*
                     </div>
                     <div class="col-xs-4">
-                        <input type="number" ng-model="price">
+                        <input type="number" min="0" ng-model="price">
                     </div>
                     <div class="col-xs-1">
                         Baht
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-4 col-xs-offset-4 missing-input" ng-if="errors.price !== undefined">
+                    <div class="col-xs-5 col-xs-offset-4 missing-input" ng-if="errors.price !== undefined">
                         {{errors.price}}
                     </div>
                 </div>
 
                 <div class="row" ng-show="type === 'lend'">
                     <br>
-                    <div class="col-xs-4">
+                    <div class="col-xs-4 text-info">
                         Duration*
                     </div>
                     <div class="col-xs-4">
-                        <input type="number" ng-model="duration">
+                        <input type="number" min="0" ng-model="duration">
                     </div>
                     <div class="col-xs-1">
                         Days
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-4 col-xs-offset-4 missing-input" ng-if="errors.duration !== undefined">
+                    <div class="col-xs-5 col-xs-offset-4 missing-input" ng-if="errors.duration !== undefined">
                         {{errors.duration}}
                     </div>
                 </div>
 
                 <div class="row">
                     <br>
-                    <div class="col-xs-4">
+                    <div class="col-xs-4 text-info">
                         Condition*
                     </div>
                     <div class="col-xs-4">
@@ -70,27 +70,27 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-4 col-xs-offset-4 missing-input" ng-if="errors.condition !== undefined">
+                    <div class="col-xs-5 col-xs-offset-4 missing-input" ng-if="errors.condition !== undefined">
                         {{errors.condition}}
                     </div>
                 </div>
                 <br>
                 <div class="row">
-                    <div class="col-xs-4">
+                    <div class="col-xs-4 text-info">
                         Description*
                     </div>
                     <div class="col-xs-4">
-                        <textarea rows="5" cols="30" ng-model="description"></textarea>
+                        <textarea rows="5" cols="30" ng-model="description" ng-disabled="description === 'Brands new book'"></textarea>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-4 col-xs-offset-4 missing-input" ng-if="errors.description !== undefined">
+                    <div class="col-xs-5 col-xs-offset-4 missing-input" ng-if="errors.description !== undefined">
                         {{errors.description}}
                     </div>
                 </div>
                 <br>
                 <div class="row" ng-show="type === 'lend'">
-                    <div class="col-xs-4">
+                    <div class="col-xs-4 text-info">
                         Terms of Conditions
                     </div>
                     <div class="col-xs-4">
@@ -100,15 +100,15 @@
                 <br>
 
                 <div class="row">
-                    <div class="col-xs-4">
+                    <div class="col-xs-4 text-info">
                         Quantity*
                     </div>
                     <div class="col-xs-4">
-                        <input type="number" ng-model="quantity">
+                        <input type="number" ng-model="quantity" min="0">
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-4 col-xs-offset-4 missing-input" ng-if="errors.quantity !== undefined">
+                    <div class="col-xs-5 col-xs-offset-4 missing-input" ng-if="errors.quantity !== undefined">
                         {{errors.quantity}}
                     </div>
                 </div>
