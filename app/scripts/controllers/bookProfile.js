@@ -7,7 +7,7 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
 		if (authFactory.getAuth() !== undefined) {
 			$scope.loggedIn = true;
 		}
-        $scope.allDataLoaded = false;
+		$scope.allDataLoaded = false;
 
 		// Tab array of stocks
 		$scope.buyNewBook = [];
@@ -47,28 +47,27 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
 					$scope.bookInfo = data;
 					$scope.seperate();
 					$scope.setPagerTotalItems();
-                    $scope.allDataLoaded = true;
+					$scope.allDataLoaded = true;
 				})
 				.error(function (data) {
 					console.log(data);
-                    $state.go("404");
+					$state.go("404");
 				});
 		};
 
 
 		// Seperate books into categories
+		$scope.currentMemberId = authFactory.getMember().id;
 		$scope.seperate = function () {
 			for (var i = 0; i < $scope.bookInfo.line_stocks.length; i++) {
-				if ($scope.bookInfo.line_stocks[i].member_id !== authFactory.getMember().id) {
-					if ($scope.bookInfo.line_stocks[i].type === 'sell') {
-						if ($scope.bookInfo.line_stocks[i].condition === 'new') {
-							$scope.buyNewBook.push($scope.bookInfo.line_stocks[i]);
-						} else if ($scope.bookInfo.line_stocks[i].condition === 'used') {
-							$scope.buyUsedBook.push($scope.bookInfo.line_stocks[i]);
-						}
-					} else if ($scope.bookInfo.line_stocks[i].type === 'lend') {
-						$scope.rentBook.push($scope.bookInfo.line_stocks[i]);
+				if ($scope.bookInfo.line_stocks[i].type === 'sell') {
+					if ($scope.bookInfo.line_stocks[i].condition === 'new') {
+						$scope.buyNewBook.push($scope.bookInfo.line_stocks[i]);
+					} else if ($scope.bookInfo.line_stocks[i].condition === 'used') {
+						$scope.buyUsedBook.push($scope.bookInfo.line_stocks[i]);
 					}
+				} else if ($scope.bookInfo.line_stocks[i].type === 'lend') {
+					$scope.rentBook.push($scope.bookInfo.line_stocks[i]);
 				}
 			}
 			console.log($scope.buyNewBook);
