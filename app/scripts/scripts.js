@@ -888,6 +888,10 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 		$scope.hadSearch = false;
 		$scope.wantAdd = false;
 
+		$scope.title = '';
+		$scope.author = '';
+		$scope.language = '';
+
 		// language selections
 		$scope.langs = ['English', 'Thai', 'Japanese', 'Chinese'];
 
@@ -985,6 +989,7 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 		};
 
 		$scope.chooseBook = function (book, type) {
+			$scope.errors = {};
 			$scope.type = type;
 			if (type === 'google') {
 				$scope.specBook = {
@@ -1002,6 +1007,7 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 					$scope.specBook.ISBN10 = book.industryIdentifiers[1].identifier;
 				}
 			} else if (type === 'manual') {
+				var checkError = false;
 				if ($scope.day !== undefined || $scope.initMonths.indexOf($scope.month) + 1 > 0 ||
 					$scope.year !== undefined) {
 					$scope.final_date = $scope.day + "/" + ($scope.initMonths.indexOf($scope.month) + 1) +
@@ -1009,18 +1015,32 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 				} else {
 					$scope.final_date = null;
 				}
-				$scope.specBook = {
-					title: $scope.title,
-					ISBN13: $scope.ISBN13 || null,
-					ISBN10: $scope.ISBN10 || null,
-					authors: [$scope.author],
-					language: $scope.language,
-					publisher: $scope.publisher || null,
-					publish_date: $scope.final_date,
-					pages: $scope.pageCount || null,
-					description: $scope.description,
-					cover_image_url: undefined
-				};
+				if ($scope.title !== '') {
+					$scope.error.title = "Please insert title";
+					checkError = true;
+				}
+				if ($scope.author !== '') {
+					$scope.error.author = "Please insert at least one author";
+					checkError = true;
+				}
+				if ($scope.language) {
+					$scope.error.language = "Please select language";
+					checkError = true;
+				}
+				if (!checkError) {
+					$scope.specBook = {
+						title: $scope.title,
+						ISBN13: $scope.ISBN13 || null,
+						ISBN10: $scope.ISBN10 || null,
+						authors: [$scope.author],
+						language: $scope.language,
+						publisher: $scope.publisher || null,
+						publish_date: $scope.final_date,
+						pages: $scope.pageCount || null,
+						description: $scope.description,
+						cover_image_url: undefined
+					};
+				}
 			} else if (type === 'db') {
 				$scope.specBook = book;
 			}

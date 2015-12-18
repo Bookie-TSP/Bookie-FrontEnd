@@ -113,6 +113,11 @@
 							<input type="text" placeholder="Title" ng-model="title">
 						</div>
 					</div>
+					<div class="row" ng-if="error.title">
+						<div class="col-xs-4 col-xs-offset-4">
+							{{error.title}}
+						</div>
+					</div>
 					<br>
 					<div class="row">
 						<div class="col-xs-4">
@@ -120,6 +125,11 @@
 						</div>
 						<div class="col-xs-4">
 							<input type="text" placeholder="Author" ng-model="author">
+						</div>
+					</div>
+					<div class="row" ng-if="error.author">
+						<div class="col-xs-4 col-xs-offset-4">
+							{{error.author}}
 						</div>
 					</div>
 					<br>
@@ -132,6 +142,11 @@
 								<option value="">Select Language</option>
 								<option ng-repeat="lang in langs" value="{{lang}}">{{lang}}</option>
 							</select>
+						</div>
+					</div>
+					<div class="row" ng-if="error.language">
+						<div class="col-xs-4 col-xs-offset-4">
+							{{error.language}}
 						</div>
 					</div>
 					<br>
