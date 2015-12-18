@@ -58,3 +58,11 @@
     background-color: #222;
     color: #999;
 }
+
+#logo{
+    margin-top: -20px;
+    height: 58px;
+    width: auto;
+    margin-right: -50px;
+    margin-left: -30px;
+}
