@@ -48,3 +48,5 @@ gulp.task('default', ['scripts', 'styles', 'libaryScripts'], function () {
 		}
 	});
 });
+
+gulp.task('heroku:prod', ['scripts', 'styles', 'libaryScripts']);
