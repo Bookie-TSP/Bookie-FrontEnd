@@ -131,6 +131,7 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 		};
 
         $scope.manualBook = function(){
+            console.log($scope.searchBookForm.$invalid);
             $scope.errors = {};
             var checkError = false;
             if ($scope.day !== undefined || $scope.initMonths.indexOf($scope.month) + 1 > 0 ||
@@ -157,7 +158,7 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
                 checkError = true;
             }
 
-            if (!checkError) {
+            if (!checkError && !$scope.searchBookForm.$invalid) {
                 console.log(checkError);
                 $scope.specBook = {
                     title: $scope.title,
