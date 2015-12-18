@@ -54,7 +54,9 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
 
 
 		// Seperate books into categories
-		$scope.currentMemberId = authFactory.getMember().id;
+        if(authFactory.getMember()){
+            $scope.currentMemberId = authFactory.getMember().id;
+        }
 		$scope.seperate = function () {
 			for (var i = 0; i < $scope.bookInfo.line_stocks.length; i++) {
 				if ($scope.bookInfo.line_stocks[i].type === 'sell') {
