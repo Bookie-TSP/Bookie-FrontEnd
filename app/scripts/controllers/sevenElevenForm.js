@@ -1,9 +1,5 @@
 app.controller('sevenElevenFormCtrl', ['$scope', '$http', '$state', 'authFactory',
     function ($scope, $http, $state, authFactory) {
-        if (authFactory.getAuth() === undefined) {
-            $state.go("login");
-        }
-
         $scope.error = '';
 
         $scope.submit = function () {
@@ -13,7 +9,7 @@ app.controller('sevenElevenFormCtrl', ['$scope', '$http', '$state', 'authFactory
                     "order_id": $scope.order_id,
                     "stock_id": $scope.stock_id
                 }
-            }, authFactory.getConfigHead())
+            })
                 .success(function (data) {
                     console.log(data);
                     $state.go('orderStatusChanger');
