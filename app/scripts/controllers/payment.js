@@ -1,5 +1,6 @@
 app.controller('paymentCtrl',['$scope','$http', '$state', 'authFactory', '$rootScope',
     function ($scope, $http, $state, authFactory, $rootScope){
+        $scope.error = '';
         $scope.getTotal = function() {
             $scope.total = 0;
             for(var i = 0, len = $scope.stocks.length; i < len; i++) {
@@ -22,21 +23,25 @@ app.controller('paymentCtrl',['$scope','$http', '$state', 'authFactory', '$rootS
         };
 
         $scope.paid = function() {
+            $scope.error = '';
             $scope.emptyCart = false;
-            if ($scope.billing_firstname === null || $scope.billing_lastname === null) {
-                alert("Please input your name");
-            } else if ($scope.billing_card_number === undefined) {
-                alert("Please input card number");
-            } else if ($scope.billing_card_security_number === undefined) {
-                alert("Please input CVV");
-            } else if ($scope.billing_card_number.length !== 16) {
-                alert("Wrong card number");
-            } else if ($scope.billing_card_security_number.length !== 3) {
-                alert("Wrong CVV");
-            } else if ($scope.expireMM === undefined || $scope.expireYY === undefined) {
-                alert("Please input expirtion date");
-            } else if ($scope.billing_type === undefined) {
-                alert("Please input credit card type");
+            var isnumCard = /^\d+$/.test($scope.billing_card_number);
+            var isnumCVV = /^\d+$/.test($scope.billing_card_security_number);
+            if ($scope.billing_firstname == null || $scope.billing_lastname == null ||
+                $scope.billing_firstname == '' || $scope.billing_lastname == '') {
+                $scope.error = 'Please input your name';
+            } else if ($scope.billing_card_number == undefined) {
+                $scope.error = 'Please input card number';
+            } else if ($scope.billing_card_security_number == undefined) {
+                $scope.error = 'Please input CVV';
+            } else if ($scope.billing_card_number.length !== 16 || isnumCard == false) {
+                $scope.error = 'Wrong card number';
+            } else if ($scope.billing_card_security_number.length !== 3 || isnumCVV == false) {
+                $scope.error = 'Wrong CVV';
+            } else if ($scope.expireMM == undefined || $scope.expireYY == undefined) {
+                $scope.error = 'Please input expirtion date';
+            } else if ($scope.billing_type == undefined) {
+                $scope.error = 'Please input credit card type';
             } else {
                 var billing_name = '';
                 var billing_card_expire_date = '';
