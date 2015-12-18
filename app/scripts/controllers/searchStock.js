@@ -108,7 +108,6 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 		};
 
 		$scope.chooseBook = function (book, type) {
-			$scope.errors = {};
 			$scope.type = type;
 			if (type === 'google') {
 				$scope.specBook = {
@@ -125,46 +124,56 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 					$scope.specBook.ISBN13 = book.industryIdentifiers[0].identifier;
 					$scope.specBook.ISBN10 = book.industryIdentifiers[1].identifier;
 				}
-			} else if (type === 'manual') {
-				var checkError = false;
-				if ($scope.day !== undefined || $scope.initMonths.indexOf($scope.month) + 1 > 0 ||
-					$scope.year !== undefined) {
-					$scope.final_date = $scope.day + "/" + ($scope.initMonths.indexOf($scope.month) + 1) +
-						"/" + $scope.year;
-				} else {
-					$scope.final_date = null;
-				}
-				if ($scope.title !== '') {
-					$scope.error.title = "Please insert title";
-					checkError = true;
-				}
-				if ($scope.author !== '') {
-					$scope.error.author = "Please insert at least one author";
-					checkError = true;
-				}
-				if ($scope.language) {
-					$scope.error.language = "Please select language";
-					checkError = true;
-				}
-				if (!checkError) {
-					$scope.specBook = {
-						title: $scope.title,
-						ISBN13: $scope.ISBN13 || null,
-						ISBN10: $scope.ISBN10 || null,
-						authors: [$scope.author],
-						language: $scope.language,
-						publisher: $scope.publisher || null,
-						publish_date: $scope.final_date,
-						pages: $scope.pageCount || null,
-						description: $scope.description,
-						cover_image_url: undefined
-					};
-				}
 			} else if (type === 'db') {
 				$scope.specBook = book;
 			}
 			console.log($scope.specBook);
 		};
+
+        $scope.manualBook = function(){
+            $scope.errors = {};
+            var checkError = false;
+            if ($scope.day !== undefined || $scope.initMonths.indexOf($scope.month) + 1 > 0 ||
+                $scope.year !== undefined) {
+                $scope.final_date = $scope.day + "/" + ($scope.initMonths.indexOf($scope.month) + 1) +
+                    "/" + $scope.year;
+            } else {
+                $scope.final_date = null;
+            }
+            console.log($scope.title);
+            if ($scope.title === '') {
+                console.log(checkError);
+                $scope.errors.title = "Please insert title";
+                checkError = true;
+            }
+            if ($scope.author === '') {
+                console.log(checkError);
+                $scope.errors.author = "Please insert at least one author";
+                checkError = true;
+            }
+            if ($scope.language === '') {
+                console.log(checkError);
+                $scope.errors.language = "Please select language";
+                checkError = true;
+            }
+
+            if (!checkError) {
+                console.log(checkError);
+                $scope.specBook = {
+                    title: $scope.title,
+                    ISBN13: $scope.ISBN13 || null,
+                    ISBN10: $scope.ISBN10 || null,
+                    authors: [$scope.author],
+                    language: $scope.language,
+                    publisher: $scope.publisher || null,
+                    publish_date: $scope.final_date,
+                    pages: $scope.pageCount || null,
+                    description: $scope.description,
+                    cover_image_url: undefined
+                };
+                $scope.goToPhoto();
+            }
+        };
 
 		$scope.addBook = function () {
 			$http.post('https://bookieservice.herokuapp.com/api/books', {

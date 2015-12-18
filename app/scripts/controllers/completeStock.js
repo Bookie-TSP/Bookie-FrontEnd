@@ -8,6 +8,7 @@ app.controller('completeStockCtrl', ['$scope', '$http', '$state', '$rootScope', 
             }, authFactory.getConfigHead())
             .success(function(data){
                 console.log(data);
+                $rootScope.$broadcast('addDone');
                 $state.go("home");
             })
             .error(function(data){

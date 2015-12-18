@@ -14,17 +14,19 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
 
 
         //getting books from api (being here because of sorting)
-        $http.get('https://bookieservice.herokuapp.com/api/books')
-            .success(function (data) {
-                $scope.books = data.books;
-                console.log("success");
-                console.log($scope.books);
-            })
-            .error(function (data) {
-                console.log(data);
-            });
+        $scope.getAllBooks = function(){
+            $http.get('https://bookieservice.herokuapp.com/api/books')
+                .success(function (data) {
+                    $scope.books = data.books;
+                    console.log("success");
+                    console.log($scope.books);
+                })
+                .error(function (data) {
+                    console.log(data);
+                });
+        };
 
-            
+
 		$scope.getMember = function () {
 			if (authFactory.getAuth() !== undefined) {
 				$http.get('https://bookieservice.herokuapp.com/api/myprofile', authFactory.getConfigHead())
@@ -108,7 +110,9 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
         };
 
 		$rootScope.member = $scope.getMember();
+        $scope.getAllBooks();
 		$scope.getCart();
+
 		$scope.$on('authenticate', function () {
 			$rootScope.member = $scope.getMember();
 		});
@@ -116,4 +120,8 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
 		$scope.$on('cart', function () {
 			$scope.getCart();
 		});
+
+        $scope.$on('addDone', function(){
+            $scope.getAllBooks();
+        });
 }]);

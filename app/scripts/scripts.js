@@ -378,6 +378,7 @@ app.controller('completeStockCtrl', ['$scope', '$http', '$state', '$rootScope', 
             }, authFactory.getConfigHead())
             .success(function(data){
                 console.log(data);
+                $rootScope.$broadcast('addDone');
                 $state.go("home");
             })
             .error(function(data){
@@ -646,17 +647,19 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
 
 
         //getting books from api (being here because of sorting)
-        $http.get('https://bookieservice.herokuapp.com/api/books')
-            .success(function (data) {
-                $scope.books = data.books;
-                console.log("success");
-                console.log($scope.books);
-            })
-            .error(function (data) {
-                console.log(data);
-            });
+        $scope.getAllBooks = function(){
+            $http.get('https://bookieservice.herokuapp.com/api/books')
+                .success(function (data) {
+                    $scope.books = data.books;
+                    console.log("success");
+                    console.log($scope.books);
+                })
+                .error(function (data) {
+                    console.log(data);
+                });
+        };
 
-            
+
 		$scope.getMember = function () {
 			if (authFactory.getAuth() !== undefined) {
 				$http.get('https://bookieservice.herokuapp.com/api/myprofile', authFactory.getConfigHead())
@@ -740,7 +743,9 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
         };
 
 		$rootScope.member = $scope.getMember();
+        $scope.getAllBooks();
 		$scope.getCart();
+
 		$scope.$on('authenticate', function () {
 			$rootScope.member = $scope.getMember();
 		});
@@ -748,6 +753,10 @@ app.controller('navCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootSco
 		$scope.$on('cart', function () {
 			$scope.getCart();
 		});
+
+        $scope.$on('addDone', function(){
+            $scope.getAllBooks();
+        });
 }]);
 
 app.controller('newStockCtrl', ['$scope', '$http', '$state', 'authFactory', '$rootScope',
@@ -1346,7 +1355,6 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 		};
 
 		$scope.chooseBook = function (book, type) {
-			$scope.errors = {};
 			$scope.type = type;
 			if (type === 'google') {
 				$scope.specBook = {
@@ -1363,46 +1371,56 @@ app.controller('searchStockCtrl', ['$scope', '$http', '$state', '$rootScope', 'd
 					$scope.specBook.ISBN13 = book.industryIdentifiers[0].identifier;
 					$scope.specBook.ISBN10 = book.industryIdentifiers[1].identifier;
 				}
-			} else if (type === 'manual') {
-				var checkError = false;
-				if ($scope.day !== undefined || $scope.initMonths.indexOf($scope.month) + 1 > 0 ||
-					$scope.year !== undefined) {
-					$scope.final_date = $scope.day + "/" + ($scope.initMonths.indexOf($scope.month) + 1) +
-						"/" + $scope.year;
-				} else {
-					$scope.final_date = null;
-				}
-				if ($scope.title !== '') {
-					$scope.error.title = "Please insert title";
-					checkError = true;
-				}
-				if ($scope.author !== '') {
-					$scope.error.author = "Please insert at least one author";
-					checkError = true;
-				}
-				if ($scope.language) {
-					$scope.error.language = "Please select language";
-					checkError = true;
-				}
-				if (!checkError) {
-					$scope.specBook = {
-						title: $scope.title,
-						ISBN13: $scope.ISBN13 || null,
-						ISBN10: $scope.ISBN10 || null,
-						authors: [$scope.author],
-						language: $scope.language,
-						publisher: $scope.publisher || null,
-						publish_date: $scope.final_date,
-						pages: $scope.pageCount || null,
-						description: $scope.description,
-						cover_image_url: undefined
-					};
-				}
 			} else if (type === 'db') {
 				$scope.specBook = book;
 			}
 			console.log($scope.specBook);
 		};
+
+        $scope.manualBook = function(){
+            $scope.errors = {};
+            var checkError = false;
+            if ($scope.day !== undefined || $scope.initMonths.indexOf($scope.month) + 1 > 0 ||
+                $scope.year !== undefined) {
+                $scope.final_date = $scope.day + "/" + ($scope.initMonths.indexOf($scope.month) + 1) +
+                    "/" + $scope.year;
+            } else {
+                $scope.final_date = null;
+            }
+            console.log($scope.title);
+            if ($scope.title === '') {
+                console.log(checkError);
+                $scope.errors.title = "Please insert title";
+                checkError = true;
+            }
+            if ($scope.author === '') {
+                console.log(checkError);
+                $scope.errors.author = "Please insert at least one author";
+                checkError = true;
+            }
+            if ($scope.language === '') {
+                console.log(checkError);
+                $scope.errors.language = "Please select language";
+                checkError = true;
+            }
+
+            if (!checkError) {
+                console.log(checkError);
+                $scope.specBook = {
+                    title: $scope.title,
+                    ISBN13: $scope.ISBN13 || null,
+                    ISBN10: $scope.ISBN10 || null,
+                    authors: [$scope.author],
+                    language: $scope.language,
+                    publisher: $scope.publisher || null,
+                    publish_date: $scope.final_date,
+                    pages: $scope.pageCount || null,
+                    description: $scope.description,
+                    cover_image_url: undefined
+                };
+                $scope.goToPhoto();
+            }
+        };
 
 		$scope.addBook = function () {
 			$http.post('https://bookieservice.herokuapp.com/api/books', {
