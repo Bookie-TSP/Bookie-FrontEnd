@@ -33,9 +33,6 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
 		// Initialize temporary variable for adding line stock from the modal to the cart
 		$scope.tempLineStock = {};
 
-		// Initialize Google Map from the mapFactory.js
-		// googleMap.initialize();
-
 		// Define bookInfo
 		$scope.bookInfo = {};
 
@@ -86,6 +83,7 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
 
 		// Use for adding the book to the cart with its details
 		$scope.addToCart = function (line_stock) {
+            $scope.errorMessage = '';
 			console.log(line_stock);
 			$http.post('https://bookieservice.herokuapp.com/api/members/cart/add', {
 					line_stock: {
@@ -97,11 +95,10 @@ app.controller('bookProfileCtrl', ['$scope', '$http', '$anchorScroll', '$locatio
 					console.log(data);
 					$scope.auth = data.auth_token;
 					$rootScope.$broadcast('cart');
-					$scope.errorMessage = 'no error';
 				})
 				.error(function (data) {
-					console.log(JSON.stringify(data));
-					$scope.errorMessage = JSON.stringify(data.errors);
+					$scope.errorMessage = data.errors;
+                    $('#errorNoticeModal').modal('toggle');
 					console.log($scope.errorMessage);
 				});
 			console.log("The book that costs $" + line_stock.price + " has been added to the cart.");
