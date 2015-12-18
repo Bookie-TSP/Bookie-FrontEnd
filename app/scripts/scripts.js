@@ -447,7 +447,7 @@ app.controller('editProfileCtrl', ['$scope', '$http', 'authFactory', '$q', '$sta
 		$scope.setDate = function () {
 			if($scope.profileData.birth_date !== null){
 				birth = $scope.profileData.birth_date.split('-');
-				$scope.date = birth[2];
+				$scope.date = ''+parseInt(birth[2]);
 				$scope.month = $scope.initMonths[birth[1]-1];
 				$scope.year = birth[0];
 			}
