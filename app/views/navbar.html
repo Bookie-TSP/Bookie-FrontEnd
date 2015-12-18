@@ -20,10 +20,10 @@
                         <span ng-show="searchType=='Author'"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Author</span>
                         <span class="caret"></span>
                     </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdown-search">
-                        <li><a href="#" ng-click="searchType='Any'">Any</a></li>
-                        <li><a href="#" ng-click="searchType='Title'">Title</a></li>
-                        <li><a href="#" ng-click="searchType='Author'">Author</a></li>
+                    <ul id="searchDrop" class="dropdown-menu" aria-labelledby="dropdown-search">
+                        <li id="anySearch"><a href="#" ng-click="searchType='Any'">Any</a></li>
+                        <li id="titleSearch"><a href="#" ng-click="searchType='Title'">Title</a></li>
+                        <li id="authorSearch"><a href="#" ng-click="searchType='Author'">Author</a></li>
                     </ul>
                 </div>
                 <input style="color: #FFBF00;" type="text" class="form-control search-bar-textfield" aria-describedby="basic-addon1" ng-model="searchText" ng-show="searchType=='Any'" ng-focus="searchType=='Any'">
@@ -31,20 +31,20 @@
                 <input style="color: #FFBF00;" type="text" class="form-control search-bar-textfield" aria-describedby="basic-addon1" ng-model="searchText.authors" ng-show="searchType=='Author'" ng-focus="searchType=='Title'">
             </div>
             <div class="navbar-left btn-group" ng-show="$state.current.name=='home'">
-                <button type="button" class="btn btn-sm btn-default dropdown-toggle sort-by-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button id="arrangeDrop" type="button" class="btn btn-sm btn-default dropdown-toggle sort-by-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div ng-show="sortType === ''">
                         Sort By <span class="caret"></span>
                     </div>
-                    <div ng-show="sortType === 'naz'">
+                    <div id="atozArrrange" ng-show="sortType === 'naz'">
                         Name ('A' to 'Z') <span class="caret"></span>
                     </div>
-                    <div ng-show="sortType === 'nza'">
+                    <div id="ztoaArrrange" ng-show="sortType === 'nza'">
                         Name ('Z' to 'A') <span class="caret"></span>
                     </div>
-                    <div ng-show="sortType === 'plh'">
+                    <div id="ltohArrrange" ng-show="sortType === 'plh'">
                         Price (low to high) <span class="caret"></span>
                     </div>
-                    <div ng-show="sortType === 'phl'">
+                    <div id="htolArrrange" ng-show="sortType === 'phl'">
                         Price (high to low) <span class="caret"></span>
                     </div>
                 </button>
