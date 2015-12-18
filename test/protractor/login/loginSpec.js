@@ -4,7 +4,9 @@ describe('Login', function() {
     var submit = element(by.id('submitB'));
     var errormsg = element(by.binding('validation'));
     var navEmail = element(by.binding('member.email'));
-    var logout = element(by.id('logoutB'));
+    var logout = element(by.id('logout'));
+    var dropdown = element(by.id('dropdownProfile'));
+    var confirmLogout = element(by.css('[ng-click="logout()"]'));
 
     beforeEach(function() {
         browser.get('/#/login');
@@ -45,7 +47,9 @@ describe('Login', function() {
             password.sendKeys('11111111');
             submit.click();
             expect(browser.getCurrentUrl()).toEqual('http://localhost:8000/#/');
+            dropdown.click();
             logout.click();
+            confirmLogout.click();
         });
 
         it('field can not be blank', function() {
@@ -105,8 +109,8 @@ describe('Login', function() {
     });
 
     describe('nav bar', function() {
-        var loginButton = element(by.id('loginB'));
-        var registButton = element(by.id('registB'));
+        var loginButton = element(by.id('loginNav'));
+        var registButton = element(by.id('regisNav'));
 
         it('should match with wrong input', function(){
             email.sendKeys('wrong_email');
