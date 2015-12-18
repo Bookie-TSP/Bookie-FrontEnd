@@ -4,7 +4,7 @@ describe('Edit Profile', function() {
     var loginPassword = element(by.model('password'));
     var submit = element(by.id('submitB'));
     var navEmail = element(by.binding('member.email'));
-    var logout = element(by.id('logoutB'));
+    var logout = element(by.id('logout'));
     var viewProfile = element(by.id('viewProfile'));
     var editProfile = element(by.id('editProfile'));
     var email = element(by.model('profileData.email'));
@@ -26,7 +26,7 @@ describe('Edit Profile', function() {
     var monthValue = element(by.model('month'));
     var year = element.all(by.repeater('y in initYears'));
     var yearValue = element(by.model('year'));
-    var dropdown = element(by.id('dropdownMenu1'));
+    var dropdown = element(by.id('dropdownProfile'));
     var emailLabel = element(by.id('emailLabel'));
     var firstnameLabel = element(by.id('firstnameLabel'));
     var lastnameLabel = element(by.id('lastnameLabel'));
@@ -36,6 +36,7 @@ describe('Edit Profile', function() {
     var bdLabel = element(by.id('bdLabel'));
     var confirmLabel = element(by.id('confirmLabel'));
     var backButton = element(by.id('backToViewProfileBtn'));
+    var confirmLogout = element(by.css('[ng-click="logout()"]'));
 
     beforeEach(function() {
         browser.get('/#/editProfile');
@@ -73,7 +74,9 @@ describe('Edit Profile', function() {
         it('correctly label on back button', function() {
             expect(backButton.isDisplayed()).toBe(true);
             expect(backButton.getText()).toEqual('Back');
+            dropdown.click();
             logout.click();
+            confirmLogout.click();
         });
     });
 
@@ -443,6 +446,7 @@ describe('Edit Profile', function() {
             confirmation.sendKeys('11111111');
             editProfileButton.click();
             logout.click();
+            confirmLogout.click();
         });
     });
 
