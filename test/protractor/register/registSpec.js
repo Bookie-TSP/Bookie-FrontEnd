@@ -2,7 +2,7 @@ describe('Register', function() {
     var email = element(by.model('email'));
     var password = element(by.model('password'));
     var submit = element(by.css('[ng-click="submit()"]'));
-    var passwordMsg = element(by.id('validate'));
+    var passwordMsg = element(by.css(".error"));
     var navEmail = element(by.binding('member.email'));
     var confPass = element(by.model('password_confirmation'));
     var firstname = element(by.model('first_name'));
